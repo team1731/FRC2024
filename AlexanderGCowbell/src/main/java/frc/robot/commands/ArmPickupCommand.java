@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.HighPickup;
 import frc.robot.state.arm.ArmSequence;
@@ -10,7 +10,7 @@ import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.state.arm.ArmStateMachine.MovementType;
 import frc.data.mp.*;
 
-public class ArmPickupCommand extends CommandBase {
+public class ArmPickupCommand extends Command {
     private ArmStateMachine stateMachine;
     private ArmSequence sequence;
     private Joystick joystick;

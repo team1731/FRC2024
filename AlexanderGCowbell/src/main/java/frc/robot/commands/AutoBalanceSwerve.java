@@ -5,10 +5,10 @@ import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class AutoBalanceSwerve extends CommandBase {
+public class AutoBalanceSwerve extends Command {
 
 
     private Double desiredHeading = 0.0;

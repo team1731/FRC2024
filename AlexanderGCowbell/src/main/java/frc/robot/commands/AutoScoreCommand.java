@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.GamePiece;
 import frc.robot.state.arm.ArmSequence;
@@ -8,7 +8,7 @@ import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.state.arm.ArmStateMachine.Status;
 import frc.data.mp.*;
 
-public class AutoScoreCommand extends CommandBase {
+public class AutoScoreCommand extends Command {
     private ArmStateMachine stateMachine;
     private ArmSequence sequence;
     private GamePiece pieceType;

@@ -1,12 +1,12 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.ArmStateConstants;
 import frc.robot.state.arm.ArmStateMachine;
 
-public class FlipConeCommand extends CommandBase {
+public class FlipConeCommand extends Command {
     private ArmStateMachine stateMachine;
     private GamePiece prevGamePiece;
     private double queuedTime;

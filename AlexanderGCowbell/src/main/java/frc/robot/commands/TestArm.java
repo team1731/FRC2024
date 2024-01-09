@@ -5,10 +5,10 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class TestArm extends CommandBase {
+public class TestArm extends Command {
 
     private double rotation;
     private Translation2d translation;

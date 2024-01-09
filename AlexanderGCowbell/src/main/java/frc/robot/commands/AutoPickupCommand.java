@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.ArmStateConstants;
 import frc.robot.Constants.GamePiece;
@@ -10,7 +10,7 @@ import frc.robot.state.arm.ArmStateMachine.MovementType;
 import frc.robot.state.arm.ArmStateMachine.Status;
 import frc.data.mp.*;
 
-public class AutoPickupCommand extends CommandBase {
+public class AutoPickupCommand extends Command {
     private ArmStateMachine stateMachine;
     private ArmSequence sequence;
     private GamePiece pieceType;
