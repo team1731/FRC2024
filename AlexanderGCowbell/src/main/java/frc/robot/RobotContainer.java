@@ -82,6 +82,7 @@ public class RobotContainer {
   private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
+  private IntakeSubsystem s_IntakeSubsystem;
   //private ArmStateMachine sm_armStateMachine;
   // private final LEDStringSubsystem m_ledstring;
 
@@ -92,9 +93,10 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-          Swerve swerve
+          Swerve swerve,
           //PoseEstimatorSubsystem poseEstimatorSubsystem
           //ArmSubsystem armSubsystem,
+          IntakeSubsystem intakeSubsystem
           //LEDStringSubsystem m_ledstring
           ) {
     
@@ -102,6 +104,7 @@ public class RobotContainer {
     boolean openLoop = false;
     s_Swerve = swerve;
     // s_armSubSystem = armSubsystem;
+    s_IntakeSubsystem = intakeSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
