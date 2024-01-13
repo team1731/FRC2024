@@ -134,6 +134,7 @@ public final class Constants {
         // Sticks
         public static int kProximalAxisId = 1;
         public static int kDistalAxisId = 4;
+        public static int kxAxis = 0;
 
         // Switches
         public static int kHighPickupSwitch = 1;

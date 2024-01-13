@@ -118,7 +118,7 @@ public class Robot extends TimedRobot {
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(s_Swerve, s_Intake); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(s_Intake); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring); s_Swerve
 
 	//PPSwerveControllerCommand.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
 
@@ -384,7 +384,7 @@ public class Robot extends TimedRobot {
 	}
 	currentKeypadCommand = "";
 	SmartDashboard.getString("keypadCommand", currentKeypadCommand);
-	s_poseEstimatorSubsystem.disableVisionCorrection();   // if for some reason auto does not put it back in driver mode
+	// s_poseEstimatorSubsystem.disableVisionCorrection();   // if for some reason auto does not put it back in driver mode
   }
 
 

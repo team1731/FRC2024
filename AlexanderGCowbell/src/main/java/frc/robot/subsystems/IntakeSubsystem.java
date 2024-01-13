@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.GamePiece;
@@ -10,6 +12,7 @@ import frc.robot.state.arm.ArmStateMachine.MovementType;
 
 public class IntakeSubsystem  extends SubsystemBase {
     private CANSparkMax intakeMotor;
+    private DigitalInput killSwitch = new DigitalInput(0);
     
     public IntakeSubsystem() {
         System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -28,6 +31,17 @@ public class IntakeSubsystem  extends SubsystemBase {
     /*
      * INTAKE MOTOR MOVEMENT
      */
+
+     public void multiplyInput(double value) {
+        // multiplied value
+        double current = value * ArmConstants.cubeIntakeSpeed;
+        // minimum speed variable
+        final double minimum = .1;
+        if (current < minimum && current > -minimum) {
+            current = 0;
+        }
+        intake(current);
+     }
 
     public void intake() {
         double intakeSpeed = 0.75;
@@ -55,6 +69,9 @@ public class IntakeSubsystem  extends SubsystemBase {
 
     public void intake(double intakeSpeed) {
         intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
+        if (!killSwitch.get()) {
+            intakeSpeed = 0;
+        }
         intakeMotor.set(intakeSpeed);
     }
 

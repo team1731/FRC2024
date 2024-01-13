@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -63,6 +64,7 @@ public class RobotContainer {
   private final JoystickButton kWheelLockBtn = new JoystickButton(operator,OperatorConsoleConstants.kWheelLockBtnId);
   private final JoystickButton kReleaseBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
   private final JoystickButton kIntakeBtn = new JoystickButton(operator,OperatorConsoleConstants.kIntakeBtnId);
+  private final JoystickButton kxINT = new JoystickButton(operator, OperatorConsoleConstants.kxAxis);
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
@@ -79,7 +81,7 @@ public class RobotContainer {
 
 
   /* Subsystems */
-  private Swerve s_Swerve;
+  // private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
   private IntakeSubsystem s_intakeSubsystem;
@@ -93,7 +95,7 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-          Swerve swerve,
+          // Swerve swerve,
           //PoseEstimatorSubsystem poseEstimatorSubsystem
           //ArmSubsystem armSubsystem,
           IntakeSubsystem intakeSubsystem
@@ -102,13 +104,13 @@ public class RobotContainer {
     
 	  boolean fieldRelative = true;
     boolean openLoop = false;
-    s_Swerve = swerve;
+    // s_Swerve = swerve;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
-    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
+    // s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
 
     //this.m_ledstring = m_ledstring;
 
@@ -132,15 +134,17 @@ public class RobotContainer {
 
     // RESET BUTTON
     kStart.onTrue(new InstantCommand(() -> {
-      s_Swerve.zeroGyro();
-      s_Swerve.adjustWheelEncoders(); 
+      // s_Swerve.zeroGyro();
+      // s_Swerve.adjustWheelEncoders(); 
       // s_armSubSystem.resetArmEncoders();
     }));
 
     kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
     kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-    kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
+    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
+    kRightBumper.onTrue(Commands.run(() -> s_intakeSubsystem.multiplyInput((double) xboxController.getRawAxis(0))));
     kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+  
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
     // kb.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_MEDIUM, operator, kDistalAxis)));
@@ -174,8 +178,8 @@ public class RobotContainer {
     // kPreventScoreBtn.whileFalse(new InstantCommand(() -> sm_armStateMachine.setAllowScore(true)));
 
     // LOCK WHEELS IN X-PATTERN
-    kWheelLockBtn.whileTrue(new InstantCommand(() -> s_Swerve.setLockWheels(true)));
-    kWheelLockBtn.whileFalse(new InstantCommand(() -> s_Swerve.setLockWheels(false)));
+    // kWheelLockBtn.whileTrue(new InstantCommand(() -> s_Swerve.setLockWheels(true)));
+    // kWheelLockBtn.whileFalse(new InstantCommand(() -> s_Swerve.setLockWheels(false)));
 
     // ON REQUEST INTAKE OR EJECT BUTTONS
     // kIntakeBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.intake()));
