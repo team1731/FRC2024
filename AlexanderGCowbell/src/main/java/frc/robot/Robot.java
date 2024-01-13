@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private IntakeSubsystem s_Intake;
   //private ArmSubsystem s_armSubSystem;
-//   private ArmStateMachine sm_armStateMachine;
+  //private ArmStateMachine sm_armStateMachine;
 
   public Robot() {
 	// if(LogWriter.isArmRecordingEnabled()) {

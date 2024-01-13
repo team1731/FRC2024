@@ -82,7 +82,7 @@ public class RobotContainer {
   private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
-  private IntakeSubsystem s_IntakeSubsystem;
+  private IntakeSubsystem s_intakeSubsystem;
   //private ArmStateMachine sm_armStateMachine;
   // private final LEDStringSubsystem m_ledstring;
 
@@ -104,7 +104,7 @@ public class RobotContainer {
     boolean openLoop = false;
     s_Swerve = swerve;
     // s_armSubSystem = armSubsystem;
-    s_IntakeSubsystem = intakeSubsystem;
+    s_intakeSubsystem = intakeSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
@@ -137,6 +137,10 @@ public class RobotContainer {
       // s_armSubSystem.resetArmEncoders();
     }));
 
+    kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
+    kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
+    kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
     // kb.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_MEDIUM, operator, kDistalAxis)));
