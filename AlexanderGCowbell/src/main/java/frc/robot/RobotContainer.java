@@ -73,6 +73,8 @@ public class RobotContainer {
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
   private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
   private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
+
+
   // Operator sticks
   public final int kDistalAxis = OperatorConsoleConstants.kDistalAxisId;
   public final int kProximalAxis = OperatorConsoleConstants.kProximalAxisId;
@@ -84,6 +86,7 @@ public class RobotContainer {
   //private ArmSubsystem s_armSubSystem;
   //private ArmStateMachine sm_armStateMachine;
   // private final LEDStringSubsystem m_ledstring;
+  private ShooterSubsystem s_ShooterSubsystem;
 
   /* Auto Paths */
   private static List<String> autoPaths;
@@ -92,7 +95,8 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-          Swerve swerve
+          Swerve swerve,
+          ShooterSubsystem ShooterSubsystem
           //PoseEstimatorSubsystem poseEstimatorSubsystem
           //ArmSubsystem armSubsystem,
           //LEDStringSubsystem m_ledstring
@@ -101,6 +105,7 @@ public class RobotContainer {
 	  boolean fieldRelative = true;
     boolean openLoop = false;
     s_Swerve = swerve;
+    s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
@@ -153,7 +158,11 @@ public class RobotContainer {
 
     // TRIGGERS - PICKUP LOW AND PICKUP DOWNED CONE
     // kLeftTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_LOW, operator, kDistalAxis));
-   // kRightTrigger.whileTrue(new FlipConeCommand(sm_armStateMachine));
+
+    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
+    // kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+   
+    kRightTrigger.whileTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
     // kRightTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_DOWNED_CONE, operator, kDistalAxis));
 
     

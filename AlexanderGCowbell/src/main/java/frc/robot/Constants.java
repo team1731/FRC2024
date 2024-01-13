@@ -332,6 +332,7 @@ public final class Constants {
         public final static int distalCancoderId = 10;
         public final static int wristCancoderId = 12;
         public final static int intakeCancoderId = 13;
+        public final static int shooterCancoderId = 2;
         public final static double proximalRelativeTicsPerAbsoluteTick = 135;  // theoretically this should be 140
         public final static double distalRelativeTicsPerAbsoluteTick = 90;
         public final static int pointDurationMS = 10;
@@ -351,8 +352,7 @@ public final class Constants {
         public final static double onDemandIntakeSpeed = 0.8; // used when intake button is pressed on operator controller
         public final static double downedConeIntakeSpeed = 0.75;
         public final static double coneIntakeSpeed = 0.75;
-        public final static double cubeIntakeSpeed = -0.7
-        ;
+        public final static double cubeIntakeSpeed = -0.7;
 
 
         // Arm PID constants
@@ -479,5 +479,8 @@ public final class Constants {
         public enum LedOption {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
           }
+    }
+    public static final class shooterConstants{
+        public final static double shooterSpeed = 1;
     }
 }

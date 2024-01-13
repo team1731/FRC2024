@@ -57,6 +57,7 @@ public class Robot extends TimedRobot {
   public static long millis = System.currentTimeMillis();
   private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private ShooterSubsystem s_ShooterSubsystem;
   //private ArmSubsystem s_armSubSystem;
 //   private ArmStateMachine sm_armStateMachine;
 
@@ -108,6 +109,7 @@ public class Robot extends TimedRobot {
 
 
 	s_Swerve = new Swerve();
+	s_ShooterSubsystem = new ShooterSubsystem();
   	// s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve);
 	// s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
   	// s_armSubSystem = new ArmSubsystem();
@@ -116,7 +118,7 @@ public class Robot extends TimedRobot {
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(s_Swerve); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(s_Swerve, s_ShooterSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 	//PPSwerveControllerCommand.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
 
