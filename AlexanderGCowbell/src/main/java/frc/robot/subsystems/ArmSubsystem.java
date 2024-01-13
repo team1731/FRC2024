@@ -13,7 +13,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -104,8 +104,8 @@ public class ArmSubsystem extends SubsystemBase {
         proximalMotor.clearMotionProfileTrajectories();
         distalMotor.clearMotionProfileTrajectories();
 
-        wristMotor = new CANSparkMax(ArmConstants.wristCancoderId, MotorType.kBrushless);
-        intakeMotor = new CANSparkMax(ArmConstants.intakeCancoderId, MotorType.kBrushless);
+        wristMotor = new CANSparkMax(ArmConstants.wristCancoderId, CANSparkLowLevel.MotorType.kBrushless);
+        intakeMotor = new CANSparkMax(ArmConstants.intakeCancoderId, CANSparkLowLevel.MotorType.kBrushless);
 
         initializeWrist();
         initializeIntake();

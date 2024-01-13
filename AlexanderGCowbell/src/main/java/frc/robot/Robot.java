@@ -58,8 +58,9 @@ public class Robot extends TimedRobot {
   private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private ShooterSubsystem s_ShooterSubsystem;
+  private IntakeSubsystem s_Intake;
   //private ArmSubsystem s_armSubSystem;
-//   private ArmStateMachine sm_armStateMachine;
+  //private ArmStateMachine sm_armStateMachine;
 
   public Robot() {
 	// if(LogWriter.isArmRecordingEnabled()) {
@@ -112,13 +113,14 @@ public class Robot extends TimedRobot {
 	s_ShooterSubsystem = new ShooterSubsystem();
   	// s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve);
 	// s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
+	s_Intake = new IntakeSubsystem();
   	// s_armSubSystem = new ArmSubsystem();
 	// sm_armStateMachine = s_armSubSystem.getStateMachine();
 	// m_ledstring = new LEDStringSubsystem();
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(s_Swerve, s_ShooterSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(s_Swerve, s_ShooterSubsystem, s_Intake); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 	//PPSwerveControllerCommand.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
 
@@ -269,7 +271,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledInit() {
-	keypad.putValue("driver entry", NetworkTableValue.makeString(""));
+	//keypad.putValue("driver entry", NetworkTableValue.makeString(""));
 	// sm_armStateMachine.disable();
 	//s_armSubSystem.resetArmEncoders();
   }
