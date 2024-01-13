@@ -331,7 +331,8 @@ public final class Constants {
         public final static int proximalCancoderId = 11;
         public final static int distalCancoderId = 10;
         public final static int wristCancoderId = 12;
-        public final static int intakeCancoderId = 13;
+        //Set to demo ID 
+        public final static int intakeCancoderId = 1;
         public final static double proximalRelativeTicsPerAbsoluteTick = 135;  // theoretically this should be 140
         public final static double distalRelativeTicsPerAbsoluteTick = 90;
         public final static int pointDurationMS = 10;

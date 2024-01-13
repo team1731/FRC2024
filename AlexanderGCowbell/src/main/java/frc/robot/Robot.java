@@ -269,7 +269,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledInit() {
-	keypad.putValue("driver entry", NetworkTableValue.makeString(""));
+	//keypad.putValue("driver entry", NetworkTableValue.makeString(""));
 	// sm_armStateMachine.disable();
 	//s_armSubSystem.resetArmEncoders();
   }

@@ -28,7 +28,7 @@ public class Swerve extends SubsystemBase {
     private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
     public Double lockedHeading = null;
     private boolean s_lockWheels = false;
-
+/***
     public Swerve() {
 
         zeroGyro();
@@ -41,7 +41,7 @@ public class Swerve extends SubsystemBase {
         };
         adjustWheelEncoders();
     }
-
+ */
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
 
         SwerveModuleState[] swerveModuleStates =
