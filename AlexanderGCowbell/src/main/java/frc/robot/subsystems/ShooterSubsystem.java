@@ -24,8 +24,8 @@ public class ShooterSubsystem extends SubsystemBase{
     }
     private void initializeShooterMotor() {
         System.out.println("ShooterSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
-        shooterMotor = new CANSparkMax(1, MotorType.kBrushless);
-        shooterMotor2 = new CANSparkMax(2, MotorType.kBrushless);
+        shooterMotor = new CANSparkMax(11, MotorType.kBrushless);
+        shooterMotor2 = new CANSparkMax(12, MotorType.kBrushless);
         shooterMotor.restoreFactoryDefaults();
         shooterMotor2.restoreFactoryDefaults();
         shooterMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
