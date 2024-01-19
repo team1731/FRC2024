@@ -9,7 +9,7 @@ import frc.robot.Constants.GamePiece;
 import frc.robot.state.arm.ArmStateMachine.MovementType;
 
 public class IntakeSubsystem  extends SubsystemBase {
-    private CANSparkMax intakeMotor;
+    //private CANSparkMax intakeMotor;
     
     public IntakeSubsystem() {
         System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -18,11 +18,11 @@ public class IntakeSubsystem  extends SubsystemBase {
 
     private void initializeIntakeMotor() {
         System.out.println("IntakeSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
-        intakeMotor = new CANSparkMax(ArmConstants.intakeCancoderId, MotorType.kBrushless);
-        intakeMotor.restoreFactoryDefaults();
-        intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
-        intakeMotor.setInverted(false);
-        intakeMotor.setIdleMode(IdleMode.kBrake);
+       // intakeMotor = new CANSparkMax(ArmConstants.intakeCancoderId, MotorType.kBrushless);
+        // intakeMotor.restoreFactoryDefaults();
+        // intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
+        // intakeMotor.setInverted(false);
+        // intakeMotor.setIdleMode(IdleMode.kBrake);
     }
 
     /*
@@ -54,37 +54,40 @@ public class IntakeSubsystem  extends SubsystemBase {
     }
 
     public void intake(double intakeSpeed) {
-        intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
-        intakeMotor.set(intakeSpeed);
+        // intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
+        // intakeMotor.set(intakeSpeed);
     }
 
     public void eject() {
-        intakeMotor.setSmartCurrentLimit(ArmConstants.EJECT_CURRENT_LIMIT);
-        // intakeMotor.set((stateMachine.getGamePiece() == GamePiece.CONE)? -1.0 : 1.0);
-        intakeMotor.set(-1.0);
+        // intakeMotor.setSmartCurrentLimit(ArmConstants.EJECT_CURRENT_LIMIT);
+        // // intakeMotor.set((stateMachine.getGamePiece() == GamePiece.CONE)? -1.0 : 1.0);
+        // intakeMotor.set(-1.0);
     }
 
     public void holdIntake() {
-        intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_HOLD_CURRENT_LIMIT_A);
-        // intakeMotor.set((stateMachine.getGamePiece() == GamePiece.CONE)? ArmConstants.INTAKE_HOLD_POWER : -1 * ArmConstants.INTAKE_HOLD_POWER);
-        intakeMotor.set(ArmConstants.INTAKE_HOLD_POWER);
+        // intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_HOLD_CURRENT_LIMIT_A);
+        // // intakeMotor.set((stateMachine.getGamePiece() == GamePiece.CONE)? ArmConstants.INTAKE_HOLD_POWER : -1 * ArmConstants.INTAKE_HOLD_POWER);
+        // intakeMotor.set(ArmConstants.INTAKE_HOLD_POWER);
     }
 
     public void stopIntake() {
-        intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
-        intakeMotor.set(0);
+        // intakeMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
+        // intakeMotor.set(0);
     }
 
     public boolean isIntakeAtStartedVelocity() {
-        return (Math.abs(intakeMotor.getEncoder().getVelocity()) > ArmConstants.intakeStartedVelocityThreshold);
+        //return (Math.abs(intakeMotor.getEncoder().getVelocity()) > ArmConstants.intakeStartedVelocityThreshold);
+        return(false);
     }
 
     public boolean isIntakeBelowStartedVelocity() {
-        return (Math.abs(intakeMotor.getEncoder().getVelocity()) < ArmConstants.intakeStartedVelocityThreshold);
+        //return (Math.abs(intakeMotor.getEncoder().getVelocity()) < ArmConstants.intakeStartedVelocityThreshold);
+        return(false);
     }
 
     public boolean isIntakeAtHoldingVelocity() {
-        return (Math.abs(intakeMotor.getEncoder().getVelocity()) < ArmConstants.intakeHoldingVelocityThreshold);
+        //return (Math.abs(intakeMotor.getEncoder().getVelocity()) < ArmConstants.intakeHoldingVelocityThreshold);
+        return(false);
     }
 
 }
