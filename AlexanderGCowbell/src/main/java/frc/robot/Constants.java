@@ -294,9 +294,29 @@ public final class Constants {
         public final static double autoScoreConeDelay = 0.5;
     }
 
+    public static final class IntakeConstants {
+        public final static int intakeCancoderId = 1;
+        public final static int feederCancoderId = 2;
+        /*
+         ************************************************************************************************
+         * THESE VALUES NEED TO CHANGE IF WE WORK ON THE Intake Subsystem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         *   Motors: Intake & Feeder
+         * **********************************************************************************************
+         */
+        public static final int INTAKE_CURRENT_LIMIT_A = 40;
+        public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
+        public static final int EJECT_CURRENT_LIMIT = 20;
+
+        public final static double intakeSpeed = 0.75;
+        public final static double feederSpeed = 0.75;
+
+        public final static double intakeStartedVelocityThreshold = 1000;
+        public final static double intakeHoldingVelocityThreshold = 60;
+
+        public static final double INTAKE_HOLD_POWER = 0.07;
+    }
+
     public static final class ArmConstants {
-
-
         /*
          ************************************************************************************************
          * THESE VALUES NEED TO CHANGE IF WE WORK ON THE ARM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -332,8 +352,9 @@ public final class Constants {
         public final static int proximalCancoderId = 11;
         public final static int distalCancoderId = 10;
         public final static int wristCancoderId = 12;
+        public final static int intakeCancoderId = 13;
+
         //Set to demo ID 
-        public final static int intakeCancoderId = 1;
         public final static double proximalRelativeTicsPerAbsoluteTick = 135;  // theoretically this should be 140
         public final static double distalRelativeTicsPerAbsoluteTick = 90;
         public final static int pointDurationMS = 10;
@@ -353,9 +374,7 @@ public final class Constants {
         public final static double onDemandIntakeSpeed = 0.8; // used when intake button is pressed on operator controller
         public final static double downedConeIntakeSpeed = 0.75;
         public final static double coneIntakeSpeed = 0.75;
-        public final static double cubeIntakeSpeed = -0.7
-        ;
-
+        public final static double cubeIntakeSpeed = -0.7;
 
         // Arm PID constants
         public final static int armPIDLoopIdx = 0;
@@ -396,9 +415,6 @@ public final class Constants {
         public final static double distalFullExtensionDistance =33.0; //TBD empirically
         public final static double armFullExtensionDistance = 56.25;
         
-        
-
-
         /**
          * How many sensor units per rotation.
          * Using Talon FX Integrated Sensor.
