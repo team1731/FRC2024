@@ -169,7 +169,9 @@ public class RobotContainer {
     // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
     // kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
    
-    kRightTrigger.whileTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
+    kRightTrigger.onTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
+    kRightTrigger.onFalse(new InstantCommand(()-> s_ShooterSubsystem.stopShooting()));
+   
     // kRightTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_DOWNED_CONE, operator, kDistalAxis));
 
     
