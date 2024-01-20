@@ -295,8 +295,8 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public final static int intakeCancoderId = 1;
-        public final static int feederCancoderId = 2;
+        public final static int intakeCancoderId = 11;
+        public final static int feederCancoderId = 12;
         /*
          ************************************************************************************************
          * THESE VALUES NEED TO CHANGE IF WE WORK ON THE Intake Subsystem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -307,8 +307,8 @@ public final class Constants {
         public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
         public static final int EJECT_CURRENT_LIMIT = 20;
 
-        public final static double intakeSpeed = 0.75;
-        public final static double feederSpeed = 0.75;
+        public final static double intakeSpeed = 0.25;
+        public final static double feederSpeed = 0.25;
 
         public final static double intakeStartedVelocityThreshold = 1000;
         public final static double intakeHoldingVelocityThreshold = 60;

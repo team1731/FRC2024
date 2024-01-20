@@ -139,11 +139,21 @@ public class RobotContainer {
       // s_armSubSystem.resetArmEncoders();
     }));
 
-    kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
-    kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
-    kRightBumper.onTrue(Commands.run(() -> s_intakeSubsystem.multiplyInput((double) xboxController.getRawAxis(0))));
-    kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
+    // kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake())); -- old right bumper event.
+
+    // MOTOR INTAKE
+    kRightTrigger.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
+    kRightTrigger.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+
+    // FEEDER INTAKE
+    kLeftTrigger.onTrue(new InstantCommand(() -> s_intakeSubsystem.feederIntake()));
+    kLeftTrigger.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeederIntake()));
+
+    // REVERSE FEEDER INTAKE
+    ka.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeederIntake()));
+    ka.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeederIntake()));
   
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));

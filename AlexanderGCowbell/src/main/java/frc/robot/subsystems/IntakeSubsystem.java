@@ -72,6 +72,20 @@ public class IntakeSubsystem  extends SubsystemBase {
         feederMotor.set(intakeSpeed);
     }
 
+    public void feederIntake() {
+        // intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
+        intakeMotor.set(0);
+        feederMotor.set(IntakeConstants.feederSpeed);
+    }
+
+    public void stopFeederIntake() {
+        feederMotor.set(0);
+    }
+
+    public void reverseFeederIntake() {
+        feederMotor.set(-IntakeConstants.feederSpeed);
+    }
+
     public void eject() {
         intakeMotor.setSmartCurrentLimit(IntakeConstants.EJECT_CURRENT_LIMIT);
         intakeMotor.set(-1.0);
