@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.OpConstants;
 import frc.robot.Constants.OpConstants.LedOption;
 
-public class LEDStringSubsystem extends SubsystemBase{
+public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsystem{
     //WITH NEW LED STRIP, COLORS ARE IN RBG not RGB
     private static final int[] YELLOW = {255, 0, 120};
     private static final int[] PURPLE = {120, 150, 0};
@@ -31,68 +31,84 @@ public class LEDStringSubsystem extends SubsystemBase{
     private LedOption currentColor;
     private double startBlink;
     private boolean switched;
-
-    public LEDStringSubsystem() {
-        // PWM port 9
-        // Must be a PWM header, not MXP or DIO
-        m_led = new AddressableLED(OpConstants.kPWM_LedSting);
-        mTimer = new Timer();
-        // Reuse buffer
-        // Default to a length of 60, start empty output
-        // Length is expensive to set, so only set it once, then just update data
-        m_ledBuffer = new AddressableLEDBuffer(65);
-        length = m_ledBuffer.getLength();
-        m_led.setLength(length);
-    
-        // Set the data
-        m_led.setData(m_ledBuffer);
-        m_led.start();
+    private boolean enabled;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public LEDStringSubsystem(boolean enabled) {
+      this.enabled = enabled;
+        if (enabled){
+          // PWM port 9
+          // Must be a PWM header, not MXP or DIO
+          m_led = new AddressableLED(OpConstants.kPWM_LedSting);
+          mTimer = new Timer();
+          // Reuse buffer
+          // Default to a length of 60, start empty output
+          // Length is expensive to set, so only set it once, then just update data
+          m_ledBuffer = new AddressableLEDBuffer(65);
+          length = m_ledBuffer.getLength();
+          m_led.setLength(length);
+      
+          // Set the data
+          m_led.setData(m_ledBuffer);
+          m_led.start();
+          System.out.println("ledSubsystem initailized");
+      }
     }
     
       @Override
       public void periodic() {
-        //This method will be called once per scheduler run
-        double elapsed = (mTimer.get() - startBlink);
-        if (elapsed < 0.1){
-          return;
-        }
-        if (blink) {
-          if (!switched){
-            setColor(LedOption.BLACK);
-            switched = true;
-          } else {
-            setColor(currentColor);
-            switched = false;
+        if (enabled){
+          //This method will be called once per scheduler run
+          double elapsed = (mTimer.get() - startBlink);
+          if (elapsed < 0.1){
+            return;
           }
-          startBlink = mTimer.get();
-        }
-        else{
-          setColor(currentColor);
+          if (blink) {
+            if (!switched){
+              setColor(LedOption.BLACK);
+              switched = true;
+            } else {
+              setColor(currentColor);
+              switched = false;
+            }
+            startBlink = mTimer.get();
+          }
+          else{
+            setColor(currentColor);
+          }
         }
       }
       public void init() {
-        // initialization stuff
-        setColor(OpConstants.LedOption.INIT);
-        mTimer.start();
+        if (enabled){
+          // initialization stuff
+          setColor(OpConstants.LedOption.INIT);
+          mTimer.start();
+        }
       }
     
       void setFullColor(int r, int g, int b) {
-        for(int i=0; i < m_ledBuffer.getLength(); i++) {
-          m_ledBuffer.setRGB(i, r, g, b);
+        if (enabled){
+          for(int i=0; i < m_ledBuffer.getLength(); i++) {
+            m_ledBuffer.setRGB(i, r, g, b);
+          }
+          m_led.setData(m_ledBuffer);
+          System.out.println("Color = " + r + ", "+ g + ", "+ b);
         }
-        m_led.setData(m_ledBuffer);
-  
-      } 
+      }
 
       /**
        * 5 LED blocks of Yellow/Blue for team colors 
        */
       void setTeamColorBlocks(){
-        for(int i = 0; i < m_ledBuffer.getLength(); i++){
-          if(i%5 >= 0 && i%5 <= 4%5 && (i/5)%2 != 0){
-            m_ledBuffer.setRGB(i, BLUE[0], BLUE[1], BLUE[2]);
-          }else{
-            m_ledBuffer.setRGB(i, YELLOW[0], YELLOW[1], YELLOW[2]);
+        if (enabled){
+          for(int i = 0; i < m_ledBuffer.getLength(); i++){
+            if(i%5 >= 0 && i%5 <= 4%5 && (i/5)%2 != 0){
+              m_ledBuffer.setRGB(i, BLUE[0], BLUE[1], BLUE[2]);
+            }else{
+              m_ledBuffer.setRGB(i, YELLOW[0], YELLOW[1], YELLOW[2]);
+            }
           }
         }
       }
@@ -112,56 +128,61 @@ public class LEDStringSubsystem extends SubsystemBase{
       }*/
 
       public void setBlink(boolean blink){
-        this.blink = blink; 
-        this.startBlink = mTimer.get();
+        if (enabled){
+          this.blink = blink; 
+          this.startBlink = mTimer.get();
+        }
       }
 
       public void setColor(OpConstants.LedOption color) {
-        // Fill the buffer with selection
-        switch (color) {
-          case INIT:
-          setTeamColorBlocks();
-          if (!blink){
-              this.currentColor = LedOption.WHITE;
-            }
-          case WHITE:
-            setFullColor(WHITE[0], WHITE[1], WHITE[2]);
+        if (enabled){
+          System.out.println("Setting the color");
+          // Fill the buffer with selection
+          switch (color) {
+            case INIT:
+            setTeamColorBlocks();
             if (!blink){
-              this.currentColor = LedOption.WHITE;
-            }
-            break;
-          case YELLOW:
-            setFullColor(YELLOW[0], YELLOW[1], YELLOW[2]);
-            if (!blink){
-              this.currentColor = LedOption.YELLOW;
-            }  
-            break;
-          case PURPLE:
-            setFullColor(PURPLE[0], PURPLE[1], PURPLE[2]);
-            if (!blink){
-              this.currentColor = LedOption.PURPLE;
-            }  
-            break;
-          case BLUE:
-            setFullColor(BLUE[0], BLUE[1], BLUE[2]);
-            if (!blink){
-              this.currentColor = LedOption.BLUE;
-            }  
-          case RED:
-            setFullColor(RED[0], RED[1], RED[2]);
-            if(!blink) {
-              this.currentColor = LedOption.RED;
-            }
-            break;
-          case GREEN:
-            setFullColor(GREEN[0], GREEN[1], GREEN[2]);
-            if(!blink) {
-              this.currentColor = LedOption.GREEN;
-            }
-            break;
-          case BLACK:
-            setFullColor(BLACK[0], BLACK[1], BLACK[2]);
-            break;
+                this.currentColor = LedOption.WHITE;
+              }
+            case WHITE:
+              setFullColor(WHITE[0], WHITE[1], WHITE[2]);
+              if (!blink){
+                this.currentColor = LedOption.WHITE;
+              }
+              break;
+            case YELLOW:
+              setFullColor(YELLOW[0], YELLOW[1], YELLOW[2]);
+              if (!blink){
+                this.currentColor = LedOption.YELLOW;
+              }  
+              break;
+            case PURPLE:
+              setFullColor(PURPLE[0], PURPLE[1], PURPLE[2]);
+              if (!blink){
+                this.currentColor = LedOption.PURPLE;
+              }  
+              break;
+            case BLUE:
+              setFullColor(BLUE[0], BLUE[1], BLUE[2]);
+              if (!blink){
+                this.currentColor = LedOption.BLUE;
+              }  
+            case RED:
+              setFullColor(RED[0], RED[1], RED[2]);
+              if(!blink) {
+                this.currentColor = LedOption.RED;
+              }
+              break;
+            case GREEN:
+              setFullColor(GREEN[0], GREEN[1], GREEN[2]);
+              if(!blink) {
+                this.currentColor = LedOption.GREEN;
+              }
+              break;
+            case BLACK:
+              setFullColor(BLACK[0], BLACK[1], BLACK[2]);
+              break;
+          }
         }
       }
 }
