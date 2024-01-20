@@ -71,7 +71,7 @@ public class Swerve extends SubsystemBase {
                 new SwerveModuleState(0.0, Rotation2d.fromDegrees(135.0)),
                 new SwerveModuleState(0.0, Rotation2d.fromDegrees(225.0))};
         }
-
+        
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop, s_lockWheels);
         }
@@ -156,14 +156,14 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putString("Alliance Color", DriverStation.getAlliance().toString());
         SmartDashboard.putBoolean("Swerve Locked", s_lockWheels);
  
-        if (Robot.doSD()) {
-            for(SwerveModule mod : mSwerveMods){
-                SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-                SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
-                SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);  
+        // if (Robot.doSD()) {
+        //     for(SwerveModule mod : mSwerveMods){
+        //         SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
+        //         SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
+        //         SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);  
 
-            }
-        }
+        //     }
+        // }
     }
 
     public void setLockWheels(boolean b) {
