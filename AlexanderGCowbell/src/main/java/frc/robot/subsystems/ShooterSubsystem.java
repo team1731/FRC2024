@@ -55,8 +55,8 @@ public class ShooterSubsystem extends SubsystemBase{
     public void shoot(double shooterSpeed) {
         //shooterMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
         shooterMotor.set(shooterSpeed);
-        shooterMotor2.set(-shooterSpeed);
-        System.out.println(-shooterSpeed);
+        shooterMotor2.set(shooterSpeed);
+        System.out.println(shooterSpeed);
     }
 
     public void eject() {
