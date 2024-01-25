@@ -292,6 +292,19 @@ public final class Constants {
         public final static double wristOnlyFlexMaxVelocity = 2000;
         public final static double autoScoreConeDelay = 0.5;
     }
+    public static final class ElevatorConstants {
+        public final static int elevatorCancoderId = 1;
+        public static final double ELEVATOR_HOLD_POWER = 0.07;
+        public static final int ELEVATOR_CURRENT_LIMIT_A = 18;
+        public static final int ELEVATOR_HOLD_CURRENT_LIMIT_A = 5;
+        public final static double cubeElevatorSpeed = -0.7;
+        public final static double elevatorStartedVelocityThreshold = 1000;
+        public final static double elevatorHoldingVelocityThreshold = 60;
+        public static final int EJECT_CURRENT_LIMIT = 20;
+
+    }
+
+
 
     public static final class ArmConstants {
 
@@ -342,6 +355,7 @@ public final class Constants {
         public final static double wristHomePosition = 0.74;
         public final static double intakeStartedVelocityThreshold = 1000;
         public final static double intakeHoldingVelocityThreshold = 60;
+
         public final static double wristResetPostionThreshold = 0.2;
         public final static double distalMaxAdjustmentTicks = 9233;
         public final static double wristMaxAdjustment = 0.05;
@@ -352,8 +366,7 @@ public final class Constants {
         public final static double onDemandIntakeSpeed = 0.8; // used when intake button is pressed on operator controller
         public final static double downedConeIntakeSpeed = 0.75;
         public final static double coneIntakeSpeed = 0.75;
-        public final static double cubeIntakeSpeed = -0.7
-        ;
+        public final static double cubeIntakeSpeed = -0.7;
 
 
         // Arm PID constants
@@ -383,7 +396,8 @@ public final class Constants {
         public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
         public static final int EJECT_CURRENT_LIMIT = 20;
         public static final double INTAKE_OUTPUT_POWER = 1.0;
-        public static final double INTAKE_HOLD_POWER = 0.07;
+        public static final double INTAKE_HOLD_POWER = 0.07; 
+
 
         //Geometry Constants
         public final static double proximalArmLength = 35.75; //inches
