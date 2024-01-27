@@ -153,8 +153,9 @@ public final class Constants {
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(20.375);
-        public static final double wheelBase = Units.inchesToMeters(20.375);
+        public static final double wheelWidth = Units.inchesToMeters((25.0/2.0) - 2.5);
+        public static final double wheelFront = Units.inchesToMeters((27.0/2.0) - 5.0 - 2.5);
+        public static final double wheelBack  = Units.inchesToMeters((27.0/2.0)- 2.5);
         public static final double wheelDiameter = Units.inchesToMeters(3.94);
         public static final double wheelCircumference = wheelDiameter * Math.PI;
 
@@ -164,11 +165,12 @@ public final class Constants {
         public static final double driveGearRatio = (6.75 / 1.0); //6.86:1
         public static final double angleGearRatio = (150.0/ 7.0); //12.8:1  
 
+        // if center of robot is (0,0) then Positive X moves to front and Positive Y moves toward left
         public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
-                new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-                new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-                new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-                new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+                new Translation2d(wheelFront / 2.0, wheelWidth),    // front left
+                new Translation2d(wheelFront / 2.0, -wheelWidth),   // front right
+                new Translation2d(-wheelBack / 2.0, wheelWidth),    // back  left
+                new Translation2d(-wheelBack / 2.0, -wheelWidth));  // back  right
 
         /* Swerve Current Limiting */
         public static final int angleContinuousCurrentLimit = 25;
