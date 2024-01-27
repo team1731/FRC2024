@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,12 +15,18 @@ import frc.robot.state.arm.ArmStateMachine.MovementType;
 public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax elevatorMotor;
 
+    private SparkPIDController m_pidController;
+    private RelativeEncoder m_encoder;
+    private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
+
     private boolean enabled;
     @Override
     public boolean isEnabled() {
         return enabled;
     }
     
+
+
     public ElevatorSubsystem(boolean enabled) {
         this.enabled = enabled;
         System.out.println("ElevatorSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -36,6 +45,26 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
         elevatorMotor.setSmartCurrentLimit(ElevatorConstants.ELEVATOR_CURRENT_LIMIT_A);
         elevatorMotor.setInverted(false);
         elevatorMotor.setIdleMode(IdleMode.kBrake);
+
+        m_pidController = elevatorMotor.getPIDController();
+        m_encoder = elevatorMotor.getEncoder();
+
+        kP = 5e-5; 
+        kI = 1e-6;
+        kD = 0; 
+        kIz = 0; 
+        kFF = 0.000156; 
+        kMaxOutput = 1; 
+        kMinOutput = -1;
+        maxRPM = 5700;
+
+        m_pidController.setP(kP);
+        m_pidController.setI(kI);
+        m_pidController.setD(kD);
+        m_pidController.setIZone(kIz);
+        m_pidController.setFF(kFF);
+        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+
     }
 
     /*
@@ -75,6 +104,10 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
         }
         elevatorMotor.setSmartCurrentLimit(ElevatorConstants.ELEVATOR_CURRENT_LIMIT_A);
         elevatorMotor.set(elevatorSpeed);
+    }
+
+    public void goToPosition(int position) {
+        elevatorMotor.set(ControlMode.MotionMagic, ArmConstants.distalHomePosition);// use motion magice here <--
     }
 
     public void eject() {

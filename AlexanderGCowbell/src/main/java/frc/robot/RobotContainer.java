@@ -27,6 +27,7 @@ import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.subsystems.*;
 import frc.robot.util.log.LogWriter;
 import frc.robot.Constants.OperatorConsoleConstants;
+import frc.robot.Constants.elevatorConstants;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.HighPickup;
 import frc.robot.Constants.OpConstants.LedOption;
@@ -65,6 +66,7 @@ public class RobotContainer {
   private final JoystickButton kReleaseBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
   private final JoystickButton kIntakeBtn = new JoystickButton(operator,OperatorConsoleConstants.kIntakeBtnId);
   private final JoystickButton kxINT = new JoystickButton(operator, OperatorConsoleConstants.kxAxis);
+  private final JoystickButton kElevatorBtn = new JoystickButton(operator, OperatorConsoleConstants.kElevatorControlButton);
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
@@ -90,6 +92,7 @@ public class RobotContainer {
   //private ArmStateMachine sm_armStateMachine;
   private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem s_ShooterSubsystem;
+  private ElevatorSubsystem elevatorSubsystem;
 
   /* Auto Paths */
   private static List<String> autoPaths;
@@ -103,7 +106,8 @@ public class RobotContainer {
           PoseEstimatorSubsystem poseEstimatorSubsystem,
           //ArmSubsystem armSubsystem,
           IntakeSubsystem intakeSubsystem,
-          LEDStringSubsystem m_ledstring
+          LEDStringSubsystem m_ledstring,
+          ElevatorSubsystem eleSubsystem
           ) {
     
 	  boolean fieldRelative = true;
@@ -112,6 +116,7 @@ public class RobotContainer {
     s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
+    elevatorSubsystem = eleSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
@@ -169,6 +174,8 @@ public class RobotContainer {
 
     // CLEAR/RESET PATH BUTTON
     //kx.whileTrue(new InstantCommand(() -> sm_armStateMachine.clearCurrentPath()));
+
+    kElevatorBtn.onTrue(new InstantCommand(() -> elevatorSubsystem.goToPosition(elevatorConstants.kElevatorPosition1)));
 
     // BUMPERS - EITHER START/STOP RECORDING  - OR -  PICKUP HIGH/RUN OPERATOR SEQUENCE
     // if(LogWriter.isArmRecordingEnabled()) {

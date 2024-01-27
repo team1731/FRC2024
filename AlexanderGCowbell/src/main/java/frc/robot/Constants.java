@@ -146,6 +146,8 @@ public final class Constants {
         public static int kScoreHighSwitchId = 9;
         public static int kAutoRecoverySwitchId = 10;
         public static int kKillSwitchId = 11;
+
+        public static int kElevatorControlButton = 12;
     }
 
     public static final class Swerve {
@@ -517,4 +519,9 @@ public final class Constants {
     public static final class shooterConstants{
         public final static double shooterSpeed = 1;
     }
+
+    public static final class elevatorConstants {
+        public final static int kElevatorPosition1 = 1000;
+    }
+
 }
