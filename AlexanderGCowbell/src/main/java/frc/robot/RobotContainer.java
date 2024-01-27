@@ -88,7 +88,7 @@ public class RobotContainer {
   //private ArmSubsystem s_armSubSystem;
   private IntakeSubsystem s_intakeSubsystem;
   //private ArmStateMachine sm_armStateMachine;
-  // private final LEDStringSubsystem m_ledstring;
+  private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem s_ShooterSubsystem;
 
   /* Auto Paths */
@@ -115,7 +115,7 @@ public class RobotContainer {
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
-    //this.m_ledstring = m_ledstring;
+    this.m_ledstring = m_ledstring;
 
     // Configure the button bindings
     configureButtonBindings();
@@ -141,9 +141,9 @@ public class RobotContainer {
 
     // RESET BUTTON
     kStart.onTrue(new InstantCommand(() -> {
-      // s_Swerve.zeroGyro();
-      // s_Swerve.adjustWheelEncoders(); 
-      // s_armSubSystem.resetArmEncoders();
+      s_Swerve.zeroGyro();
+      s_Swerve.adjustWheelEncoders(); 
+      //s_armSubSystem.resetArmEncoders();
     }));
 
     // kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
@@ -217,18 +217,18 @@ public class RobotContainer {
     // kAutoRecoverySwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.attemptAutoRecovery()));
 
     // CUBE VS CONE SWITCH
-    // kConeSwitch.onTrue(new InstantCommand(() -> {
-    //   System.out.println("RobotContainer: Setting game piece to cone: " + storedPiece);
-    //   sm_armStateMachine.setGamePiece(GamePiece.CONE);
-    //   m_ledstring.setBlink(false);
-    //   m_ledstring.setColor(LedOption.YELLOW);
-    // }));
-    // kCubeSwitch.onTrue(new InstantCommand(() -> {
-    //   System.out.println("RobotContainer: Setting game piece to cube: " + storedPiece);
-    //   sm_armStateMachine.setGamePiece(GamePiece.CUBE);
-    //   m_ledstring.setBlink(false);
-    //   m_ledstring.setColor(LedOption.PURPLE);
-    // }));
+    kConeSwitch.onTrue(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Setting game piece to cone: " + storedPiece);
+      //sm_armStateMachine.setGamePiece(GamePiece.CONE);
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.YELLOW);
+    }));
+    kCubeSwitch.onTrue(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Setting game piece to cube: " + storedPiece);
+      //sm_armStateMachine.setGamePiece(GamePiece.CUBE);
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.PURPLE);
+    }));
 
     // // HIGH PICKUP SWITCH - FEEDER OR SHELF
     // kHighPickupSwitch.onTrue(new InstantCommand(() -> {
