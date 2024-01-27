@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
   private ArmStateMachine sm_armStateMachine;
   private boolean enabled = true;
   public Robot() {
-	if (enabled){
+	if (false){
 		if(LogWriter.isArmRecordingEnabled()) {
 			addPeriodic(() -> {
 				if(s_armSubSystem.isArmRecordingRunning()) {
@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
 	System.out.println("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  EVENT: " + DriverStation.getEventName() + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
 
 	LiveWindow.disableAllTelemetry();
-        ctreConfigs = new CTREConfigs();
+    ctreConfigs = new CTREConfigs();
 	// PortForwarder.add(5800, "10.17.31.11", 5800);
 	// PortForwarder.add(5801, "10.17.31.11", 5801);
 	// PortForwarder.add(5802, "10.17.31.11", 5802);
@@ -176,9 +176,9 @@ public class Robot extends TimedRobot {
 //   ██ ███▄▄▄▀▀████ ▀▀▄██ ▄▄▄██ ██ ███ ▀▀ ██ █████ █████ ██ ▀▀ ██ █ █ ██ █████ ▄▄▄
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-//   private boolean isRedAlliance(){
-// 	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
-//   }
+  private boolean isRedAlliance(){
+	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+  }
 
 
 // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -255,14 +255,14 @@ public class Robot extends TimedRobot {
 	//
 	// read the KEYPAD, write to NETWORK TABLES
 	//
-		String newKeypadEntry = keypad.getEntry("driver entry").getString(oldKeypadEntry);
-		if (!newKeypadEntry.equals(oldKeypadEntry)){
-        	System.out.println(".\n.\n.\nDRIVER ENTRY ==========================>>>>>>>> " + newKeypadEntry + "\n.\n.\n.");
-			oldKeypadEntry = newKeypadEntry;
-			SmartDashboard.putString("keypadCommand", newKeypadEntry);
-			m_robotContainer.processKeypadCommand(newKeypadEntry);
-		// sm_armStateMachine.setOperatorSequence(newKeypadEntry);
-		}
+		// String newKeypadEntry = keypad.getEntry("driver entry").getString(oldKeypadEntry);
+		// if (!newKeypadEntry.equals(oldKeypadEntry)){
+        // 	System.out.println(".\n.\n.\nDRIVER ENTRY ==========================>>>>>>>> " + newKeypadEntry + "\n.\n.\n.");
+		// 	oldKeypadEntry = newKeypadEntry;
+		// 	SmartDashboard.putString("keypadCommand", newKeypadEntry);
+		// 	m_robotContainer.processKeypadCommand(newKeypadEntry);
+		// // sm_armStateMachine.setOperatorSequence(newKeypadEntry);
+		// }
 
 		m_robotContainer.displayEncoders();
 	}
@@ -278,9 +278,11 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 	if (enabled){
-		keypad.putValue("driver entry", NetworkTableValue.makeString(""));
-	// sm_armStateMachine.disable();
-	//s_armSubSystem.resetArmEncoders();
+		if(keypad != null){
+			keypad.putValue("driver entry", NetworkTableValue.makeString(""));
+		}
+		//sm_armStateMachine.disable();
+		//s_armSubSystem.resetArmEncoders();
 	}
   }
 
@@ -300,11 +302,11 @@ public class Robot extends TimedRobot {
 			// SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
 		}
 
-		if(s_armSubSystem.isInEncodersOutOfBoundsCondition()) {
-			m_ledstring.setColor(OpConstants.LedOption.RED);
-		} else {
-			m_ledstring.setColor(OpConstants.LedOption.GREEN);
-		}
+		// if(s_armSubSystem.isInEncodersOutOfBoundsCondition()) {
+		// 	m_ledstring.setColor(OpConstants.LedOption.RED);
+		// } else {
+		// 	m_ledstring.setColor(OpConstants.LedOption.GREEN);
+		// }
 
 		// String newCode = autoChooser.getSelected();
 		// if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
@@ -432,8 +434,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 	if (enabled){
-		System.out.println("Setting the color");
-		m_ledstring.setColor(LedOption.INIT);
+		//System.out.println("Setting the color");
+		//m_ledstring.setColor(LedOption.INIT);
     	if(doSD()){ System.out.println("TELEOP PERIODIC");}
     	String newKeypadCommand = SmartDashboard.getString("keypadCommand", currentKeypadCommand);
 		if(!newKeypadCommand.equals(currentKeypadCommand)){

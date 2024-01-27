@@ -94,7 +94,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
             m_ledBuffer.setRGB(i, r, g, b);
           }
           m_led.setData(m_ledBuffer);
-          System.out.println("Color = " + r + ", "+ g + ", "+ b);
+          //System.out.println("Color = " + r + ", "+ g + ", "+ b);
         }
       }
 
@@ -136,7 +136,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
 
       public void setColor(OpConstants.LedOption color) {
         if (enabled){
-          System.out.println("Setting the color");
+          //System.out.println("Setting the color");
           // Fill the buffer with selection
           switch (color) {
             case INIT:
