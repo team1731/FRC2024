@@ -62,7 +62,10 @@ public class Robot extends TimedRobot {
   private ArmSubsystem s_armSubSystem;
   private ArmStateMachine sm_armStateMachine;
   private IntakeSubsystem intake_subsystem;
+  private ElevatorSubsystem elevatorSubsystem;
+
   private boolean enabled = true;
+
   public Robot() {
 	if (false){
 		if(LogWriter.isArmRecordingEnabled()) {
@@ -120,10 +123,12 @@ public class Robot extends TimedRobot {
 	sm_armStateMachine = s_armSubSystem.getStateMachine();
 	m_ledstring = new LEDStringSubsystem(true);
 	intake_subsystem = new IntakeSubsystem(false);
+	elevatorSubsystem = new ElevatorSubsystem(false);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(s_Swerve, s_ShooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  m_ledstring);
+	m_robotContainer = new RobotContainer(s_Swerve, s_ShooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  m_ledstring); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+
 
 	//PPSwerveControllerCommand.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
 
