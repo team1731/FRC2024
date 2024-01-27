@@ -75,7 +75,8 @@ public class RobotContainer {
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
   private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
   private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
-
+  private final JoystickButton kWristSwitch = new JoystickButton(operator,OperatorConsoleConstants.kWristSwitchId);
+  
 
   // Operator sticks
   public final int kDistalAxis = OperatorConsoleConstants.kDistalAxisId;
@@ -87,6 +88,7 @@ public class RobotContainer {
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
   private IntakeSubsystem s_intakeSubsystem;
+  private WristSubsystem s_wristSubsystem;
   //private ArmStateMachine sm_armStateMachine;
   private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem s_ShooterSubsystem;
@@ -103,6 +105,7 @@ public class RobotContainer {
           PoseEstimatorSubsystem poseEstimatorSubsystem,
           //ArmSubsystem armSubsystem,
           IntakeSubsystem intakeSubsystem,
+          WristSubsystem wristSubsystem,
           LEDStringSubsystem m_ledstring
           ) {
     
@@ -112,6 +115,7 @@ public class RobotContainer {
     s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
+    s_wristSubsystem = wristSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
@@ -193,6 +197,10 @@ public class RobotContainer {
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * OPERATOR BUTTONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
+
+    // WRISt MODE ON/OFF SWITCH
+    kWristSwitch.onTrue(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
+    kWristSwitch.onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
 
     // PREVENT SCORE
     // kPreventScoreBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.setAllowScore(false)));

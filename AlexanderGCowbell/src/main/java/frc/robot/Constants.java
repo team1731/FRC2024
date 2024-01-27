@@ -146,6 +146,7 @@ public final class Constants {
         public static int kScoreHighSwitchId = 9;
         public static int kAutoRecoverySwitchId = 10;
         public static int kKillSwitchId = 11;
+        public static int kWristSwitchId = 15;
     }
 
     public static final class Swerve {
@@ -295,6 +296,7 @@ public final class Constants {
         public final static double wristOnlyFlexMaxVelocity = 2000;
         public final static double autoScoreConeDelay = 0.5;
     }
+
     public static final class ElevatorConstants {
         public final static int elevatorCancoderId = 1;
         public static final double ELEVATOR_HOLD_POWER = 0.07;
@@ -306,8 +308,6 @@ public final class Constants {
         public static final int EJECT_CURRENT_LIMIT = 20;
 
     }
-
-
 
     public static final class IntakeConstants {
         public final static int intakeCancoderId = 11;
@@ -329,6 +329,44 @@ public final class Constants {
         public final static double intakeHoldingVelocityThreshold = 60;
 
         public static final double INTAKE_HOLD_POWER = 0.07;
+    }
+
+    public static final class WristConstants {
+        public final static int wristCancoderId = 13;
+        /*
+         ************************************************************************************************
+         * THESE VALUES NEED TO CHANGE IF WE WORK ON THE Intake Subsystem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         *   Motors: Intake & Feeder
+         * **********************************************************************************************
+         */
+        public static final int WRIST_CURRENT_LIMIT_A = 40;
+        public static final int WRIST_HOLD_CURRENT_LIMIT_A = 5;
+        public static final int EJECT_CURRENT_LIMIT = 20;
+
+        public final static double wristSpeed = 0.25;
+
+        public final static double wristStartedVelocityThreshold = 1000;
+        public final static double wristHoldingVelocityThreshold = 60;
+
+        public static final double WRIST_HOLD_POWER = 0.07;
+
+        // PID coefficients
+        public static final double kP = 5e-5; 
+        public static final double kI = 1e-6;
+        public static final double kD = 0; 
+        public static final double kIz = 0; 
+        public static final double kFF = 0.000156; 
+        public static final double kMaxOutput = 1; 
+        public static final double kMinOutput = -1;
+        public static final double maxRPM = 5700;
+
+        // Smart Motion Coefficients
+        public static final double minVel = 500; // rpm
+        public static final double maxVel = 2000; // rpm
+        public static final double maxAcc = 1500;
+        public static final double allowedErr = 10;
+
+        public static final int smartMotionSlot = 0;
     }
 
     public static final class ArmConstants {
@@ -360,9 +398,6 @@ public final class Constants {
         // we want to keep the range checking narrower for this situation
         public final static int[] proximalAbsoluteBoundsAuto = new int[] {proximalEstimatedAutoAbsolute - 150, proximalEstimatedAutoAbsolute + 150};  // {2430, 2585}
         public final static int[] distalAbsoluteBoundsAuto = new int[] {distalEstimatedAutoAbsolute - 100, distalEstimatedAutoAbsolute + 100};   //  {1925, 2060}
-
-
-
 
         public final static int proximalCancoderId = 11;
         public final static int distalCancoderId = 10;
