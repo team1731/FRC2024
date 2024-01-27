@@ -344,8 +344,8 @@ public final class Constants {
         public final static int proximalCancoderId = 11;
         public final static int distalCancoderId = 10;
         public final static int wristCancoderId = 12;
-        //Set to demo ID 
-        public final static int intakeCancoderId = 1;
+        public final static int intakeCancoderId = 13;
+        public final static int shooterCancoderId = 2;
         public final static double proximalRelativeTicsPerAbsoluteTick = 135;  // theoretically this should be 140
         public final static double distalRelativeTicsPerAbsoluteTick = 90;
         public final static int pointDurationMS = 10;
@@ -494,5 +494,8 @@ public final class Constants {
         public enum LedOption {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
           }
+    }
+    public static final class shooterConstants{
+        public final static double shooterSpeed = 1;
     }
 }
