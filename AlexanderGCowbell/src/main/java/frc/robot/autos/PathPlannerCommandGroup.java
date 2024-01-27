@@ -68,20 +68,20 @@ public class PathPlannerCommandGroup extends SequentialCommandGroup {
     
         // // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
         AutoBuilder autoBuilder = new AutoBuilder();
-        autoBuilder.configureRamsete(
-            s_PoseEstimatorSubsystem::getAutoPose, // Pose2d supplier
-            s_PoseEstimatorSubsystem::setCurrentPose, // Pose2d consumer, used to reset odometry at the beginning of auto
-            Constants.Swerve.swerveKinematics, // SwerveDriveKinematics
-            new PIDConstants(Constants.AutoConstants.kPXController, 0.0, 0.0), // PID constants to correct for translation error (used to create the X and Y PID controllers)
-            new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0), //Constants.Swerve.angleKD), // PID constants to correct for rotation error (used to create the rotation controller)
-            s_Swerve::setModuleStates, // Module states consumer used to output to the drive subsystem
-            eventMap,
-            false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-            s_Swerve,
-            s_PoseEstimatorSubsystem // The drive subsystem. Used to properly set the requirements of path following commands
-        );
+        // autoBuilder.configureRamsete(
+        //     s_PoseEstimatorSubsystem::getAutoPose, // Pose2d supplier
+        //     s_PoseEstimatorSubsystem::setCurrentPose, // Pose2d consumer, used to reset odometry at the beginning of auto
+        //     Constants.Swerve.swerveKinematics, // SwerveDriveKinematics
+        //     new PIDConstants(Constants.AutoConstants.kPXController, 0.0, 0.0), // PID constants to correct for translation error (used to create the X and Y PID controllers)
+        //     new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0), //Constants.Swerve.angleKD), // PID constants to correct for rotation error (used to create the rotation controller)
+        //     s_Swerve::setModuleStates, // Module states consumer used to output to the drive subsystem
+        //     eventMap,
+        //     false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+        //     s_Swerve,
+        //     s_PoseEstimatorSubsystem // The drive subsystem. Used to properly set the requirements of path following commands
+        // );
     
-        Command fullAuto = null; // autoBuilder.fullAuto(pathGroup);
+        Command fullAuto = null; //autoBuilder.fullAuto(pathGroup);
         System.out.println("PathPlannerCommandGroup: pathPlannerFile '" + pathPlannerFile + "' has been planned.");
         addCommands(fullAuto);
     }

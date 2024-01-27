@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
-//import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -72,8 +72,8 @@ public class Robot extends TimedRobot {
   }
 
   // SUBSYSTEM DECLARATION
-//   private LEDStringSubsystem m_ledstring;
-  //private boolean ledBlinking;
+  private LEDStringSubsystem m_ledstring;
+  private boolean ledBlinking;
   //private boolean armEmergencyStatus = false;
 
   // NOTE: FOR TESTING PURPOSES ONLY!
@@ -100,7 +100,7 @@ public class Robot extends TimedRobot {
 	System.out.println("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  EVENT: " + DriverStation.getEventName() + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
 
 	LiveWindow.disableAllTelemetry();
-        ctreConfigs = new CTREConfigs();
+    ctreConfigs = new CTREConfigs();
 	// PortForwarder.add(5800, "10.17.31.11", 5800);
 	// PortForwarder.add(5801, "10.17.31.11", 5801);
 	// PortForwarder.add(5802, "10.17.31.11", 5802);
@@ -110,25 +110,25 @@ public class Robot extends TimedRobot {
 
 	s_Swerve = new Swerve();
 	s_ShooterSubsystem = new ShooterSubsystem();
-  	// s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve);
-	// s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
+  	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve);
+	s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
   	// s_armSubSystem = new ArmSubsystem();
 	// sm_armStateMachine = s_armSubSystem.getStateMachine();
-	// m_ledstring = new LEDStringSubsystem();
+	m_ledstring = new LEDStringSubsystem();
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
 	m_robotContainer = new RobotContainer(s_Swerve, s_ShooterSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
-	//PPSwerveControllerCommand.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
+	PathPlannerLogging.setLogActivePathCallback(null); //.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
 
 	initSubsystems();
 	//s_armSubSystem.resetArmEncoders();
 
-	// String[] autoModes = RobotContainer.deriveAutoModes();
-	// for(String autoMode: autoModes){
-	// 	autoChooser.addOption(autoMode, autoMode);
-	// }
+	String[] autoModes = RobotContainer.deriveAutoModes();
+	for(String autoMode: autoModes){
+		autoChooser.addOption(autoMode, autoMode);
+	}
     SmartDashboard.putData(AutoConstants.kAutoCodeKey, autoChooser);
 	SmartDashboard.putString("Build Info - Branch", "N/A");
 	SmartDashboard.putString("Build Info - Commit Hash", "N/A");

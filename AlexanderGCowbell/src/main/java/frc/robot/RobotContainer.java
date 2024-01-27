@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -225,43 +227,45 @@ public class RobotContainer {
   }
 
 
-  // public static String[] deriveAutoModes() {
-  //   List<String> autoModes = new ArrayList<String>();
-  //   autoPaths = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner"));
-  //   for(String autoPath : autoPaths){
-  //     String autoName = autoPath.substring(0, autoPath.length() - (5 + (autoPath.contains("Red") ? 3 : 4)));
-  //     if(!autoModes.contains(autoName)){
-  //       autoModes.add(autoName);
-  //     }
-  //   }
-  //   autoModes.sort((p1, p2) -> p1.compareTo(p2));
-  //   return autoModes.toArray(String[]::new);
-  // }
+  public static String[] deriveAutoModes() {
+    List<String> autoModes = new ArrayList<String>();
+    autoPaths = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner"));
+    for(String autoPath : autoPaths){
+      String autoName = autoPath.substring(0, autoPath.length() - (5 + (autoPath.contains("Red") ? 3 : 4)));
+      if(!autoModes.contains(autoName)){
+        autoModes.add(autoName);
+      }
+    }
+    autoModes.sort((p1, p2) -> p1.compareTo(p2));
+    return autoModes.toArray(String[]::new);
+  }
 
   private static List<String> findPaths(File directory){
-    List<String> paths = new ArrayList<String>();
-    if(!directory.exists()){
-      System.out.println("FATAL: path directory not found! " + directory.getAbsolutePath());
-    }
-    else {
-      File[] files = directory.listFiles();
-      if(files == null){
-        System.out.println("FATAL: I/O error or NOT a directory: " + directory);
-      }
-      else
-      {
-        for (File file : files) {
-            String fileName = file.getName();
-            if (fileName.startsWith("_") && fileName.endsWith(".path")) {
-              System.out.println(file.getAbsolutePath());
-              if(!paths.contains(fileName)){
-                paths.add(fileName);
-              }
-            }
-        }
-      }
-    }
-    return paths;
+    List<String> autoNames = AutoBuilder.getAllAutoNames();
+    return autoNames;
+    // List<String> paths = new ArrayList<String>();
+    // if(!directory.exists()){
+    //   System.out.println("FATAL: path directory not found! " + directory.getAbsolutePath());
+    // }
+    // else {
+    //   File[] files = directory.listFiles();
+    //   if(files == null){
+    //     System.out.println("FATAL: I/O error or NOT a directory: " + directory);
+    //   }
+    //   else
+    //   {
+    //     for (File file : files) {
+    //         String fileName = file.getName();
+    //         if (fileName.startsWith("_") && fileName.endsWith(".path")) {
+    //           System.out.println(file.getAbsolutePath());
+    //           if(!paths.contains(fileName)){
+    //             paths.add(fileName);
+    //           }
+    //         }
+    //     }
+    //   }
+    // }
+    // return paths;
   }
 
   public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
