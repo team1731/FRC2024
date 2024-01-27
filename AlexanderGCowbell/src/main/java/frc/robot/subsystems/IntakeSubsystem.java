@@ -23,6 +23,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
 
     public IntakeSubsystem(boolean enabled) {
+        this.enabled = enabled;
         System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         if (enabled) {
             initializeIntakeMotor();
@@ -31,6 +32,9 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     private void initializeIntakeMotor() {
         System.out.println("IntakeSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
+        if(!enabled){
+            return;
+        }
         intakeMotor = new CANSparkMax(IntakeConstants.intakeCancoderId, MotorType.kBrushless);
         intakeMotor.restoreFactoryDefaults();
         intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
@@ -72,6 +76,9 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
 
     public void intake(double intakeSpeed) {
+        if(!enabled){
+            return;
+        }
         intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
         if (!killSwitch.get()) {
             intakeSpeed = 0;
@@ -81,43 +88,70 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
 
     public void feederIntake() {
-        // intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
+         if(!enabled){
+            return;
+        }
+       // intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
         intakeMotor.set(0);
         feederMotor.set(IntakeConstants.feederSpeed);
     }
 
     public void stopFeederIntake() {
+        if(!enabled){
+            return;
+        }
         feederMotor.set(0);
     }
 
     public void reverseFeederIntake() {
+        if(!enabled){
+            return;
+        }
         feederMotor.set(-IntakeConstants.feederSpeed);
     }
 
     public void eject() {
-        intakeMotor.setSmartCurrentLimit(IntakeConstants.EJECT_CURRENT_LIMIT);
+        if(!enabled){
+            return;
+        }
+       intakeMotor.setSmartCurrentLimit(IntakeConstants.EJECT_CURRENT_LIMIT);
         intakeMotor.set(-1.0);
     }
 
     public void holdIntake() {
+        if(!enabled){
+            return;
+        }
         intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_HOLD_CURRENT_LIMIT_A);
         intakeMotor.set(IntakeConstants.INTAKE_HOLD_POWER);
     }
 
     public void stopIntake() {
+        if(!enabled){
+            return;
+        }
         intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
         intakeMotor.set(0);
     }
 
     public boolean isIntakeAtStartedVelocity() {
+        if(!enabled){
+            return true;
+        }
         return (Math.abs(intakeMotor.getEncoder().getVelocity()) > IntakeConstants.intakeStartedVelocityThreshold);
     }
 
     public boolean isIntakeBelowStartedVelocity() {
+        if(!enabled){
+            return true;
+        }
         return (Math.abs(intakeMotor.getEncoder().getVelocity()) < IntakeConstants.intakeStartedVelocityThreshold);
     }
 
     public boolean isIntakeAtHoldingVelocity() {
+        if(!enabled){
+            return true;
+        }
         return (Math.abs(intakeMotor.getEncoder().getVelocity()) < IntakeConstants.intakeHoldingVelocityThreshold);
     }
 
