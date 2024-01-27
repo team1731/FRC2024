@@ -75,18 +75,21 @@ public class RobotContainer {
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
   private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
   private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
+
+
   // Operator sticks
   public final int kDistalAxis = OperatorConsoleConstants.kDistalAxisId;
   public final int kProximalAxis = OperatorConsoleConstants.kProximalAxisId;
 
 
   /* Subsystems */
-  // private Swerve s_Swerve;
+  private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
   private IntakeSubsystem s_intakeSubsystem;
   //private ArmStateMachine sm_armStateMachine;
   // private final LEDStringSubsystem m_ledstring;
+  private ShooterSubsystem s_ShooterSubsystem;
 
   /* Auto Paths */
   private static List<String> autoPaths;
@@ -95,27 +98,31 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-          // Swerve swerve,
-          //PoseEstimatorSubsystem poseEstimatorSubsystem
+          Swerve swerve,
+          ShooterSubsystem ShooterSubsystem,
+          PoseEstimatorSubsystem poseEstimatorSubsystem,
           //ArmSubsystem armSubsystem,
-          IntakeSubsystem intakeSubsystem
-          //LEDStringSubsystem m_ledstring
+          IntakeSubsystem intakeSubsystem,
+          LEDStringSubsystem m_ledstring
           ) {
     
 	  boolean fieldRelative = true;
     boolean openLoop = false;
-    // s_Swerve = swerve;
+    s_Swerve = swerve;
+    s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
-    // s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
-
     //this.m_ledstring = m_ledstring;
 
     // Configure the button bindings
     configureButtonBindings();
+
+    if(s_Swerve.isEnabled()){
+        s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
+    }
   }
    
 
@@ -174,7 +181,11 @@ public class RobotContainer {
 
     // TRIGGERS - PICKUP LOW AND PICKUP DOWNED CONE
     // kLeftTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_LOW, operator, kDistalAxis));
-   // kRightTrigger.whileTrue(new FlipConeCommand(sm_armStateMachine));
+
+    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
+    // kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+   
+    kRightTrigger.whileTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
     // kRightTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_DOWNED_CONE, operator, kDistalAxis));
 
     

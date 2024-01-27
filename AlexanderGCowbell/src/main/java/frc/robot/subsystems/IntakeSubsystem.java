@@ -11,14 +11,22 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.GamePiece;
 import frc.robot.state.arm.ArmStateMachine.MovementType;
 
-public class IntakeSubsystem  extends SubsystemBase {
+public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax intakeMotor;
     private CANSparkMax feederMotor;
     private DigitalInput killSwitch = new DigitalInput(0);
     
-    public IntakeSubsystem() {
+    private boolean enabled;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public IntakeSubsystem(boolean enabled) {
         System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        initializeIntakeMotor();
+        if (enabled) {
+            initializeIntakeMotor();
+        }
     }
 
     private void initializeIntakeMotor() {
