@@ -110,12 +110,14 @@ public class RobotContainer {
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
-    s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
-
     //this.m_ledstring = m_ledstring;
 
     // Configure the button bindings
     configureButtonBindings();
+
+    if(s_Swerve.isEnabled()){
+        s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
+    }
   }
    
 
