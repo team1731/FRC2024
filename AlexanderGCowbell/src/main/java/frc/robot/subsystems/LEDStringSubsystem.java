@@ -136,7 +136,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
 
       public void setColor(OpConstants.LedOption color) {
         if (enabled){
-          //System.out.println("Setting the color");
+          System.out.println("Setting the color");
           // Fill the buffer with selection
           switch (color) {
             case INIT:
