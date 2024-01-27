@@ -134,6 +134,7 @@ public final class Constants {
         // Sticks
         public static int kProximalAxisId = 1;
         public static int kDistalAxisId = 4;
+        public static int kxAxis = 0;
 
         // Switches
         public static int kHighPickupSwitch = 1;
@@ -152,8 +153,9 @@ public final class Constants {
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(20.375);
-        public static final double wheelBase = Units.inchesToMeters(20.375);
+        public static final double wheelWidth = Units.inchesToMeters((25.0/2.0) - 2.5);
+        public static final double wheelFront = Units.inchesToMeters((27.0/2.0) - 5.0 - 2.5);
+        public static final double wheelBack  = Units.inchesToMeters((27.0/2.0)- 2.5);
         public static final double wheelDiameter = Units.inchesToMeters(3.94);
         public static final double wheelCircumference = wheelDiameter * Math.PI;
 
@@ -163,11 +165,12 @@ public final class Constants {
         public static final double driveGearRatio = (6.75 / 1.0); //6.86:1
         public static final double angleGearRatio = (150.0/ 7.0); //12.8:1  
 
+        // if center of robot is (0,0) then Positive X moves to front and Positive Y moves toward left
         public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
-                new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-                new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-                new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-                new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+                new Translation2d(wheelFront / 2.0, wheelWidth),    // front left
+                new Translation2d(wheelFront / 2.0, -wheelWidth),   // front right
+                new Translation2d(-wheelBack / 2.0, wheelWidth),    // back  left
+                new Translation2d(-wheelBack / 2.0, -wheelWidth));  // back  right
 
         /* Swerve Current Limiting */
         public static final int angleContinuousCurrentLimit = 25;
@@ -293,9 +296,29 @@ public final class Constants {
         public final static double autoScoreConeDelay = 0.5;
     }
 
+    public static final class IntakeConstants {
+        public final static int intakeCancoderId = 11;
+        public final static int feederCancoderId = 12;
+        /*
+         ************************************************************************************************
+         * THESE VALUES NEED TO CHANGE IF WE WORK ON THE Intake Subsystem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         *   Motors: Intake & Feeder
+         * **********************************************************************************************
+         */
+        public static final int INTAKE_CURRENT_LIMIT_A = 40;
+        public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
+        public static final int EJECT_CURRENT_LIMIT = 20;
+
+        public final static double intakeSpeed = 0.25;
+        public final static double feederSpeed = 0.25;
+
+        public final static double intakeStartedVelocityThreshold = 1000;
+        public final static double intakeHoldingVelocityThreshold = 60;
+
+        public static final double INTAKE_HOLD_POWER = 0.07;
+    }
+
     public static final class ArmConstants {
-
-
         /*
          ************************************************************************************************
          * THESE VALUES NEED TO CHANGE IF WE WORK ON THE ARM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -354,7 +377,6 @@ public final class Constants {
         public final static double coneIntakeSpeed = 0.75;
         public final static double cubeIntakeSpeed = -0.7;
 
-
         // Arm PID constants
         public final static int armPIDLoopIdx = 0;
 
@@ -394,9 +416,6 @@ public final class Constants {
         public final static double distalFullExtensionDistance =33.0; //TBD empirically
         public final static double armFullExtensionDistance = 56.25;
         
-        
-
-
         /**
          * How many sensor units per rotation.
          * Using Talon FX Integrated Sensor.

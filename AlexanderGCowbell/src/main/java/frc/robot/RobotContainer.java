@@ -63,6 +63,7 @@ public class RobotContainer {
   private final JoystickButton kWheelLockBtn = new JoystickButton(operator,OperatorConsoleConstants.kWheelLockBtnId);
   private final JoystickButton kReleaseBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
   private final JoystickButton kIntakeBtn = new JoystickButton(operator,OperatorConsoleConstants.kIntakeBtnId);
+  private final JoystickButton kxINT = new JoystickButton(operator, OperatorConsoleConstants.kxAxis);
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
@@ -81,7 +82,7 @@ public class RobotContainer {
 
 
   /* Subsystems */
-  //private Swerve s_Swerve;
+  private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
   private IntakeSubsystem s_intakeSubsystem;
@@ -96,29 +97,31 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-          // Swerve swerve,
+          Swerve swerve,
           ShooterSubsystem ShooterSubsystem,
-          //PoseEstimatorSubsystem poseEstimatorSubsystem
+          PoseEstimatorSubsystem poseEstimatorSubsystem,
           //ArmSubsystem armSubsystem,
-          IntakeSubsystem intakeSubsystem
-          //LEDStringSubsystem m_ledstring
+          IntakeSubsystem intakeSubsystem,
+          LEDStringSubsystem m_ledstring
           ) {
     
 	  boolean fieldRelative = true;
     boolean openLoop = false;
-    //s_Swerve = swerve;
+    s_Swerve = swerve;
     s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
-    //s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
-
     //this.m_ledstring = m_ledstring;
 
     // Configure the button bindings
     configureButtonBindings();
+
+    if(s_Swerve.isEnabled()){
+        s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
+    }
   }
    
 
@@ -142,10 +145,22 @@ public class RobotContainer {
       // s_armSubSystem.resetArmEncoders();
     }));
 
-    kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
-    kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-    kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
-    kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
+    // kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake())); -- old right bumper event.
+
+    // MOTOR INTAKE
+    kRightTrigger.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
+    kRightTrigger.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+
+    // FEEDER INTAKE
+    kLeftTrigger.onTrue(new InstantCommand(() -> s_intakeSubsystem.feederIntake()));
+    kLeftTrigger.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeederIntake()));
+
+    // REVERSE FEEDER INTAKE
+    ka.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeederIntake()));
+    ka.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeederIntake()));
+  
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
     // kb.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_MEDIUM, operator, kDistalAxis)));
@@ -169,10 +184,8 @@ public class RobotContainer {
     // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
     // kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
    
-    //kRightTrigger.onTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
-    //kRightTrigger.onFalse(new InstantCommand(()-> s_ShooterSubsystem.stopShooting()));
-   
     kRightTrigger.whileTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
+    // kRightTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_DOWNED_CONE, operator, kDistalAxis));
 
     
     /*
