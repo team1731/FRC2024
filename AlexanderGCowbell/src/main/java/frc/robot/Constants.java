@@ -364,7 +364,7 @@ public final class Constants {
         public static final double minVel = 500; // rpm
         public static final double maxVel = 2000; // rpm
         public static final double maxAcc = 1500;
-        public static final double allowedErr = 10;
+        public static final double allowedErr = 1;
 
         public static final int smartMotionSlot = 0;
     }

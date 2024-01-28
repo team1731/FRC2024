@@ -6,7 +6,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
 
@@ -14,7 +13,6 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
     private CANSparkMax wristMotor;
     private SparkPIDController m_pidController;
     private RelativeEncoder m_encoder;
-    private DigitalInput killSwitch = new DigitalInput(0);
     private double last_encoder = 0;
     
     private boolean enabled;
@@ -116,9 +114,6 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
             return;
         }
         wristMotor.setSmartCurrentLimit(WristConstants.WRIST_CURRENT_LIMIT_A);
-        if (!killSwitch.get()) {
-            wristSpeed = 0;
-        }
         wristMotor.set(wristSpeed);
     }
 
