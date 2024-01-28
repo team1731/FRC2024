@@ -1,31 +1,26 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.SparkAbsoluteEncoder.Type;
+import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
-import frc.robot.Constants.GamePiece;
-import frc.robot.state.arm.ArmStateMachine.MovementType;
 
 public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax elevatorMotor;
 
-    private SparkPIDController m_pidController;
-    private RelativeEncoder m_encoder;
-    private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
+    private SparkPIDController elevatorPIDController;
+    private AbsoluteEncoder elevatorEncoder;
 
     private boolean enabled;
     @Override
     public boolean isEnabled() {
         return enabled;
     }
-    
-
 
     public ElevatorSubsystem(boolean enabled) {
         this.enabled = enabled;
@@ -46,54 +41,61 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
         elevatorMotor.setInverted(false);
         elevatorMotor.setIdleMode(IdleMode.kBrake);
 
-        m_pidController = elevatorMotor.getPIDController();
-        m_encoder = elevatorMotor.getEncoder();
+        // initialze PID controller and encoder objects
+        elevatorPIDController = elevatorMotor.getPIDController();
+        elevatorEncoder = elevatorMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
-        kP = 5e-5; 
-        kI = 1e-6;
-        kD = 0; 
-        kIz = 0; 
-        kFF = 0.000156; 
-        kMaxOutput = 1; 
-        kMinOutput = -1;
-        maxRPM = 5700;
+        // set PID coefficients
+        elevatorPIDController.setP(ElevatorConstants.kP);
+        elevatorPIDController.setI(ElevatorConstants.kI);
+        elevatorPIDController.setD(ElevatorConstants.kD);
+        elevatorPIDController.setIZone(ElevatorConstants.kIz);
+        elevatorPIDController.setFF(ElevatorConstants.kFF);
+        elevatorPIDController.setOutputRange(ElevatorConstants.kMinOutput, ElevatorConstants.kMaxOutput);   
+        elevatorPIDController.setFeedbackDevice(elevatorEncoder);
+        
+        elevatorPIDController.setSmartMotionMaxVelocity(ElevatorConstants.maxVel, ElevatorConstants.smartMotionSlot);
+        elevatorPIDController.setSmartMotionMinOutputVelocity(ElevatorConstants.minVel, ElevatorConstants.smartMotionSlot);
+        elevatorPIDController.setSmartMotionMaxAccel(ElevatorConstants.maxAcc, ElevatorConstants.smartMotionSlot);
+        elevatorPIDController.setSmartMotionAllowedClosedLoopError(ElevatorConstants.allowedErr, ElevatorConstants.smartMotionSlot);
 
-        m_pidController.setP(kP);
-        m_pidController.setI(kI);
-        m_pidController.setD(kD);
-        m_pidController.setIZone(kIz);
-        m_pidController.setFF(kFF);
-        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
-
+        elevatorPIDController.setOutputRange(ElevatorConstants.minVel, ElevatorConstants.maxVel);
     }
 
     /*
-     * elevator MOTOR MOVEMENT
+     * Elevator MOTOR MOVEMENT
      */
 
-    // public void elevator() {
-    //     double elevatorSpeed = 0.75;
-    //     if(stateMachine.getMovementType() == MovementType.PICKUP_DOWNED_CONE) {
-    //         elevatorSpeed = ArmConstants.downedConeelevatorSpeed;
-    //         System.out.println("ElevatorSubsystem: intaking DOWNED CONE, speed = " + elevatorSpeed);
-    //     } else if(stateMachine.getGamePiece() == GamePiece.CONE) {
-    //         elevatorSpeed =  ArmConstants.coneElevatorSpeed;
-    //         System.out.println("ElevatorSubsystem: intaking CONE, speed = " + elevatorSpeed);
-    //     } else {
-    //         elevatorSpeed = ArmConstants.cubeElevatorSpeed;
-    //         System.out.println("ElevatorSubsystem: intaking CUBE, speed = " + elevatorSpeed);
-    //     }
-    //     elevatorSpeed = ArmConstants.cubeElevatorSpeed;
-    //     System.out.println("elevatorSubsystem: speed = " + elevatorSpeed);
-    //     elevator(elevatorSpeed);
-    // }
+    public double getElevatorPosition() {
+        if (enabled){
+            return elevatorEncoder.getPosition();
+        }
+        else{
+            return 0;
+        }
+    }
+
+    private void moveElevator(double position, double maxVelocity) {
+        if (enabled){
+            elevatorPIDController.setSmartMotionMaxVelocity(maxVelocity, ElevatorConstants.smartMotionSlot);
+            elevatorPIDController.setReference(position, CANSparkMax.ControlType.kSmartMotion);
+        }
+    }
+    
+    public void elevatorExtended() {
+        moveElevator(ElevatorConstants.elevatorExtendedPosition, ElevatorConstants.maxVel);
+    }
+
+    public void elevatorHome() {
+        moveElevator(ElevatorConstants.elevatorHomePosition, ElevatorConstants.maxVel);
+    }
 
     public void reverseElevator() {
         if (!enabled) {
             return;
         }
         double elevatorSpeed = 0.75;
-        elevatorSpeed = -1 * ElevatorConstants.cubeElevatorSpeed;
+        elevatorSpeed = -1 * ElevatorConstants.minVel;
         System.out.println("ElevatorSubsystem: speed = " + elevatorSpeed);
         elevator(elevatorSpeed);
      }
@@ -104,10 +106,6 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
         }
         elevatorMotor.setSmartCurrentLimit(ElevatorConstants.ELEVATOR_CURRENT_LIMIT_A);
         elevatorMotor.set(elevatorSpeed);
-    }
-
-    public void goToPosition(int position) {
-        elevatorMotor.set(ControlMode.MotionMagic, ArmConstants.distalHomePosition);// use motion magice here <--
     }
 
     public void eject() {

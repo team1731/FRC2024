@@ -27,7 +27,6 @@ import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.subsystems.*;
 import frc.robot.util.log.LogWriter;
 import frc.robot.Constants.OperatorConsoleConstants;
-import frc.robot.Constants.elevatorConstants;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.HighPickup;
 import frc.robot.Constants.OpConstants.LedOption;
@@ -107,7 +106,7 @@ public class RobotContainer {
           //ArmSubsystem armSubsystem,
           IntakeSubsystem intakeSubsystem,
           LEDStringSubsystem m_ledstring,
-          ElevatorSubsystem eleSubsystem
+          ElevatorSubsystem elevatorSubsystem
           ) {
     
 	  boolean fieldRelative = true;
@@ -116,7 +115,7 @@ public class RobotContainer {
     s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
-    elevatorSubsystem = eleSubsystem;
+    elevatorSubsystem = elevatorSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
@@ -175,7 +174,8 @@ public class RobotContainer {
     // CLEAR/RESET PATH BUTTON
     //kx.whileTrue(new InstantCommand(() -> sm_armStateMachine.clearCurrentPath()));
 
-    kElevatorBtn.onTrue(new InstantCommand(() -> elevatorSubsystem.goToPosition(elevatorConstants.kElevatorPosition1)));
+    kElevatorBtn.onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()));
+    kElevatorBtn.onFalse(new InstantCommand(() -> elevatorSubsystem.elevatorHome()));
 
     // BUMPERS - EITHER START/STOP RECORDING  - OR -  PICKUP HIGH/RUN OPERATOR SEQUENCE
     // if(LogWriter.isArmRecordingEnabled()) {
