@@ -1,18 +1,24 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkAbsoluteEncoder.Type;
+
 import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
+import frc.robot.util.log.LogWriter;
 
 public class WristSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax wristMotor;
-    private SparkPIDController m_pidController;
-    private RelativeEncoder m_encoder;
+    private SparkPIDController wristPIDController;
+    private AbsoluteEncoder wristEncoder;
+
     private double last_encoder = 0;
     
     private boolean enabled;
@@ -30,10 +36,10 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
     }
 
     private void initializeWristMotor() {
-        System.out.println("WristSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
         if(!enabled){
             return;
         }
+        System.out.println("WristSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
         wristMotor = new CANSparkMax(WristConstants.wristCancoderId, MotorType.kBrushless);
         wristMotor.restoreFactoryDefaults();
         wristMotor.setSmartCurrentLimit(WristConstants.WRIST_CURRENT_LIMIT_A);
@@ -41,49 +47,52 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
         wristMotor.setIdleMode(IdleMode.kBrake);
 
         // initialze PID controller and encoder objects
-        m_pidController = wristMotor.getPIDController();
-        m_encoder = wristMotor.getEncoder();
+        wristPIDController = wristMotor.getPIDController();
+        wristEncoder = wristMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
         // set PID coefficients
-        m_pidController.setP(WristConstants.kP);
-        m_pidController.setI(WristConstants.kI);
-        m_pidController.setD(WristConstants.kD);
-        m_pidController.setIZone(WristConstants.kIz);
-        m_pidController.setFF(WristConstants.kFF);
-        m_pidController.setOutputRange(WristConstants.kMinOutput, WristConstants.kMaxOutput);   
+        wristPIDController.setP(WristConstants.kP);
+        wristPIDController.setI(WristConstants.kI);
+        wristPIDController.setD(WristConstants.kD);
+        wristPIDController.setIZone(WristConstants.kIz);
+        wristPIDController.setFF(WristConstants.kFF);
+        wristPIDController.setOutputRange(WristConstants.kMinOutput, WristConstants.kMaxOutput);   
+        wristPIDController.setFeedbackDevice(wristEncoder);
         
-        /**
-        * Smart Motion coefficients are set on a SparkPIDController object
-        * 
-        * - setSmartMotionMaxVelocity() will limit the velocity in RPM of
-        * the pid controller in Smart Motion mode
-        * - setSmartMotionMinOutputVelocity() will put a lower bound in
-        * RPM of the pid controller in Smart Motion mode
-        * - setSmartMotionMaxAccel() will limit the acceleration in RPM^2
-        * of the pid controller in Smart Motion mode
-        * - setSmartMotionAllowedClosedLoopError() will set the max allowed
-        * error for the pid controller in Smart Motion mode
-        */
+        wristPIDController.setSmartMotionMaxVelocity(WristConstants.maxVel, WristConstants.smartMotionSlot);
+        wristPIDController.setSmartMotionMinOutputVelocity(WristConstants.minVel, WristConstants.smartMotionSlot);
+        wristPIDController.setSmartMotionMaxAccel(WristConstants.maxAcc, WristConstants.smartMotionSlot);
+        wristPIDController.setSmartMotionAllowedClosedLoopError(WristConstants.allowedErr, WristConstants.smartMotionSlot);
 
-       m_pidController.setSmartMotionMaxVelocity(WristConstants.maxVel, WristConstants.smartMotionSlot);
-       m_pidController.setSmartMotionMinOutputVelocity(WristConstants.minVel, WristConstants.smartMotionSlot);
-       m_pidController.setSmartMotionMaxAccel(WristConstants.maxAcc, WristConstants.smartMotionSlot);
-       m_pidController.setSmartMotionAllowedClosedLoopError(WristConstants.allowedErr, WristConstants.smartMotionSlot);
-
-        m_pidController.setOutputRange(WristConstants.minVel, WristConstants.maxVel);
+        wristPIDController.setOutputRange(WristConstants.minVel, WristConstants.maxVel);
     }
 
     /*
      * WRIST MOTOR MOVEMENT
      */
 
-    public void wristUp() {
-        last_encoder = m_encoder.getPosition();
-        m_pidController.setReference(last_encoder + 1000, CANSparkMax.ControlType.kSmartMotion);
+    public double getWristPosition() {
+        if (enabled){
+            return wristEncoder.getPosition();
+        }
+        else{
+            return 0;
+        }
     }
 
-    public void wristDown() {
-        m_pidController.setReference(last_encoder, CANSparkMax.ControlType.kSmartMotion);
+    private void moveWrist(double position, double maxVelocity) {
+        if (enabled){
+            wristPIDController.setSmartMotionMaxVelocity(maxVelocity, WristConstants.smartMotionSlot);
+            wristPIDController.setReference(position, CANSparkMax.ControlType.kSmartMotion);
+        }
+    }
+    
+    public void wristExtended() {
+        moveWrist(WristConstants.wristExtendedPosition, WristConstants.maxVel);
+    }
+
+    public void wristHome() {
+        moveWrist(WristConstants.wristHomePosition, WristConstants.maxVel);
     }
 
      public void multiplyInput(double value) {

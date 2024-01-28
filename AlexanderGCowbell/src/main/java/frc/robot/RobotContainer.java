@@ -199,8 +199,8 @@ public class RobotContainer {
      */
 
     // WRISt MODE ON/OFF SWITCH
-    kWristSwitch.onTrue(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
-    kWristSwitch.onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
+    kWristSwitch.onTrue(new InstantCommand(() -> s_wristSubsystem.wristExtended()));
+    kWristSwitch.onFalse(new InstantCommand(() -> s_wristSubsystem.wristHome()));
 
     // PREVENT SCORE
     // kPreventScoreBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.setAllowScore(false)));

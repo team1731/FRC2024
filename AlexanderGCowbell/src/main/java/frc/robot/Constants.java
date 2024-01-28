@@ -22,7 +22,6 @@ import frc.robot.util.Gains;
 import frc.robot.util.log.LogWriter.Log;
 import frc.robot.util.log.LogWriter.LogMode;
 
-
 public final class Constants {
     public static final double stickDeadband = 0.1;
 	public static final int kTICKS = 33024; // 16.125 * 2048;
@@ -367,6 +366,10 @@ public final class Constants {
         public static final double allowedErr = 1;
 
         public static final int smartMotionSlot = 0;
+
+        // Positions
+        public final static double wristHomePosition = 0.74;
+        public final static double wristExtendedPosition = 100.0;
     }
 
     public static final class ArmConstants {
