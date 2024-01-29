@@ -398,7 +398,6 @@ public class Robot extends TimedRobot {
 	if (enabled){
 		// Record both DS control and joystick data in TELEOP
 		MessageLog.getLogger();
-	
     	System.out.println("TELEOP INIT");
 		CommandScheduler.getInstance().cancelAll();
 		initSubsystems();
