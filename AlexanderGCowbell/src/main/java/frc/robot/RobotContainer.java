@@ -68,8 +68,6 @@ public class RobotContainer {
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
-  private final JoystickButton kConeSwitch = new JoystickButton(operator,OperatorConsoleConstants.kConeSwitchId);
-  private final JoystickButton kCubeSwitch = new JoystickButton(operator,OperatorConsoleConstants.kCubeSwitchId);
   private final JoystickButton kHighPickupSwitch = new JoystickButton(operator,OperatorConsoleConstants.kHighPickupSwitch);
   private final JoystickButton kHighScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
@@ -233,20 +231,6 @@ public class RobotContainer {
     //   sm_armStateMachine.emergencyInterrupt();
     // }));
     // kAutoRecoverySwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.attemptAutoRecovery()));
-
-    // CUBE VS CONE SWITCH
-    kConeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer(kConeSw): Wrist to Extended.");
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.BLUE);
-      s_wristSubsystem.wristExtended();
-    }));
-    kConeSwitch.onFalse(new InstantCommand(() -> {
-      System.out.println("RobotContainer(kConeSw): Wrist to Home.");
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.GREEN);
-      s_wristSubsystem.wristHome();
-    }));
 
     // // HIGH PICKUP SWITCH - FEEDER OR SHELF
     // kHighPickupSwitch.onTrue(new InstantCommand(() -> {
