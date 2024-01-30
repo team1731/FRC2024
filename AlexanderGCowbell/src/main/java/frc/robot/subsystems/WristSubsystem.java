@@ -32,6 +32,7 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
         if (enabled) {
             System.out.println("WristSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             initializeWristMotor();
+            setWristEncoder(0); // initialize to 0
         }
     }
 
@@ -70,6 +71,11 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
     /*
      * WRIST MOTOR MOVEMENT
      */
+    public void setWristEncoder(double position) {
+        if (enabled){
+            wristEncoder.setPosition(position);
+        }
+    }
 
     public double getWristPosition() {
         if (enabled){
