@@ -150,6 +150,12 @@ public class RobotContainer {
     // kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
     // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake())); -- old right bumper event.
 
+    // Shooter Motor
+    kRightTrigger
+      .whileTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()))
+      .onFalse(new InstantCommand(() -> s_ShooterSubsystem.stopShooting()));
+
+
     // MOTOR INTAKE
     kRightTrigger.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
     kRightTrigger.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
@@ -185,10 +191,7 @@ public class RobotContainer {
     // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
     // kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
    
-    kRightTrigger.whileTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
-    // kRightTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_DOWNED_CONE, operator, kDistalAxis));
 
-    
     /*
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * OPERATOR BUTTONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

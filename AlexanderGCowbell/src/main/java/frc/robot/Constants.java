@@ -295,6 +295,7 @@ public final class Constants {
         public final static double wristOnlyFlexMaxVelocity = 2000;
         public final static double autoScoreConeDelay = 0.5;
     }
+
     public static final class ElevatorConstants {
         public final static int elevatorCancoderId = 1;
         public static final double ELEVATOR_HOLD_POWER = 0.07;
@@ -306,8 +307,6 @@ public final class Constants {
         public static final int EJECT_CURRENT_LIMIT = 20;
 
     }
-
-
 
     public static final class IntakeConstants {
         public final static int intakeCancoderId = 11;
@@ -329,6 +328,23 @@ public final class Constants {
         public final static double intakeHoldingVelocityThreshold = 60;
 
         public static final double INTAKE_HOLD_POWER = 0.07;
+    }
+
+    public static final class ShooterConstants{
+        public static final int SHOOTER_CURRENT_LIMIT_A = 20;
+
+        // PID coefficients
+        public static final double kP = 8e-4; 
+        public static final double kI = 0; //1e-6;
+        public static final double kD = 0; 
+        public static final double kIz = 0; 
+        public static final double kFF = 0.000356; 
+        public static final double kMaxOutput = 1.0; 
+        public static final double kMinOutput = -1.0;
+        public static final double maxRPM = 5700;
+
+        public final static double kMotorSpeed1 = 0.5;
+        public final static double kMotorSpeed2 = 0.45;
     }
 
     public static final class ArmConstants {
@@ -514,7 +530,5 @@ public final class Constants {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
           }
     }
-    public static final class shooterConstants{
-        public final static double shooterSpeed = 1;
-    }
+
 }
