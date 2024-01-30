@@ -73,8 +73,8 @@ public class RobotContainer {
   private final JoystickButton kHighPickupSwitch = new JoystickButton(operator,OperatorConsoleConstants.kHighPickupSwitch);
   private final JoystickButton kHighScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
-  private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
-  private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
+  // private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
+  // private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
   private final JoystickButton kWristSwitch = new JoystickButton(operator,OperatorConsoleConstants.kWristSwitchId);
   
 
@@ -199,8 +199,18 @@ public class RobotContainer {
      */
 
     // WRISt MODE ON/OFF SWITCH
-    kWristSwitch.onTrue(new InstantCommand(() -> s_wristSubsystem.wristExtended()));
-    kWristSwitch.onFalse(new InstantCommand(() -> s_wristSubsystem.wristHome()));
+    kWristSwitch.onTrue(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Wrist to Extended.");
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.YELLOW);
+      s_wristSubsystem.wristExtended();
+    }));
+    kWristSwitch.onFalse(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Wrist to Home.");
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.PURPLE);
+      s_wristSubsystem.wristHome();
+    }));
 
     // PREVENT SCORE
     // kPreventScoreBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.setAllowScore(false)));
@@ -226,15 +236,15 @@ public class RobotContainer {
 
     // CUBE VS CONE SWITCH
     kConeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Wrist to Extended.");
+      System.out.println("RobotContainer(kConeSw): Wrist to Extended.");
       m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.YELLOW);
+      m_ledstring.setColor(LedOption.BLUE);
       s_wristSubsystem.wristExtended();
     }));
     kConeSwitch.onFalse(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Wrist to Home.");
+      System.out.println("RobotContainer(kConeSw): Wrist to Home.");
       m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.PURPLE);
+      m_ledstring.setColor(LedOption.GREEN);
       s_wristSubsystem.wristHome();
     }));
 

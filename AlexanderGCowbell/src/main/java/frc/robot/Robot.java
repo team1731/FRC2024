@@ -444,7 +444,11 @@ public class Robot extends TimedRobot {
 	if (enabled){
 		//System.out.println("Setting the color");
 		//m_ledstring.setColor(LedOption.INIT);
-    	if(doSD()){ System.out.println("TELEOP PERIODIC"); wristSubsystem.printPosition();}
+    	if(doSD()){
+			System.out.println("TELEOP PERIODIC");
+			wristSubsystem.printPosition();
+		}
+		
     	String newKeypadCommand = SmartDashboard.getString("keypadCommand", currentKeypadCommand);
 		if(!newKeypadCommand.equals(currentKeypadCommand)){
 			// FEED FSM

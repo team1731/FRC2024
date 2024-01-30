@@ -1,16 +1,13 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
 
 import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.util.log.LogWriter;
 
@@ -19,8 +16,6 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
     private SparkPIDController wristPIDController;
     private RelativeEncoder wristEncoder;
 
-    private double last_encoder = 0;
-    
     private boolean enabled;
     @Override
     public boolean isEnabled() {
@@ -99,10 +94,8 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
     }
 
     public void wristExtended() {
-        double position = wristEncoder.getPosition();
         System.out.println("WristSubsystem: B-absPos = " + wristEncoder.getPosition());
         moveWrist(WristConstants.wristExtendedPosition, WristConstants.maxVel);
-        //moveWrist(0.99, WristConstants.maxVel);
         System.out.println("WristSubsystem: A-absPos = " + wristEncoder.getPosition());
     }
 
@@ -112,7 +105,8 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
         System.out.println("WristSubsystem: A-absPos = " + wristEncoder.getPosition());
     }
 
-     public void multiplyInput(double value) {
+    /*
+    public void multiplyInput(double value) {
         // multiplied value
         double current = value * WristConstants.wristSpeed;
         // minimum speed variable
@@ -195,5 +189,5 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
         }
         return (Math.abs(wristMotor.getEncoder().getVelocity()) < WristConstants.wristHoldingVelocityThreshold);
     }
-
+    */
 }

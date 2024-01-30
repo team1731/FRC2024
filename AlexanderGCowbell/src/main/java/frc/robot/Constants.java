@@ -137,15 +137,15 @@ public final class Constants {
 
         // Switches
         public static int kHighPickupSwitch = 1;
-        public static int kThiefOnSwitchId = 2;
-        public static int kThiefOffSwitchId = 3;
+        // public static int kThiefOnSwitchId = 2;
+        // public static int kThiefOffSwitchId = 3;
+        public static int kWristSwitchId = 3;
         public static int kConeSwitchId = 4;
         public static int kCubeSwitchId = 5;
         public static int kScoreMediumSwitchId = 8;
         public static int kScoreHighSwitchId = 9;
         public static int kAutoRecoverySwitchId = 10;
         public static int kKillSwitchId = 11;
-        public static int kWristSwitchId = 3;
     }
 
     public static final class Swerve {
