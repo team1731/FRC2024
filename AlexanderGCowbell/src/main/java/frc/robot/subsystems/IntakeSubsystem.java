@@ -4,14 +4,21 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Robot;
+
 
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax intakeMotor;
     private CANSparkMax feederMotor;
     private DigitalInput noteTrigger = new DigitalInput(0);
+    // Creates a Debouncer in "both" mode.
+    Debouncer m_debouncer = new Debouncer(0.1, Debouncer.DebounceType.kBoth);
+    private boolean currNoteTrigger;
+    private boolean prevNoteTrigger;
     
     private boolean enabled;
     @Override
@@ -21,15 +28,13 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public IntakeSubsystem(boolean enabled) {
         this.enabled = enabled;
-        System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        if (enabled) {
-            initializeIntakeMotor();
-        }
+        initializeIntakeMotor();
     }
 
     private void initializeIntakeMotor() {
-        System.out.println("IntakeSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
         if (enabled) {
+            System.out.println("IntakeSubsystem: Starting up & Initializine Intake motors !!!!!!!!!!!!!!");
+
             intakeMotor = new CANSparkMax(IntakeConstants.intakeCancoderId, MotorType.kBrushless);
             intakeMotor.restoreFactoryDefaults();
             intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
@@ -41,6 +46,9 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             feederMotor.setSmartCurrentLimit(IntakeConstants.FEEDER_CURRENT_LIMIT_A);
             feederMotor.setInverted(false);
             feederMotor.setIdleMode(IdleMode.kBrake);
+
+            currNoteTrigger = m_debouncer.calculate(noteTrigger.get());
+            prevNoteTrigger = !currNoteTrigger; // force change first time
         }
     }
 
@@ -99,8 +107,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     /* Combined Motor Movement */
     public void grabOrangeNote() {
-        if (enabled) {
-            if (!noteTrigger.get()) {
+        if (enabled && hasNoteTriggerChanged() ) {
+            if (!currNoteTrigger) {
                 intakeMotor.set(0);
                 feederMotor.set(0);
             } else {
@@ -117,6 +125,20 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
+    // used so that we don't continuously set/clear motors
+    private boolean hasNoteTriggerChanged() {
+        boolean changed = false;
+        if (Robot.doSD()) {
+            System.out.println("IntakeSubsystem Triger(prev:" + prevNoteTrigger + "): " + currNoteTrigger);
+        }
+        currNoteTrigger = m_debouncer.calculate(noteTrigger.get());
+        if (prevNoteTrigger != currNoteTrigger) {
+            prevNoteTrigger = currNoteTrigger;
+            changed = true;
+        }
+        return changed;
+    }
+    
     /*
     public void eject() {
         if(!enabled){
