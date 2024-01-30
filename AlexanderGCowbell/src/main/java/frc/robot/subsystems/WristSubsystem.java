@@ -17,7 +17,7 @@ import frc.robot.util.log.LogWriter;
 public class WristSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax wristMotor;
     private SparkPIDController wristPIDController;
-    private AbsoluteEncoder wristEncoder;
+    private RelativeEncoder wristEncoder;
 
     private double last_encoder = 0;
     
@@ -43,12 +43,12 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
         wristMotor = new CANSparkMax(WristConstants.wristCancoderId, MotorType.kBrushless);
         wristMotor.restoreFactoryDefaults();
         wristMotor.setSmartCurrentLimit(WristConstants.WRIST_CURRENT_LIMIT_A);
-        wristMotor.setInverted(false);
+        // wristMotor.setInverted(false);
         wristMotor.setIdleMode(IdleMode.kBrake);
 
         // initialze PID controller and encoder objects
         wristPIDController = wristMotor.getPIDController();
-        wristEncoder = wristMotor.getAbsoluteEncoder(Type.kDutyCycle);
+        wristEncoder = wristMotor.getEncoder();
 
         // set PID coefficients
         wristPIDController.setP(WristConstants.kP);
@@ -57,14 +57,14 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
         wristPIDController.setIZone(WristConstants.kIz);
         wristPIDController.setFF(WristConstants.kFF);
         wristPIDController.setOutputRange(WristConstants.kMinOutput, WristConstants.kMaxOutput);   
-        wristPIDController.setFeedbackDevice(wristEncoder);
+        //wristPIDController.setFeedbackDevice();
         
         wristPIDController.setSmartMotionMaxVelocity(WristConstants.maxVel, WristConstants.smartMotionSlot);
         wristPIDController.setSmartMotionMinOutputVelocity(WristConstants.minVel, WristConstants.smartMotionSlot);
         wristPIDController.setSmartMotionMaxAccel(WristConstants.maxAcc, WristConstants.smartMotionSlot);
         wristPIDController.setSmartMotionAllowedClosedLoopError(WristConstants.allowedErr, WristConstants.smartMotionSlot);
 
-        wristPIDController.setOutputRange(WristConstants.minVel, WristConstants.maxVel);
+        // wristPIDController.setReference(0, CANSparkMax.ControlType.kSmartMotion);
     }
 
     /*
@@ -82,17 +82,28 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
 
     private void moveWrist(double position, double maxVelocity) {
         if (enabled){
+            System.out.println("WristSubsystem: moveWrist = " + position);
             wristPIDController.setSmartMotionMaxVelocity(maxVelocity, WristConstants.smartMotionSlot);
             wristPIDController.setReference(position, CANSparkMax.ControlType.kSmartMotion);
         }
     }
     
+    public void printPosition() {
+        System.out.println("WristSubsystem: absPos = " + wristEncoder.getPosition());
+    }
+
     public void wristExtended() {
+        double position = wristEncoder.getPosition();
+        System.out.println("WristSubsystem: B-absPos = " + wristEncoder.getPosition());
         moveWrist(WristConstants.wristExtendedPosition, WristConstants.maxVel);
+        //moveWrist(0.99, WristConstants.maxVel);
+        System.out.println("WristSubsystem: A-absPos = " + wristEncoder.getPosition());
     }
 
     public void wristHome() {
+        System.out.println("WristSubsystem: B-absPos = " + wristEncoder.getPosition());
         moveWrist(WristConstants.wristHomePosition, WristConstants.maxVel);
+        System.out.println("WristSubsystem: A-absPos = " + wristEncoder.getPosition());
     }
 
      public void multiplyInput(double value) {

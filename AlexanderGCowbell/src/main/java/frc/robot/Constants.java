@@ -338,7 +338,7 @@ public final class Constants {
          *   Motors: Intake & Feeder
          * **********************************************************************************************
          */
-        public static final int WRIST_CURRENT_LIMIT_A = 40;
+        public static final int WRIST_CURRENT_LIMIT_A = 24;
         public static final int WRIST_HOLD_CURRENT_LIMIT_A = 5;
         public static final int EJECT_CURRENT_LIMIT = 20;
 
@@ -350,20 +350,20 @@ public final class Constants {
         public static final double WRIST_HOLD_POWER = 0.07;
 
         // PID coefficients
-        public static final double kP = 5e-5; 
-        public static final double kI = 1e-6;
+        public static final double kP = 8e-4; 
+        public static final double kI = 0; //1e-6;
         public static final double kD = 0; 
         public static final double kIz = 0; 
-        public static final double kFF = 0.000156; 
-        public static final double kMaxOutput = 1; 
-        public static final double kMinOutput = -1;
+        public static final double kFF = 0.000356; 
+        public static final double kMaxOutput = 1.0; 
+        public static final double kMinOutput = -1.0;
         public static final double maxRPM = 5700;
 
         // Smart Motion Coefficients
-        public static final double minVel = 500; // rpm
         public static final double maxVel = 2000; // rpm
+        public static final double minVel = 0; // rpm
         public static final double maxAcc = 1500;
-        public static final double allowedErr = 1;
+        public static final double allowedErr = 2;
 
         public static final int smartMotionSlot = 0;
 

@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
 	m_ledstring = new LEDStringSubsystem(true);
 	intake_subsystem = new IntakeSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(false);
-	wristSubsystem = new WristSubsystem(false);
+	wristSubsystem = new WristSubsystem(true);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
@@ -444,7 +444,7 @@ public class Robot extends TimedRobot {
 	if (enabled){
 		//System.out.println("Setting the color");
 		//m_ledstring.setColor(LedOption.INIT);
-    	if(doSD()){ System.out.println("TELEOP PERIODIC");}
+    	if(doSD()){ System.out.println("TELEOP PERIODIC"); wristSubsystem.printPosition();}
     	String newKeypadCommand = SmartDashboard.getString("keypadCommand", currentKeypadCommand);
 		if(!newKeypadCommand.equals(currentKeypadCommand)){
 			// FEED FSM
