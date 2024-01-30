@@ -68,14 +68,13 @@ public class RobotContainer {
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
-  private final JoystickButton kConeSwitch = new JoystickButton(operator,OperatorConsoleConstants.kConeSwitchId);
-  private final JoystickButton kCubeSwitch = new JoystickButton(operator,OperatorConsoleConstants.kCubeSwitchId);
   private final JoystickButton kHighPickupSwitch = new JoystickButton(operator,OperatorConsoleConstants.kHighPickupSwitch);
   private final JoystickButton kHighScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
-  private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
-  private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
-
+  // private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
+  // private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
+  private final JoystickButton kWristSwitch = new JoystickButton(operator,OperatorConsoleConstants.kWristSwitchId);
+  
 
   // Operator sticks
   public final int kDistalAxis = OperatorConsoleConstants.kDistalAxisId;
@@ -87,6 +86,7 @@ public class RobotContainer {
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
   private IntakeSubsystem s_intakeSubsystem;
+  private WristSubsystem s_wristSubsystem;
   //private ArmStateMachine sm_armStateMachine;
   private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem s_ShooterSubsystem;
@@ -103,6 +103,7 @@ public class RobotContainer {
           PoseEstimatorSubsystem poseEstimatorSubsystem,
           //ArmSubsystem armSubsystem,
           IntakeSubsystem intakeSubsystem,
+          WristSubsystem wristSubsystem,
           LEDStringSubsystem m_ledstring
           ) {
     
@@ -112,6 +113,7 @@ public class RobotContainer {
     s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
+    s_wristSubsystem = wristSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
@@ -206,6 +208,20 @@ public class RobotContainer {
      * OPERATOR BUTTONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
 
+    // WRISt MODE ON/OFF SWITCH
+    kWristSwitch.onTrue(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Wrist to Extended.");
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.YELLOW);
+      s_wristSubsystem.wristExtended();
+    }));
+    kWristSwitch.onFalse(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Wrist to Home.");
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.PURPLE);
+      s_wristSubsystem.wristHome();
+    }));
+
     // PREVENT SCORE
     // kPreventScoreBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.setAllowScore(false)));
     // kPreventScoreBtn.whileFalse(new InstantCommand(() -> sm_armStateMachine.setAllowScore(true)));
@@ -227,20 +243,6 @@ public class RobotContainer {
     //   sm_armStateMachine.emergencyInterrupt();
     // }));
     // kAutoRecoverySwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.attemptAutoRecovery()));
-
-    // CUBE VS CONE SWITCH
-    kConeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Setting game piece to cone: " + storedPiece);
-      //sm_armStateMachine.setGamePiece(GamePiece.CONE);
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.YELLOW);
-    }));
-    kCubeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Setting game piece to cube: " + storedPiece);
-      //sm_armStateMachine.setGamePiece(GamePiece.CUBE);
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.PURPLE);
-    }));
 
     // // HIGH PICKUP SWITCH - FEEDER OR SHELF
     // kHighPickupSwitch.onTrue(new InstantCommand(() -> {
