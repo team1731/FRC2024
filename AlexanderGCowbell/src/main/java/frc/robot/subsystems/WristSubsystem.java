@@ -29,8 +29,8 @@ public class WristSubsystem  extends SubsystemBase implements ToggleableSubsyste
 
     public WristSubsystem(boolean enabled) {
         this.enabled = enabled;
-        System.out.println("WristSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         if (enabled) {
+            System.out.println("WristSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             initializeWristMotor();
         }
     }

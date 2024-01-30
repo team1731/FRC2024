@@ -226,16 +226,16 @@ public class RobotContainer {
 
     // CUBE VS CONE SWITCH
     kConeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Setting game piece to cone: " + storedPiece);
-      //sm_armStateMachine.setGamePiece(GamePiece.CONE);
+      System.out.println("RobotContainer: Wrist to Extended.");
       m_ledstring.setBlink(false);
       m_ledstring.setColor(LedOption.YELLOW);
+      s_wristSubsystem.wristExtended();
     }));
-    kCubeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Setting game piece to cube: " + storedPiece);
-      //sm_armStateMachine.setGamePiece(GamePiece.CUBE);
+    kConeSwitch.onFalse(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Wrist to Home.");
       m_ledstring.setBlink(false);
       m_ledstring.setColor(LedOption.PURPLE);
+      s_wristSubsystem.wristHome();
     }));
 
     // // HIGH PICKUP SWITCH - FEEDER OR SHELF

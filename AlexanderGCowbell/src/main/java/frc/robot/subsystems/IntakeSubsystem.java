@@ -24,17 +24,17 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public IntakeSubsystem(boolean enabled) {
         this.enabled = enabled;
-        System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         if (enabled) {
+            System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             initializeIntakeMotor();
         }
     }
 
     private void initializeIntakeMotor() {
-        System.out.println("IntakeSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
         if(!enabled){
             return;
         }
+        System.out.println("IntakeSubsystem: Initializing instake motors!!!!!!!!!!!!!!!!!!!!!!!!!");
         intakeMotor = new CANSparkMax(IntakeConstants.intakeCancoderId, MotorType.kBrushless);
         intakeMotor.restoreFactoryDefaults();
         intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);

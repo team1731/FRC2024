@@ -145,7 +145,7 @@ public final class Constants {
         public static int kScoreHighSwitchId = 9;
         public static int kAutoRecoverySwitchId = 10;
         public static int kKillSwitchId = 11;
-        public static int kWristSwitchId = 15;
+        public static int kWristSwitchId = 3;
     }
 
     public static final class Swerve {
