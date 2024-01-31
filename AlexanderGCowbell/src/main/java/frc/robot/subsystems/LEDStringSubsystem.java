@@ -54,6 +54,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
           m_led.setData(m_ledBuffer);
           m_led.start();
           System.out.println("ledSubsystem initailized");
+          this.currentColor = LedOption.GREEN;
       }
     }
     
@@ -75,7 +76,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
             }
             startBlink = mTimer.get();
           }
-          else{
+          else {
             setColor(currentColor);
           }
         }
@@ -136,6 +137,9 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
 
       public void setColor(OpConstants.LedOption color) {
         if (enabled){
+          if (currentColor == color) {
+            return;
+          }
           System.out.println("Setting the color");
           // Fill the buffer with selection
           switch (color) {
