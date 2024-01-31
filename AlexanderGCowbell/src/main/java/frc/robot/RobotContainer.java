@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -160,8 +161,8 @@ public class RobotContainer {
 
     // INTAKE - Intake & Feeder motors
     kLeftTrigger
-      .onTrue(Commands.run(() -> s_intakeSubsystem.grabOrangeNote()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopOrangeNoteGrab()));
+      .whileTrue(new RunCommand(() -> s_intakeSubsystem.grabOrangeNote()))
+      .whileFalse(new InstantCommand(() -> s_intakeSubsystem.stopOrangeNoteGrab()));
 
     kLeftBumper
       .onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()))

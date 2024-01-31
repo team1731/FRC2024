@@ -13,12 +13,12 @@ import frc.robot.Robot;
 
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax intakeMotor;
-    private CANSparkMax feederMotor;
+    // private CANSparkMax feederMotor;
     private DigitalInput noteTrigger = new DigitalInput(0);
     // Creates a Debouncer in "both" mode.
     Debouncer m_debouncer = new Debouncer(0.1, Debouncer.DebounceType.kBoth);
-    private boolean currNoteTrigger;
-    private boolean prevNoteTrigger;
+    private boolean currNoteSwitch;
+    private boolean prevNoteSwitch;
     
     private boolean enabled;
     @Override
@@ -41,14 +41,14 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             intakeMotor.setInverted(false);
             intakeMotor.setIdleMode(IdleMode.kCoast);
             
-            feederMotor = new CANSparkMax(IntakeConstants.feederCancoderId, MotorType.kBrushless);
-            feederMotor.restoreFactoryDefaults();
-            feederMotor.setSmartCurrentLimit(IntakeConstants.FEEDER_CURRENT_LIMIT_A);
-            feederMotor.setInverted(false);
-            feederMotor.setIdleMode(IdleMode.kBrake);
+            // feederMotor = new CANSparkMax(IntakeConstants.feederCancoderId, MotorType.kBrushless);
+            // feederMotor.restoreFactoryDefaults();
+            // feederMotor.setSmartCurrentLimit(IntakeConstants.FEEDER_CURRENT_LIMIT_A);
+            // feederMotor.setInverted(false);
+            // feederMotor.setIdleMode(IdleMode.kBrake);
 
-            currNoteTrigger = m_debouncer.calculate(noteTrigger.get());
-            prevNoteTrigger = !currNoteTrigger; // force change first time
+            currNoteSwitch = debouncedSwitch();
+            prevNoteSwitch = currNoteSwitch; // force change first time
         }
     }
 
@@ -89,31 +89,39 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void feeder() {
         if (enabled) {
-            feederMotor.set(IntakeConstants.feederSpeed);
+            // feederMotor.set(IntakeConstants.feederSpeed);
         }
     }
 
     public void reverseFeeder() {
         if (enabled) {
-            feederMotor.set(-IntakeConstants.feederSpeed);
+            // feederMotor.set(-IntakeConstants.feederSpeed);
         }
     }
 
     public void stopFeeder() {
         if (enabled) {
-            feederMotor.set(0);
+            currNoteSwitch = debouncedSwitch();
+            prevNoteSwitch = !currNoteSwitch;
+            // feederMotor.set(0);
         }
     }
 
     /* Combined Motor Movement */
     public void grabOrangeNote() {
-        if (enabled && hasNoteTriggerChanged() ) {
-            if (!currNoteTrigger) {
-                intakeMotor.set(0);
-                feederMotor.set(0);
-            } else {
-                intakeMotor.set(IntakeConstants.intakeSpeed);
-                feederMotor.set(IntakeConstants.feederSpeed);
+        if (enabled) {
+            System.out.println("IntakeSubsystem grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
+            if (hasNoteTriggerChanged()) {
+                currNoteSwitch = debouncedSwitch();
+                if (!currNoteSwitch) {
+                    System.out.println("IF   grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
+                    intakeMotor.set(0);
+                    // feederMotor.set(0);
+                } else {
+                    System.out.println("ELSE grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
+                    intakeMotor.set(IntakeConstants.intakeSpeed);
+                    // feederMotor.set(IntakeConstants.feederSpeed);
+                }
             }
         }
     }
@@ -121,22 +129,29 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void stopOrangeNoteGrab() {
         if (enabled) {
             intakeMotor.set(0);
-            feederMotor.set(0);
+            // feederMotor.set(0);
+            currNoteSwitch = debouncedSwitch();
+            prevNoteSwitch = !currNoteSwitch;
+            System.out.println("STOP stopOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
         }
     }
 
     // used so that we don't continuously set/clear motors
     private boolean hasNoteTriggerChanged() {
         boolean changed = false;
-        if (Robot.doSD()) {
-            System.out.println("IntakeSubsystem Triger(prev:" + prevNoteTrigger + "): " + currNoteTrigger);
-        }
-        currNoteTrigger = m_debouncer.calculate(noteTrigger.get());
-        if (prevNoteTrigger != currNoteTrigger) {
-            prevNoteTrigger = currNoteTrigger;
+        currNoteSwitch = debouncedSwitch();
+        //if (Robot.doSD()) {
+            System.out.println("IntakeSubsystem Triger(prev:" + prevNoteSwitch + "): " + currNoteSwitch);
+        //}
+        if (prevNoteSwitch != currNoteSwitch) {
+            prevNoteSwitch = currNoteSwitch;
             changed = true;
         }
         return changed;
+    }
+
+    private boolean debouncedSwitch() {
+        return m_debouncer.calculate(noteTrigger.get());
     }
     
     /*
