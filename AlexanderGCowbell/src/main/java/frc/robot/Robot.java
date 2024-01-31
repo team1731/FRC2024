@@ -58,11 +58,12 @@ public class Robot extends TimedRobot {
   public static long millis = System.currentTimeMillis();
   private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
-  private ShooterSubsystem s_ShooterSubsystem;
+  private ShooterSubsystem shooterSubsystem;
   private ArmSubsystem s_armSubSystem;
   private ArmStateMachine sm_armStateMachine;
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
+  private WristSubsystem wristSubsystem;
 
   private boolean enabled = true;
 
@@ -116,18 +117,19 @@ public class Robot extends TimedRobot {
 
 
 	s_Swerve = new Swerve(false);
-	s_ShooterSubsystem = new ShooterSubsystem(false);
-  	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
+	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
 	s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
-  	s_armSubSystem = new ArmSubsystem(false);
+	s_armSubSystem = new ArmSubsystem(false);
 	sm_armStateMachine = s_armSubSystem.getStateMachine();
 	m_ledstring = new LEDStringSubsystem(true);
 	intake_subsystem = new IntakeSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(false);
+	wristSubsystem = new WristSubsystem(false);
+	shooterSubsystem = new ShooterSubsystem(false);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(s_Swerve, s_ShooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(s_Swerve, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 
 	//PPSwerveControllerCommand.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
@@ -396,7 +398,6 @@ public class Robot extends TimedRobot {
 	if (enabled){
 		// Record both DS control and joystick data in TELEOP
 		MessageLog.getLogger();
-	
     	System.out.println("TELEOP INIT");
 		CommandScheduler.getInstance().cancelAll();
 		initSubsystems();
@@ -443,7 +444,11 @@ public class Robot extends TimedRobot {
 	if (enabled){
 		//System.out.println("Setting the color");
 		//m_ledstring.setColor(LedOption.INIT);
-    	if(doSD()){ System.out.println("TELEOP PERIODIC");}
+    	if(doSD()){
+			System.out.println("TELEOP PERIODIC");
+			// wristSubsystem.printPosition();
+		}
+		
     	String newKeypadCommand = SmartDashboard.getString("keypadCommand", currentKeypadCommand);
 		if(!newKeypadCommand.equals(currentKeypadCommand)){
 			// FEED FSM

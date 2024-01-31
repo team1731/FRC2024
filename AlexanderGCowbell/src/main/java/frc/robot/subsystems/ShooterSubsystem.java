@@ -1,76 +1,84 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.GamePiece;
-import frc.robot.Constants.shooterConstants;
-import frc.robot.state.arm.ArmStateMachine.MovementType;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.GamePiece;
-import frc.robot.state.arm.ArmStateMachine.MovementType;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ShooterConstants;
+import frc.robot.Robot;
 
 public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsystem{
 
     private CANSparkMax shooterMotor1;
     private CANSparkMax shooterMotor2;
+    private SparkPIDController shooterPIDController1;
+    private SparkPIDController shooterPIDController2;
     private boolean enabled;
     @Override
     public boolean isEnabled() {
         return enabled;
     }
+
     public ShooterSubsystem(boolean enabled) {
         this.enabled = enabled;
-        if (enabled){
-            System.out.println("ShooterSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            initializeShooterMotor();
-        }
+        initializeShooterMotor();
     }
+
     private void initializeShooterMotor() {
-        if (enabled){
-        System.out.println("ShooterSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
-        shooterMotor1 = new CANSparkMax(11, MotorType.kBrushless);
-        shooterMotor2 = new CANSparkMax(12, MotorType.kBrushless);
-        shooterMotor1.restoreFactoryDefaults();
-        shooterMotor2.restoreFactoryDefaults();
-        shooterMotor1.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
-        shooterMotor2.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
-        shooterMotor1.setInverted(false);
-        shooterMotor2.setInverted(false);
-        shooterMotor1.setIdleMode(IdleMode.kBrake);
-        shooterMotor2.setIdleMode(IdleMode.kBrake);
+        if (enabled) {
+            System.out.println("ShooterSubsystem: Starting Up & Initializing shooter motors !!!!");
+            shooterMotor1 = new CANSparkMax(11, MotorType.kBrushless);
+            shooterMotor2 = new CANSparkMax(12, MotorType.kBrushless);
+            shooterMotor1.restoreFactoryDefaults();
+            shooterMotor2.restoreFactoryDefaults();
+            shooterMotor1.setSmartCurrentLimit(ShooterConstants.SHOOTER_CURRENT_LIMIT_A);
+            shooterMotor2.setSmartCurrentLimit(ShooterConstants.SHOOTER_CURRENT_LIMIT_A);
+            shooterMotor1.setInverted(false);
+            shooterMotor2.setInverted(false);
+            shooterMotor1.setIdleMode(IdleMode.kCoast);
+            shooterMotor2.setIdleMode(IdleMode.kCoast);
+
+            // initialze PID controller and encoder objects
+            shooterPIDController1 = shooterMotor1.getPIDController();
+            shooterPIDController2 = shooterMotor2.getPIDController();
+
+            // set PID coefficients
+            shooterPIDController1.setP(ShooterConstants.kP);
+            shooterPIDController1.setI(ShooterConstants.kI);
+            shooterPIDController1.setD(ShooterConstants.kD);
+            shooterPIDController1.setIZone(ShooterConstants.kIz);
+            shooterPIDController1.setFF(ShooterConstants.kFF);
+            shooterPIDController1.setOutputRange(ShooterConstants.kMinOutput, ShooterConstants.kMaxOutput);   
+
+            shooterPIDController2.setP(ShooterConstants.kP);
+            shooterPIDController2.setI(ShooterConstants.kI);
+            shooterPIDController2.setD(ShooterConstants.kD);
+            shooterPIDController2.setIZone(ShooterConstants.kIz);
+            shooterPIDController2.setFF(ShooterConstants.kFF);
+            shooterPIDController2.setOutputRange(ShooterConstants.kMinOutput, ShooterConstants.kMaxOutput);   
 		}
     }
-
-    // public void reverseIntake() {
-    //     double intakeSpeed = 0.75;
-    //     intakeSpeed = -1 * ArmConstants.cubeIntakeSpeed;
-    //     System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
-    //     shoot(intakeSpeed);
-    // }
-
 
     public void shoot(){
         if (enabled){
-          double shootSpeed = 1;
-          //shootSpeed = -1 * ArmConstants.cubeIntakeSpeed;
-          System.out.println("ShooterSubsystem: speed = " + shootSpeed);
-          shoot(shootSpeed);
-		}
+            if (Robot.doSD()) { 
+                System.out.println("ShooterSubsystem: m1speed, m2speed = " + ShooterConstants.kMotorSpeed1 + ", " + ShooterConstants.kMotorSpeed2); 
+            }
+            shooterMotor1.set(ShooterConstants.kMotorSpeed1);
+            shooterMotor2.set(ShooterConstants.kMotorSpeed2);
+		}  
 
-    }
+    }    
 
-    public void shoot(double shooterSpeed) {
+    public void stopShooting() {
         if (enabled){
-          //shooterMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
-          shooterMotor1.set(shooterSpeed);
-          shooterMotor2.set(shooterSpeed);
-          System.out.println(shooterSpeed);
-		}
+          shooterMotor1.set(0);
+          shooterMotor2.set(0);
+        }
     }
+
+    /*
 
     public void eject() {
         if (enabled){
@@ -90,13 +98,6 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
-    public void stopShooting() {
-        if (enabled){
-        //shooterMotor.setSmartCurrentLimit(ArmConstants.INTAKE_CURRENT_LIMIT_A);
-          shooterMotor1.set(0);
-          shooterMotor2.set(0);
-        }
-    }
     public boolean isIntakeAtStartedVelocity() {
         if (enabled){
             return (Math.abs(shooterMotor1.getEncoder().getVelocity()) > ArmConstants.intakeStartedVelocityThreshold);
@@ -124,6 +125,6 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
             return false;
         }
     }
-
+    */
 }
 

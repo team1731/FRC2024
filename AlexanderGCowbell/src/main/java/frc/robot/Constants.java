@@ -22,7 +22,6 @@ import frc.robot.util.Gains;
 import frc.robot.util.log.LogWriter.Log;
 import frc.robot.util.log.LogWriter.LogMode;
 
-
 public final class Constants {
     public static final double stickDeadband = 0.1;
 	public static final int kTICKS = 33024; // 16.125 * 2048;
@@ -136,12 +135,12 @@ public final class Constants {
         public static int kDistalAxisId = 4;
         public static int kxAxis = 0;
 
-        // Switches
+        // Switches - start at 1 not 0
         public static int kHighPickupSwitch = 1;
-        public static int kThiefOnSwitchId = 2;
-        public static int kThiefOffSwitchId = 3;
-        public static int kConeSwitchId = 4;
-        public static int kCubeSwitchId = 5;
+        // public static int kThiefOnSwitchId = 2;
+        // public static int kThiefOffSwitchId = 3;
+        public static int kWristSwitchId = 4;
+
         public static int kScoreMediumSwitchId = 8;
         public static int kScoreHighSwitchId = 9;
         public static int kAutoRecoverySwitchId = 10;
@@ -298,6 +297,7 @@ public final class Constants {
         public final static double autoScoreConeDelay = 0.5;
     }
 
+
     public static final class ElevatorConstants {
         public final static int elevatorCancoderId = 1;
         /*
@@ -349,9 +349,10 @@ public final class Constants {
          *   Motors: Intake & Feeder
          * **********************************************************************************************
          */
-        public static final int INTAKE_CURRENT_LIMIT_A = 40;
-        public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
-        public static final int EJECT_CURRENT_LIMIT = 20;
+        public static final int INTAKE_CURRENT_LIMIT_A = 20;
+        public static final int FEEDER_CURRENT_LIMIT_A = 20;
+        // public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
+        // public static final int EJECT_CURRENT_LIMIT = 20;
 
         public final static double intakeSpeed = 0.25;
         public final static double feederSpeed = 0.25;
@@ -360,6 +361,67 @@ public final class Constants {
         public final static double intakeHoldingVelocityThreshold = 60;
 
         public static final double INTAKE_HOLD_POWER = 0.07;
+    }
+
+    public static final class WristConstants {
+        public final static int wristCancoderId = 13;
+        /*
+         ************************************************************************************************
+         * THESE VALUES NEED TO CHANGE IF WE WORK ON THE Intake Subsystem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         *   Motors: Intake & Feeder
+         * **********************************************************************************************
+         */
+        public static final int WRIST_CURRENT_LIMIT_A = 24;
+        public static final int WRIST_HOLD_CURRENT_LIMIT_A = 5;
+        public static final int EJECT_CURRENT_LIMIT = 20;
+
+        public final static double wristSpeed = 0.25;
+
+        public final static double wristStartedVelocityThreshold = 1000;
+        public final static double wristHoldingVelocityThreshold = 60;
+
+        public static final double WRIST_HOLD_POWER = 0.07;
+
+        // PID coefficients
+        public static final double kP = 8e-4; 
+        public static final double kI = 0; //1e-6;
+        public static final double kD = 0; 
+        public static final double kIz = 0; 
+        public static final double kFF = 0.000356; 
+        public static final double kMaxOutput = 1.0; 
+        public static final double kMinOutput = -1.0;
+        public static final double maxRPM = 5700;
+
+        // Smart Motion Coefficients
+        public static final double maxVel = 2000; // rpm
+        public static final double minVel = 0; // rpm
+        public static final double maxAcc = 1500;
+        public static final double allowedErr = 2;
+
+        public static final int smartMotionSlot = 0;
+
+        // Positions
+        public final static double wristHomePosition = 0.74;
+        public final static double wristExtendedPosition = 100.0;
+    }
+
+    public static final class ShooterConstants{
+        public final static int shooterCancoderId1 = 13;
+        public final static int shooterCancoderId2 = 14;
+        public static final int SHOOTER_CURRENT_LIMIT_A = 20;
+
+        // PID coefficients
+        public static final double kP = 8e-4; 
+        public static final double kI = 0; //1e-6;
+        public static final double kD = 0; 
+        public static final double kIz = 0; 
+        public static final double kFF = 0.000356; 
+        public static final double kMaxOutput = 1.0; 
+        public static final double kMinOutput = -1.0;
+        public static final double maxRPM = 5700;
+
+        public final static double kMotorSpeed1 = 0.5;
+        public final static double kMotorSpeed2 = 0.45;
     }
 
     public static final class ArmConstants {
@@ -542,7 +604,5 @@ public final class Constants {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
           }
     }
-    public static final class shooterConstants{
-        public final static double shooterSpeed = 1;
-    }
+
 }

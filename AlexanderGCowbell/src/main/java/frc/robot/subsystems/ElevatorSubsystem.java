@@ -24,8 +24,8 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
 
     public ElevatorSubsystem(boolean enabled) {
         this.enabled = enabled;
-        System.out.println("ElevatorSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         if (enabled) {
+            System.out.println("ElevatorSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             initializeElevatorMotor();
         }
     }

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -69,14 +70,13 @@ public class RobotContainer {
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
-  private final JoystickButton kConeSwitch = new JoystickButton(operator,OperatorConsoleConstants.kConeSwitchId);
-  private final JoystickButton kCubeSwitch = new JoystickButton(operator,OperatorConsoleConstants.kCubeSwitchId);
   private final JoystickButton kHighPickupSwitch = new JoystickButton(operator,OperatorConsoleConstants.kHighPickupSwitch);
   private final JoystickButton kHighScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
-  private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
-  private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
-
+  // private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
+  // private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
+  private final JoystickButton kWristSwitch = new JoystickButton(operator,OperatorConsoleConstants.kWristSwitchId);
+  
 
   // Operator sticks
   public final int kDistalAxis = OperatorConsoleConstants.kDistalAxisId;
@@ -88,6 +88,7 @@ public class RobotContainer {
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   //private ArmSubsystem s_armSubSystem;
   private IntakeSubsystem s_intakeSubsystem;
+  private WristSubsystem s_wristSubsystem;
   //private ArmStateMachine sm_armStateMachine;
   private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem s_ShooterSubsystem;
@@ -105,6 +106,7 @@ public class RobotContainer {
           PoseEstimatorSubsystem poseEstimatorSubsystem,
           //ArmSubsystem armSubsystem,
           IntakeSubsystem intakeSubsystem,
+          WristSubsystem wristSubsystem,
           LEDStringSubsystem m_ledstring,
           ElevatorSubsystem elevatorSubsystem
           ) {
@@ -115,7 +117,8 @@ public class RobotContainer {
     s_ShooterSubsystem = ShooterSubsystem;
     // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
-    elevatorSubsystem = elevatorSubsystem;
+    s_wristSubsystem = wristSubsystem;
+    this.elevatorSubsystem = elevatorSubsystem;
     // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
      //sm_armStateMachine = armSubsystem.getStateMachine();
 
@@ -150,22 +153,39 @@ public class RobotContainer {
       //s_armSubSystem.resetArmEncoders();
     }));
 
-    // kLeftBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()));
-    // kLeftBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake())); -- old right bumper event.
+    // SHOOTING - Shooter & Feeder motors
+    kRightTrigger
+      .onTrue(new InstantCommand(() -> {
+        s_ShooterSubsystem.shoot();
+        s_intakeSubsystem.feeder();
+      }))
+      .onFalse(new InstantCommand(() -> {
+        s_ShooterSubsystem.stopShooting();
+        s_intakeSubsystem.stopFeeder();
+      }));
 
-    // MOTOR INTAKE
-    kRightTrigger.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
-    kRightTrigger.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // INTAKE - Intake & Feeder motors
+    kLeftTrigger
+      .whileTrue(new RunCommand(() -> s_intakeSubsystem.grabOrangeNote()))
+      .whileFalse(new InstantCommand(() -> s_intakeSubsystem.stopOrangeNoteGrab()));
 
-    // FEEDER INTAKE
-    kLeftTrigger.onTrue(new InstantCommand(() -> s_intakeSubsystem.feederIntake()));
-    kLeftTrigger.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeederIntake()));
+    kLeftBumper
+      .onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()))
+      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+
+    kRightBumper
+      .onTrue(new InstantCommand(() -> s_intakeSubsystem.feeder()))
+      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
 
     // REVERSE FEEDER INTAKE
-    ka.onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeederIntake()));
-    ka.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeederIntake()));
+    ka
+      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
+      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
   
+    kb
+      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeeder()))
+      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
+
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
     // kb.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_MEDIUM, operator, kDistalAxis)));
@@ -191,15 +211,25 @@ public class RobotContainer {
 
     // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
     // kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-   
-    kRightTrigger.whileTrue(new InstantCommand(()-> s_ShooterSubsystem.shoot()));
-    // kRightTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_DOWNED_CONE, operator, kDistalAxis));
-
-    
+       
     /*
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * OPERATOR BUTTONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
+
+    // WRISt MODE ON/OFF SWITCH
+    kWristSwitch.onTrue(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Wrist to Extended.");
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.YELLOW);
+      s_wristSubsystem.wristExtended();
+    }));
+    kWristSwitch.onFalse(new InstantCommand(() -> {
+      System.out.println("RobotContainer: Wrist to Home.");
+      m_ledstring.setBlink(false);
+      m_ledstring.setColor(LedOption.PURPLE);
+      s_wristSubsystem.wristHome();
+    }));
 
     // PREVENT SCORE
     // kPreventScoreBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.setAllowScore(false)));
@@ -222,20 +252,6 @@ public class RobotContainer {
     //   sm_armStateMachine.emergencyInterrupt();
     // }));
     // kAutoRecoverySwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.attemptAutoRecovery()));
-
-    // CUBE VS CONE SWITCH
-    kConeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Setting game piece to cone: " + storedPiece);
-      //sm_armStateMachine.setGamePiece(GamePiece.CONE);
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.YELLOW);
-    }));
-    kCubeSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Setting game piece to cube: " + storedPiece);
-      //sm_armStateMachine.setGamePiece(GamePiece.CUBE);
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.PURPLE);
-    }));
 
     // // HIGH PICKUP SWITCH - FEEDER OR SHELF
     // kHighPickupSwitch.onTrue(new InstantCommand(() -> {

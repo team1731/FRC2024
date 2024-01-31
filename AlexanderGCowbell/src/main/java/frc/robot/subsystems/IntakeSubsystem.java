@@ -4,17 +4,21 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.GamePiece;
-import frc.robot.state.arm.ArmStateMachine.MovementType;
+// import frc.robot.Robot;
+
 
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax intakeMotor;
     private CANSparkMax feederMotor;
-    private DigitalInput killSwitch = new DigitalInput(0);
+    private DigitalInput noteSwitch = new DigitalInput(0);
+    // Creates a Debouncer in "both" mode.
+    Debouncer m_debouncer = new Debouncer(0.1, Debouncer.DebounceType.kBoth);
+    private boolean currNoteSwitch;
+    private boolean prevNoteSwitch;
     
     private boolean enabled;
     @Override
@@ -24,35 +28,146 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public IntakeSubsystem(boolean enabled) {
         this.enabled = enabled;
-        System.out.println("IntakeSubsystem: Starting up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        if (enabled) {
-            initializeIntakeMotor();
-        }
+        initializeIntakeMotor();
     }
 
     private void initializeIntakeMotor() {
-        System.out.println("IntakeSubsystem: Initializing arm motors!!!!!!!!!!!!!!!!!!!!!!!!!");
-        if(!enabled){
-            return;
+        if (enabled) {
+            System.out.println("IntakeSubsystem: Starting up & Initializine Intake motors !!!!!!!!!!!!!!");
+
+            intakeMotor = new CANSparkMax(IntakeConstants.intakeCancoderId, MotorType.kBrushless);
+            intakeMotor.restoreFactoryDefaults();
+            intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
+            intakeMotor.setInverted(false);
+            intakeMotor.setIdleMode(IdleMode.kCoast);
+            
+            feederMotor = new CANSparkMax(IntakeConstants.feederCancoderId, MotorType.kBrushless);
+            feederMotor.restoreFactoryDefaults();
+            feederMotor.setSmartCurrentLimit(IntakeConstants.FEEDER_CURRENT_LIMIT_A);
+            feederMotor.setInverted(false);
+            feederMotor.setIdleMode(IdleMode.kBrake);
+
+            currNoteSwitch = debouncedSwitch();
+            prevNoteSwitch = currNoteSwitch; // force change first time
         }
-        intakeMotor = new CANSparkMax(IntakeConstants.intakeCancoderId, MotorType.kBrushless);
-        intakeMotor.restoreFactoryDefaults();
-        intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
-        intakeMotor.setInverted(false);
-        intakeMotor.setIdleMode(IdleMode.kBrake);
-        
-        feederMotor = new CANSparkMax(IntakeConstants.feederCancoderId, MotorType.kBrushless);
-        feederMotor.restoreFactoryDefaults();
-        feederMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
-        feederMotor.setInverted(false);
-        feederMotor.setIdleMode(IdleMode.kBrake);
     }
 
     /*
      * INTAKE MOTOR MOVEMENT
      */
 
-     public void multiplyInput(double value) {
+    private void intake(double intakeSpeed) {
+        if (enabled) {
+            if (!debouncedSwitch()) {
+                intakeSpeed = 0;
+            }
+            intakeMotor.set(intakeSpeed);
+            System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
+        }
+    }
+
+    public void intake() {
+        intake(IntakeConstants.intakeSpeed);
+    }    
+
+    public void reverseIntake() {
+        double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
+        System.out.println("IntakeSubsystem: reverse speed = " + intakeSpeed);
+        intake(intakeSpeed);
+    }    
+
+    public void stopIntake() {
+        if (enabled) {
+            intakeMotor.set(0);
+        }
+    }
+    
+    /*
+     * FEEDER MOTOR MOVEMENT
+     */
+
+    public void feeder() {
+        if (enabled) {
+            feederMotor.set(IntakeConstants.feederSpeed);
+        }
+    }
+
+    public void reverseFeeder() {
+        if (enabled) {
+            feederMotor.set(-IntakeConstants.feederSpeed);
+        }
+    }
+
+    public void stopFeeder() {
+        if (enabled) {
+            currNoteSwitch = debouncedSwitch();
+            prevNoteSwitch = !currNoteSwitch;
+            feederMotor.set(0);
+        }
+    }
+
+    /* Combined Motor Movement */
+    public void grabOrangeNote() {
+        if (enabled) {
+            // System.out.println("IntakeSubsystem grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
+            if (hasNoteTriggerChanged()) {
+                currNoteSwitch = debouncedSwitch();
+                if (!currNoteSwitch) {
+                    intakeMotor.set(0);
+                    feederMotor.set(0);
+                } else {
+                    intakeMotor.set(IntakeConstants.intakeSpeed);
+                    feederMotor.set(IntakeConstants.feederSpeed);
+                }
+            }
+        }
+    }
+
+    public void stopOrangeNoteGrab() {
+        if (enabled) {
+            intakeMotor.set(0);
+            feederMotor.set(0);
+            currNoteSwitch = debouncedSwitch();
+            prevNoteSwitch = !currNoteSwitch;
+        }
+    }
+
+    // used so that we don't continuously set/clear motors
+    private boolean hasNoteTriggerChanged() {
+        boolean changed = false;
+        currNoteSwitch = debouncedSwitch();
+        //if (Robot.doSD()) {
+        //     System.out.println("IntakeSubsystem Triger(prev:" + prevNoteSwitch + "): " + currNoteSwitch);
+        //}
+        if (prevNoteSwitch != currNoteSwitch) {
+            prevNoteSwitch = currNoteSwitch;
+            changed = true;
+        }
+        return changed;
+    }
+
+    private boolean debouncedSwitch() {
+        return m_debouncer.calculate(noteSwitch.get());
+    }
+    
+    /*
+    public void eject() {
+        if(!enabled){
+            return;
+        }
+       intakeMotor.setSmartCurrentLimit(IntakeConstants.EJECT_CURRENT_LIMIT);
+        intakeMotor.set(-1.0);
+    }
+    
+    public void holdIntake() {
+        if(!enabled){
+            return;
+        }
+        intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_HOLD_CURRENT_LIMIT_A);
+        intakeMotor.set(IntakeConstants.INTAKE_HOLD_POWER);
+    }
+
+    public void multiplyInput(double value) {
         // multiplied value
         double current = value * ArmConstants.cubeIntakeSpeed;
         // minimum speed variable
@@ -62,77 +177,6 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
         intake(current);
      }
-
-    public void intake() {
-        double intakeSpeed = IntakeConstants.intakeSpeed;
-        System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
-        intake(intakeSpeed);
-    }
-
-    public void reverseIntake() {
-        double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
-        System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
-        intake(intakeSpeed);
-    }
-
-    public void intake(double intakeSpeed) {
-        if(!enabled){
-            return;
-        }
-        intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
-        if (!killSwitch.get()) {
-            intakeSpeed = 0;
-        }
-        intakeMotor.set(intakeSpeed);
-        feederMotor.set(intakeSpeed);
-    }
-
-    public void feederIntake() {
-         if(!enabled){
-            return;
-        }
-       // intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
-        intakeMotor.set(0);
-        feederMotor.set(IntakeConstants.feederSpeed);
-    }
-
-    public void stopFeederIntake() {
-        if(!enabled){
-            return;
-        }
-        feederMotor.set(0);
-    }
-
-    public void reverseFeederIntake() {
-        if(!enabled){
-            return;
-        }
-        feederMotor.set(-IntakeConstants.feederSpeed);
-    }
-
-    public void eject() {
-        if(!enabled){
-            return;
-        }
-       intakeMotor.setSmartCurrentLimit(IntakeConstants.EJECT_CURRENT_LIMIT);
-        intakeMotor.set(-1.0);
-    }
-
-    public void holdIntake() {
-        if(!enabled){
-            return;
-        }
-        intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_HOLD_CURRENT_LIMIT_A);
-        intakeMotor.set(IntakeConstants.INTAKE_HOLD_POWER);
-    }
-
-    public void stopIntake() {
-        if(!enabled){
-            return;
-        }
-        intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
-        intakeMotor.set(0);
-    }
 
     public boolean isIntakeAtStartedVelocity() {
         if(!enabled){
@@ -154,5 +198,5 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
         return (Math.abs(intakeMotor.getEncoder().getVelocity()) < IntakeConstants.intakeHoldingVelocityThreshold);
     }
-
+    */
 }
