@@ -374,6 +374,8 @@ public final class Constants {
     }
 
     public static final class ShooterConstants{
+        public final static int shooterCancoderId1 = 13;
+        public final static int shooterCancoderId2 = 14;
         public static final int SHOOTER_CURRENT_LIMIT_A = 20;
 
         // PID coefficients
