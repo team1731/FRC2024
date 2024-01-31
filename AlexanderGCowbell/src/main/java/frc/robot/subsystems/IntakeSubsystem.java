@@ -8,13 +8,13 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Robot;
+// import frc.robot.Robot;
 
 
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax intakeMotor;
-    // private CANSparkMax feederMotor;
-    private DigitalInput noteTrigger = new DigitalInput(0);
+    private CANSparkMax feederMotor;
+    private DigitalInput noteSwitch = new DigitalInput(0);
     // Creates a Debouncer in "both" mode.
     Debouncer m_debouncer = new Debouncer(0.1, Debouncer.DebounceType.kBoth);
     private boolean currNoteSwitch;
@@ -41,11 +41,11 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             intakeMotor.setInverted(false);
             intakeMotor.setIdleMode(IdleMode.kCoast);
             
-            // feederMotor = new CANSparkMax(IntakeConstants.feederCancoderId, MotorType.kBrushless);
-            // feederMotor.restoreFactoryDefaults();
-            // feederMotor.setSmartCurrentLimit(IntakeConstants.FEEDER_CURRENT_LIMIT_A);
-            // feederMotor.setInverted(false);
-            // feederMotor.setIdleMode(IdleMode.kBrake);
+            feederMotor = new CANSparkMax(IntakeConstants.feederCancoderId, MotorType.kBrushless);
+            feederMotor.restoreFactoryDefaults();
+            feederMotor.setSmartCurrentLimit(IntakeConstants.FEEDER_CURRENT_LIMIT_A);
+            feederMotor.setInverted(false);
+            feederMotor.setIdleMode(IdleMode.kBrake);
 
             currNoteSwitch = debouncedSwitch();
             prevNoteSwitch = currNoteSwitch; // force change first time
@@ -58,8 +58,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     private void intake(double intakeSpeed) {
         if (enabled) {
-            // intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
-            if (!noteTrigger.get()) {
+            if (!debouncedSwitch()) {
                 intakeSpeed = 0;
             }
             intakeMotor.set(intakeSpeed);
@@ -89,13 +88,13 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void feeder() {
         if (enabled) {
-            // feederMotor.set(IntakeConstants.feederSpeed);
+            feederMotor.set(IntakeConstants.feederSpeed);
         }
     }
 
     public void reverseFeeder() {
         if (enabled) {
-            // feederMotor.set(-IntakeConstants.feederSpeed);
+            feederMotor.set(-IntakeConstants.feederSpeed);
         }
     }
 
@@ -103,24 +102,22 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         if (enabled) {
             currNoteSwitch = debouncedSwitch();
             prevNoteSwitch = !currNoteSwitch;
-            // feederMotor.set(0);
+            feederMotor.set(0);
         }
     }
 
     /* Combined Motor Movement */
     public void grabOrangeNote() {
         if (enabled) {
-            System.out.println("IntakeSubsystem grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
+            // System.out.println("IntakeSubsystem grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
             if (hasNoteTriggerChanged()) {
                 currNoteSwitch = debouncedSwitch();
                 if (!currNoteSwitch) {
-                    System.out.println("IF   grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
                     intakeMotor.set(0);
-                    // feederMotor.set(0);
+                    feederMotor.set(0);
                 } else {
-                    System.out.println("ELSE grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
                     intakeMotor.set(IntakeConstants.intakeSpeed);
-                    // feederMotor.set(IntakeConstants.feederSpeed);
+                    feederMotor.set(IntakeConstants.feederSpeed);
                 }
             }
         }
@@ -129,10 +126,9 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void stopOrangeNoteGrab() {
         if (enabled) {
             intakeMotor.set(0);
-            // feederMotor.set(0);
+            feederMotor.set(0);
             currNoteSwitch = debouncedSwitch();
             prevNoteSwitch = !currNoteSwitch;
-            System.out.println("STOP stopOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
         }
     }
 
@@ -141,7 +137,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         boolean changed = false;
         currNoteSwitch = debouncedSwitch();
         //if (Robot.doSD()) {
-            System.out.println("IntakeSubsystem Triger(prev:" + prevNoteSwitch + "): " + currNoteSwitch);
+        //     System.out.println("IntakeSubsystem Triger(prev:" + prevNoteSwitch + "): " + currNoteSwitch);
         //}
         if (prevNoteSwitch != currNoteSwitch) {
             prevNoteSwitch = currNoteSwitch;
@@ -151,7 +147,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
 
     private boolean debouncedSwitch() {
-        return m_debouncer.calculate(noteTrigger.get());
+        return m_debouncer.calculate(noteSwitch.get());
     }
     
     /*

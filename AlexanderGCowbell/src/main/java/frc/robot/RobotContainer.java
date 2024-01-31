@@ -150,14 +150,15 @@ public class RobotContainer {
     }));
 
     // SHOOTING - Shooter & Feeder motors
-    kRightTrigger.onTrue(new InstantCommand(() -> {
-      s_ShooterSubsystem.shoot();
-      s_intakeSubsystem.feeder();
-    }));
-    kRightTrigger.onFalse(new InstantCommand(() -> {
-      s_ShooterSubsystem.stopShooting();
-      s_intakeSubsystem.stopFeeder();
-    }));
+    kRightTrigger
+      .onTrue(new InstantCommand(() -> {
+        s_ShooterSubsystem.shoot();
+        s_intakeSubsystem.feeder();
+      }))
+      .onFalse(new InstantCommand(() -> {
+        s_ShooterSubsystem.stopShooting();
+        s_intakeSubsystem.stopFeeder();
+      }));
 
     // INTAKE - Intake & Feeder motors
     kLeftTrigger
