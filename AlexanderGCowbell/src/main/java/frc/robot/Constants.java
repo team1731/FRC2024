@@ -3,6 +3,8 @@ package frc.robot;
 import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix6.configs.FeedbackConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -25,6 +27,7 @@ import frc.robot.util.log.LogWriter.LogMode;
 public final class Constants {
     public static final double stickDeadband = 0.1;
 	public static final int kTICKS = 33024; // 16.125 * 2048;
+    public static final String CANBUS_NAME = "canivore";
 
 
     public static enum GamePiece {
@@ -299,41 +302,51 @@ public final class Constants {
 
 
     public static final class ElevatorConstants {
-        public final static int elevatorCancoderId = 1;
-        /*
-         ************************************************************************************************
-         * THESE VALUES NEED TO CHANGE IF WE WORK ON THE Intake Subsystem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-         *   Motors: Intake & Feeder
-         * **********************************************************************************************
-         */
-        public static final int ELEVATOR_CURRENT_LIMIT_A = 18;
-        public static final int ELEVATOR_HOLD_CURRENT_LIMIT_A = 5;
-        public static final int EJECT_CURRENT_LIMIT = 20;
+        public final static int elevatorCancoderId1 = 21;
+        public final static int elevatorCancoderId2 = 22;
 
-        public final static double elevatorSpeed = 0.25;
+        public final static double MMVel = 5; // 5 rotations per second cruise
+        public final static double MMAcc = 10; // Take approximately 0.5 seconds to reach max vel
+        // Take approximately 0.2 seconds to reach max accel 
+        public final static double MMJerk = 50;
+    
+        // initialze PID controller and encoder objects
+        public final static double kP = 60;
+        public final static double kI = 0;
+        public final static double kD = 0.1;
+        public final static double kV = 0.12;
+        public final static double kS = 0.25; // Approximately 0.25V to get the mechanism moving
+    
+        public final static double StM_Ratio = 12.8;
 
-        public final static double elevatorStartedVelocityThreshold = 1000;
-        public final static double elevatorHoldingVelocityThreshold = 60;
+        // public static final int ELEVATOR_CURRENT_LIMIT_A = 18;
+        // public static final int ELEVATOR_HOLD_CURRENT_LIMIT_A = 5;
+        // public static final int EJECT_CURRENT_LIMIT = 20;
 
-        public static final double ELEVATOR_HOLD_POWER = 0.07;
+        // public final static double elevatorSpeed = 0.25;
 
-        // PID coefficients
-        public static final double kP = 5e-5; 
-        public static final double kI = 1e-6;
-        public static final double kD = 0; 
-        public static final double kIz = 0; 
-        public static final double kFF = 0.000156; 
-        public static final double kMaxOutput = 1; 
-        public static final double kMinOutput = -1;
-        public static final double maxRPM = 5700;
+        // public final static double elevatorStartedVelocityThreshold = 1000;
+        // public final static double elevatorHoldingVelocityThreshold = 60;
 
-        // Smart Motion Coefficients
-        public static final double minVel = 500; // rpm
-        public static final double maxVel = 2000; // rpm
-        public static final double maxAcc = 1500;
-        public static final double allowedErr = 1;
+        // public static final double ELEVATOR_HOLD_POWER = 0.07;
 
-        public static final int smartMotionSlot = 0;
+        // // PID coefficients
+        // public static final double kP = 5e-5; 
+        // public static final double kI = 1e-6;
+        // public static final double kD = 0; 
+        // public static final double kIz = 0; 
+        // public static final double kFF = 0.000156; 
+        // public static final double kMaxOutput = 1; 
+        // public static final double kMinOutput = -1;
+        // public static final double maxRPM = 5700;
+
+        // // Smart Motion Coefficients
+        // public static final double minVel = 500; // rpm
+        // public static final double maxVel = 2000; // rpm
+        // public static final double maxAcc = 1500;
+        // public static final double allowedErr = 1;
+
+        // public static final int smartMotionSlot = 0;
 
         // Positions
         public final static double elevatorHomePosition = 0.74;
