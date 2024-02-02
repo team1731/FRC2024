@@ -302,7 +302,7 @@ public final class Constants {
 
 
     public static final class ElevatorConstants {
-        public final static int elevatorCancoderId1 = 21;
+        public final static int elevatorCancoderId1 = 11;
         public final static int elevatorCancoderId2 = 22;
 
         public final static double MMVel = 5; // 5 rotations per second cruise

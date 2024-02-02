@@ -186,6 +186,11 @@ public class RobotContainer {
       .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeeder()))
       .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
 
+    // ELEVATOR - EXTEND AND HOME
+    kx
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()))
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.elevatorHome()));
+    
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
     // kb.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_MEDIUM, operator, kDistalAxis)));
@@ -194,8 +199,8 @@ public class RobotContainer {
     // CLEAR/RESET PATH BUTTON
     //kx.whileTrue(new InstantCommand(() -> sm_armStateMachine.clearCurrentPath()));
 
-    kElevatorBtn.onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()));
-    kElevatorBtn.onFalse(new InstantCommand(() -> elevatorSubsystem.elevatorHome()));
+    // kElevatorBtn.onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()));
+    // kElevatorBtn.onFalse(new InstantCommand(() -> elevatorSubsystem.elevatorHome()));
 
     // BUMPERS - EITHER START/STOP RECORDING  - OR -  PICKUP HIGH/RUN OPERATOR SEQUENCE
     // if(LogWriter.isArmRecordingEnabled()) {
@@ -215,7 +220,7 @@ public class RobotContainer {
     /*
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * OPERATOR BUTTONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     */
+    */
 
     // WRISt MODE ON/OFF SWITCH
     kWristSwitch.onTrue(new InstantCommand(() -> {
@@ -224,6 +229,7 @@ public class RobotContainer {
       m_ledstring.setColor(LedOption.YELLOW);
       s_wristSubsystem.wristExtended();
     }));
+
     kWristSwitch.onFalse(new InstantCommand(() -> {
       System.out.println("RobotContainer: Wrist to Home.");
       m_ledstring.setBlink(false);
@@ -269,7 +275,6 @@ public class RobotContainer {
     // kThiefOnSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(true)));
     // kThiefOffSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(false)));
   }
-
 
   // public static String[] deriveAutoModes() {
   //   List<String> autoModes = new ArrayList<String>();
@@ -343,7 +348,6 @@ public class RobotContainer {
 
 	public void displayEncoders() {
 	}
-
 
 	public void zeroHeading() {
 	}

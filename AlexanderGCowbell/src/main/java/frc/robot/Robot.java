@@ -123,7 +123,7 @@ public class Robot extends TimedRobot {
 	sm_armStateMachine = s_armSubSystem.getStateMachine();
 	m_ledstring = new LEDStringSubsystem(true);
 	intake_subsystem = new IntakeSubsystem(false);
-	elevatorSubsystem = new ElevatorSubsystem(false);
+	elevatorSubsystem = new ElevatorSubsystem(true);
 	wristSubsystem = new WristSubsystem(false);
 	shooterSubsystem = new ShooterSubsystem(false);
 

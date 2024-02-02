@@ -14,13 +14,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
-public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsystem {
+public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsystem {
 
     // motors for the Elevator
     private TalonFX elevatorMotor1;
-    private TalonFX elevatorMotor2;
+    // private TalonFX elevatorMotor2;
     private MotionMagicVoltage mmReq1;
-    private MotionMagicVoltage mmReq2;
+    // private MotionMagicVoltage mmReq2;
 
     private boolean enabled;
     @Override
@@ -35,7 +35,7 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
 
     /*
      * Elevator MOTOR MOVEMENT
-     */
+    */
 
     public double getElevatorPosition() {
         if (enabled){
@@ -48,7 +48,12 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
 
     private void moveElevator(double position, double maxVelocity) {
         if (enabled){
-            elevatorMotor1.setControl(mmReq1.withPosition(ElevatorConstants.elevatorExtendedPosition).withSlot(0));
+            if (position == ElevatorConstants.elevatorExtendedPosition) {
+                elevatorMotor1.setControl(mmReq1.withPosition(ElevatorConstants.elevatorExtendedPosition).withSlot(0));
+            } else {
+                elevatorMotor1.setControl(mmReq1.withPosition(ElevatorConstants.elevatorHomePosition).withSlot(0));
+            }
+            // elevatorMotor1.setControl(mmReq1.withPosition(ElevatorConstants.elevatorExtendedPosition).withSlot(0));
             // elevatorMotor2.setControl(mmReq2.withPosition(ElevatorConstants.elevatorExtendedPosition).withSlot(0));
             elevatorMotor1.setPosition(1);
             // elevatorMotor2.setPosition(1);
@@ -56,10 +61,12 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
     }
     
     public void elevatorExtended() {
+        System.out.println("X - onTrue - elevatorExtended method called");
         moveElevator(ElevatorConstants.elevatorExtendedPosition, ElevatorConstants.MMVel);
     }
 
     public void elevatorHome() {
+        System.out.println("X - onFalse - elevatorHome method called");
         moveElevator(ElevatorConstants.elevatorHomePosition, ElevatorConstants.MMVel);
     }
 
@@ -71,7 +78,7 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
         System.out.println("ElevatorSubsystem: Starting UP & Initializing Elevator motors !!!!!!");
 
         // Initialize Motor 1
-        elevatorMotor1 = new TalonFX(ElevatorConstants.elevatorCancoderId1, Constants.CANBUS_NAME);
+        elevatorMotor1 = new TalonFX(ElevatorConstants.elevatorCancoderId1);  // Constants.CANBUS_NAME);
         mmReq1 = new MotionMagicVoltage(0);
 
         TalonFXConfiguration cfg1 = new TalonFXConfiguration();
@@ -108,51 +115,52 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
         if (!status.isOK()) {
           System.out.println("Could not configure Elevator Motor 1. Error: " + status.toString());
         }
-
-        // Initialize Motor 2
-        elevatorMotor2 = new TalonFX(ElevatorConstants.elevatorCancoderId2, "canivore");
-        mmReq2 = new MotionMagicVoltage(0);
-
-        TalonFXConfiguration cfg2 = new TalonFXConfiguration();
-
-        // Factory Default
-        elevatorMotor2.getConfigurator().apply(cfg2);
-    
-        // Elevator Motor 2 is CW+
-        cfg2.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-
-        /* Configure current limits */
-        MotionMagicConfigs mm2 = cfg2.MotionMagic;
-        mm2.MotionMagicCruiseVelocity = ElevatorConstants.MMVel; // 5 rotations per second cruise
-        mm2.MotionMagicAcceleration = ElevatorConstants.MMAcc; // Take approximately 0.5 seconds to reach max vel
-        // Take approximately 0.2 seconds to reach max accel 
-        mm2.MotionMagicJerk = ElevatorConstants.MMJerk;
-    
-        // initialze PID controller and encoder objects
-        Slot0Configs slot0_2 = cfg2.Slot0;
-        slot0_2.kP = ElevatorConstants.kP;
-        slot0_2.kI = ElevatorConstants.kI;
-        slot0_2.kD = ElevatorConstants.kD;
-        slot0_2.kV = ElevatorConstants.kV;
-        slot0_2.kS = ElevatorConstants.kS; // Approximately 0.25V to get the mechanism moving
-    
-        FeedbackConfigs fdb2 = cfg2.Feedback;
-        fdb2.SensorToMechanismRatio = ElevatorConstants.StM_Ratio;
-    
-        StatusCode status2 = StatusCode.StatusCodeNotInitialized;
-        for(int i = 0; i < 5; ++i) {
-          status2 = elevatorMotor1.getConfigurator().apply(cfg2);
-          if (status2.isOK()) break;
-        }
-        if (!status2.isOK()) {
-          System.out.println("Could not configure Elevator Motor 1. Error: " + status2.toString());
-        }
-
-        // Ensure motor 2 follows motor 1
-        elevatorMotor2.setControl(new Follower(elevatorMotor1.getDeviceID(), false));
     }
 
-    // public void reverseElevator() {
+    //     // Initialize Motor 2
+    //     // elevatorMotor2 = new TalonFX(ElevatorConstants.elevatorCancoderId2, "canivore");
+    //     mmReq2 = new MotionMagicVoltage(0);
+
+    //     TalonFXConfiguration cfg2 = new TalonFXConfiguration();
+
+    //     // Factory Default
+    //     // elevatorMotor2.getConfigurator().apply(cfg2);
+ 
+    //     // Elevator Motor 2 is CW+
+    //     cfg2.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
+    //     /* Configure current limits */
+    //     MotionMagicConfigs mm2 = cfg2.MotionMagic;
+    //     mm2.MotionMagicCruiseVelocity = ElevatorConstants.MMVel; // 5 rotations per second cruise
+    //     mm2.MotionMagicAcceleration = ElevatorConstants.MMAcc; // Take approximately 0.5 seconds to reach max vel
+    //     // Take approximately 0.2 seconds to reach max accel 
+    //     mm2.MotionMagicJerk = ElevatorConstants.MMJerk;
+
+    //     // initialze PID controller and encoder objects
+    //     Slot0Configs slot0_2 = cfg2.Slot0;
+    //     slot0_2.kP = ElevatorConstants.kP;
+    //     slot0_2.kI = ElevatorConstants.kI;
+    //     slot0_2.kD = ElevatorConstants.kD;
+    //     slot0_2.kV = ElevatorConstants.kV;
+    //     slot0_2.kS = ElevatorConstants.kS; // Approximately 0.25V to get the mechanism moving
+
+    //     FeedbackConfigs fdb2 = cfg2.Feedback;
+    //     fdb2.SensorToMechanismRatio = ElevatorConstants.StM_Ratio;
+ 
+    //     StatusCode status2 = StatusCode.StatusCodeNotInitialized;
+    //     for(int i = 0; i < 5; ++i) {
+    //       status2 = elevatorMotor1.getConfigurator().apply(cfg2);
+    //       if (status2.isOK()) break;
+    //     }
+    //     if (!status2.isOK()) {
+    //       System.out.println("Could not configure Elevator Motor 1. Error: " + status2.toString());
+    //     }
+
+    //     // Ensure motor 2 follows motor 1
+    //     elevatorMotor2.setControl(new Follower(elevatorMotor1.getDeviceID(), false));
+    // }
+
+    // // public void reverseElevator() {
     //     if (!enabled) {
     //         return;
     //     }
@@ -216,5 +224,4 @@ public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsy
     //     }
     //     return (Math.abs(elevatorMotor.getEncoder().getVelocity()) < ElevatorConstants.elevatorHoldingVelocityThreshold);
     // }
-
 }
