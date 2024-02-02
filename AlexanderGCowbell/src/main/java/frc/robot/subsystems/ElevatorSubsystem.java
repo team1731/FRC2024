@@ -48,14 +48,10 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     private void moveElevator(double position, double maxVelocity) {
         if (enabled){
-            if (position == ElevatorConstants.elevatorExtendedPosition) {
-                elevatorMotor1.setControl(mmReq1.withPosition(ElevatorConstants.elevatorExtendedPosition).withSlot(0));
-            } else {
-                elevatorMotor1.setControl(mmReq1.withPosition(ElevatorConstants.elevatorHomePosition).withSlot(0));
-            }
+            elevatorMotor1.setControl(mmReq1.withPosition(position).withSlot(0));
             // elevatorMotor1.setControl(mmReq1.withPosition(ElevatorConstants.elevatorExtendedPosition).withSlot(0));
             // elevatorMotor2.setControl(mmReq2.withPosition(ElevatorConstants.elevatorExtendedPosition).withSlot(0));
-            elevatorMotor1.setPosition(1);
+            // elevatorMotor1.setPosition(1);
             // elevatorMotor2.setPosition(1);
         }
     }
@@ -143,7 +139,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     //     slot0_2.kD = ElevatorConstants.kD;
     //     slot0_2.kV = ElevatorConstants.kV;
     //     slot0_2.kS = ElevatorConstants.kS; // Approximately 0.25V to get the mechanism moving
-
+        
     //     FeedbackConfigs fdb2 = cfg2.Feedback;
     //     fdb2.SensorToMechanismRatio = ElevatorConstants.StM_Ratio;
  

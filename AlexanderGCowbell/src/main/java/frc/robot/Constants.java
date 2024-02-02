@@ -350,7 +350,7 @@ public final class Constants {
 
         // Positions
         public final static double elevatorHomePosition = 0.74;
-        public final static double elevatorExtendedPosition = 100.0;
+        public final static double elevatorExtendedPosition = 17.5;
     }
 
     public static final class IntakeConstants {
