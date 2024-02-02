@@ -187,9 +187,13 @@ public class RobotContainer {
       .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
 
     // ELEVATOR - EXTEND AND HOME
-    kx.onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()));
+    kx
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()))
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
 
-    ky.onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorHome()));
+    ky
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorHome()))
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
     
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
