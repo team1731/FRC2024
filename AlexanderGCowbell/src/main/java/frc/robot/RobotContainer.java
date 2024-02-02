@@ -66,7 +66,6 @@ public class RobotContainer {
   private final JoystickButton kReleaseBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
   private final JoystickButton kIntakeBtn = new JoystickButton(operator,OperatorConsoleConstants.kIntakeBtnId);
   private final JoystickButton kxINT = new JoystickButton(operator, OperatorConsoleConstants.kxAxis);
-  private final JoystickButton kElevatorBtn = new JoystickButton(operator, OperatorConsoleConstants.kElevatorControlButton);
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
@@ -202,9 +201,6 @@ public class RobotContainer {
 
     // CLEAR/RESET PATH BUTTON
     //kx.whileTrue(new InstantCommand(() -> sm_armStateMachine.clearCurrentPath()));
-
-    // kElevatorBtn.onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()));
-    // kElevatorBtn.onFalse(new InstantCommand(() -> elevatorSubsystem.elevatorHome()));
 
     // BUMPERS - EITHER START/STOP RECORDING  - OR -  PICKUP HIGH/RUN OPERATOR SEQUENCE
     // if(LogWriter.isArmRecordingEnabled()) {
