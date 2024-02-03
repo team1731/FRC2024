@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 0.9899869615334238,
+        "y": 5.496619886034911
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.918674182942984,
-        "y": 6.532233333274537
+        "x": 1.8542560647822786,
+        "y": 6.2743112055234525
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.9045578667690903,
-        "y": 5.587198228324409
+        "x": 2.892443917597509,
+        "y": 6.892204731022619
       },
       "prevControl": {
-        "x": 2.8871357838820613,
-        "y": 5.7823794435666676
+        "x": 2.0691890454010573,
+        "y": 6.1778441112722975
       },
       "nextControl": {
-        "x": 2.924507306262877,
-        "y": 5.363702801913707
+        "x": 3.071632566773419,
+        "y": 7.047691590318096
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.9045578667690903,
-        "y": 4.010470153029427
+        "x": 2.892443917597509,
+        "y": 5.496619886034911
       },
       "prevControl": {
-        "x": 2.768948304226904,
-        "y": 4.027770260564393
+        "x": 2.9340941717964553,
+        "y": 6.062019477119125
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,14 +48,32 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "shoot",
-      "waypointRelativePos": 1.4,
+      "name": "Shoot 1st Note",
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "parallel",
         "data": {
-          "commands": [
-            "ScoreConeHigh"
-          ]
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "Shoot 2nd Note",
+      "waypointRelativePos": 1.1,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "Shoot 3rd Note",
+      "waypointRelativePos": 2.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
         }
       }
     }
