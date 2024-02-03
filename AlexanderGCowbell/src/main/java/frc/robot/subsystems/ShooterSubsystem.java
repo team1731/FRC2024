@@ -6,10 +6,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.shooterConstants;
-import frc.robot.state.arm.ArmStateMachine.MovementType;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.GamePiece;
-import frc.robot.state.arm.ArmStateMachine.MovementType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 

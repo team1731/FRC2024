@@ -30,7 +30,6 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.LogConstants;
 import frc.robot.Constants.OpConstants;
-import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.util.log.LogWriter;
 import frc.robot.util.log.MessageLog;
 import frc.robot.subsystems.*;
@@ -128,6 +127,7 @@ public class Robot extends TimedRobot {
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
 		autoChooser.addOption(autoMode, autoMode);
+		System.out.println("Added autoMode '" + autoMode + "' to autoChooser.");
 	}
     SmartDashboard.putData(AutoConstants.kAutoCodeKey, autoChooser);
 	SmartDashboard.putString("Build Info - Branch", "N/A");
@@ -159,8 +159,7 @@ public class Robot extends TimedRobot {
 		fnf.printStackTrace();
 	}
 
-	//autoInitPreload();
-	//keypad = NetworkTableInstance.getDefault().getTable("KeyPad");
+	autoInitPreload();
 
 	//For testing LED Blinking only. The arm will set blink true after a piece has been secured.
 	//ledBlinking = true;
@@ -269,9 +268,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledInit() {
-	keypad.putValue("driver entry", NetworkTableValue.makeString(""));
-	// sm_armStateMachine.disable();
-	//s_armSubSystem.resetArmEncoders();
+
   }
 
 
