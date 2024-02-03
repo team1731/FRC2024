@@ -349,11 +349,11 @@ public final class Constants {
         // public static final int smartMotionSlot = 0;
 
         // Motor Direction
-        public final static InvertedValue elevatorDirection = InvertedValue.CounterClockwise_Positive; // or Clockwise_Positive
+        public final static InvertedValue elevatorDirection = InvertedValue.Clockwise_Positive; // or Clockwise_Positive
 
         // Positions
-        public final static double elevatorHomePosition = 0.74;
-        public final static double elevatorExtendedPosition = 17.5;
+        public final static double elevatorHomePosition = 0;
+        public final static double elevatorExtendedPosition = 4;
     }
 
     public static final class IntakeConstants {

@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
 	s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
 	s_armSubSystem = new ArmSubsystem(false);
 	sm_armStateMachine = s_armSubSystem.getStateMachine();
-	m_ledstring = new LEDStringSubsystem(true);
+	m_ledstring = new LEDStringSubsystem(false);
 	intake_subsystem = new IntakeSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(true);
 	wristSubsystem = new WristSubsystem(false);
