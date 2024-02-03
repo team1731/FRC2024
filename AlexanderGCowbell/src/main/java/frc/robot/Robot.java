@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
-//import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -31,7 +31,6 @@ import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.LogConstants;
 import frc.robot.Constants.OpConstants;
 import frc.robot.Constants.OpConstants.LedOption;
-import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.util.log.LogWriter;
 import frc.robot.util.log.MessageLog;
 import frc.robot.subsystems.*;
@@ -59,8 +58,6 @@ public class Robot extends TimedRobot {
   private Swerve s_Swerve;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private ShooterSubsystem shooterSubsystem;
-  private ArmSubsystem s_armSubSystem;
-  private ArmStateMachine sm_armStateMachine;
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
@@ -68,21 +65,12 @@ public class Robot extends TimedRobot {
   private boolean enabled = true;
 
   public Robot() {
-	if (false){
-		if(LogWriter.isArmRecordingEnabled()) {
-			addPeriodic(() -> {
-				if(s_armSubSystem.isArmRecordingRunning()) {
-					s_armSubSystem.writeArmPathValues();
-				}
-			}, LogConstants.recordingPeriod, LogConstants.recordingOffset);
-		}
-	}
   }
 
   // SUBSYSTEM DECLARATION
   private LEDStringSubsystem m_ledstring;
   private boolean ledBlinking;
-  private boolean armEmergencyStatus = false;
+  //private boolean armEmergencyStatus = false;
 
   // NOTE: FOR TESTING PURPOSES ONLY!
   //private final Joystick driver = new Joystick(0);
@@ -119,8 +107,6 @@ public class Robot extends TimedRobot {
 	s_Swerve = new Swerve(false);
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
 	s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
-	s_armSubSystem = new ArmSubsystem(false);
-	sm_armStateMachine = s_armSubSystem.getStateMachine();
 	m_ledstring = new LEDStringSubsystem(true);
 	intake_subsystem = new IntakeSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(true);
@@ -132,15 +118,16 @@ public class Robot extends TimedRobot {
 	m_robotContainer = new RobotContainer(s_Swerve, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 
-	//PPSwerveControllerCommand.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
+	PathPlannerLogging.setLogActivePathCallback(null); //.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
 
 	initSubsystems();
 	//s_armSubSystem.resetArmEncoders();
 
-	// String[] autoModes = RobotContainer.deriveAutoModes();
-	// for(String autoMode: autoModes){
-	// 	autoChooser.addOption(autoMode, autoMode);
-	// }
+	String[] autoModes = RobotContainer.deriveAutoModes();
+	for(String autoMode: autoModes){
+		autoChooser.addOption(autoMode, autoMode);
+		System.out.println("Added autoMode '" + autoMode + "' to autoChooser.");
+	}
     SmartDashboard.putData(AutoConstants.kAutoCodeKey, autoChooser);
 	SmartDashboard.putString("Build Info - Branch", "N/A");
 	SmartDashboard.putString("Build Info - Commit Hash", "N/A");
@@ -171,8 +158,7 @@ public class Robot extends TimedRobot {
 		fnf.printStackTrace();
 	}
 
-	//autoInitPreload();
-	//keypad = NetworkTableInstance.getDefault().getTable("KeyPad");
+	autoInitPreload();
 
 	//For testing LED Blinking only. The arm will set blink true after a piece has been secured.
 	//ledBlinking = true;
@@ -286,13 +272,6 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledInit() {
-	if (enabled){
-		if(keypad != null){
-			keypad.putValue("driver entry", NetworkTableValue.makeString(""));
-		}
-		//sm_armStateMachine.disable();
-		//s_armSubSystem.resetArmEncoders();
-	}
   }
 
 
@@ -360,14 +339,6 @@ public class Robot extends TimedRobot {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
 			m_robotContainer.zeroHeading();
 			m_ledstring.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
-			sm_armStateMachine.setIsInAuto(true);
-			sm_armStateMachine.initializeArm();
-			sm_armStateMachine.setGamePiece(GamePiece.CONE);
-			sm_armStateMachine.setIntakeHolding();
-			// If for some reason the velcro does not hold up the hand and it falls before auto starts, need to wait a half second for the wrist to lift before starting the auto
-			if (s_armSubSystem.getWristPosition() < 0.4) {
-				m_autonomousCommand = m_autonomousCommand.beforeStarting(new WaitCommand(0.5));
-			}
 			m_autonomousCommand.schedule();
 		}
     	System.out.println("autonomousInit: End");
@@ -461,10 +432,10 @@ public class Robot extends TimedRobot {
 	/*
 	 * Change LED blinking status depending on whether holding a game piece or not
 	 */
-	if(!ledBlinking && sm_armStateMachine != null && sm_armStateMachine.isHoldingGamePiece()) {
+	if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
 		m_ledstring.setBlink(true);
 		ledBlinking = true;
-	} else if(ledBlinking && !sm_armStateMachine.isHoldingGamePiece()) {
+	} else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
 		m_ledstring.setBlink(false);
 		ledBlinking = false;
 	}
