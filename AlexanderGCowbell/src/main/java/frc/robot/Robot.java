@@ -331,11 +331,11 @@ public class Robot extends TimedRobot {
 		// 	this.autoInitPreload();
 		// }
 
-		int stationNumber = getStationNumber().getAsInt();
-		if(this.stationNumber != stationNumber){
-			this.stationNumber = stationNumber;
-        	System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
-		}
+		// int stationNumber = getStationNumber().getAsInt();
+		// if(this.stationNumber != stationNumber){
+		// 	this.stationNumber = stationNumber;
+        // 	System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
+		// }
 	}
   }
 
