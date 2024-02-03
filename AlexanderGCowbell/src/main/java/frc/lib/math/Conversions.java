@@ -17,7 +17,7 @@ public class Conversions {
      * @return Falcon Counts
      */
     public static double degreesToFalcon(double degrees, double gearRatio) {
-        double ticks =  degrees / (360.0 / (gearRatio * 2048.0));
+        double ticks =  degrees / (360.0 / (gearRatio));
         return ticks;
     }
 
@@ -39,8 +39,9 @@ public class Conversions {
      */
     public static double RPMToFalcon(double RPM, double gearRatio) {
         double motorRPM = RPM * gearRatio;
-        double sensorCounts = motorRPM * (2048.0 / 600.0);
-        return sensorCounts;
+//      double sensorCounts = motorRPM * (2048.0 / 600.0);
+
+        return motorRPM;
     }
 
     /**

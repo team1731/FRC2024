@@ -5,6 +5,7 @@ import java.util.Map;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -210,7 +211,7 @@ public final class Constants {
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+        public static final NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
 
         /* Motor Inverts */
         public static final boolean driveMotorInvert = false;
