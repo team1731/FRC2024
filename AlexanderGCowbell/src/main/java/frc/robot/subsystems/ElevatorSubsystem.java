@@ -41,8 +41,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         double position1 = 0;
         double position2 = 0;
         if (enabled){
-            position1 = elevatorMotor1.getPosition().getValueAsDouble();
-            position2 = elevatorMotor2.getPosition().getValueAsDouble();
+            position1 = elevatorMotor1.getRotorPosition().getValueAsDouble();
+            position2 = elevatorMotor2.getRotorPosition().getValueAsDouble();
             System.out.println("ElevatorSubsystem: Position(1:2): " + position1 + ":" + position2);
         }
         return position1;
@@ -50,8 +50,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     private void moveElevator(double position) {
         if (enabled){
-            elevatorMotor1.setControl(mmReq1.withPosition(position).withSlot(0));
-           elevatorMotor2.setControl(mmReq1.withPosition(position).withSlot(0));
+            elevatorMotor1.setControl(mmReq1.withPosition(position));
+           elevatorMotor2.setControl(mmReq1.withPosition(position));
         }
     }
     
@@ -80,7 +80,6 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
         // Factory Default
         elevatorMotor1.getConfigurator().apply(cfg1);
-        // elevatorMotor1.setInverted(false);
         
     
         // Elevator Motor 1 is CCW+
@@ -115,7 +114,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
         // Initialize Motor 2
         elevatorMotor2 = new TalonFX(ElevatorConstants.elevatorCancoderId2, "canivore1");
-        // elevatorMotor2.setInverted(false);
+      
         // mmReq2 = new MotionMagicVoltage(0);
 
         // TalonFXConfiguration cfg2 = new TalonFXConfiguration();

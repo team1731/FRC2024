@@ -35,7 +35,6 @@ import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.util.log.LogWriter;
 import frc.robot.util.log.MessageLog;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.LEDStringSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -446,6 +445,7 @@ public class Robot extends TimedRobot {
 		//m_ledstring.setColor(LedOption.INIT);
     	if(doSD()){
 			System.out.println("TELEOP PERIODIC");
+			elevatorSubsystem.getElevatorPosition();
 			// wristSubsystem.printPosition();
 		}
 		
