@@ -264,7 +264,7 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final String kAutoDefault = "_6_Feeder_real3pc_";
+        public static final String kAutoDefault = "Amp_1"; // "_6_Feeder_real3pc_";
     	public static final String kAutoCodeKey = "Auto Selector";
 
         public static final double kMaxSpeedMetersPerSecond = 0.5; // disabled for testing = 3;
