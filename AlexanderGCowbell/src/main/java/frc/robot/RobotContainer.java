@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -23,8 +25,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import frc.robot.autos.*;
 import frc.robot.commands.*;
-import frc.robot.state.arm.ArmSequence;
-import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.subsystems.*;
 import frc.robot.util.log.LogWriter;
 import frc.robot.Constants.OperatorConsoleConstants;
@@ -276,73 +276,72 @@ public class RobotContainer {
     // kThiefOffSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(false)));
   }
 
-  // public static String[] deriveAutoModes() {
-  //   List<String> autoModes = new ArrayList<String>();
-  //   autoPaths = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner"));
-  //   for(String autoPath : autoPaths){
-  //     String autoName = autoPath.substring(0, autoPath.length() - (5 + (autoPath.contains("Red") ? 3 : 4)));
-  //     if(!autoModes.contains(autoName)){
-  //       autoModes.add(autoName);
-  //     }
-  //   }
-  //   autoModes.sort((p1, p2) -> p1.compareTo(p2));
-  //   return autoModes.toArray(String[]::new);
-  // }
+  public static String[] deriveAutoModes() {
+    List<String> autoModes = new ArrayList<String>();
+    List<String> autoNames = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner/autos"));
+    for(String autoName : autoNames){
+      if(!autoModes.contains(autoName)){
+        autoModes.add(autoName);
+      }
+    }
+    autoModes.sort((p1, p2) -> p1.compareTo(p2));
+    return autoModes.toArray(String[]::new);
+  }
 
   private static List<String> findPaths(File directory){
-    List<String> paths = new ArrayList<String>();
-    if(!directory.exists()){
-      System.out.println("FATAL: path directory not found! " + directory.getAbsolutePath());
-    }
-    else {
-      File[] files = directory.listFiles();
-      if(files == null){
-        System.out.println("FATAL: I/O error or NOT a directory: " + directory);
-      }
-      else
-      {
-        for (File file : files) {
-            String fileName = file.getName();
-            if (fileName.startsWith("_") && fileName.endsWith(".path")) {
-              System.out.println(file.getAbsolutePath());
-              if(!paths.contains(fileName)){
-                paths.add(fileName);
-              }
-            }
-        }
-      }
-    }
-    return paths;
+    List<String> autoNames = AutoBuilder.getAllAutoNames();
+    // List<String> paths = new ArrayList<String>();
+    // if(!directory.exists()){
+    //   System.out.println("FATAL: path directory not found! " + directory.getAbsolutePath());
+    // }
+    // else {
+    //   File[] files = directory.listFiles();
+    //   if(files == null){
+    //     System.out.println("FATAL: I/O error or NOT a directory: " + directory);
+    //   }
+    //   else
+    //   {
+    //     for (File file : files) {
+    //         String fileName = file.getName();
+    //         if ((fileName.startsWith("Blu") || fileName.startsWith("Red")) && fileName.endsWith(".auto")) {
+    //           System.out.println(file.getAbsolutePath());
+    //           if(!paths.contains(fileName)){
+    //             paths.add(fileName);
+    //           }
+    //         }
+    //     }
+    //   }
+    // }
+    return autoNames;
   }
 
   public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
-    return null;
-    // String alliancePathName = autoName + (isRedAlliance ? "Red" : "Blue");
-    // assert autoPaths.contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner: " + alliancePathName;
-    // double maxVelocity     = 4.0;
-    // double maxAcceleration = 2.0;
-    // switch(alliancePathName){
-    //   case "_1_Charger_Mid_1pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
-    //   case "_1_Charger_Mid_1pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
-    //   case "_2_Feeder_3pc_Blue":         maxVelocity = 3.0; maxAcceleration = 1.8; break;
-    //   case "_2_Feeder_3pc_Red":          maxVelocity = 3.0; maxAcceleration = 1.8; break;
-    //   case "_3_Cable_3pc_Blue":          maxVelocity = 4.0; maxAcceleration = 2.0; break;
-    //   case "_3_Cable_3pc_Red":           maxVelocity = 4.0; maxAcceleration = 2.0; break;
-    //   case "_4_Feeder_2pc_Charger_Blue": maxVelocity = 4.0; maxAcceleration = 2.0; break;
-    //   case "_4_Feeder_2pc_Charger_Red":  maxVelocity = 4.0; maxAcceleration = 2.0; break;
-    //   case "_5_Charger_Mid_2pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
-    //   case "_5_Charger_Mid_2pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
-    //   case "_6_Feeder_real3pc_Blue":     maxVelocity = 4.0; maxAcceleration = 2.1; break;
-    //   case "_6_Feeder_real3pc_Red":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
-    //   case "_7_Charger_Mid_2pc_Blue":    maxVelocity = 4.2; maxAcceleration = 2.3; break;
-    //   case "_7_Charger_Mid_2pc_Red":     maxVelocity = 4.2; maxAcceleration = 2.3; break;
-    //   case "_8_Cable_real3pc_Red":       maxVelocity = 4.0; maxAcceleration = 2.1; break;
-    //   case "_8_Cable_real3pc_Blue":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
+    String alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
+    assert autoPaths.contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
+    double maxVelocity     = 4.0;
+    double maxAcceleration = 2.0;
+    switch(alliancePathName){
+      case "_1_Charger_Mid_1pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
+      case "_1_Charger_Mid_1pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
+      case "_2_Feeder_3pc_Blue":         maxVelocity = 3.0; maxAcceleration = 1.8; break;
+      case "_2_Feeder_3pc_Red":          maxVelocity = 3.0; maxAcceleration = 1.8; break;
+      case "_3_Cable_3pc_Blue":          maxVelocity = 4.0; maxAcceleration = 2.0; break;
+      case "_3_Cable_3pc_Red":           maxVelocity = 4.0; maxAcceleration = 2.0; break;
+      case "_4_Feeder_2pc_Charger_Blue": maxVelocity = 4.0; maxAcceleration = 2.0; break;
+      case "_4_Feeder_2pc_Charger_Red":  maxVelocity = 4.0; maxAcceleration = 2.0; break;
+      case "_5_Charger_Mid_2pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
+      case "_5_Charger_Mid_2pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
+      case "_6_Feeder_real3pc_Blue":     maxVelocity = 4.0; maxAcceleration = 2.1; break;
+      case "_6_Feeder_real3pc_Red":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
+      case "_7_Charger_Mid_2pc_Blue":    maxVelocity = 4.2; maxAcceleration = 2.3; break;
+      case "_7_Charger_Mid_2pc_Red":     maxVelocity = 4.2; maxAcceleration = 2.3; break;
+      case "_8_Cable_real3pc_Red":       maxVelocity = 4.0; maxAcceleration = 2.1; break;
+      case "_8_Cable_real3pc_Blue":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
       
 
-    //   default: System.out.println("WARNING: USING DEFAULT MAX VELOCITY AND MAX ACCELERATION FOR AUTO MODE: " + alliancePathName);
-    // }
-    // return new PathPlannerCommandGroup(alliancePathName, s_Swerve, s_poseEstimatorSubsystem, sm_armStateMachine, maxVelocity, maxAcceleration);
+      default: System.out.println("WARNING: USING DEFAULT MAX VELOCITY AND MAX ACCELERATION FOR AUTO MODE: " + alliancePathName);
+    }
+    return new PathPlannerCommandGroup(alliancePathName, s_Swerve, s_poseEstimatorSubsystem, maxVelocity, maxAcceleration);
   }
 
 
