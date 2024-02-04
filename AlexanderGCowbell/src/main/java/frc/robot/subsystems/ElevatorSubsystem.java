@@ -51,7 +51,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     private void moveElevator(double position) {
         if (enabled){
             elevatorMotor1.setControl(mmReq1.withPosition(position));
-           elevatorMotor2.setControl(mmReq1.withPosition(position));
+            elevatorMotor2.setControl(mmReq1.withPosition(position));
         }
     }
     
