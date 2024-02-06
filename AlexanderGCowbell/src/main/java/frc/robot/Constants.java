@@ -3,8 +3,9 @@ package frc.robot;
 import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
+// import com.ctre.phoenix6.configs.FeedbackConfigs;
+// import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -263,7 +264,7 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final String kAutoDefault = "_6_Feeder_real3pc_";
+        public static final String kAutoDefault = "Amp_1"; // "_6_Feeder_real3pc_";
     	public static final String kAutoCodeKey = "Auto Selector";
 
         public static final double kMaxSpeedMetersPerSecond = 0.5; // disabled for testing = 3;
@@ -300,13 +301,12 @@ public final class Constants {
         public final static double autoScoreConeDelay = 0.5;
     }
 
-
     public static final class ElevatorConstants {
-        public final static int elevatorCancoderId1 = 11;
+        public final static int elevatorCancoderId1 = 21;
         public final static int elevatorCancoderId2 = 22;
 
-        public final static double MMVel = 5; // 5 rotations per second cruise
-        public final static double MMAcc = 10; // Take approximately 0.5 seconds to reach max vel
+        public final static double MMVel = 2; // 5 rotations per second cruise
+        public final static double MMAcc = 5; // Take approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
         public final static double MMJerk = 50;
     
@@ -317,7 +317,7 @@ public final class Constants {
         public final static double kV = 0.12;
         public final static double kS = 0.25; // Approximately 0.25V to get the mechanism moving
     
-        public final static double StM_Ratio = 12.8;
+        public final static double StM_Ratio = 36;
 
         // public static final int ELEVATOR_CURRENT_LIMIT_A = 18;
         // public static final int ELEVATOR_HOLD_CURRENT_LIMIT_A = 5;
@@ -348,9 +348,12 @@ public final class Constants {
 
         // public static final int smartMotionSlot = 0;
 
+        // Motor Direction
+        public final static InvertedValue elevatorDirection = InvertedValue.Clockwise_Positive; // or Clockwise_Positive
+
         // Positions
-        public final static double elevatorHomePosition = 0.74;
-        public final static double elevatorExtendedPosition = 17.5;
+        public final static double elevatorHomePosition = 0;
+        public final static double elevatorExtendedPosition = 2.1;
     }
 
     public static final class IntakeConstants {
