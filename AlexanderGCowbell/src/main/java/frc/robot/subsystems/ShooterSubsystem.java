@@ -28,8 +28,8 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     private void initializeShooterMotor() {
         if (enabled) {
             System.out.println("ShooterSubsystem: Starting Up & Initializing shooter motors !!!!");
-            shooterMotor1 = new CANSparkMax(11, MotorType.kBrushless);
-            shooterMotor2 = new CANSparkMax(12, MotorType.kBrushless);
+            shooterMotor1 = new CANSparkMax(ShooterConstants.shooterCancoderId1, MotorType.kBrushless);
+            shooterMotor2 = new CANSparkMax(ShooterConstants.shooterCancoderId2, MotorType.kBrushless);
             shooterMotor1.restoreFactoryDefaults();
             shooterMotor2.restoreFactoryDefaults();
             shooterMotor1.setSmartCurrentLimit(ShooterConstants.SHOOTER_CURRENT_LIMIT_A);

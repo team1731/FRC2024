@@ -103,14 +103,14 @@ public class Robot extends TimedRobot {
 	// PortForwarder.add(5804, "10.17.31.11", 5804);
 
 
-	s_Swerve = new Swerve(false);
+	s_Swerve = new Swerve(true);
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
 	s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
 	m_ledstring = new LEDStringSubsystem(true);
-	intake_subsystem = new IntakeSubsystem(false);
+	intake_subsystem = new IntakeSubsystem(true);
 	elevatorSubsystem = new ElevatorSubsystem(true);
-	wristSubsystem = new WristSubsystem(false);
-	shooterSubsystem = new ShooterSubsystem(false);
+	wristSubsystem = new WristSubsystem(true);
+	shooterSubsystem = new ShooterSubsystem(true);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard

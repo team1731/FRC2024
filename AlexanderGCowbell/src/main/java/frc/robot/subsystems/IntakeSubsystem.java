@@ -38,7 +38,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             intakeMotor = new CANSparkMax(IntakeConstants.intakeCancoderId, MotorType.kBrushless);
             intakeMotor.restoreFactoryDefaults();
             intakeMotor.setSmartCurrentLimit(IntakeConstants.INTAKE_CURRENT_LIMIT_A);
-            intakeMotor.setInverted(false);
+            intakeMotor.setInverted(true);
             intakeMotor.setIdleMode(IdleMode.kCoast);
             
             feederMotor = new CANSparkMax(IntakeConstants.feederCancoderId, MotorType.kBrushless);
@@ -62,23 +62,29 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
                 intakeSpeed = 0;
             }
             intakeMotor.set(intakeSpeed);
+            feederMotor.set(intakeSpeed);
             System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
+            System.out.println("DIO STATE:" + noteSwitch);
         }
     }
 
     public void intake() {
         intake(IntakeConstants.intakeSpeed);
+        feeder();
+        System.out.println("DIO STATE:" + debouncedSwitch());
     }    
 
     public void reverseIntake() {
         double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
         System.out.println("IntakeSubsystem: reverse speed = " + intakeSpeed);
         intake(intakeSpeed);
+        reverseFeeder();
     }    
 
     public void stopIntake() {
         if (enabled) {
             intakeMotor.set(0);
+            feederMotor.set(0);
         }
     }
     
@@ -110,6 +116,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void grabOrangeNote() {
         if (enabled) {
             // System.out.println("IntakeSubsystem grabOrangeNote(prev:" + prevNoteSwitch + "): " + currNoteSwitch + " sw: " + debouncedSwitch());
+            System.out.println("DIO STATE:" + debouncedSwitch());
             if (hasNoteTriggerChanged()) {
                 currNoteSwitch = debouncedSwitch();
                 if (!currNoteSwitch) {
@@ -150,6 +157,16 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         return m_debouncer.calculate(noteSwitch.get());
     }
     
+    public void periodic() {
+        if (hasNoteTriggerChanged()) {
+                currNoteSwitch = debouncedSwitch();
+                if (!currNoteSwitch) {
+                    intakeMotor.set(0);
+                    feederMotor.set(0);
+                } 
+        }        
+    }
+
     /*
     public void eject() {
         if(!enabled){

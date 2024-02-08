@@ -140,7 +140,7 @@ public final class Constants {
         public static int kxAxis = 0;
 
         // Switches - start at 1 not 0
-        public static int kHighPickupSwitch = 1;
+        public static int kShooterSwitch = 1;
         // public static int kThiefOnSwitchId = 2;
         // public static int kThiefOffSwitchId = 3;
         public static int kWristSwitchId = 4;
@@ -365,13 +365,13 @@ public final class Constants {
          *   Motors: Intake & Feeder
          * **********************************************************************************************
          */
-        public static final int INTAKE_CURRENT_LIMIT_A = 20;
-        public static final int FEEDER_CURRENT_LIMIT_A = 20;
+        public static final int INTAKE_CURRENT_LIMIT_A = 40;
+        public static final int FEEDER_CURRENT_LIMIT_A = 40;
         // public static final int INTAKE_HOLD_CURRENT_LIMIT_A = 5;
         // public static final int EJECT_CURRENT_LIMIT = 20;
 
-        public final static double intakeSpeed = 0.25;
-        public final static double feederSpeed = 0.25;
+        public final static double intakeSpeed = 1;
+        public final static double feederSpeed = 1;
 
         public final static double intakeStartedVelocityThreshold = 1000;
         public final static double intakeHoldingVelocityThreshold = 60;
@@ -417,13 +417,13 @@ public final class Constants {
         public static final int smartMotionSlot = 0;
 
         // Positions
-        public final static double wristHomePosition = 0.74;
-        public final static double wristExtendedPosition = 100.0;
+        public final static double wristHomePosition = 0;
+        public final static double wristExtendedPosition = 50.0;
     }
 
     public static final class ShooterConstants{
-        public final static int shooterCancoderId1 = 13;
-        public final static int shooterCancoderId2 = 14;
+        public final static int shooterCancoderId1 = 14;
+        public final static int shooterCancoderId2 = 15;
         public static final int SHOOTER_CURRENT_LIMIT_A = 20;
 
         // PID coefficients
@@ -436,8 +436,8 @@ public final class Constants {
         public static final double kMinOutput = -1.0;
         public static final double maxRPM = 5700;
 
-        public final static double kMotorSpeed1 = 0.5;
-        public final static double kMotorSpeed2 = 0.45;
+        public final static double kMotorSpeed1 = 1;
+        public final static double kMotorSpeed2 = 1;
     }
 
     public static final class ArmConstants {

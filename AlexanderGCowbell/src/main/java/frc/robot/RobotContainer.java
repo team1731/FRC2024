@@ -69,7 +69,7 @@ public class RobotContainer {
   // Operator switches
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
-  private final JoystickButton kHighPickupSwitch = new JoystickButton(operator,OperatorConsoleConstants.kHighPickupSwitch);
+  private final JoystickButton kShooterSwitch = new JoystickButton(operator,OperatorConsoleConstants.kShooterSwitch);
   private final JoystickButton kHighScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
   // private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
@@ -153,28 +153,36 @@ public class RobotContainer {
     }));
 
     // SHOOTING - Shooter & Feeder motors
-    kRightTrigger
-      .onTrue(new InstantCommand(() -> {
-        s_ShooterSubsystem.shoot();
-        s_intakeSubsystem.feeder();
+    kLeftTrigger
+      .whileTrue(new InstantCommand(() -> {
+        s_intakeSubsystem.intake();
+        s_intakeSubsystem.grabOrangeNote();
       }))
-      .onFalse(new InstantCommand(() -> {
-        s_ShooterSubsystem.stopShooting();
-        s_intakeSubsystem.stopFeeder();
+      .whileFalse(new InstantCommand(() -> {
+        s_intakeSubsystem.stopIntake();
+        s_intakeSubsystem.stopOrangeNoteGrab();
       }));
 
+    kShooterSwitch.onTrue(new InstantCommand(() -> {
+        s_ShooterSubsystem.shoot();
+    }))
+    .onFalse(new InstantCommand(() -> {
+        s_ShooterSubsystem.stopShooting();
+    }));
+
+
     // INTAKE - Intake & Feeder motors
-    kLeftTrigger
-      .whileTrue(new RunCommand(() -> s_intakeSubsystem.grabOrangeNote()))
-      .whileFalse(new InstantCommand(() -> s_intakeSubsystem.stopOrangeNoteGrab()));
+    kRightTrigger
+      .whileTrue(new RunCommand(() -> s_intakeSubsystem.feeder()))
+      .whileFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
 
-    kLeftBumper
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // kLeftBumper
+    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()))
+    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
 
-    kRightBumper
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.feeder()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
+    // kRightBumper
+    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.feeder()))
+    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
 
     // REVERSE FEEDER INTAKE
     ka
