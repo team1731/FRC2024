@@ -380,41 +380,29 @@ public final class Constants {
     }
 
     public static final class WristConstants {
-        public final static int wristCancoderId = 13;
+        public final static int wrist1CanId = 13;
+        public final static int wrist2CanId = 14;
+        public final static InvertedValue wrist1Direction = InvertedValue.Clockwise_Positive; // or Clockwise_Positive
+        public final static InvertedValue wrist2Direction = InvertedValue.CounterClockwise_Positive; // or Clockwise_Positive
         /*
          ************************************************************************************************
          * THESE VALUES NEED TO CHANGE IF WE WORK ON THE Intake Subsystem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
          *   Motors: Intake & Feeder
          * **********************************************************************************************
          */
-        public static final int WRIST_CURRENT_LIMIT_A = 24;
-        public static final int WRIST_HOLD_CURRENT_LIMIT_A = 5;
-        public static final int EJECT_CURRENT_LIMIT = 20;
 
-        public final static double wristSpeed = 0.25;
 
-        public final static double wristStartedVelocityThreshold = 1000;
-        public final static double wristHoldingVelocityThreshold = 60;
-
-        public static final double WRIST_HOLD_POWER = 0.07;
-
-        // PID coefficients
-        public static final double kP = 8e-4; 
-        public static final double kI = 0; //1e-6;
-        public static final double kD = 0; 
-        public static final double kIz = 0; 
-        public static final double kFF = 0.000356; 
-        public static final double kMaxOutput = 1.0; 
-        public static final double kMinOutput = -1.0;
-        public static final double maxRPM = 5700;
-
-        // Smart Motion Coefficients
-        public static final double maxVel = 2000; // rpm
-        public static final double minVel = 0; // rpm
-        public static final double maxAcc = 1500;
-        public static final double allowedErr = 2;
-
-        public static final int smartMotionSlot = 0;
+              public final static double MMVel = 2; // 5 rotations per second cruise
+        public final static double MMAcc = 5; // Take approximately 0.5 seconds to reach max vel
+        // Take approximately 0.2 seconds to reach max accel 
+        public final static double MMJerk = 50;
+    
+        // initialze PID controller and encoder objects
+        public final static double kP = 60;
+        public final static double kI = 0;
+        public final static double kD = 0.1;
+        public final static double kV = 0.12;
+        public final static double kS = 0.25; // Approximately 0.25V to get the mechanism moving
 
         // Positions
         public final static double wristHomePosition = 0;

@@ -1,19 +1,27 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import com.ctre.phoenix6.StatusCode;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Robot;
 
 public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsystem{
 
-    private CANSparkMax shooterMotor1;
-    private CANSparkMax shooterMotor2;
-    private SparkPIDController shooterPIDController1;
-    private SparkPIDController shooterPIDController2;
+  //  private CANSparkMax shooterMotor1;
+ //   private CANSparkMax shooterMotor2;
+  //  private SparkPIDController shooterPIDController1;
+ //   private SparkPIDController shooterPIDController2;
+    private static final String canBusName = "canivore";
+    private final TalonFX m_fx = new TalonFX(0, canBusName);
+    private final TalonFX m_fllr = new TalonFX(1, canBusName);
+    private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
+    private final NeutralOut m_brake = new NeutralOut();
     private boolean enabled;
     @Override
     public boolean isEnabled() {
@@ -28,53 +36,46 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     private void initializeShooterMotor() {
         if (enabled) {
             System.out.println("ShooterSubsystem: Starting Up & Initializing shooter motors !!!!");
-            shooterMotor1 = new CANSparkMax(ShooterConstants.shooterCancoderId1, MotorType.kBrushless);
-            shooterMotor2 = new CANSparkMax(ShooterConstants.shooterCancoderId2, MotorType.kBrushless);
-            shooterMotor1.restoreFactoryDefaults();
-            shooterMotor2.restoreFactoryDefaults();
-            shooterMotor1.setSmartCurrentLimit(ShooterConstants.SHOOTER_CURRENT_LIMIT_A);
-            shooterMotor2.setSmartCurrentLimit(ShooterConstants.SHOOTER_CURRENT_LIMIT_A);
-            shooterMotor1.setInverted(false);
-            shooterMotor2.setInverted(false);
-            shooterMotor1.setIdleMode(IdleMode.kCoast);
-            shooterMotor2.setIdleMode(IdleMode.kCoast);
+            TalonFXConfiguration configs = new TalonFXConfiguration();
 
-            // initialze PID controller and encoder objects
-            shooterPIDController1 = shooterMotor1.getPIDController();
-            shooterPIDController2 = shooterMotor2.getPIDController();
+            /* Voltage-based velocity requires a feed forward to account for the back-emf of the motor */
+            configs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 2V output
+            configs.Slot0.kI = 0.5; // An error of 1 rotation per second increases output by 0.5V every second
+            configs.Slot0.kD = 0.0001; // A change of 1 rotation per second squared results in 0.01 volts output
+            configs.Slot0.kV = 0.12; // Falcon 500 is a 500kV motor, 500rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / Rotation per second
+            // Peak output of 8 volts
+            configs.Voltage.PeakForwardVoltage = 12;
+            configs.Voltage.PeakReverseVoltage = -12;
 
-            // set PID coefficients
-            shooterPIDController1.setP(ShooterConstants.kP);
-            shooterPIDController1.setI(ShooterConstants.kI);
-            shooterPIDController1.setD(ShooterConstants.kD);
-            shooterPIDController1.setIZone(ShooterConstants.kIz);
-            shooterPIDController1.setFF(ShooterConstants.kFF);
-            shooterPIDController1.setOutputRange(ShooterConstants.kMinOutput, ShooterConstants.kMaxOutput);   
+                /* Retry config apply up to 5 times, report if failure */
+            StatusCode status = StatusCode.StatusCodeNotInitialized;
+            for (int i = 0; i < 5; ++i) {
+            status = m_fx.getConfigurator().apply(configs);
+            if (status.isOK()) break;
+            }
+            if(!status.isOK()) {
+            System.out.println("Could not apply configs, error code: " + status.toString());
+            }
 
-            shooterPIDController2.setP(ShooterConstants.kP);
-            shooterPIDController2.setI(ShooterConstants.kI);
-            shooterPIDController2.setD(ShooterConstants.kD);
-            shooterPIDController2.setIZone(ShooterConstants.kIz);
-            shooterPIDController2.setFF(ShooterConstants.kFF);
-            shooterPIDController2.setOutputRange(ShooterConstants.kMinOutput, ShooterConstants.kMaxOutput);   
-		}
-    }
+            m_fllr.setControl(new Follower(m_fx.getDeviceID(), false));
+            }
+                    
+        }
 
     public void shoot(){
         if (enabled){
             if (Robot.doSD()) { 
                 System.out.println("ShooterSubsystem: m1speed, m2speed = " + ShooterConstants.kMotorSpeed1 + ", " + ShooterConstants.kMotorSpeed2); 
             }
-            shooterMotor1.set(ShooterConstants.kMotorSpeed1);
-            shooterMotor2.set(ShooterConstants.kMotorSpeed2);
+
+            m_fx.setControl(m_voltageVelocity.withVelocity(5000.0/60));
 		}  
 
     }    
 
     public void stopShooting() {
         if (enabled){
-          shooterMotor1.set(0);
-          shooterMotor2.set(0);
+            m_fx.setControl(m_brake);
         }
     }
 
