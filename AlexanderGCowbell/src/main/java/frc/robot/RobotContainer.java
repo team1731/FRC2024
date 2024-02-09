@@ -180,9 +180,19 @@ public class RobotContainer {
     //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()))
     //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
 
-    // kRightBumper
-    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.feeder()))
-    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
+    kRightBumper
+      .onTrue(new InstantCommand(() -> {
+        s_wristSubsystem.wristExtended();
+        elevatorSubsystem.elevatorExtended();
+      }))
+      .onFalse(new InstantCommand(() -> 
+        s_intakeSubsystem.reverseFeeder()). //Potentially removable for more control...use kb below (lines 202-04)
+        withTimeout(1).andThen(new InstantCommand(() -> {
+          s_intakeSubsystem.stopFeeder();
+          s_wristSubsystem.wristHome();
+          elevatorSubsystem.elevatorHome();
+      })));
+
 
     // REVERSE FEEDER INTAKE
     ka
