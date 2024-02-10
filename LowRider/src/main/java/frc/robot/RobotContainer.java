@@ -201,7 +201,7 @@ public class RobotContainer {
 
     // ELEVATOR - EXTEND AND HOME
     kx
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorUp()))
       .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
 
     ky
