@@ -91,7 +91,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         System.out.println("ElevatorSubsystem: Starting UP & Initializing Elevator motors !!!!!!");
 
         // Initialize Motor 1
-        elevatorMotor1 = new TalonFX(ElevatorConstants.elevatorCancoderId1, "canivore1");
+        elevatorMotor1 = new TalonFX(ElevatorConstants.elevatorCancoderId1, Constants.CANBUS_NAME);
        // mmReq1 = new MotionMagicVoltage(0);
 
        // TalonFXConfiguration cfg1 = new TalonFXConfiguration();
@@ -127,7 +127,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         //FeedbackConfigs fdb1 = cfg1.Feedback;
         FeedbackConfigs fdb1 = config.Feedback;
         fdb1.SensorToMechanismRatio = ElevatorConstants.StM_Ratio;
-    
+
         StatusCode status = StatusCode.StatusCodeNotInitialized;
         for(int i = 0; i < 5; ++i) {
           status = elevatorMotor1.getConfigurator().apply(config);
@@ -138,8 +138,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         }
 
         // Initialize Motor 2
-        elevatorMotor2 = new TalonFX(ElevatorConstants.elevatorCancoderId2, "canivore1");
-        elevatorMotor2.setControl(new Follower(elevatorMotor1.getDeviceID(), true));
+        elevatorMotor2 = new TalonFX(ElevatorConstants.elevatorCancoderId2, Constants.CANBUS_NAME);
+        elevatorMotor2.setControl(new Follower(elevatorMotor1.getDeviceID(),  false));
 
         // mmReq2 = new MotionMagicVoltage(0);
 
@@ -195,5 +195,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     }
     public void lowerElevator(){
         elevatorMotor1.setControl(m_voltageVelocity.withVelocity(10));
+    }
+    public void stopElevator() {
+        elevatorMotor1.setControl(m_voltageVelocity.withVelocity(0));
     }
 }

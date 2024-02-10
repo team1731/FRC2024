@@ -174,8 +174,8 @@ public class RobotContainer {
     //   //s_armSubSystem.resetArmEncoders();
     // }));
 
-    // kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
-    // kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem));
+    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem));
   
     kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
@@ -209,11 +209,11 @@ public class RobotContainer {
     //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
     kx
       .onTrue(new InstantCommand(() -> elevatorSubsystem.liftElevator()))
-      .onFalse(new InstantCommand(() -> elevatorSubsystem.lowerElevator()));
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
 
     ky
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
-      .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.lowerElevator()))
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
 
 
     // WRIST - FORWARD AND BACK

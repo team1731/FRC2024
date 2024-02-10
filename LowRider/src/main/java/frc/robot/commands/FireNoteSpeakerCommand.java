@@ -20,7 +20,7 @@ public class FireNoteSpeakerCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_ShooterSubsystem;
-	private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
+	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
 
 
 
@@ -29,17 +29,16 @@ public class FireNoteSpeakerCommand extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * @param PoseEstimatorSubsystem 
+	 * 
 	 */
-	public FireNoteSpeakerCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem,
-			PoseEstimatorSubsystem poseEstimatorSubsystem) {
+	public FireNoteSpeakerCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
 		m_ShooterSubsystem = shooterSubsystem;
-		m_poseEstimatorSubsystem = poseEstimatorSubsystem;
+		//m_poseEstimatorSubsystem = poseEstimatorSubsystem;
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && shooterSubsystem != null && poseEstimatorSubsystem != null) {
-			addRequirements(intakeSubsystem, shooterSubsystem, poseEstimatorSubsystem);
+		if (intakeSubsystem != null && shooterSubsystem != null ) {
+			addRequirements(intakeSubsystem, shooterSubsystem);
 		}
 	}
 

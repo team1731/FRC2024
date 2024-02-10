@@ -317,7 +317,7 @@ public final class Constants {
         public final static double kV = 0.12;
         public final static double kS = 0.25; // Approximately 0.25V to get the mechanism moving
     
-        public final static double StM_Ratio = 36;
+        public final static double StM_Ratio = 1;
 
         // public static final int ELEVATOR_CURRENT_LIMIT_A = 18;
         // public static final int ELEVATOR_HOLD_CURRENT_LIMIT_A = 5;
