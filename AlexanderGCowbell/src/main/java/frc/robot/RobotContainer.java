@@ -155,7 +155,8 @@ public class RobotContainer {
     kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
   
-    
+    kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
+    kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
 
     kShooterSwitch.onTrue(new InstantCommand(() -> {
         s_ShooterSubsystem.shoot();
@@ -178,11 +179,11 @@ public class RobotContainer {
 
     // ELEVATOR - EXTEND AND HOME
     kx
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()))
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
       .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
 
     ky
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorHome()))
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
       .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
     
     // SCORE HIGH/MED/LOW BUTTONS

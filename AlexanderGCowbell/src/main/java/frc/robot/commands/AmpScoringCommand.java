@@ -9,18 +9,21 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 /**
  * Command to fire into the speaker
  */
-public class FireNoteSpeakerCommand extends Command {
+public class AmpScoringCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
-    private final ShooterSubsystem m_ShooterSubsystem;
-	private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
+	private final ElevatorSubsystem m_elevatorSubsystem;
+	private final WristSubsystem m_wristSubsystem;
 
 
 
@@ -30,16 +33,18 @@ public class FireNoteSpeakerCommand extends Command {
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
 	 * @param PoseEstimatorSubsystem 
+	 * @param ElevatorSubsystem
+	 * @param WristSubsystem 
 	 */
-	public FireNoteSpeakerCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem,
-			PoseEstimatorSubsystem poseEstimatorSubsystem) {
+	public AmpScoringCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
-		m_ShooterSubsystem = shooterSubsystem;
-		m_poseEstimatorSubsystem = poseEstimatorSubsystem;
+		m_elevatorSubsystem = elevatorSubsystem;
+		m_wristSubsystem = wristSubsystem;
+
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && shooterSubsystem != null && poseEstimatorSubsystem != null) {
-			addRequirements(intakeSubsystem, shooterSubsystem, poseEstimatorSubsystem);
+		if (intakeSubsystem != null && elevatorSubsystem != null && wristSubsystem != null) {
+			addRequirements(intakeSubsystem, elevatorSubsystem, wristSubsystem);
 		}
 	}
 
@@ -47,29 +52,23 @@ public class FireNoteSpeakerCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		
-        m_intakeSubsystem.disableLimitSwitch();
-		
-		// turn on the shooter if it is not already on
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-
-        // if we have a good field position, set the elevator and wrist angles based on the distance to the goal
-		// optionally take over steering
-		// if the elevator and wrist are in range and the shooter is up to speed, run the feeder motor
-	    m_intakeSubsystem.feed();
-
-
-
+		m_elevatorSubsystem.sendElevatorUp();
+		m_wristSubsystem.wristExtended();
+	    if (m_elevatorSubsystem.getElevatorPosition() == Constants.ElevatorConstants.elevatorExtendedPosition && m_wristSubsystem.getWristPosition() == Constants.WristConstants.wristExtendedPosition){
+			m_intakeSubsystem.reverseFeed();
+		}	
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_intakeSubsystem.enableLimitSwitch();
+		m_elevatorSubsystem.sendElevatorHome();
+		m_wristSubsystem.wristHome();
         m_intakeSubsystem.stopFeed();
 	}
 
@@ -78,5 +77,4 @@ public class FireNoteSpeakerCommand extends Command {
 	public boolean isFinished() {
 		return false;
 	}
-
 }
