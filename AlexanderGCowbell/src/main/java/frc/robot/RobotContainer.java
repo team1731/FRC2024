@@ -61,9 +61,9 @@ public class RobotContainer {
   private final Trigger kRightTrigger = xboxController.rightTrigger();
 
   /* Operator Buttons */
-  private final JoystickButton kPreventScoreBtn = new JoystickButton(operator,OperatorConsoleConstants.kPreventScoreBtnId);
+  private final JoystickButton kTurnForwardBtn = new JoystickButton(operator,OperatorConsoleConstants.kPreventScoreBtnId);
   private final JoystickButton kWheelLockBtn = new JoystickButton(operator,OperatorConsoleConstants.kWheelLockBtnId);
-  private final JoystickButton kReleaseBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
+  private final JoystickButton kTurnBackBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
   private final JoystickButton kIntakeBtn = new JoystickButton(operator,OperatorConsoleConstants.kIntakeBtnId);
   private final JoystickButton kxINT = new JoystickButton(operator, OperatorConsoleConstants.kxAxis);
   // Operator switches
@@ -166,7 +166,7 @@ public class RobotContainer {
     }));
 
 
-  
+    
 
     // REVERSE FEEDER INTAKE
     ka
@@ -185,6 +185,16 @@ public class RobotContainer {
     ky
       .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
       .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
+
+
+    // WRIST - FORWARD AND BACK
+    kTurnForwardBtn
+      .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristForward()))
+      .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
+    
+    kTurnBackBtn
+      .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristBack()))
+      .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
     
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
