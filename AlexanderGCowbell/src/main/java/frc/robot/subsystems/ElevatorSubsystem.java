@@ -12,7 +12,8 @@ import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.ElevatorConstants;
+//import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.Swerve.ElevatorConstants;
 
 public class ElevatorSubsystem  extends SubsystemBase implements ToggleableSubsystem {
 

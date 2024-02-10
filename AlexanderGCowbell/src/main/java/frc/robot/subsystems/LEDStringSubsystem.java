@@ -135,14 +135,14 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
         }
       }
 
-      public void setColor(OpConstants.LedOption color) {
+      public void setColor(LedOption currentColor2) {
         if (enabled){
-          if (currentColor == color) {
+          if (currentColor == currentColor2) {
             return;
           }
           System.out.println("Setting the color");
           // Fill the buffer with selection
-          switch (color) {
+          switch (currentColor2) {
             case INIT:
             setTeamColorBlocks();
             if (!blink){
@@ -189,4 +189,8 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
           }
         }
       }
+    //public void setColor(frc.robot.Constants.Swerve.OpConstants.LedOption yellow2) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'setColor'");
+   // }
 }

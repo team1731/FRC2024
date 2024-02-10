@@ -5,8 +5,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.Robot;
+import frc.robot.Constants.Swerve.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsystem{
 

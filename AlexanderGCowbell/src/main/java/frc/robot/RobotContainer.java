@@ -28,9 +28,9 @@ import frc.robot.state.arm.ArmStateMachine;
 import frc.robot.subsystems.*;
 import frc.robot.util.log.LogWriter;
 import frc.robot.Constants.OperatorConsoleConstants;
+import frc.robot.Constants.Swerve.OpConstants.LedOption;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.HighPickup;
-import frc.robot.Constants.OpConstants.LedOption;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
