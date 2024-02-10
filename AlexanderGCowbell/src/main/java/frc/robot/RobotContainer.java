@@ -177,10 +177,17 @@ public class RobotContainer {
     //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
     //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
-    // ELEVATOR - EXTEND AND HOME
+    // // ELEVATOR - EXTEND AND HOME
+    // kx
+    //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
+    //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
+
+    // ky
+    //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
+    //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
     kx
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
-      .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.liftElevator()))
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.lowerElevator()));
 
     ky
       .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
