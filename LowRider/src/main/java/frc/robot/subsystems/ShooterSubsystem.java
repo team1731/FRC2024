@@ -8,6 +8,7 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Robot;
 
@@ -17,7 +18,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
  //   private CANSparkMax shooterMotor2;
   //  private SparkPIDController shooterPIDController1;
  //   private SparkPIDController shooterPIDController2;
-    private static final String canBusName = "canivore1";
+    private static final String canBusName = Constants.CANBUS_NAME;
     private final TalonFX m_fx = new TalonFX(0, canBusName);
     private final TalonFX m_fllr = new TalonFX(1, canBusName);
     private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);

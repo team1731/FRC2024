@@ -48,7 +48,7 @@ public class IntakeCommand extends Command {
 	@Override
 	public void initialize() {
 		
-        m_intakeSubsystem.enableLimitSwitch();
+      //  m_intakeSubsystem.enableLimitSwitch();
 		
 	}
 
@@ -58,6 +58,9 @@ public class IntakeCommand extends Command {
 
 
 	    m_intakeSubsystem.intake();
+
+
+
 
 
 
