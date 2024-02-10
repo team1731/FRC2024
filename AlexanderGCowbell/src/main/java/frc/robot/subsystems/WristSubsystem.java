@@ -12,6 +12,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 // import com.ctre.phoenix6.signals.InvertedValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
@@ -40,7 +41,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
      * Wrist MOTOR MOVEMENT
     */
 
-    public double getWristPosition() {
+    public double getWristMotor1Position() {
         double position1 = 0;
         double position2 = 0;
         if (enabled){
@@ -50,7 +51,16 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         }
         return position1;
     }
-
+    public double getWristMotor2Position() {
+        double position1 = 0;
+        double position2 = 0;
+        if (enabled){
+            position1 = wristMotor1.getRotorPosition().getValueAsDouble();
+            position2 = wristMotor2.getRotorPosition().getValueAsDouble();
+            System.out.println("WristSubsystem: Position(1:2): " + position1 + ":" + position2);
+        }
+        return position2;
+    }
     public void moveWrist(double position) {
         if (enabled){
             //wristMotor1.setControl(mmReq1.withPosition(position));
@@ -60,6 +70,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     }
     public void turnWristForward(){
         wristMotor1.setControl(m_voltageVelocity.withVelocity(5));
+        System.out.println("Wrist turning");
     }
     public void turnWristBack(){
         wristMotor1.setControl(m_voltageVelocity.withVelocity(-5));
@@ -184,6 +195,10 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         // wristMotor2.setControl(new Follower(wristMotor1.getDeviceID(), false));
         wristMotor1.setPosition(0);
         wristMotor2.setPosition(0);
-    }
 
+    }
+    public void periodic() {
+        SmartDashboard.putNumber("Wrist motor 1 position", getWristMotor1Position());
+        SmartDashboard.putNumber("Wrist motor 2 position", getWristMotor2Position());
+    }
 }

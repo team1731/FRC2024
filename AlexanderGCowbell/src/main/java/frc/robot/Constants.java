@@ -28,7 +28,7 @@ import frc.robot.util.log.LogWriter.LogMode;
 public final class Constants {
     public static final double stickDeadband = 0.1;
 	public static final int kTICKS = 33024; // 16.125 * 2048;
-    public static final String CANBUS_NAME = "canivore";
+    public static final String CANBUS_NAME = "canivore1";
 
 
     public static enum GamePiece {
@@ -413,8 +413,8 @@ public final class Constants {
     }
 
     public static final class ShooterConstants{
-        public final static int shooterCancoderId1 = 14;
-        public final static int shooterCancoderId2 = 15;
+        public final static int shooterCancoderId1 = 15;
+        public final static int shooterCancoderId2 = 16;
         public static final int SHOOTER_CURRENT_LIMIT_A = 20;
 
         // PID coefficients

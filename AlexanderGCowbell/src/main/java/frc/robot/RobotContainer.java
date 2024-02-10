@@ -168,14 +168,14 @@ public class RobotContainer {
 
     
 
-    // REVERSE FEEDER INTAKE
-    ka
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // REVERSE FEEDER INTAKE -- Temporarily commented out for manual wrist adjustments
+    // ka
+    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
+    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
   
-    kb
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
+    // kb
+    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
     // ELEVATOR - EXTEND AND HOME
     kx
@@ -188,11 +188,11 @@ public class RobotContainer {
 
 
     // WRIST - FORWARD AND BACK
-    kTurnForwardBtn
+    ka
       .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristForward()))
       .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
     
-    kTurnBackBtn
+    kb
       .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristBack()))
       .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
     
