@@ -55,13 +55,13 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         }
     }
     
-    public void elevatorExtended() {
-        System.out.println("X - onTrue - elevatorExtended method called");
+    public void sendElevatorUp() {
+        System.out.println("X - onTrue - sendElevatorUp method called");
         moveElevator(ElevatorConstants.elevatorExtendedPosition);
     }
 
-    public void elevatorHome() {
-        System.out.println("X - onFalse - elevatorHome method called");
+    public void sendElevatorHome() {
+        System.out.println("X - onFalse - sendElevatorHome method called");
         moveElevator(ElevatorConstants.elevatorHomePosition);
     }
 

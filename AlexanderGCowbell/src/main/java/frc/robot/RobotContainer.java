@@ -152,16 +152,11 @@ public class RobotContainer {
       //s_armSubSystem.resetArmEncoders();
     }));
 
-    // SHOOTING - Shooter & Feeder motors
-    kLeftTrigger
-      .whileTrue(new InstantCommand(() -> {
-        s_intakeSubsystem.intake();
-        s_intakeSubsystem.grabOrangeNote();
-      }))
-      .whileFalse(new InstantCommand(() -> {
-        s_intakeSubsystem.stopIntake();
-        s_intakeSubsystem.stopOrangeNoteGrab();
-      }));
+    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+  
+    kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
+    kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
 
     kShooterSwitch.onTrue(new InstantCommand(() -> {
         s_ShooterSubsystem.shoot();
@@ -171,18 +166,7 @@ public class RobotContainer {
     }));
 
 
-    // INTAKE - Intake & Feeder motors
-    kRightTrigger
-      .whileTrue(new RunCommand(() -> s_intakeSubsystem.feeder()))
-      .whileFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
-
-    // kLeftBumper
-    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()))
-    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-
-    // kRightBumper
-    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.feeder()))
-    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
+  
 
     // REVERSE FEEDER INTAKE
     ka
@@ -190,16 +174,16 @@ public class RobotContainer {
       .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
   
     kb
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeeder()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
+      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
     // ELEVATOR - EXTEND AND HOME
     kx
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorExtended()))
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
       .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
 
     ky
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.elevatorHome()))
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
       .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
     
     // SCORE HIGH/MED/LOW BUTTONS
