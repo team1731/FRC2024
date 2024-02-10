@@ -354,6 +354,7 @@ public final class Constants {
         // Positions
         public final static double elevatorHomePosition = 0;
         public final static double elevatorExtendedPosition = 2.1;
+        public final static double elevatorPositionTolerance = 0.05;
     }
 
     public static final class IntakeConstants {
@@ -407,6 +408,8 @@ public final class Constants {
         // Positions
         public final static double wristHomePosition = 0;
         public final static double wristExtendedPosition = 50.0;
+
+        public final static double wristAmpPosition = 50.0;
     }
 
     public static final class ShooterConstants{

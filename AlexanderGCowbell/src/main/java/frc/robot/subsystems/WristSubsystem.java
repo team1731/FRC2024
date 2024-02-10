@@ -5,8 +5,10 @@ import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 // import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 // import com.ctre.phoenix6.signals.InvertedValue;
 
@@ -21,6 +23,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor2;
     private MotionMagicVoltage mmReq1;
     // private MotionMagicVoltage mmReq2;
+     private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
 
     private boolean enabled;
     @Override
@@ -48,7 +51,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         return position1;
     }
 
-    private void moveWrist(double position) {
+    public void moveWrist(double position) {
         if (enabled){
             wristMotor1.setControl(mmReq1.withPosition(position));
             wristMotor2.setControl(mmReq1.withPosition(position));
@@ -74,38 +77,53 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         // Initialize Motor 1
         wristMotor1 = new TalonFX(WristConstants.wrist1CanId, "canivore1");
-        mmReq1 = new MotionMagicVoltage(0);
+        //mmReq1 = new MotionMagicVoltage(0);
 
-        TalonFXConfiguration cfg1 = new TalonFXConfiguration();
+        TalonFXConfiguration configs = new TalonFXConfiguration();
 
         // Factory Default
-        wristMotor1.getConfigurator().apply(cfg1);
+        //wristMotor1.getConfigurator().apply(cfg1);
         
     
         // Wrist Motor 1 is CCW+
-        cfg1.MotorOutput.Inverted = WristConstants.wrist1Direction;
+        configs.MotorOutput.Inverted = WristConstants.wrist1Direction;
 
-        /* Configure current limits */
-        MotionMagicConfigs mm1 = cfg1.MotionMagic;
-        mm1.MotionMagicCruiseVelocity = WristConstants.MMVel; // 5 rotations per second cruise
-        mm1.MotionMagicAcceleration = WristConstants.MMAcc; // Take approximately 0.5 seconds to reach max vel
-        // Take approximately 0.2 seconds to reach max accel 
-        mm1.MotionMagicJerk = WristConstants.MMJerk;
+        // /* Configure current limits */
+        // MotionMagicConfigs mm1 = cfg1.MotionMagic;
+        // mm1.MotionMagicCruiseVelocity = WristConstants.MMVel; // 5 rotations per second cruise
+        // mm1.MotionMagicAcceleration = WristConstants.MMAcc; // Take approximately 0.5 seconds to reach max vel
+        // // Take approximately 0.2 seconds to reach max accel 
+        // mm1.MotionMagicJerk = WristConstants.MMJerk;
     
-        // initialze PID controller and encoder objects
-        Slot0Configs slot0_1 = cfg1.Slot0;
-        slot0_1.kP = WristConstants.kP;
-        slot0_1.kI = WristConstants.kI;
-        slot0_1.kD = WristConstants.kD;
-        slot0_1.kV = WristConstants.kV;
-        slot0_1.kS = WristConstants.kS; // Approximately 0.25V to get the mechanism moving
+        // // initialze PID controller and encoder objects
+        // Slot0Configs slot0_1 = cfg1.Slot0;
+        // slot0_1.kP = WristConstants.kP;
+        // slot0_1.kI = WristConstants.kI;
+        // slot0_1.kD = WristConstants.kD;
+        // slot0_1.kV = WristConstants.kV;
+        // slot0_1.kS = WristConstants.kS; // Approximately 0.25V to get the mechanism moving
     
-        FeedbackConfigs fdb1 = cfg1.Feedback;
-        fdb1.SensorToMechanismRatio = 1;
+        // FeedbackConfigs fdb1 = cfg1.Feedback;
+        // fdb1.SensorToMechanismRatio = 1;
+        // class member variable
+
+
+        // robot init, set slot 0 gains
+        
+        configs.Slot0.kV = 0.12;
+        configs.Slot0.kP = 0.11;
+        configs.Slot0.kI = 0.48;
+        configs.Slot0.kD = 0.01;
+    
+        configs.Voltage.PeakForwardVoltage = 12;
+        configs.Voltage.PeakReverseVoltage = -12;
+
+        // periodic, run velocity control with slot 0 configs,
+        // target velocity of 50 rps
     
         StatusCode status = StatusCode.StatusCodeNotInitialized;
         for(int i = 0; i < 5; ++i) {
-          status = wristMotor1.getConfigurator().apply(cfg1);
+          status = wristMotor1.getConfigurator().apply(configs);
           if (status.isOK()) break;
         }
         if (!status.isOK()) {
@@ -114,10 +132,11 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         // Initialize Motor 2
         wristMotor2 = new TalonFX(WristConstants.wrist2CanId, "canivore1");
-      
+        wristMotor2.setControl(new Follower(wristMotor1.getDeviceID(), false));
+
         // mmReq2 = new MotionMagicVoltage(0);
 
-        // TalonFXConfiguration cfg2 = new TalonFXConfiguration();
+        //TalonFXConfiguration configs = new TalonFXConfiguration();
 
         // Factory Default
         // wristMotor2.getConfigurator().apply(cfg2);
@@ -142,10 +161,10 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         
         // FeedbackConfigs fdb2 = cfg2.Feedback;
         // fdb2.SensorToMechanismRatio = WristConstants.StM_Ratio;
-        cfg1.MotorOutput.Inverted = WristConstants.wrist2Direction;
+       // slot0Configs.MotorOutput.Inverted = WristConstants.wrist2Direction;
         StatusCode status2 = StatusCode.StatusCodeNotInitialized;
         for(int i = 0; i < 5; ++i) {
-          status2 = wristMotor2.getConfigurator().apply(cfg1);
+          status2 = wristMotor2.getConfigurator().apply(configs);
           if (status2.isOK()) break;
         }
         if (!status2.isOK()) {

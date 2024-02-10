@@ -22,6 +22,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     private MotionMagicVoltage mmReq1;
     // private MotionMagicVoltage mmReq2;
 
+
     private boolean enabled;
     @Override
     public boolean isEnabled() {
@@ -32,7 +33,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         this.enabled = enabled;
         initializeElevatorMotors();
     }
-
+    
     /*
      * Elevator MOTOR MOVEMENT
     */
@@ -45,7 +46,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
             position2 = elevatorMotor2.getRotorPosition().getValueAsDouble();
             System.out.println("ElevatorSubsystem: Position(1:2): " + position1 + ":" + position2);
         }
-        return position1;
+        return ((position1 + position2)/2);
     }
 
     private void moveElevator(double position) {
@@ -58,13 +59,13 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     public void sendElevatorUp() {
         System.out.println("X - onTrue - sendElevatorUp method called");
         moveElevator(ElevatorConstants.elevatorExtendedPosition);
+	
     }
 
     public void sendElevatorHome() {
         System.out.println("X - onFalse - sendElevatorHome method called");
         moveElevator(ElevatorConstants.elevatorHomePosition);
     }
-
     // Initialize Motors
     private void initializeElevatorMotors() {
         if (!enabled) {
@@ -156,6 +157,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         // elevatorMotor2.setControl(new Follower(elevatorMotor1.getDeviceID(), false));
         elevatorMotor1.setPosition(0);
         elevatorMotor2.setPosition(0);
+
+        
     }
 
 }

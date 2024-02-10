@@ -16,6 +16,9 @@ import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
+import com.ctre.phoenix.motion.*;
+
+
 /**
  * Command to fire into the speaker
  */
@@ -58,9 +61,9 @@ public class AmpScoringCommand extends Command {
 	@Override
 	public void execute() {
 		m_elevatorSubsystem.sendElevatorUp();
-		m_wristSubsystem.wristExtended();
-	    if (m_elevatorSubsystem.getElevatorPosition() == Constants.ElevatorConstants.elevatorExtendedPosition && m_wristSubsystem.getWristPosition() == Constants.WristConstants.wristExtendedPosition){
-			m_intakeSubsystem.reverseFeed();
+		m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpPosition);
+		if (Math.abs(Constants.ElevatorConstants.elevatorExtendedPosition - m_elevatorSubsystem.getElevatorPosition()) <= Constants.ElevatorConstants.elevatorPositionTolerance){
+			m_intakeSubsystem.feed();
 		}	
 	}
 
@@ -68,7 +71,7 @@ public class AmpScoringCommand extends Command {
 	@Override
 	public void end(boolean interrupted) {
 		m_elevatorSubsystem.sendElevatorHome();
-		m_wristSubsystem.wristHome();
+		m_wristSubsystem.moveWrist(Constants.WristConstants.wristHomePosition);
         m_intakeSubsystem.stopFeed();
 	}
 
