@@ -53,11 +53,20 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     public void moveWrist(double position) {
         if (enabled){
-            wristMotor1.setControl(mmReq1.withPosition(position));
-            wristMotor2.setControl(mmReq1.withPosition(position));
+            //wristMotor1.setControl(mmReq1.withPosition(position));
+            //wristMotor2.setControl(mmReq1.withPosition(position));
+
         }
     }
-    
+    public void turnWristForward(){
+        wristMotor1.setControl(m_voltageVelocity.withVelocity(5));
+    }
+    public void turnWristBack(){
+        wristMotor1.setControl(m_voltageVelocity.withVelocity(-5));
+    }
+    public void stopWrist(){
+        wristMotor1.setControl(m_voltageVelocity.withVelocity(0));
+    }
     public void wristExtended() {
         System.out.println("X - onTrue - wristExtended method called");
         moveWrist(WristConstants.wristExtendedPosition);
@@ -86,7 +95,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         
     
         // Wrist Motor 1 is CCW+
-        configs.MotorOutput.Inverted = WristConstants.wrist1Direction;
+        //configs.MotorOutput.Inverted = WristConstants.wrist1Direction;
 
         // /* Configure current limits */
         // MotionMagicConfigs mm1 = cfg1.MotionMagic;
@@ -132,7 +141,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         // Initialize Motor 2
         wristMotor2 = new TalonFX(WristConstants.wrist2CanId, "canivore1");
-        wristMotor2.setControl(new Follower(wristMotor1.getDeviceID(), false));
+        wristMotor2.setControl(new Follower(wristMotor1.getDeviceID(), true));
 
         // mmReq2 = new MotionMagicVoltage(0);
 
