@@ -11,7 +11,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 // import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import frc.robot.Constants;
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsystem {
@@ -73,7 +73,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         System.out.println("ElevatorSubsystem: Starting UP & Initializing Elevator motors !!!!!!");
 
         // Initialize Motor 1
-        elevatorMotor1 = new TalonFX(ElevatorConstants.elevatorCancoderId1, "canivore1");
+        elevatorMotor1 = new TalonFX(ElevatorConstants.elevatorCancoderId1, Constants.CANBUS_NAME);
         mmReq1 = new MotionMagicVoltage(0);
 
         TalonFXConfiguration cfg1 = new TalonFXConfiguration();
@@ -113,7 +113,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         }
 
         // Initialize Motor 2
-        elevatorMotor2 = new TalonFX(ElevatorConstants.elevatorCancoderId2, "canivore1");
+        elevatorMotor2 = new TalonFX(ElevatorConstants.elevatorCancoderId2, Constants.CANBUS_NAME);
       
         // mmReq2 = new MotionMagicVoltage(0);
 

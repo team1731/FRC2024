@@ -28,7 +28,7 @@ import frc.robot.util.log.LogWriter.LogMode;
 public final class Constants {
     public static final double stickDeadband = 0.1;
 	public static final int kTICKS = 33024; // 16.125 * 2048;
-    public static final String CANBUS_NAME = "canivore";
+    public static final String CANBUS_NAME = "canivore1";
 
 
     public static enum GamePiece {

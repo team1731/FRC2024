@@ -11,7 +11,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 // import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import frc.robot.Constants;
+import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
 
 public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem {
@@ -73,7 +73,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         System.out.println("WristSubsystem: Starting UP & Initializing Wrist motors !!!!!!");
 
         // Initialize Motor 1
-        wristMotor1 = new TalonFX(WristConstants.wrist1CanId, "canivore1");
+        wristMotor1 = new TalonFX(WristConstants.wrist1CanId, Constants.CANBUS_NAME);
         mmReq1 = new MotionMagicVoltage(0);
 
         TalonFXConfiguration cfg1 = new TalonFXConfiguration();
@@ -113,7 +113,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         }
 
         // Initialize Motor 2
-        wristMotor2 = new TalonFX(WristConstants.wrist2CanId, "canivore1");
+        wristMotor2 = new TalonFX(WristConstants.wrist2CanId, Constants.CANBUS_NAME);
       
         // mmReq2 = new MotionMagicVoltage(0);
 
