@@ -152,16 +152,10 @@ public class RobotContainer {
       //s_armSubSystem.resetArmEncoders();
     }));
 
-    // SHOOTING - Shooter & Feeder motors
-    kLeftTrigger
-      .whileTrue(new InstantCommand(() -> {
-        s_intakeSubsystem.intake();
-        s_intakeSubsystem.grabOrangeNote();
-      }))
-      .whileFalse(new InstantCommand(() -> {
-        s_intakeSubsystem.stopIntake();
-        s_intakeSubsystem.stopOrangeNoteGrab();
-      }));
+    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+  
+    
 
     kShooterSwitch.onTrue(new InstantCommand(() -> {
         s_ShooterSubsystem.shoot();
@@ -171,28 +165,7 @@ public class RobotContainer {
     }));
 
 
-    // INTAKE - Intake & Feeder motors
-    kRightTrigger
-      .whileTrue(new RunCommand(() -> s_intakeSubsystem.feeder()))
-      .whileFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
-
-    // kLeftBumper
-    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()))
-    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-
-    kRightBumper
-      .onTrue(new InstantCommand(() -> {
-        s_wristSubsystem.wristExtended();
-        elevatorSubsystem.elevatorExtended();
-      }))
-      .onFalse(new InstantCommand(() -> 
-        s_intakeSubsystem.reverseFeeder()). //Potentially removable for more control...use kb below (lines 202-04)
-        withTimeout(1).andThen(new InstantCommand(() -> {
-          s_intakeSubsystem.stopFeeder();
-          s_wristSubsystem.wristHome();
-          elevatorSubsystem.elevatorHome();
-      })));
-
+  
 
     // REVERSE FEEDER INTAKE
     ka
@@ -200,8 +173,8 @@ public class RobotContainer {
       .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
   
     kb
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeeder()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeeder()));
+      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
     // ELEVATOR - EXTEND AND HOME
     kx
