@@ -14,7 +14,7 @@ import frc.lib.util.SwerveModuleConstants;
 // import com.ctre.phoenix.motorcontrol.can.TalonFX;
 // import com.ctre.phoenix.sensors.CANCoder;
 
-import com.ctre.phoenix6.signals.ControlModeValue;
+//import com.ctre.phoenix6.signals.ControlModeValue;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 //import com.ctre.phoenix.motorcontrol.DemandType;
