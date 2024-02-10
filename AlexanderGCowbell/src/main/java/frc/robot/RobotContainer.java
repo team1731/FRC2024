@@ -3,6 +3,18 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import frc.robot.CommandSwerveDrivetrain;
+import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.TunerConstants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,6 +43,8 @@ import frc.robot.Constants.OperatorConsoleConstants;
 import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.HighPickup;
 import frc.robot.Constants.OpConstants.LedOption;
+import frc.robot.TunerConstants.*;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,6 +53,17 @@ import frc.robot.Constants.OpConstants.LedOption;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
+  private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
+
+  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+      .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric
+                                                               // driving in open loop
+  private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
+  private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+  private final Telemetry logger = new Telemetry(MaxSpeed);
+
   /* Controllers */
   private final CommandXboxController xboxController = new CommandXboxController(0);
   private final Joystick operator = new Joystick(1);
@@ -83,12 +108,10 @@ public class RobotContainer {
 
 
   /* Subsystems */
-  private Swerve s_Swerve;
-  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
-  //private ArmSubsystem s_armSubSystem;
+  private CommandSwerveDrivetrain driveSubsystem;
+  // private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private IntakeSubsystem s_intakeSubsystem;
   private WristSubsystem s_wristSubsystem;
-  //private ArmStateMachine sm_armStateMachine;
   private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem s_ShooterSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
@@ -100,10 +123,9 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-          Swerve swerve,
+          CommandSwerveDrivetrain driveSubsystem,
           ShooterSubsystem ShooterSubsystem,
-          PoseEstimatorSubsystem poseEstimatorSubsystem,
-          //ArmSubsystem armSubsystem,
+          // PoseEstimatorSubsystem poseEstimatorSubsystem,
           IntakeSubsystem intakeSubsystem,
           WristSubsystem wristSubsystem,
           LEDStringSubsystem m_ledstring,
@@ -112,9 +134,8 @@ public class RobotContainer {
     
 	  boolean fieldRelative = true;
     boolean openLoop = false;
-    s_Swerve = swerve;
+    this.driveSubsystem = driveSubsystem;
     s_ShooterSubsystem = ShooterSubsystem;
-    // s_armSubSystem = armSubsystem;
     s_intakeSubsystem = intakeSubsystem;
     s_wristSubsystem = wristSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
@@ -125,10 +146,6 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-
-    if(s_Swerve.isEnabled()){
-        s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
-    }
   }
    
 
@@ -144,16 +161,21 @@ public class RobotContainer {
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * DRIVER BUTTONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
+    driveSubsystem.setDefaultCommand( // Drivetrain will execute this command periodically
+    driveSubsystem.applyRequest(() -> drive.withVelocityX(-xboxController.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+        .withVelocityY(-xboxController.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+        .withRotationalRate(-xboxController.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+    ));    
 
     // RESET BUTTON
-    kStart.onTrue(new InstantCommand(() -> {
-      s_Swerve.zeroGyro();
-      s_Swerve.adjustWheelEncoders(); 
-      //s_armSubSystem.resetArmEncoders();
-    }));
+    // kStart.onTrue(new InstantCommand(() -> {
+    //   s_Swerve.zeroGyro();
+    //   s_Swerve.adjustWheelEncoders(); 
+    //   //s_armSubSystem.resetArmEncoders();
+    // }));
 
-    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
-    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+    // kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+    // kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
   
     kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
@@ -228,6 +250,9 @@ public class RobotContainer {
       m_ledstring.setColor(LedOption.PURPLE);
       s_wristSubsystem.wristHome();
     }));
+
+    driveSubsystem.registerTelemetry(logger::telemeterize);
+
 
     // PREVENT SCORE
     // kPreventScoreBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.setAllowScore(false)));
@@ -307,34 +332,34 @@ public class RobotContainer {
     return autoNames;
   }
 
-  public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
-    String alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
-    assert autoPaths.contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
-    double maxVelocity     = 4.0;
-    double maxAcceleration = 2.0;
-    switch(alliancePathName){
-      case "_1_Charger_Mid_1pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
-      case "_1_Charger_Mid_1pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
-      case "_2_Feeder_3pc_Blue":         maxVelocity = 3.0; maxAcceleration = 1.8; break;
-      case "_2_Feeder_3pc_Red":          maxVelocity = 3.0; maxAcceleration = 1.8; break;
-      case "_3_Cable_3pc_Blue":          maxVelocity = 4.0; maxAcceleration = 2.0; break;
-      case "_3_Cable_3pc_Red":           maxVelocity = 4.0; maxAcceleration = 2.0; break;
-      case "_4_Feeder_2pc_Charger_Blue": maxVelocity = 4.0; maxAcceleration = 2.0; break;
-      case "_4_Feeder_2pc_Charger_Red":  maxVelocity = 4.0; maxAcceleration = 2.0; break;
-      case "_5_Charger_Mid_2pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
-      case "_5_Charger_Mid_2pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
-      case "_6_Feeder_real3pc_Blue":     maxVelocity = 4.0; maxAcceleration = 2.1; break;
-      case "_6_Feeder_real3pc_Red":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
-      case "_7_Charger_Mid_2pc_Blue":    maxVelocity = 4.2; maxAcceleration = 2.3; break;
-      case "_7_Charger_Mid_2pc_Red":     maxVelocity = 4.2; maxAcceleration = 2.3; break;
-      case "_8_Cable_real3pc_Red":       maxVelocity = 4.0; maxAcceleration = 2.1; break;
-      case "_8_Cable_real3pc_Blue":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
+  // public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
+  //   String alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
+  //   assert autoPaths.contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
+  //   double maxVelocity     = 4.0;
+  //   double maxAcceleration = 2.0;
+  //   switch(alliancePathName){
+  //     case "_1_Charger_Mid_1pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
+  //     case "_1_Charger_Mid_1pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
+  //     case "_2_Feeder_3pc_Blue":         maxVelocity = 3.0; maxAcceleration = 1.8; break;
+  //     case "_2_Feeder_3pc_Red":          maxVelocity = 3.0; maxAcceleration = 1.8; break;
+  //     case "_3_Cable_3pc_Blue":          maxVelocity = 4.0; maxAcceleration = 2.0; break;
+  //     case "_3_Cable_3pc_Red":           maxVelocity = 4.0; maxAcceleration = 2.0; break;
+  //     case "_4_Feeder_2pc_Charger_Blue": maxVelocity = 4.0; maxAcceleration = 2.0; break;
+  //     case "_4_Feeder_2pc_Charger_Red":  maxVelocity = 4.0; maxAcceleration = 2.0; break;
+  //     case "_5_Charger_Mid_2pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
+  //     case "_5_Charger_Mid_2pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
+  //     case "_6_Feeder_real3pc_Blue":     maxVelocity = 4.0; maxAcceleration = 2.1; break;
+  //     case "_6_Feeder_real3pc_Red":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
+  //     case "_7_Charger_Mid_2pc_Blue":    maxVelocity = 4.2; maxAcceleration = 2.3; break;
+  //     case "_7_Charger_Mid_2pc_Red":     maxVelocity = 4.2; maxAcceleration = 2.3; break;
+  //     case "_8_Cable_real3pc_Red":       maxVelocity = 4.0; maxAcceleration = 2.1; break;
+  //     case "_8_Cable_real3pc_Blue":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
       
 
-      default: System.out.println("WARNING: USING DEFAULT MAX VELOCITY AND MAX ACCELERATION FOR AUTO MODE: " + alliancePathName);
-    }
-    return new PathPlannerCommandGroup(alliancePathName, s_Swerve, s_poseEstimatorSubsystem, maxVelocity, maxAcceleration);
-  }
+  //     default: System.out.println("WARNING: USING DEFAULT MAX VELOCITY AND MAX ACCELERATION FOR AUTO MODE: " + alliancePathName);
+  //   }
+  //   return new PathPlannerCommandGroup(alliancePathName, s_Swerve, s_poseEstimatorSubsystem, maxVelocity, maxAcceleration);
+  // }
 
 
 	public void displayEncoders() {

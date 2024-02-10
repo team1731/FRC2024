@@ -34,6 +34,7 @@ import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.util.log.LogWriter;
 import frc.robot.util.log.MessageLog;
 import frc.robot.subsystems.*;
+import frc.robot.CommandSwerveDrivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -54,8 +55,8 @@ public class Robot extends TimedRobot {
   private boolean isRedAlliance = true;
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
-  private Swerve s_Swerve;
-  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private CommandSwerveDrivetrain driveSubsystem;
+//   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
@@ -102,19 +103,19 @@ public class Robot extends TimedRobot {
 	// PortForwarder.add(5803, "10.17.31.11", 5803);
 	// PortForwarder.add(5804, "10.17.31.11", 5804);
 
+	driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
 
-	s_Swerve = new Swerve(false);
-	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
-	s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
+	// s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(driveSubsystem, false);
+	// s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
 	m_ledstring = new LEDStringSubsystem(false);
-	intake_subsystem = new IntakeSubsystem(true);
+	intake_subsystem = new IntakeSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(false);
 	wristSubsystem = new WristSubsystem(false);
 	shooterSubsystem = new ShooterSubsystem(false);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(s_Swerve, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, /*s_poseEstimatorSubsystem,*/ intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 
 	PathPlannerLogging.setLogActivePathCallback(null); //.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
@@ -199,16 +200,16 @@ public class Robot extends TimedRobot {
 			useCode = (autoCode == null ? Constants.AutoConstants.kAutoDefault : autoCode);
 		}
 		System.out.println("\nPreloading AUTO CODE --> " + useCode);
-		m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
-		if(m_autonomousCommand != null){
-			autoCode = useCode;
-			System.out.println("\n=====>>> PRELOADED AUTONOMOUS COMMAND: " + m_autonomousCommand);
-		}
-		else{
-			System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
-		}
+		// m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
+		// if(m_autonomousCommand != null){
+		// 	autoCode = useCode;
+		// 	System.out.println("\n=====>>> PRELOADED AUTONOMOUS COMMAND: " + m_autonomousCommand);
+		// }
+		// else{
+		// 	System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
+		// }
 
-    	System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
+    	// System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
   		}
 	}
 
@@ -384,7 +385,7 @@ public class Robot extends TimedRobot {
 		}
 		currentKeypadCommand = "";
 		SmartDashboard.getString("keypadCommand", currentKeypadCommand);
-		s_poseEstimatorSubsystem.disableVisionCorrection();   // if for some reason auto does not put it back in driver mode
+		// s_poseEstimatorSubsystem.disableVisionCorrection();   // if for some reason auto does not put it back in driver mode
   	}
   }
 
