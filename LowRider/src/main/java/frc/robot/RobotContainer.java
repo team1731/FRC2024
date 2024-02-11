@@ -198,6 +198,9 @@ public class RobotContainer {
     // kb
     //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
     //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
+    kWheelLockBtn
+       .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+       .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
     // // ELEVATOR - EXTEND AND HOME
     // kx
