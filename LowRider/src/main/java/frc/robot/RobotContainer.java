@@ -89,9 +89,9 @@ public class RobotContainer {
   private final Trigger kRightTrigger = xboxController.rightTrigger();
 
   /* Operator Buttons */
-  private final JoystickButton kPreventScoreBtn = new JoystickButton(operator,OperatorConsoleConstants.kPreventScoreBtnId);
+  private final JoystickButton kTurnForwardBtn = new JoystickButton(operator,OperatorConsoleConstants.kPreventScoreBtnId);
   private final JoystickButton kWheelLockBtn = new JoystickButton(operator,OperatorConsoleConstants.kWheelLockBtnId);
-  private final JoystickButton kReleaseBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
+  private final JoystickButton kTurnBackBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
   private final JoystickButton kIntakeBtn = new JoystickButton(operator,OperatorConsoleConstants.kIntakeBtnId);
   private final JoystickButton kxINT = new JoystickButton(operator, OperatorConsoleConstants.kxAxis);
   // Operator switches
@@ -192,8 +192,8 @@ public class RobotContainer {
     //   //s_armSubSystem.resetArmEncoders();
     // }));
 
-    // kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
-    // kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem, s_poseEstimatorSubsystem));
+    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem));
+    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem));
   
     kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
@@ -206,25 +206,45 @@ public class RobotContainer {
     }));
 
 
-  
+    
 
-    // REVERSE FEEDER INTAKE
-    ka
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
+    // REVERSE FEEDER INTAKE -- Temporarily commented out for manual wrist adjustments
+    // ka
+    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
+    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
   
-    kb
-      .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
-      .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
+    // kb
+    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
+    kWheelLockBtn
+       .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+       .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
-    // ELEVATOR - EXTEND AND HOME
+    // // ELEVATOR - EXTEND AND HOME
+    // kx
+    //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
+    //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
+
+    // ky
+    //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
+    //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
     kx
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorUp()))
-      .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.liftElevator()))
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
 
     ky
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
-      .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
+      .onTrue(new InstantCommand(() -> elevatorSubsystem.lowerElevator()))
+      .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
+
+
+    // WRIST - FORWARD AND BACK
+    ka
+      .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristForward()))
+      .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
+    
+    kb
+      .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristBack()))
+      .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
     
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));

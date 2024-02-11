@@ -317,7 +317,7 @@ public final class Constants {
         public final static double kV = 0.12;
         public final static double kS = 0.25; // Approximately 0.25V to get the mechanism moving
     
-        public final static double StM_Ratio = 36;
+        public final static double StM_Ratio = 1;
 
         // public static final int ELEVATOR_CURRENT_LIMIT_A = 18;
         // public static final int ELEVATOR_HOLD_CURRENT_LIMIT_A = 5;
@@ -354,6 +354,7 @@ public final class Constants {
         // Positions
         public final static double elevatorHomePosition = 0;
         public final static double elevatorExtendedPosition = 2.1;
+        public final static double elevatorPositionTolerance = 0.05;
     }
 
     public static final class IntakeConstants {
@@ -407,11 +408,13 @@ public final class Constants {
         // Positions
         public final static double wristHomePosition = 0;
         public final static double wristExtendedPosition = 50.0;
+
+        public final static double wristAmpPosition = 50.0;
     }
 
     public static final class ShooterConstants{
-        public final static int shooterCancoderId1 = 14;
-        public final static int shooterCancoderId2 = 15;
+        public final static int shooterCancoderId1 = 15;
+        public final static int shooterCancoderId2 = 16;
         public static final int SHOOTER_CURRENT_LIMIT_A = 20;
 
         // PID coefficients
