@@ -60,7 +60,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
             intakeMotor.set(intakeSpeed);
             feederMotor.set(intakeSpeed);
-            System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
+            //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
         }
     }
 

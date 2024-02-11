@@ -48,7 +48,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         if (enabled){
             position1 = elevatorMotor1.getRotorPosition().getValueAsDouble();
             position2 = elevatorMotor2.getRotorPosition().getValueAsDouble();
-            System.out.println("ElevatorSubsystem: Position(1:2): " + position1 + ":" + position2);
+            //System.out.println("ElevatorSubsystem: Position(1:2): " + position1 + ":" + position2);
         }
         //return ((position1 + position2)/2);
         return position1;
@@ -60,7 +60,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         if (enabled){
             position1 = elevatorMotor1.getRotorPosition().getValueAsDouble();
             position2 = elevatorMotor2.getRotorPosition().getValueAsDouble();
-            System.out.println("ElevatorSubsystem: Position(1:2): " + position1 + ":" + position2);
+            //System.out.println("ElevatorSubsystem: Position(1:2): " + position1 + ":" + position2);
         }
         //return ((position1 + position2)/2);
         return position2;
@@ -113,13 +113,16 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     
         // initialze PID controller and encoder objects
        //Slot0Configs slot0_1 = cfg1.Slot0;
-        Slot0Configs slot0_1 = config.Slot0;
-        slot0_1.kP = ElevatorConstants.kP;
-        slot0_1.kI = ElevatorConstants.kI;
-        slot0_1.kD = ElevatorConstants.kD;
-        slot0_1.kV = ElevatorConstants.kV;
-        slot0_1.kS = ElevatorConstants.kS; // Approximately 0.25V to get the mechanism moving
-
+        // Slot0Configs slot0_1 = config.Slot0;
+        // slot0_1.kP = ElevatorConstants.kP;
+        // slot0_1.kI = ElevatorConstants.kI;
+        // slot0_1.kD = ElevatorConstants.kD;
+        // slot0_1.kV = ElevatorConstants.kV;
+        // slot0_1.kS = ElevatorConstants.kS; // Approximately 0.25V to get the mechanism moving
+        config.Slot0.kV = 0.12;
+        config.Slot0.kP = 0.11;
+        config.Slot0.kI = 0.48;
+        config.Slot0.kD = 0.01;
 
         config.Voltage.PeakForwardVoltage = 12;
         config.Voltage.PeakReverseVoltage = -12;
@@ -191,10 +194,10 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     }
     public void liftElevator(){
-        elevatorMotor1.setControl(m_voltageVelocity.withVelocity(-10));
+        elevatorMotor1.setControl(m_voltageVelocity.withVelocity(-5));
     }
     public void lowerElevator(){
-        elevatorMotor1.setControl(m_voltageVelocity.withVelocity(10));
+        elevatorMotor1.setControl(m_voltageVelocity.withVelocity(5));
     }
     public void stopElevator() {
         elevatorMotor1.setControl(m_voltageVelocity.withVelocity(0));

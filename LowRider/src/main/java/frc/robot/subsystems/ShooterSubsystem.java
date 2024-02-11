@@ -19,8 +19,8 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
   //  private SparkPIDController shooterPIDController1;
  //   private SparkPIDController shooterPIDController2;
     private static final String canBusName = Constants.CANBUS_NAME;
-    private final TalonFX m_fx = new TalonFX(0, canBusName);
-    private final TalonFX m_fllr = new TalonFX(1, canBusName);
+    private final TalonFX m_fx = new TalonFX(Constants.ShooterConstants.shooterCancoderId1, canBusName);
+    private final TalonFX m_fllr = new TalonFX(Constants.ShooterConstants.shooterCancoderId2, canBusName);
     private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private final NeutralOut m_brake = new NeutralOut();
     private boolean enabled;

@@ -47,7 +47,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         if (enabled){
             position1 = wristMotor1.getRotorPosition().getValueAsDouble();
             position2 = wristMotor2.getRotorPosition().getValueAsDouble();
-            System.out.println("WristSubsystem: Position(1:2): " + position1 + ":" + position2);
+            //System.out.println("WristSubsystem: Position(1:2): " + position1 + ":" + position2);
         }
         return position1;
     }
@@ -57,7 +57,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         if (enabled){
             position1 = wristMotor1.getRotorPosition().getValueAsDouble();
             position2 = wristMotor2.getRotorPosition().getValueAsDouble();
-            System.out.println("WristSubsystem: Position(1:2): " + position1 + ":" + position2);
+            //System.out.println("WristSubsystem: Position(1:2): " + position1 + ":" + position2);
         }
         return position2;
     }

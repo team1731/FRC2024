@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
 	intake_subsystem = new IntakeSubsystem(true);
 	elevatorSubsystem = new ElevatorSubsystem(true);
 	wristSubsystem = new WristSubsystem(true);
-	shooterSubsystem = new ShooterSubsystem(false);
+	shooterSubsystem = new ShooterSubsystem(true);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
