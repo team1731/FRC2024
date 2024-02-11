@@ -20,6 +20,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase implements ToggleableSubsystem{
@@ -29,23 +30,25 @@ public class Swerve extends SubsystemBase implements ToggleableSubsystem{
     public Double lockedHeading = null;
     private boolean s_lockWheels = false;
     private boolean enabled;
+    private ChassisSpeeds chassisSpeeds;
+
     @Override
     public boolean isEnabled() {
         return enabled;
     }
     public Swerve(boolean enabled) {
         this.enabled = enabled;
-        if (enabled) {
-            zeroGyro();
+        if (enabled) setChassisSpeeds(new ChassisSpeeds()); // TODO FIXME this is for debug only!
+        if (enabled) zeroGyro();
 
-            mSwerveMods = new SwerveModule[] {
-                new SwerveModule(0, Constants.Swerve.Mod0.constants),
-                new SwerveModule(1, Constants.Swerve.Mod1.constants),
-                new SwerveModule(2, Constants.Swerve.Mod2.constants),
-                new SwerveModule(3, Constants.Swerve.Mod3.constants)
-            };
-            adjustWheelEncoders();
-        }
+        mSwerveMods = new SwerveModule[] {
+            new SwerveModule(0, Constants.Swerve.Mod0.constants),
+            new SwerveModule(1, Constants.Swerve.Mod1.constants),
+            new SwerveModule(2, Constants.Swerve.Mod2.constants),
+            new SwerveModule(3, Constants.Swerve.Mod3.constants)
+        };
+
+        if (enabled) adjustWheelEncoders();
         
     }
 
@@ -84,6 +87,15 @@ public class Swerve extends SubsystemBase implements ToggleableSubsystem{
             }
         }
     }
+
+    public void setChassisSpeeds(ChassisSpeeds chassisSpeeds){
+        this.chassisSpeeds = chassisSpeeds;
+    }
+
+    public ChassisSpeeds getChassisSpeeds(){
+        return chassisSpeeds;
+    }
+
 
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
@@ -218,6 +230,14 @@ public class Swerve extends SubsystemBase implements ToggleableSubsystem{
             SmartDashboard.putNumber(
             "PPSwerveControllerCommand/rotationErrorDegrees", rotationError.getDegrees());
         }
+    }
+    public Command rotateRelative(double degrees) {
+        if(!enabled){
+            return null;
+        }
+        return new Command(){};
+        // TODO Auto-generated method stub
+        // throw new UnsupportedOperationException("Unimplemented method 'rotateTo'");
     }
     
  

@@ -139,6 +139,7 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
       this.m_swerve = null;
 
     }
+    setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
   }
 
   @Override

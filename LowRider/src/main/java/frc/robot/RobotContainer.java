@@ -18,9 +18,11 @@ import frc.robot.TunerConstants;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -31,6 +33,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -108,8 +111,9 @@ public class RobotContainer {
 
 
   /* Subsystems */
+  private Swerve s_Swerve;
   private CommandSwerveDrivetrain driveSubsystem;
-  // private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private IntakeSubsystem s_intakeSubsystem;
   private WristSubsystem s_wristSubsystem;
   private final LEDStringSubsystem m_ledstring;
@@ -117,15 +121,16 @@ public class RobotContainer {
   private ElevatorSubsystem elevatorSubsystem;
 
   /* Auto Paths */
-  private static List<String> autoPaths;
+  private static HashMap<String, String> autoPaths;
 
   private GamePiece storedPiece; // used to temporarily store game piece setting when using cone flip feature
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
+  		  Swerve swerve,
           CommandSwerveDrivetrain driveSubsystem,
           ShooterSubsystem ShooterSubsystem,
-          // PoseEstimatorSubsystem poseEstimatorSubsystem,
+          PoseEstimatorSubsystem poseEstimatorSubsystem,
           IntakeSubsystem intakeSubsystem,
           WristSubsystem wristSubsystem,
           LEDStringSubsystem m_ledstring,
@@ -134,18 +139,31 @@ public class RobotContainer {
     
 	  boolean fieldRelative = true;
     boolean openLoop = false;
+    s_Swerve = swerve;
     this.driveSubsystem = driveSubsystem;
     s_ShooterSubsystem = ShooterSubsystem;
     s_intakeSubsystem = intakeSubsystem;
     s_wristSubsystem = wristSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
-    // s_poseEstimatorSubsystem = poseEstimatorSubsystem;
-     //sm_armStateMachine = armSubsystem.getStateMachine();
+    s_poseEstimatorSubsystem = poseEstimatorSubsystem;
+    double maxModuleSpeed = 3.0;
+    double driveBaseRadius = 0.75;
+    new PathPlannerCommandGroup(s_Swerve, s_poseEstimatorSubsystem, maxModuleSpeed, driveBaseRadius);
 
     this.m_ledstring = m_ledstring;
 
+    if(swerve.isEnabled()){
+      NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      NamedCommands.registerCommand("PickupNote", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+    }
+
     // Configure the button bindings
     configureButtonBindings();
+
+    if(s_Swerve.isEnabled()){
+        s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
+    }
   }
    
 
@@ -294,72 +312,53 @@ public class RobotContainer {
   }
 
   public static String[] deriveAutoModes() {
+    autoPaths = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner/autos"));
     List<String> autoModes = new ArrayList<String>();
-    List<String> autoNames = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner/autos"));
-    for(String autoName : autoNames){
-      if(!autoModes.contains(autoName)){
-        autoModes.add(autoName);
+    for(String key : autoPaths.keySet()){
+      if(!autoModes.contains(key)){
+        autoModes.add(key);
       }
     }
     autoModes.sort((p1, p2) -> p1.compareTo(p2));
     return autoModes.toArray(String[]::new);
   }
 
-  private static List<String> findPaths(File directory){
-    List<String> autoNames = AutoBuilder.getAllAutoNames();
-    // List<String> paths = new ArrayList<String>();
-    // if(!directory.exists()){
-    //   System.out.println("FATAL: path directory not found! " + directory.getAbsolutePath());
-    // }
-    // else {
-    //   File[] files = directory.listFiles();
-    //   if(files == null){
-    //     System.out.println("FATAL: I/O error or NOT a directory: " + directory);
-    //   }
-    //   else
-    //   {
-    //     for (File file : files) {
-    //         String fileName = file.getName();
-    //         if ((fileName.startsWith("Blu") || fileName.startsWith("Red")) && fileName.endsWith(".auto")) {
-    //           System.out.println(file.getAbsolutePath());
-    //           if(!paths.contains(fileName)){
-    //             paths.add(fileName);
-    //           }
-    //         }
-    //     }
-    //   }
-    // }
-    return autoNames;
+  private static HashMap<String, String> findPaths(File directory){
+    HashMap<String, String> autoPaths = new HashMap<String, String>();
+    if(!directory.exists()){
+      System.out.println("FATAL: path directory not found! " + directory.getAbsolutePath());
+    }
+    else {
+      File[] files = directory.listFiles();
+      if(files == null){
+        System.out.println("FATAL: I/O error or NOT a directory: " + directory);
+      }
+      else
+      {
+        for (File file : files) {
+            String fileName = file.getName();
+            if ((fileName.startsWith("Blu") || fileName.startsWith("Red")) && fileName.endsWith(".auto")) {
+              String key = fileName.replace(".auto", "");
+              String path = file.getAbsolutePath();
+              System.out.println(path);
+                autoPaths.put(key, path);
+            }
+        }
+      }
+    }
+    return autoPaths;
   }
 
-  // public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
-  //   String alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
-  //   assert autoPaths.contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
-  //   double maxVelocity     = 4.0;
-  //   double maxAcceleration = 2.0;
-  //   switch(alliancePathName){
-  //     case "_1_Charger_Mid_1pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
-  //     case "_1_Charger_Mid_1pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
-  //     case "_2_Feeder_3pc_Blue":         maxVelocity = 3.0; maxAcceleration = 1.8; break;
-  //     case "_2_Feeder_3pc_Red":          maxVelocity = 3.0; maxAcceleration = 1.8; break;
-  //     case "_3_Cable_3pc_Blue":          maxVelocity = 4.0; maxAcceleration = 2.0; break;
-  //     case "_3_Cable_3pc_Red":           maxVelocity = 4.0; maxAcceleration = 2.0; break;
-  //     case "_4_Feeder_2pc_Charger_Blue": maxVelocity = 4.0; maxAcceleration = 2.0; break;
-  //     case "_4_Feeder_2pc_Charger_Red":  maxVelocity = 4.0; maxAcceleration = 2.0; break;
-  //     case "_5_Charger_Mid_2pc_Blue":    maxVelocity = 4.0; maxAcceleration = 1.8; break;
-  //     case "_5_Charger_Mid_2pc_Red":     maxVelocity = 4.0; maxAcceleration = 1.8; break;
-  //     case "_6_Feeder_real3pc_Blue":     maxVelocity = 4.0; maxAcceleration = 2.1; break;
-  //     case "_6_Feeder_real3pc_Red":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
-  //     case "_7_Charger_Mid_2pc_Blue":    maxVelocity = 4.2; maxAcceleration = 2.3; break;
-  //     case "_7_Charger_Mid_2pc_Red":     maxVelocity = 4.2; maxAcceleration = 2.3; break;
-  //     case "_8_Cable_real3pc_Red":       maxVelocity = 4.0; maxAcceleration = 2.1; break;
-  //     case "_8_Cable_real3pc_Blue":      maxVelocity = 4.0; maxAcceleration = 2.1; break;
-      
-
-  //     default: System.out.println("WARNING: USING DEFAULT MAX VELOCITY AND MAX ACCELERATION FOR AUTO MODE: " + alliancePathName);
-  //   }
-  //   return new PathPlannerCommandGroup(alliancePathName, s_Swerve, s_poseEstimatorSubsystem, maxVelocity, maxAcceleration);
-  // }
+  public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
+    String alliancePathName = autoName;
+    if(!autoName.startsWith("Red_") && !autoName.startsWith("Blu_")){
+        alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
+    }
+    assert autoPaths.keySet().contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
+    String pathName = autoPaths.get(alliancePathName);
+    assert pathName != null: "ERROR: you are trying to run an AUTO mode that we don't have a .auto file for: " + alliancePathName + ".auto";
+    return PathPlannerCommandGroup.getAutoBuilderCommand(pathName);
+  }
 
 
 	public void displayEncoders() {
@@ -394,8 +393,4 @@ public class RobotContainer {
 		 System.out.println("SENDING NEW COMMAND FROM NETWORK TABLES TO FSM: " + newKeypadCommand + "\n\n");
 		}
 	}
-
-  private boolean isRedAlliance(){
-    return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
-    }
 }

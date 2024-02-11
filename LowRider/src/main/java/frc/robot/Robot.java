@@ -48,15 +48,13 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private final SendableChooser<String> autoChooser = new SendableChooser<>();
   private String autoCode;
-  private String oldKeypadEntry = "";
   private String currentKeypadCommand = "";
-  private NetworkTable keypad;
-  private NetworkTable fieldInfo;
-  private boolean isRedAlliance = true;
+  private boolean isRedAlliance;
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
+  private Swerve s_Swerve;
   private CommandSwerveDrivetrain driveSubsystem;
-//   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
@@ -104,18 +102,17 @@ public class Robot extends TimedRobot {
 	// PortForwarder.add(5804, "10.17.31.11", 5804);
 
 	driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
-
-	// s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(driveSubsystem, false);
-	// s_poseEstimatorSubsystem.setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
+	s_Swerve = new Swerve(false);
+	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
 	m_ledstring = new LEDStringSubsystem(false);
 	intake_subsystem = new IntakeSubsystem(false);
-	elevatorSubsystem = new ElevatorSubsystem(true);
+	elevatorSubsystem = new ElevatorSubsystem(false);
 	wristSubsystem = new WristSubsystem(false);
 	shooterSubsystem = new ShooterSubsystem(false);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, /*s_poseEstimatorSubsystem,*/ intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(s_Swerve, driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 
 	PathPlannerLogging.setLogActivePathCallback(null); //.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
@@ -192,24 +189,28 @@ public class Robot extends TimedRobot {
 //   █ ██ ██▄▀▀▄███ ████ ▀▀▀ ███▀ ▀██ ██▄ █▀ ▀███ ██████ █████ ██ ██ ▀▀▀██ ▀▀ ██ ▀▀▀ █ ██ ██ ▀▀ 
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private void autoInitPreload() {
-	if (enabled){
+	if (s_Swerve.isEnabled()){
 		m_autonomousCommand = null;
 
 		String useCode = autoChooser.getSelected();
 		if(useCode == null){
 			useCode = (autoCode == null ? Constants.AutoConstants.kAutoDefault : autoCode);
 		}
+		boolean isRedAlliance = isRedAlliance();
+		if( !useCode.startsWith("Red_") && !useCode.startsWith("Blu_")){
+			useCode = (isRedAlliance ? "Red_" : "Blu_") + useCode;
+		}
 		System.out.println("\nPreloading AUTO CODE --> " + useCode);
-		// m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
-		// if(m_autonomousCommand != null){
-		// 	autoCode = useCode;
-		// 	System.out.println("\n=====>>> PRELOADED AUTONOMOUS COMMAND: " + m_autonomousCommand);
-		// }
-		// else{
-		// 	System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
-		// }
+		m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
+		if(m_autonomousCommand != null){
+			autoCode = useCode;
+			System.out.println("\n=====>>> PRELOADED AUTONOMOUS COMMAND: " + m_autonomousCommand);
+		}
+		else{
+			System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
+		}
 
-    	// System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
+    	System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
   		}
 	}
 
@@ -296,25 +297,25 @@ public class Robot extends TimedRobot {
 		// 	m_ledstring.setColor(OpConstants.LedOption.GREEN);
 		// }
 
-		// String newCode = autoChooser.getSelected();
-		// if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
-		// if(!newCode.equals(autoCode)) {
-    	//     System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
-		// 	autoInitPreload();
-		// }
+		String newCode = autoChooser.getSelected();
+		if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
+		if(!newCode.equals(autoCode)) {
+    	    System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
+			autoInitPreload();
+		}
 
-		// boolean isRedAlliance = isRedAlliance();
-		// if(this.isRedAlliance != isRedAlliance){
-		// 	this.isRedAlliance = isRedAlliance;
-    	//     System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
-		// 	this.autoInitPreload();
-		// }
+		boolean isRedAlliance = isRedAlliance();
+		if(this.isRedAlliance != isRedAlliance){
+			this.isRedAlliance = isRedAlliance;
+    	    System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
+			this.autoInitPreload();
+		}
 
-		// int stationNumber = getStationNumber().getAsInt();
-		// if(this.stationNumber != stationNumber){
-		// 	this.stationNumber = stationNumber;
-        // 	System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
-		// }
+		int stationNumber = getStationNumber().getAsInt();
+		if(this.stationNumber != stationNumber){
+			this.stationNumber = stationNumber;
+        	System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
+		}
 	}
   }
 
