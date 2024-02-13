@@ -9,9 +9,11 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 /**
  * Command to fire into the speaker
@@ -19,7 +21,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class IntakeCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
-    private final ShooterSubsystem m_ShooterSubsystem;
+    private final WristSubsystem m_wristSubsystem;
 	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
 
 
@@ -31,14 +33,14 @@ public class IntakeCommand extends Command {
 	 * @param seqSubsystem        
 	 *  
 	 */
-	public IntakeCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
+	public IntakeCommand(IntakeSubsystem intakeSubsystem, WristSubsystem wristSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
-		m_ShooterSubsystem = shooterSubsystem;
-		//m_poseEstimatorSubsystem = poseEstimatorSubsystem;
+		m_wristSubsystem = wristSubsystem;
+		
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && shooterSubsystem != null) {
-			addRequirements(intakeSubsystem, shooterSubsystem);
+		if (intakeSubsystem != null && wristSubsystem != null) {
+			addRequirements(intakeSubsystem, wristSubsystem);
 		}
 	}
 
@@ -47,28 +49,23 @@ public class IntakeCommand extends Command {
 	@Override
 	public void initialize() {
 		
-      //  m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableLimitSwitch();
+		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
 		
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-
-
+				
 	    m_intakeSubsystem.intake();
-
-
-
-
-
-
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
         m_intakeSubsystem.stopIntake();
+		m_wristSubsystem.moveWrist(WristConstants.wristHomePosition);
 	}
 
 	// Returns true when the command should end.

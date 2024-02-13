@@ -106,8 +106,8 @@ public class Robot extends TimedRobot {
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
 	m_ledstring = new LEDStringSubsystem(false);
 	intake_subsystem = new IntakeSubsystem(true);
-	elevatorSubsystem = new ElevatorSubsystem(true);
 	wristSubsystem = new WristSubsystem(true);
+	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intake_subsystem);
 	shooterSubsystem = new ShooterSubsystem(true);
 
 	// Instantiate our robot container. This will perform all of our button bindings,

@@ -192,7 +192,7 @@ public class RobotContainer {
     //   //s_armSubSystem.resetArmEncoders();
     // }));
 
-    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_ShooterSubsystem));
+    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_wristSubsystem));
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem));
   
     kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
@@ -219,6 +219,8 @@ public class RobotContainer {
     kWheelLockBtn
        .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
        .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
+    kx.onTrue(new TrapScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
+    
 
     // // ELEVATOR - EXTEND AND HOME
     // kx
@@ -228,23 +230,23 @@ public class RobotContainer {
     // ky
     //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
     //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
-    kx
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.liftElevator()))
-      .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
+    //kx
+    //  .onTrue(new InstantCommand(() -> elevatorSubsystem.liftElevator()))
+    //  .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
 
-    ky
-      .onTrue(new InstantCommand(() -> elevatorSubsystem.lowerElevator()))
-      .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
+   // ky
+    //  .onTrue(new InstantCommand(() -> elevatorSubsystem.lowerElevator()))
+    //  .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
 
 
     // WRIST - FORWARD AND BACK
-    ka
-      .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristForward()))
-      .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
+    //ka
+    //  .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristForward()))
+    //  .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
     
-    kb
-      .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristBack()))
-      .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
+    //kb
+    //  .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristBack()))
+    //  .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
     
     // SCORE HIGH/MED/LOW BUTTONS
     // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
@@ -275,19 +277,19 @@ public class RobotContainer {
     */
 
     // WRISt MODE ON/OFF SWITCH
-    kWristSwitch.onTrue(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Wrist to Extended.");
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.YELLOW);
-      s_wristSubsystem.wristExtended();
-    }));
+    //kWristSwitch.onTrue(new InstantCommand(() -> {
+     // System.out.println("RobotContainer: Wrist to Extended.");
+     // m_ledstring.setBlink(false);
+     // m_ledstring.setColor(LedOption.YELLOW);
+     // s_wristSubsystem.wristExtended();
+    //}));
 
-    kWristSwitch.onFalse(new InstantCommand(() -> {
-      System.out.println("RobotContainer: Wrist to Home.");
-      m_ledstring.setBlink(false);
-      m_ledstring.setColor(LedOption.PURPLE);
-      s_wristSubsystem.wristHome();
-    }));
+    //kWristSwitch.onFalse(new InstantCommand(() -> {
+    //  System.out.println("RobotContainer: Wrist to Home.");
+    //  m_ledstring.setBlink(false);
+    //  m_ledstring.setColor(LedOption.PURPLE);
+    //  s_wristSubsystem.wristHome();
+    //}));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);
 

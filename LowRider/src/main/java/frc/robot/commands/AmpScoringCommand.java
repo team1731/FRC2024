@@ -10,6 +10,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
@@ -55,24 +56,22 @@ public class AmpScoringCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
+		m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpPosition);
+		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorAmpPosition);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_elevatorSubsystem.sendElevatorUp();
-		m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpPosition);
-		if (Math.abs(Constants.ElevatorConstants.elevatorExtendedPosition - m_elevatorSubsystem.getElevatorPosition()) <= Constants.ElevatorConstants.elevatorPositionTolerance){
-			m_intakeSubsystem.feed();
-		}	
+
+	
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_elevatorSubsystem.sendElevatorHome();
-		m_wristSubsystem.moveWrist(Constants.WristConstants.wristHomePosition);
-        m_intakeSubsystem.stopFeed();
+		
+		m_elevatorSubsystem.moveElevatorAndWristHome();
 	}
 
 	// Returns true when the command should end.

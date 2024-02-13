@@ -302,8 +302,8 @@ public final class Constants {
     }
 
     public static final class ElevatorConstants {
-        public final static int elevatorCancoderId1 = 21;
-        public final static int elevatorCancoderId2 = 22;
+        public final static int elevatorCanId1 = 21;
+        public final static int elevatorCanId2 = 22;
 
         public final static double MMVel = 2; // 5 rotations per second cruise
         public final static double MMAcc = 5; // Take approximately 0.5 seconds to reach max vel
@@ -353,8 +353,12 @@ public final class Constants {
 
         // Positions
         public final static double elevatorHomePosition = 0;
-        public final static double elevatorExtendedPosition = 2.1;
+        public final static double elevatorExtendedPosition = 75;
         public final static double elevatorPositionTolerance = 0.05;
+        public static final double wristClearsPosition = 39;
+        public static final double elevatorAmpPosition = 62;
+        public static double elevatorTrapPosition = 77;  
+
     }
 
     public static final class IntakeConstants {
@@ -373,6 +377,7 @@ public final class Constants {
 
         public final static double intakeSpeed = 1;
         public final static double feederSpeed = 1;
+        public final static double trapFeedSpeed = 0.25;
 
         public final static double intakeStartedVelocityThreshold = 1000;
         public final static double intakeHoldingVelocityThreshold = 60;
@@ -393,7 +398,7 @@ public final class Constants {
          */
 
 
-              public final static double MMVel = 2; // 5 rotations per second cruise
+        public final static double MMVel = 5; // 5 rotations per second cruise
         public final static double MMAcc = 5; // Take approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
         public final static double MMJerk = 50;
@@ -409,7 +414,10 @@ public final class Constants {
         public final static double wristHomePosition = 0;
         public final static double wristExtendedPosition = 50.0;
 
-        public final static double wristAmpPosition = 50.0;
+        public final static double wristAmpPosition = 42;
+        public final static double wristTrapPosition = 72;
+
+        public static final double IntakePosition = 10;
     }
 
     public static final class ShooterConstants{

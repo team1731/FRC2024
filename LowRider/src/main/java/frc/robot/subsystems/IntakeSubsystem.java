@@ -100,6 +100,12 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
+    public void trapFeed() {
+        if (enabled) {
+            feederMotor.set(-IntakeConstants.trapFeedSpeed);
+        }
+    }
+
     public void stopFeed() {
         if (enabled) {
             feederMotor.set(0);
