@@ -42,6 +42,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         m_wristSubsystem = wristSubsystem;
         m_intakeSubsystem = intakeSubsystem;
         this.enabled = enabled;
+        if(!enabled) return;
         initializeElevatorMotors();
     }
 
@@ -50,18 +51,13 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     */
 
     public void moveElevator(double position) {
-        if (enabled){
-            desiredPosition = position;
-        //    m_orchestra.play();
-
-        }
+        if(!enabled) return;
+        desiredPosition = position;
     }
 
     // Initialize Motors
     private void initializeElevatorMotors() {
-        if (!enabled) {
-            return;
-        }
+        if(!enabled) return;
 
         System.out.println("elevatorSubsystem: Starting UP & Initializing elevator motors !!!!!!");
         elevatorMotor1 = new TalonFX(ElevatorConstants.elevatorCanId1, "canivore1");
@@ -120,6 +116,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     }
     public void periodic() {
+        if(!enabled) return;
         SmartDashboard.putNumber("elevator motor 1 position", elevatorMotor1.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("elevator motor 2 position", elevatorMotor2.getPosition().getValueAsDouble());
 
@@ -150,10 +147,12 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     }
 
     public double getElevatorPosition() {
+        if(!enabled) return 0;
         return elevatorMotor1.getPosition().getValueAsDouble();
     }
 
     public void moveElevatorAndWristHome() {
+        if(!enabled) return;
         m_intakeSubsystem.reverseFeed();
         sendWristHomeWhenElevatorDown = true;
         ampTimeStarted = Timer.getFPGATimestamp();

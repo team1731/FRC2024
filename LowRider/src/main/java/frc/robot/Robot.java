@@ -52,7 +52,6 @@ public class Robot extends TimedRobot {
   private boolean isRedAlliance;
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
-  private Swerve s_Swerve;
   private CommandSwerveDrivetrain driveSubsystem;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private ShooterSubsystem shooterSubsystem;
@@ -102,17 +101,18 @@ public class Robot extends TimedRobot {
 	// PortForwarder.add(5804, "10.17.31.11", 5804);
 
 	driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
-	s_Swerve = new Swerve(false);
-	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(s_Swerve, false);
+	driveSubsystem.setEnabled(false);
+	//s_Swerve = new Swerve(false);
+	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
-	intake_subsystem = new IntakeSubsystem(true);
-	wristSubsystem = new WristSubsystem(true);
-	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intake_subsystem);
-	shooterSubsystem = new ShooterSubsystem(true);
+	intake_subsystem = new IntakeSubsystem(false);
+	wristSubsystem = new WristSubsystem(false);
+	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
+	shooterSubsystem = new ShooterSubsystem(false);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(s_Swerve, driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 
 	PathPlannerLogging.setLogActivePathCallback(null); //.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
@@ -169,7 +169,7 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private boolean isRedAlliance(){
-	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+	return false; //DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
   }
 
 
@@ -189,29 +189,27 @@ public class Robot extends TimedRobot {
 //   █ ██ ██▄▀▀▄███ ████ ▀▀▀ ███▀ ▀██ ██▄ █▀ ▀███ ██████ █████ ██ ██ ▀▀▀██ ▀▀ ██ ▀▀▀ █ ██ ██ ▀▀ 
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private void autoInitPreload() {
-	if (s_Swerve.isEnabled()){
-		m_autonomousCommand = null;
+	m_autonomousCommand = null;
 
-		String useCode = autoChooser.getSelected();
-		if(useCode == null){
-			useCode = (autoCode == null ? Constants.AutoConstants.kAutoDefault : autoCode);
-		}
-		boolean isRedAlliance = isRedAlliance();
-		if( !useCode.startsWith("Red_") && !useCode.startsWith("Blu_")){
-			useCode = (isRedAlliance ? "Red_" : "Blu_") + useCode;
-		}
-		System.out.println("\nPreloading AUTO CODE --> " + useCode);
-		m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
-		if(m_autonomousCommand != null){
-			autoCode = useCode;
-			System.out.println("\n=====>>> PRELOADED AUTONOMOUS COMMAND: " + m_autonomousCommand);
-		}
-		else{
-			System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
-		}
+	String useCode = autoChooser.getSelected();
+	if(useCode == null){
+		useCode = (autoCode == null ? Constants.AutoConstants.kAutoDefault : autoCode);
+	}
+	boolean isRedAlliance = isRedAlliance();
+	if( !useCode.startsWith("Red_") && !useCode.startsWith("Blu_")){
+		useCode = (isRedAlliance ? "Red_" : "Blu_") + useCode;
+	}
+	System.out.println("\nPreloading AUTO CODE --> " + useCode);
+	m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
+	if(m_autonomousCommand != null){
+		autoCode = useCode;
+		System.out.println("\n=====>>> PRELOADED AUTONOMOUS COMMAND: " + m_autonomousCommand);
+	}
+	else{
+		System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
+	}
 
-    	System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
-  		}
+	System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
 	}
 
 
@@ -311,11 +309,20 @@ public class Robot extends TimedRobot {
 			this.autoInitPreload();
 		}
 
-		int stationNumber = getStationNumber().getAsInt();
-		if(this.stationNumber != stationNumber){
-			this.stationNumber = stationNumber;
-        	System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
-		}
+        if(Robot.isReal()){
+			try{
+				OptionalInt stationNumberInt = getStationNumber();
+				if(stationNumberInt.isPresent()) {
+					int stationNumber = stationNumberInt.getAsInt();
+					if(this.stationNumber != stationNumber){
+						this.stationNumber = stationNumber;
+						System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
+					}
+				}
+			} catch (Exception e){
+				System.out.println("Exception caught while looking for station number! == " + e);
+			}
+	    }
 	}
   }
 

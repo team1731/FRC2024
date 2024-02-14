@@ -40,7 +40,16 @@ public class PathPlannerCommandGroup extends SequentialCommandGroup {
         return command;
     }
 
-    public PathPlannerCommandGroup(Swerve s_Swerve, PoseEstimatorSubsystem s_PoseEstimatorSubsystem, double maxModuleSpeed, double driveBaseRadius) {
+    private boolean enabled;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public PathPlannerCommandGroup(boolean enabled, PoseEstimatorSubsystem s_PoseEstimatorSubsystem, double maxModuleSpeed, double driveBaseRadius) {
+        this.enabled = enabled;
+        if(!enabled) return;
+
         // This will load the file pathPlannerFile and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
         // for every path in the group
       //  PathConstraints pathConstraints = new PathConstraints(4, 2.0); //Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared);
@@ -59,7 +68,7 @@ public class PathPlannerCommandGroup extends SequentialCommandGroup {
         // eventMap.put("EnableAprilTags", new InstantCommand(() -> s_PoseEstimatorSubsystem.enableAprilTags(true)));
         // eventMap.put("DisableAprilTags", new InstantCommand(() -> s_PoseEstimatorSubsystem.enableAprilTags(false)));
         //eventMap.put("intakeDown", new IntakeDown());
-    
+        Swerve s_Swerve = null;
         // // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
         autoBuilder = new AutoBuilder();
         AutoBuilder.configureHolonomic(

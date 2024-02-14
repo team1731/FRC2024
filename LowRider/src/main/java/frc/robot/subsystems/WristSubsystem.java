@@ -33,7 +33,9 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     public WristSubsystem(boolean enabled) {
         this.enabled = enabled;
-        initializeWristMotors();
+        if(enabled){
+            initializeWristMotors();
+        }
     }
 
     /*
@@ -41,12 +43,10 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     */
 
     public void moveWrist(double position) {
-        if (enabled){
-            wristMotor1.setControl(mmReq1.withPosition(position));
-            wristMotor2.setControl(mmReq1.withPosition(position));
-            System.out.println("MOving wrist to" + position);
-
-        }
+        if(!enabled) return;
+        wristMotor1.setControl(mmReq1.withPosition(position));
+        wristMotor2.setControl(mmReq1.withPosition(position));
+        System.out.println("MOving wrist to" + position);
     }
 
 
@@ -117,11 +117,13 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     }
     public void periodic() {
+        if(!enabled) return;
         SmartDashboard.putNumber("Wrist motor 1 position", wristMotor1.getRotorPosition().getValueAsDouble());
         SmartDashboard.putNumber("Wrist motor 2 position", wristMotor2.getRotorPosition().getValueAsDouble());
     }
 
     public double getWristPosition() {
+        if(!enabled) return 0;
         return wristMotor1.getPosition().getValueAsDouble();
     }
 }

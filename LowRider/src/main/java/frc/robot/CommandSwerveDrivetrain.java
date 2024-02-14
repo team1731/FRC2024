@@ -35,6 +35,11 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     private boolean enabled;
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
+    
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -42,18 +47,19 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
 
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
+        if(!enabled) return;
         // if (Utils.isSimulation()) {
         //     startSimThread();
         // }
     }
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
-        //if (enabled){
             super(driveTrainConstants, modules);
+            if(!enabled) return;
             configurePathPlanner();
-        //}
     }
 
     private void configurePathPlanner() {
+        if(!enabled) return;
         double driveBaseRadius = 0;
         for (var moduleLocation : m_moduleLocations) {
             driveBaseRadius = Math.max(driveBaseRadius, moduleLocation.getNorm());
@@ -74,14 +80,17 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
+        if(!enabled) return new Command(){};
         return run(() -> this.setControl(requestSupplier.get()));
     }
 
     public Command getAutoPath(String pathName) {
+        if(!enabled) return new Command(){};
         return new PathPlannerAuto(pathName);
     }
 
     public ChassisSpeeds getCurrentRobotChassisSpeeds() {
+        if(!enabled) return new ChassisSpeeds();
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
     }
 }

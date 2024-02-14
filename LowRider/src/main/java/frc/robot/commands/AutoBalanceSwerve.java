@@ -11,63 +11,63 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class AutoBalanceSwerve extends Command {
 
 
-    private Double desiredHeading = 0.0;
-    private boolean fieldrelative = true;
-    private boolean openLoop = false;
-    private boolean isFinished = false;
+    // private Double desiredHeading = 0.0;
+    // private boolean fieldrelative = true;
+    // private boolean openLoop = false;
+    // private boolean isFinished = false;
 
     
-    private final PIDController headingController = 
-        new PIDController(VisionConstants.kTurnP, VisionConstants.kTurnI, VisionConstants.kTurnD);
+    // private final PIDController headingController = 
+    //     new PIDController(VisionConstants.kTurnP, VisionConstants.kTurnI, VisionConstants.kTurnD);
        
 
-    private double rotation;
-    private Translation2d translation = new Translation2d(0 , 0);
+    // private double rotation;
+    // private Translation2d translation = new Translation2d(0 , 0);
 
     
-    private Swerve s_Swerve;
+    // private Swerve s_Swerve;
 
-    /**
-     * Driver control
-     */
-    public AutoBalanceSwerve(Swerve s_Swerve) {
-        this.s_Swerve = s_Swerve;
-        addRequirements(s_Swerve);  
-    }
+    // /**
+    //  * Driver control
+    //  */
+    // public AutoBalanceSwerve(Swerve s_Swerve) {
+    //     this.s_Swerve = s_Swerve;
+    //     addRequirements(s_Swerve);  
+    // }
   
-    @Override
-    public void initialize() {
-        isFinished = false;
-        s_Swerve.setLockWheels(true);
-    }
-    @Override
-    public void execute() {
+    // @Override
+    // public void initialize() {
+    //     isFinished = false;
+    //     s_Swerve.setLockWheels(true);
+    // }
+    // @Override
+    // public void execute() {
 
  
-        rotation = headingController.calculate(s_Swerve.getHeading().getDegrees(), desiredHeading);  
-        if (s_Swerve.getPitch() > 9) {
-            translation = new Translation2d(-0.25, 0.0); // Speed is in Meters/s
-        } else if (s_Swerve.getPitch() < -9) {
-            translation = new Translation2d(0.25, 0);
-        } else {
-            translation = new Translation2d(0 , 0);
-            if(Timer.getMatchTime() <= 0.1) {
-                s_Swerve.setLockWheels(false);
-                isFinished = true;
-            }
-        }
+    //     rotation = headingController.calculate(s_Swerve.getHeading().getDegrees(), desiredHeading);  
+    //     if (s_Swerve.getPitch() > 9) {
+    //         translation = new Translation2d(-0.25, 0.0); // Speed is in Meters/s
+    //     } else if (s_Swerve.getPitch() < -9) {
+    //         translation = new Translation2d(0.25, 0);
+    //     } else {
+    //         translation = new Translation2d(0 , 0);
+    //         if(Timer.getMatchTime() <= 0.1) {
+    //             s_Swerve.setLockWheels(false);
+    //             isFinished = true;
+    //         }
+    //     }
 
-        s_Swerve.drive(translation, rotation, fieldrelative, openLoop);
-    }
+    //     s_Swerve.drive(translation, rotation, fieldrelative, openLoop);
+    // }
 
-    @Override
-    public boolean isFinished() {
-        return isFinished;
-    }
+    // @Override
+    // public boolean isFinished() {
+    //     return isFinished;
+    // }
 
-    @Override
-    public void end(boolean innterruped) {
-        s_Swerve.setLockWheels(false);
-        isFinished = true;
-    }
+    // @Override
+    // public void end(boolean innterruped) {
+    //     s_Swerve.setLockWheels(false);
+    //     isFinished = true;
+    // }
 }

@@ -51,8 +51,8 @@ class CameraTransform {
 
 public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableSubsystem{
 
-  private final Swerve m_swerve;
-  private final SwerveDrivePoseEstimator poseEstimator;
+  //private Swerve m_swerve;
+  private SwerveDrivePoseEstimator poseEstimator;
   private AprilTagFieldLayout aprilTagFieldLayout;
   private final Field2d field2d = new Field2d();
   private boolean useVisionCorrection = false;
@@ -76,16 +76,18 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
   Logger poseLogger;
   double lastLogTime = 0;
   double logInterval = 1.0; // in seconds
+  
   @Override
   public boolean isEnabled() {
       return enabled;
   }
-  public PoseEstimatorSubsystem( Swerve m_swerve, boolean enabled) {
+  public PoseEstimatorSubsystem(boolean enabled) {
     this.enabled = enabled;
-    if (enabled){
-      this.m_swerve = m_swerve;
-      poseEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, m_swerve.getHeading(),
-          m_swerve.getPositions(), new Pose2d());
+    if (!enabled) return;
+
+      //this.m_swerve = m_swerve;
+      poseEstimator = null; //new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, m_swerve.getHeading(),
+          // m_swerve.getPositions(), new Pose2d());
 
       // Configure and map cameras using camera names and location on the robot
       if (photonCamera1 != null) {
@@ -133,12 +135,6 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
 
       // setup logger
       poseLogger = LogWriter.getLogger(Log.POSE_ESTIMATIONS, PoseEstimations.class);
-    }
-    else{
-      poseEstimator = null;
-      this.m_swerve = null;
-
-    }
     setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
   }
 
@@ -200,7 +196,7 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
     }
 
       // Update pose estimator with drivetrain sensors
-        poseEstimator.updateWithTime(Timer.getFPGATimestamp(), m_swerve.getHeading(), m_swerve.getPositions());
+        //poseEstimator.updateWithTime(Timer.getFPGATimestamp(), m_swerve.getHeading(), m_swerve.getPositions());
         field2d.setRobotPose(getCurrentPose());
         Pose2d posenow = getCurrentPose();
         SmartDashboard.putNumber("CurrentPoseX", posenow.getX());
@@ -307,8 +303,8 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
    */
   public void setCurrentPose(Pose2d newPose) {
     if (enabled){
-      m_swerve.zeroGyro();
-      poseEstimator.resetPosition( m_swerve.getHeading(), m_swerve.getPositions(), newPose);
+      //m_swerve.zeroGyro();
+      //poseEstimator.resetPosition( m_swerve.getHeading(), m_swerve.getPositions(), newPose);
     }
   }
 
@@ -318,9 +314,9 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
    */
   public void resetFieldPosition() {
     if (enabled){
-      m_swerve.zeroGyro();
-      poseEstimator.resetPosition(
-         m_swerve.getHeading(), m_swerve.getPositions(), new Pose2d());
+      //m_swerve.zeroGyro();
+      //poseEstimator.resetPosition(
+      //   m_swerve.getHeading(), m_swerve.getPositions(), new Pose2d());
     }
   }
 

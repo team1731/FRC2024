@@ -111,7 +111,6 @@ public class RobotContainer {
 
 
   /* Subsystems */
-  private Swerve s_Swerve;
   private CommandSwerveDrivetrain driveSubsystem;
   private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
   private IntakeSubsystem s_intakeSubsystem;
@@ -127,7 +126,6 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-  		  Swerve swerve,
           CommandSwerveDrivetrain driveSubsystem,
           ShooterSubsystem ShooterSubsystem,
           PoseEstimatorSubsystem poseEstimatorSubsystem,
@@ -139,7 +137,6 @@ public class RobotContainer {
     
 	  boolean fieldRelative = true;
     boolean openLoop = false;
-    s_Swerve = swerve;
     this.driveSubsystem = driveSubsystem;
     s_ShooterSubsystem = ShooterSubsystem;
     s_intakeSubsystem = intakeSubsystem;
@@ -148,22 +145,22 @@ public class RobotContainer {
     s_poseEstimatorSubsystem = poseEstimatorSubsystem;
     double maxModuleSpeed = 3.0;
     double driveBaseRadius = 0.75;
-    new PathPlannerCommandGroup(s_Swerve, s_poseEstimatorSubsystem, maxModuleSpeed, driveBaseRadius);
+    new PathPlannerCommandGroup(false, s_poseEstimatorSubsystem, maxModuleSpeed, driveBaseRadius);
 
     this.m_ledstring = m_ledstring;
 
-    if(swerve.isEnabled()){
-      NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
-      NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
-      NamedCommands.registerCommand("PickupNote", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+    if(driveSubsystem.isEnabled()){
+      //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      //NamedCommands.registerCommand("PickupNote", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
     }
 
     // Configure the button bindings
     configureButtonBindings();
 
-    if(s_Swerve.isEnabled()){
-        s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
-    }
+    // if(s_Swerve.isEnabled()){
+    //     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
+    // }
   }
    
 
