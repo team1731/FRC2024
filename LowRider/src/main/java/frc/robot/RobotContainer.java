@@ -138,24 +138,18 @@ public class RobotContainer {
     s_wristSubsystem = wristSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
     s_poseEstimatorSubsystem = poseEstimatorSubsystem;
-    double maxModuleSpeed = 3.0;
-    double driveBaseRadius = 0.75;
-    // new PathPlannerCommandGroup(false, s_poseEstimatorSubsystem, maxModuleSpeed, driveBaseRadius);
-
     this.m_ledstring = m_ledstring;
 
     if(driveSubsystem.isEnabled()){
-      //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
-      //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      //
+      // REGISTER NAMED AUTO ACTIONS HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //
       NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new IntakeCommand(intakeSubsystem, wristSubsystem) ));
     }
 
     // Configure the button bindings
     configureButtonBindings();
 
-    // if(s_Swerve.isEnabled()){
-    //     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
-    // }
   }
    
 
@@ -183,7 +177,6 @@ public class RobotContainer {
     // kStart.onTrue(new InstantCommand(() -> {
     //   s_Swerve.zeroGyro();
     //   s_Swerve.adjustWheelEncoders(); 
-    //   //s_armSubSystem.resetArmEncoders();
     // }));
 
     kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_wristSubsystem));
@@ -398,13 +391,11 @@ public class RobotContainer {
       else if (newKeypadCommand.toLowerCase().contains("cube")){
         // m_ledstring.setBlink(false);
         // m_ledstring.setColor(LedOption.PURPLE);
-        // sm_armStateMachine.setGamePiece(GamePiece.CUBE);
         System.out.println("\n\nSHOWING PURPLE\n\n");
       }
       else if (newKeypadCommand.toLowerCase().contains("clear")){
         // m_ledstring.setBlink(false);
         // m_ledstring.setColor(LedOption.WHITE);
-        // sm_armStateMachine.setGamePiece(null);
         System.out.println("\n\nSHOWING WHITE\n\n");
      }
      // delegate to FSM
