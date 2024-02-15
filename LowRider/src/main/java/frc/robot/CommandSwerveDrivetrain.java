@@ -49,14 +49,13 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
         if(!enabled) return;
-        // if (Utils.isSimulation()) {
-        //     startSimThread();
-        // }
+        configurePathPlanner();
     }
+
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
-            super(driveTrainConstants, modules);
-            if(!enabled) return;
-            // configurePathPlanner();
+        super(driveTrainConstants, modules);
+        if(!enabled) return;
+        configurePathPlanner();
     }
 
     private void configurePathPlanner() {

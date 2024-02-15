@@ -372,9 +372,9 @@ public class RobotContainer {
         alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
     }
     assert autoPaths.keySet().contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
-    String pathName = autoPaths.get(alliancePathName);
-    assert pathName != null: "ERROR: you are trying to run an AUTO mode that we don't have a .auto file for: " + alliancePathName + ".auto";
-    return PathPlannerCommandGroup.getAutoBuilderCommand(pathName);
+    Command command = driveSubsystem.getAutoPath(alliancePathName);
+    assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
+    return command; //PathPlannerCommandGroup.getAutoBuilderCommand(pathName);
   }
 
 
