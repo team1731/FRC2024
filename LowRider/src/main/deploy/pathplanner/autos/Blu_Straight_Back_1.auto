@@ -16,6 +16,12 @@
           "data": {
             "pathName": "StraightBack_1"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
         }
       ]
     }
