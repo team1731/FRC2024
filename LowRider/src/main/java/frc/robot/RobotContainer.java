@@ -42,7 +42,6 @@ import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.HighPickup;
 import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.TunerConstants.*;
-import frc.robot.autos.PathPlannerCommandGroup;
 
 
 /**
@@ -377,9 +376,8 @@ public class RobotContainer {
     System.out.println("About to get Auto Path: " + alliancePathName);
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
-    return command; //PathPlannerCommandGroup.getAutoBuilderCommand(pathName);
+    return command;
   }
-
 
 	public void displayEncoders() {
 	}
