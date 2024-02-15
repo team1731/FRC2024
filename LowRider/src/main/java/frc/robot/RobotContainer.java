@@ -148,7 +148,7 @@ public class RobotContainer {
     if(driveSubsystem.isEnabled()){
       //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
       //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
-      //NamedCommands.registerCommand("PickupNote", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new IntakeCommand(intakeSubsystem, wristSubsystem) ));
     }
 
     // Configure the button bindings
