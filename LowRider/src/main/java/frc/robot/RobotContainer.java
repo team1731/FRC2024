@@ -29,16 +29,11 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
-import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.util.log.LogWriter;
@@ -47,6 +42,7 @@ import frc.robot.Constants.GamePiece;
 import frc.robot.Constants.HighPickup;
 import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.TunerConstants.*;
+import frc.robot.autos.PathPlannerCommandGroup;
 
 
 /**
@@ -98,10 +94,10 @@ public class RobotContainer {
   private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
   private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
   private final JoystickButton kShooterSwitch = new JoystickButton(operator,OperatorConsoleConstants.kShooterSwitch);
-  private final JoystickButton kHighScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
+  private final JoystickButton kAngleSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
   private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
-  // private final JoystickButton kThiefOnSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOnSwitchId);
-  // private final JoystickButton kThiefOffSwitch = new JoystickButton(operator,OperatorConsoleConstants.kThiefOffSwitchId);
+  private final JoystickButton kWristAngle3 = new JoystickButton(operator,OperatorConsoleConstants.kWristAngle3);
+  private final JoystickButton kWristAngle4 = new JoystickButton(operator,OperatorConsoleConstants.kWristAngle4);
   private final JoystickButton kWristSwitch = new JoystickButton(operator,OperatorConsoleConstants.kWristSwitchId);
   
 
@@ -145,7 +141,7 @@ public class RobotContainer {
     s_poseEstimatorSubsystem = poseEstimatorSubsystem;
     double maxModuleSpeed = 3.0;
     double driveBaseRadius = 0.75;
-    new PathPlannerCommandGroup(false, s_poseEstimatorSubsystem, maxModuleSpeed, driveBaseRadius);
+    // new PathPlannerCommandGroup(false, s_poseEstimatorSubsystem, maxModuleSpeed, driveBaseRadius);
 
     this.m_ledstring = m_ledstring;
 
@@ -216,9 +212,9 @@ public class RobotContainer {
     kWheelLockBtn
        .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
        .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
-    kx.onTrue(new TrapScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
+    kx.whileTrue(new TrapScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
     
-
+    kStart.onTrue(driveSubsystem.runOnce(() -> driveSubsystem.seedFieldRelative()));
     // // ELEVATOR - EXTEND AND HOME
     // kx
     //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
@@ -322,12 +318,14 @@ public class RobotContainer {
     // }));
 
     // // HIGH/MED/LOW SCORE PRE-LOAD SWITCH
-    // kHighScoreSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setOperatorSequence(OperatorConsoleConstants.kScoreHighSwitchId)));
-    // kMediumScoreSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setOperatorSequence(OperatorConsoleConstants.kScoreMediumSwitchId)));
+     kAngleSwitch.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(15)));
+     kMediumScoreSwitch.onTrue(new InstantCommand(() ->  s_wristSubsystem.moveWrist(0)));
 
     // // THIEF MODE ON/OFF SWITCH
-    // kThiefOnSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(true)));
+   // kThiefOnSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(true)));
     // kThiefOffSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(false)));
+    kWristAngle3.onTrue(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)));
+    kWristAngle4.onTrue(new InstantCommand(() ->  s_wristSubsystem.moveWrist(30)));
   }
 
   public static String[] deriveAutoModes() {

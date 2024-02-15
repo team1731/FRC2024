@@ -43,7 +43,6 @@ import frc.robot.CommandSwerveDrivetrain;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static CTREConfigs ctreConfigs;
   private RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
   private final SendableChooser<String> autoChooser = new SendableChooser<>();
@@ -93,7 +92,6 @@ public class Robot extends TimedRobot {
 	System.out.println("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  EVENT: " + DriverStation.getEventName() + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
 
 	LiveWindow.disableAllTelemetry();
-    ctreConfigs = new CTREConfigs();
 	// PortForwarder.add(5800, "10.17.31.11", 5800);
 	// PortForwarder.add(5801, "10.17.31.11", 5801);
 	// PortForwarder.add(5802, "10.17.31.11", 5802);
@@ -101,7 +99,7 @@ public class Robot extends TimedRobot {
 	// PortForwarder.add(5804, "10.17.31.11", 5804);
 
 	driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
-	driveSubsystem.setEnabled(false);
+	driveSubsystem.setEnabled(true);
 	//s_Swerve = new Swerve(false);
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
@@ -424,9 +422,8 @@ public class Robot extends TimedRobot {
 		//System.out.println("Setting the color");
 		//m_ledstring.setColor(LedOption.INIT);
     	if(doSD()){
-			System.out.println("TELEOP PERIODIC");
-			elevatorSubsystem.getElevatorPosition();
-			// wristSubsystem.printPosition();
+		//	System.out.println("TELEOP PERIODIC");
+
 		}
 		
     	String newKeypadCommand = SmartDashboard.getString("keypadCommand", currentKeypadCommand);

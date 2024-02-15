@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ToggleableSubsystem;
+import frc.robot.TunerConstants;
 
 /**
  * Class that extends the Phoenix SwerveDrivetrain class and implements subsystem
@@ -55,7 +56,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
             super(driveTrainConstants, modules);
             if(!enabled) return;
-            configurePathPlanner();
+            // configurePathPlanner();
     }
 
     private void configurePathPlanner() {

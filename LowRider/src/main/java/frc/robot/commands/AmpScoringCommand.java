@@ -17,9 +17,6 @@ import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-import com.ctre.phoenix.motion.*;
-
-
 /**
  * Command to fire into the speaker
  */

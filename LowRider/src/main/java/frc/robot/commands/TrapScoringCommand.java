@@ -17,8 +17,6 @@ import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-import com.ctre.phoenix.motion.*;
-
 
 /**
  * Command to fire into the speaker
@@ -71,6 +69,7 @@ public class TrapScoringCommand extends Command {
 	@Override
 	public void end(boolean interrupted) {
 		m_intakeSubsystem.trapFeed();
+		System.out.println("Ejecting note into trap.");
 	}
 
 	// Returns true when the command should end.

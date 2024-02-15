@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
-import frc.robot.subsystems.Swerve;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -68,22 +67,21 @@ public class PathPlannerCommandGroup extends SequentialCommandGroup {
         // eventMap.put("EnableAprilTags", new InstantCommand(() -> s_PoseEstimatorSubsystem.enableAprilTags(true)));
         // eventMap.put("DisableAprilTags", new InstantCommand(() -> s_PoseEstimatorSubsystem.enableAprilTags(false)));
         //eventMap.put("intakeDown", new IntakeDown());
-        Swerve s_Swerve = null;
         // // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
-        autoBuilder = new AutoBuilder();
-        AutoBuilder.configureHolonomic(
-            s_PoseEstimatorSubsystem::getAutoPose, // Pose2d supplier
-            s_PoseEstimatorSubsystem::setCurrentPose, // Pose2d consumer, used to reset odometry at the beginning of auto
-            s_Swerve::getChassisSpeeds, // SwerveDriveKinematics
-            s_Swerve::setChassisSpeeds, // Module states consumer used to output to the drive subsystem
-            new HolonomicPathFollowerConfig(
-                new PIDConstants(Constants.AutoConstants.kPXController, 0.0, 0.0), // PID constants to correct for translation error (used to create the X and Y PID controllers)
-                new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0), // PID constants to correct for rotation error (used to create the rotation controller)
-                maxModuleSpeed, driveBaseRadius,
-                new ReplanningConfig()),
-            () -> {return false;},
-            s_Swerve // The drive subsystem. Used to properly set the requirements of path following commands
-        );
+        // autoBuilder = new AutoBuilder();
+        // AutoBuilder.configureHolonomic(
+        //     s_PoseEstimatorSubsystem::getAutoPose, // Pose2d supplier
+        //     s_PoseEstimatorSubsystem::setCurrentPose, // Pose2d consumer, used to reset odometry at the beginning of auto
+        //     s_Swerve::getChassisSpeeds, // SwerveDriveKinematics
+        //     s_Swerve::setChassisSpeeds, // Module states consumer used to output to the drive subsystem
+        //     new HolonomicPathFollowerConfig(
+        //         new PIDConstants(Constants.AutoConstants.kPXController, 0.0, 0.0), // PID constants to correct for translation error (used to create the X and Y PID controllers)
+        //         new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0), // PID constants to correct for rotation error (used to create the rotation controller)
+        //         maxModuleSpeed, driveBaseRadius,
+        //         new ReplanningConfig()),
+        //     () -> {return false;},
+        //     s_Swerve // The drive subsystem. Used to properly set the requirements of path following commands
+        // );
         
         //Command fullAuto = null; //autoBuilder.fullAuto(pathGroup);
         //System.out.println("PathPlannerCommandGroup: pathPlannerFile '" + pathPlannerFile + "' has been planned.");

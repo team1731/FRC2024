@@ -2,7 +2,6 @@ package frc.robot;
 
 import java.util.Map;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 // import com.ctre.phoenix6.configs.FeedbackConfigs;
 // import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -141,8 +140,8 @@ public final class Constants {
 
         // Switches - start at 1 not 0
         public static int kShooterSwitch = 1;
-        // public static int kThiefOnSwitchId = 2;
-        // public static int kThiefOffSwitchId = 3;
+        public static int kWristAngle3 = 2;
+        public static int kWristAngle4 = 3;
         public static int kWristSwitchId = 4;
 
         public static int kScoreMediumSwitchId = 8;
@@ -210,8 +209,6 @@ public final class Constants {
         public static final double maxAngularVelocity = 6.0; // disabled for testing = 2.7;
 
         /* Neutral Modes */
-        public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
         /* Motor Inverts */
         public static final boolean driveMotorInvert = false;
