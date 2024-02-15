@@ -412,7 +412,7 @@ public final class Constants {
         public final static double wristExtendedPosition = 50.0;
 
         public final static double wristAmpPosition = 42;
-        public final static double wristTrapPosition = 72;
+        public final static double wristTrapPosition = 68;
 
         public static final double IntakePosition = 10;
     }
