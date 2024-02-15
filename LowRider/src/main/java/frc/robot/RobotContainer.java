@@ -172,12 +172,14 @@ public class RobotContainer {
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * DRIVER BUTTONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
-    driveSubsystem.setDefaultCommand( // Drivetrain will execute this command periodically
-    driveSubsystem.applyRequest(() -> drive.withVelocityX(-xboxController.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-        .withVelocityY(-xboxController.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-        .withRotationalRate(-xboxController.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-    ));    
-
+    if (driveSubsystem.isEnabled()) {
+      driveSubsystem.setDefaultCommand( // Drivetrain will execute this command periodically
+      driveSubsystem.applyRequest(() -> drive.withVelocityX(-(Math.abs(xboxController.getLeftY()) * xboxController.getLeftY()) * MaxSpeed) // Drive forward with negative Y (forward)
+          .withVelocityY(-(Math.abs(xboxController.getLeftX()) * xboxController.getLeftX()) * MaxSpeed) // Drive left with negative X (left)
+          .withRotationalRate(-xboxController.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+      ));    
+    }
+    
     // RESET BUTTON
     // kStart.onTrue(new InstantCommand(() -> {
     //   s_Swerve.zeroGyro();
@@ -372,9 +374,10 @@ public class RobotContainer {
         alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
     }
     assert autoPaths.keySet().contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
-    String pathName = autoPaths.get(alliancePathName);
-    assert pathName != null: "ERROR: you are trying to run an AUTO mode that we don't have a .auto file for: " + alliancePathName + ".auto";
-    return PathPlannerCommandGroup.getAutoBuilderCommand(pathName);
+    System.out.println("About to get Auto Path: " + alliancePathName);
+    Command command = driveSubsystem.getAutoPath(alliancePathName);
+    assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
+    return command; //PathPlannerCommandGroup.getAutoBuilderCommand(pathName);
   }
 
 

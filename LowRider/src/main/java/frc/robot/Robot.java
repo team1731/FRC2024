@@ -35,6 +35,7 @@ import frc.robot.util.log.LogWriter;
 import frc.robot.util.log.MessageLog;
 import frc.robot.subsystems.*;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.TunerConstants.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -98,15 +99,17 @@ public class Robot extends TimedRobot {
 	// PortForwarder.add(5803, "10.17.31.11", 5803);
 	// PortForwarder.add(5804, "10.17.31.11", 5804);
 
-	driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
-	driveSubsystem.setEnabled(true);
+
+    CommandSwerveDrivetrain driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
+
+	// driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
 	//s_Swerve = new Swerve(false);
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
-	intake_subsystem = new IntakeSubsystem(false);
-	wristSubsystem = new WristSubsystem(false);
-	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
-	shooterSubsystem = new ShooterSubsystem(false);
+	intake_subsystem = new IntakeSubsystem(true);
+	wristSubsystem = new WristSubsystem(true);
+	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intake_subsystem);
+	shooterSubsystem = new ShooterSubsystem(true);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard

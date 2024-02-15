@@ -37,7 +37,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
     
-    public void setEnabled(boolean enabled) {
+    private void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -46,17 +46,18 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         return enabled;
     }
 
-    public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
+    public CommandSwerveDrivetrain(boolean enabled, SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
+        setEnabled(enabled);
         if(!enabled) return;
-        // if (Utils.isSimulation()) {
-        //     startSimThread();
-        // }
+        configurePathPlanner();
     }
-    public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
-            super(driveTrainConstants, modules);
-            if(!enabled) return;
-            // configurePathPlanner();
+    
+    public CommandSwerveDrivetrain(boolean enabled, SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
+        super(driveTrainConstants, modules);
+        setEnabled(enabled);
+        if(!enabled) return;
+        configurePathPlanner();
     }
 
     private void configurePathPlanner() {
@@ -65,6 +66,8 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         for (var moduleLocation : m_moduleLocations) {
             driveBaseRadius = Math.max(driveBaseRadius, moduleLocation.getNorm());
         }
+
+        System.out.println("Configuring AutoBuilder!");
 
         AutoBuilder.configureHolonomic(
             ()->this.getState().Pose, // Supplier of current robot pose
@@ -78,6 +81,8 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
                                             new ReplanningConfig()),
             ()->false, // Change this if the path needs to be flipped on red vs blue
             this); // Subsystem for requirements
+
+        System.out.println("Configured AutoBuilder!");
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
