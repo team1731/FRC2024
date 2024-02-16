@@ -91,10 +91,10 @@ public class Robot extends TimedRobot {
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
-	intake_subsystem = new IntakeSubsystem(true);
-	wristSubsystem = new WristSubsystem(true);
-	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intake_subsystem);
-	shooterSubsystem = new ShooterSubsystem(true);
+	intake_subsystem = new IntakeSubsystem(false);
+	wristSubsystem = new WristSubsystem(false);
+	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
+	shooterSubsystem = new ShooterSubsystem(false);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
