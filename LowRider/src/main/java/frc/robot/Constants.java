@@ -555,10 +555,13 @@ public final class Constants {
     }
 
     public static class Vision {
-    public static final String kCameraName = "USB_Camera";
+    public static final String kCameraNameFront = "USB_Camera_Front";
+    public static final String kCameraNameBack = "USB_Camera";
     // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
-    public static final Transform3d kRobotToCam =
-            new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0, 0, 0));
+    public static final Transform3d kRobotToCamFront =
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
+    public static final Transform3d kRobotToCamBack =
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
 
     // The layout of the AprilTags on the field
     public static final AprilTagFieldLayout kTagLayout =
