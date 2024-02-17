@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
   private CommandSwerveDrivetrain driveSubsystem;
-  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
@@ -87,16 +87,16 @@ public class Robot extends TimedRobot {
 
 
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
-	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
 	intake_subsystem = new IntakeSubsystem(false);
 	wristSubsystem = new WristSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
 	shooterSubsystem = new ShooterSubsystem(false);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, visionSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem);
 
 
 	PathPlannerLogging.setLogActivePathCallback(null);

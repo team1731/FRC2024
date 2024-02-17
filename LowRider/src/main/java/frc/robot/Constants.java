@@ -7,6 +7,8 @@ import java.util.Map;
 import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -551,6 +553,25 @@ public final class Constants {
         public final static Gains kGains_MotProf = new Gains( 0.25, 0.0,  0.0, 1023.0/15200.0,  400,  1.00 ); /* measured 6800 velocity units at full motor output */
         public final static int kPrimaryPIDSlot = 0; // any slot [0,3]
     }
+
+    public static class Vision {
+    public static final String kCameraNameFront = "USB_Camera_Front";
+    public static final String kCameraNameBack = "USB_Camera";
+    // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
+    public static final Transform3d kRobotToCamFront =
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
+    public static final Transform3d kRobotToCamBack =
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
+
+    // The layout of the AprilTags on the field
+    public static final AprilTagFieldLayout kTagLayout =
+            AprilTagFields.kDefaultField.loadAprilTagLayoutField();
+
+    // The standard deviations of our vision estimated poses, which affect correction rate
+    // (Fake values. Experiment and determine estimation noise on an actual robot.)
+    public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+    public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+}
 
     public static final class VisionConstants {
 		// Ensure measurements are in METERS

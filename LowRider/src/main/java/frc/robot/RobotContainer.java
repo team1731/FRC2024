@@ -93,7 +93,7 @@ public class RobotContainer {
 
   /* Subsystems */
   private CommandSwerveDrivetrain driveSubsystem;
-  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private VisionSubsystem visionSubsystem;
   private IntakeSubsystem s_intakeSubsystem;
   private WristSubsystem s_wristSubsystem;
   private final LEDStringSubsystem m_ledstring;
@@ -109,7 +109,7 @@ public class RobotContainer {
   public RobotContainer(
           CommandSwerveDrivetrain driveSubsystem,
           ShooterSubsystem shooterSubsystem,
-          PoseEstimatorSubsystem poseEstimatorSubsystem,
+          VisionSubsystem visionSubsystem,
           IntakeSubsystem intakeSubsystem,
           WristSubsystem wristSubsystem,
           LEDStringSubsystem m_ledstring,
@@ -122,7 +122,7 @@ public class RobotContainer {
     s_intakeSubsystem = intakeSubsystem;
     s_wristSubsystem = wristSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
-    s_poseEstimatorSubsystem = poseEstimatorSubsystem;
+    visionSubsystem = visionSubsystem;
 
 
     this.m_ledstring = m_ledstring;
