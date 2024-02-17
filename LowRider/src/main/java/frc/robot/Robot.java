@@ -10,13 +10,6 @@ import java.util.OptionalInt;
 import java.util.Scanner;
 
 import com.pathplanner.lib.util.PathPlannerLogging;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.net.PortForwarder;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -25,18 +18,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.GamePiece;
-import frc.robot.Constants.LogConstants;
 import frc.robot.Constants.OpConstants;
 import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.util.log.LogWriter;
 import frc.robot.util.log.MessageLog;
 import frc.robot.subsystems.*;
-import frc.robot.CommandSwerveDrivetrain;
-import frc.robot.TunerConstants;
-import frc.robot.TunerConstants.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -59,8 +46,6 @@ public class Robot extends TimedRobot {
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
-
-  private boolean enabled = true;
 
   public Robot() {
   }
@@ -101,10 +86,7 @@ public class Robot extends TimedRobot {
 	// PortForwarder.add(5804, "10.17.31.11", 5804);
 
 
-    CommandSwerveDrivetrain driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
-
-	// driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
-	//s_Swerve = new Swerve(false);
+    driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
 	intake_subsystem = new IntakeSubsystem(false);
@@ -117,10 +99,8 @@ public class Robot extends TimedRobot {
 	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 
-	PathPlannerLogging.setLogActivePathCallback(null); //.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
-
+	PathPlannerLogging.setLogActivePathCallback(null);
 	initSubsystems();
-	//s_armSubSystem.resetArmEncoders();
 
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
@@ -221,9 +201,9 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ██▄ █▀ ▀███ ██████ ▀▀▀ ██▄▀▀▄██ ▀▀ ██ ▀▀▀ ████ ████ ▀▀▀ ███ ████ ▀▀▀██ ███ ██ ▀▀▀ 
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private void initSubsystems() {
-	if (enabled) {
+	if (m_ledstring.isEnabled()) {
 		m_ledstring.init();
-  	}
+	}
   }
   
 
@@ -241,27 +221,13 @@ public class Robot extends TimedRobot {
 // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void robotPeriodic() {
-	if (enabled){
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    	CommandScheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
 
-	//
-	// read the KEYPAD, write to NETWORK TABLES
-	//
-		// String newKeypadEntry = keypad.getEntry("driver entry").getString(oldKeypadEntry);
-		// if (!newKeypadEntry.equals(oldKeypadEntry)){
-        // 	System.out.println(".\n.\n.\nDRIVER ENTRY ==========================>>>>>>>> " + newKeypadEntry + "\n.\n.\n.");
-		// 	oldKeypadEntry = newKeypadEntry;
-		// 	SmartDashboard.putString("keypadCommand", newKeypadEntry);
-		// 	m_robotContainer.processKeypadCommand(newKeypadEntry);
-		// // sm_armStateMachine.setOperatorSequence(newKeypadEntry);
-		// }
-
-		m_robotContainer.displayEncoders();
-	}
+	m_robotContainer.displayEncoders();
   }
 
 
@@ -283,48 +249,39 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledPeriodic() {
-	if (enabled){
-		//s_armSubSystem.resetArmEncoders();
-    	if (System.currentTimeMillis() % 5000 == 0) {
-			// SmartDashboard.putBoolean("LowSensor", m_sequencer.lowSensorHasBall());
-			// SmartDashboard.putBoolean("MidSensor", m_sequencer.midSensorHasBall());
-			// SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
-		}
+	if (System.currentTimeMillis() % 5000 == 0) {
+		// SmartDashboard.putBoolean("LowSensor", m_sequencer.lowSensorHasBall());
+		// SmartDashboard.putBoolean("MidSensor", m_sequencer.midSensorHasBall());
+		// SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
+	}
 
-		// if(s_armSubSystem.isInEncodersOutOfBoundsCondition()) {
-		// 	m_ledstring.setColor(OpConstants.LedOption.RED);
-		// } else {
-		// 	m_ledstring.setColor(OpConstants.LedOption.GREEN);
-		// }
+	String newCode = autoChooser.getSelected();
+	if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
+	if(!newCode.equals(autoCode)) {
+		System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
+		autoInitPreload();
+	}
 
-		String newCode = autoChooser.getSelected();
-		if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
-		if(!newCode.equals(autoCode)) {
-    	    System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
-			autoInitPreload();
-		}
+	boolean isRedAlliance = isRedAlliance();
+	if(this.isRedAlliance != isRedAlliance){
+		this.isRedAlliance = isRedAlliance;
+		System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
+		this.autoInitPreload();
+	}
 
-		boolean isRedAlliance = isRedAlliance();
-		if(this.isRedAlliance != isRedAlliance){
-			this.isRedAlliance = isRedAlliance;
-    	    System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
-			this.autoInitPreload();
-		}
-
-        if(Robot.isReal()){
-			try{
-				OptionalInt stationNumberInt = getStationNumber();
-				if(stationNumberInt.isPresent()) {
-					int stationNumber = stationNumberInt.getAsInt();
-					if(this.stationNumber != stationNumber){
-						this.stationNumber = stationNumber;
-						System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
-					}
+	if(Robot.isReal()){
+		try{
+			OptionalInt stationNumberInt = getStationNumber();
+			if(stationNumberInt.isPresent()) {
+				int stationNumber = stationNumberInt.getAsInt();
+				if(this.stationNumber != stationNumber){
+					this.stationNumber = stationNumber;
+					System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
 				}
-			} catch (Exception e){
-				System.out.println("Exception caught while looking for station number! == " + e);
 			}
-	    }
+		} catch (Exception e){
+			System.out.println("Exception caught while looking for station number! == " + e);
+		}
 	}
   }
 
@@ -337,22 +294,19 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousInit() {
-	if (enabled){
-    	System.out.println("AUTO INIT");
-		CommandScheduler.getInstance().cancelAll();
-		// s_armSubSystem.resetArmEncodersForAuto();
+	System.out.println("AUTO INIT");
+	CommandScheduler.getInstance().cancelAll();
 
 	if(m_autonomousCommand == null) {
 		System.out.println("SOMETHING WENT WRONG - UNABLE TO RUN AUTONOMOUS! CHECK SOFTWARE!");
 	}
 	else {
-        	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
-			m_robotContainer.zeroHeading();
-			m_ledstring.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
-			m_autonomousCommand.schedule();
-		}
-    	System.out.println("autonomousInit: End");
-  	}
+		System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
+		m_robotContainer.zeroHeading();
+		m_ledstring.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
+		m_autonomousCommand.schedule();
+	}
+	System.out.println("autonomousInit: End");
 }
 
 
@@ -363,9 +317,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousPeriodic() {
-	if (enabled){
-    	if(doSD()){ System.out.println("AUTO PERIODIC");}
-	}
+    if(doSD()){ System.out.println("AUTO PERIODIC");}
   }
 
 
@@ -376,27 +328,24 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopInit() {	
-	if (enabled){
-		// Record both DS control and joystick data in TELEOP
-		MessageLog.getLogger();
-    	System.out.println("TELEOP INIT");
-		CommandScheduler.getInstance().cancelAll();
-		initSubsystems();
-		//for testing only
-		m_ledstring.setColor(LedOption.INIT);
-		// sm_armStateMachine.setIsInAuto(false);
-		// sm_armStateMachine.initializeArm();
-    	// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
-		}
-		currentKeypadCommand = "";
-		SmartDashboard.getString("keypadCommand", currentKeypadCommand);
-		// s_poseEstimatorSubsystem.disableVisionCorrection();   // if for some reason auto does not put it back in driver mode
-  	}
+	// Record both DS control and joystick data in TELEOP
+	MessageLog.getLogger();
+	System.out.println("TELEOP INIT");
+	CommandScheduler.getInstance().cancelAll();
+	initSubsystems();
+	//for testing only
+	m_ledstring.setColor(LedOption.INIT);
+	// sm_armStateMachine.setIsInAuto(false);
+	// sm_armStateMachine.initializeArm();
+	// This makes sure that the autonomous stops running when
+	// teleop starts running. If you want the autonomous to
+	// continue until interrupted by another command, remove
+	// this line or comment it out.
+	if (m_autonomousCommand != null) {
+		m_autonomousCommand.cancel();
+	}
+	currentKeypadCommand = "";
+	SmartDashboard.getString("keypadCommand", currentKeypadCommand);
   }
 
 //   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -422,23 +371,13 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopPeriodic() {
-	if (enabled){
-		//System.out.println("Setting the color");
-		//m_ledstring.setColor(LedOption.INIT);
-    	if(doSD()){
-		//	System.out.println("TELEOP PERIODIC");
+	//System.out.println("Setting the color");
+	//m_ledstring.setColor(LedOption.INIT);
+	if(doSD()){
+	//	System.out.println("TELEOP PERIODIC");
 
-		}
-		
-    	String newKeypadCommand = SmartDashboard.getString("keypadCommand", currentKeypadCommand);
-		if(!newKeypadCommand.equals(currentKeypadCommand)){
-			// FEED FSM
-			m_robotContainer.processKeypadCommand(newKeypadCommand);
-			// sm_armStateMachine.setOperatorSequence(newKeypadCommand);
-			currentKeypadCommand = newKeypadCommand;
-		}
 	}
-
+	
 	/*
 	 * Change LED blinking status depending on whether holding a game piece or not
 	 */
@@ -479,9 +418,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    if (enabled){
-		CommandScheduler.getInstance().cancelAll();
-  	}
+	CommandScheduler.getInstance().cancelAll();
   }
 
 
