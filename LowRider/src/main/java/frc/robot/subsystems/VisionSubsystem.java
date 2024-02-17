@@ -105,9 +105,12 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         // get the subtable called "photonvision"
-        NetworkTable photonVisionTable = inst.getTable("photonvision");
-        if (photonVisionTable.getEntry("orangePiCam").exists()){
+        NetworkTable photonVisionTable = inst.getTable("photonvision/USB_Camera");
+        if (photonVisionTable.containsKey("hasTarget")) { // .getEntry("hasTarget").exists()){
             initialized = true;
+            System.out.println("VisionSubsystem: Initializing Success !!!!!!");
+        } else {
+            System.out.println("VisionSubsystem: Initializing Failed: " + " Keys: " + photonVisionTable.getKeys().toString());
         }
     }
 
