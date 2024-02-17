@@ -53,13 +53,11 @@ public class Robot extends TimedRobot {
   private boolean isRedAlliance;
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
-  private CommandSwerveDrivetrain driveSubsystem;
-  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
-  private Vision vision;
 
   private boolean enabled = true;
 
@@ -106,17 +104,16 @@ public class Robot extends TimedRobot {
 
 	// driveSubsystem = TunerConstants.DriveTrain; // My drivetrain
 	//s_Swerve = new Swerve(false);
-	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
 	intake_subsystem = new IntakeSubsystem(false);
 	wristSubsystem = new WristSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
 	shooterSubsystem = new ShooterSubsystem(false);
-	vision = new Vision();
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
+	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, visionSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
 
 	PathPlannerLogging.setLogActivePathCallback(null); //.setLoggingCallbacks(null, s_Swerve::logPose, null, s_Swerve::defaultLogError);
@@ -243,39 +240,13 @@ public class Robot extends TimedRobot {
 // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void robotPeriodic() {
-	if (enabled){
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    	CommandScheduler.getInstance().run();
+	CommandScheduler.getInstance().run();
 
-        // Correct pose estimate with vision measurements
-        var visionEst = vision.getEstimatedGlobalPose();
-        visionEst.ifPresent(
-                est -> {
-                    var estPose = est.estimatedPose.toPose2d();
-                    // Change our trust in the measurement based on the tags we can see
-                    var estStdDevs = vision.getEstimationStdDevs(estPose);
-
-                    driveSubsystem.addVisionMeasurement(
-                            est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                });
-
-        // // Apply a random offset to pose estimator to test vision correction
-        // if (controller.getBButtonPressed()) {
-        //     var trf =
-        //             new Transform2d(
-        //                     new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
-        //                     new Rotation2d(rand.nextDouble() * 2 * Math.PI));
-        //     driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
-        // }
-
-        // Log values to the dashboard
-        driveSubsystem.log();
-
-		m_robotContainer.displayEncoders();
-	}
+	m_robotContainer.displayEncoders();
   }
 
 

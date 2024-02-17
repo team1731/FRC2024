@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package frc.robot;
+package frc.robot.subsystems;
 
 import static frc.robot.Constants.Vision.*;
 
@@ -32,7 +32,14 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.Robot;
+
 import java.util.Optional;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
@@ -43,16 +50,30 @@ import org.photonvision.simulation.SimCameraProperties;
 import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonPipelineResult;
 
-public class Vision {
+public class VisionSubsystem extends SubsystemBase implements ToggleableSubsystem {
     private final PhotonCamera camera;
     private final PhotonPoseEstimator photonEstimator;
+    private CommandSwerveDrivetrain driveSubsystem;
     private double lastEstTimestamp = 0;
+
+    private boolean enabled;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    private boolean initialized;
+    public boolean isInitialized() {
+        return initialized;
+    }
 
     // Simulation
     private PhotonCameraSim cameraSim;
     private VisionSystemSim visionSim;
 
-    public Vision() {
+    public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
+        this.enabled = enabled;
+        this.driveSubsystem = driveSubsystem;
         camera = new PhotonCamera(kCameraName);
 
         photonEstimator =
@@ -80,6 +101,43 @@ public class Vision {
             visionSim.addCamera(cameraSim, kRobotToCam);
 
             cameraSim.enableDrawWireframe(true);
+        }
+
+        NetworkTableInstance inst = NetworkTableInstance.getDefault();
+        // get the subtable called "photonvision"
+        NetworkTable photonVisionTable = inst.getTable("photonvision");
+        if (photonVisionTable.getEntry("orangePiCam").exists()){
+            initialized = true;
+        }
+    }
+
+    @Override
+    public void periodic() {
+        if (enabled && initialized) {
+
+            // Correct pose estimate with vision measurements
+            var visionEst = getEstimatedGlobalPose();
+            visionEst.ifPresent(
+                est -> {
+                    var estPose = est.estimatedPose.toPose2d();
+                    // Change our trust in the measurement based on the tags we can see
+                    var estStdDevs = getEstimationStdDevs(estPose);
+
+                    driveSubsystem.addVisionMeasurement(
+                            est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                });
+
+            // // Apply a random offset to pose estimator to test vision correction
+            // if (controller.getBButtonPressed()) {
+            //     var trf =
+            //             new Transform2d(
+            //                     new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
+            //                     new Rotation2d(rand.nextDouble() * 2 * Math.PI));
+            //     driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
+            // }
+
+            // Log values to the dashboard
+            //driveSubsystem.log();
         }
     }
 
