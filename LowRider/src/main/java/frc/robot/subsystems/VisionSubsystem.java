@@ -117,30 +117,34 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     @Override
     public void periodic() {
         if (enabled && initialized) {
+            try {
+                // Correct pose estimate with vision measurements
+                var visionEst = getEstimatedGlobalPose();
+                visionEst.ifPresent(
+                    est -> {
+                        var estPose = est.estimatedPose.toPose2d();
+                        // Change our trust in the measurement based on the tags we can see
+                        var estStdDevs = getEstimationStdDevs(estPose);
 
-            // Correct pose estimate with vision measurements
-            var visionEst = getEstimatedGlobalPose();
-            visionEst.ifPresent(
-                est -> {
-                    var estPose = est.estimatedPose.toPose2d();
-                    // Change our trust in the measurement based on the tags we can see
-                    var estStdDevs = getEstimationStdDevs(estPose);
+                        driveSubsystem.addVisionMeasurement(
+                                est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                    });
 
-                    driveSubsystem.addVisionMeasurement(
-                            est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                });
+                // // Apply a random offset to pose estimator to test vision correction
+                // if (controller.getBButtonPressed()) {
+                //     var trf =
+                //             new Transform2d(
+                //                     new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
+                //                     new Rotation2d(rand.nextDouble() * 2 * Math.PI));
+                //     driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
+                // }
 
-            // // Apply a random offset to pose estimator to test vision correction
-            // if (controller.getBButtonPressed()) {
-            //     var trf =
-            //             new Transform2d(
-            //                     new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
-            //                     new Rotation2d(rand.nextDouble() * 2 * Math.PI));
-            //     driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
-            // }
-
-            // Log values to the dashboard
-            //driveSubsystem.log();
+                // Log values to the dashboard
+                //driveSubsystem.log();
+            }
+            catch (Exception e) {
+                System.out.println("Error: PhotonVision Camera not connected !!!: " + camera.getName());
+            }
         }
     }
 
