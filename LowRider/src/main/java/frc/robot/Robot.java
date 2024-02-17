@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
   private IntakeSubsystem intake_subsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
+  private Vision vision;
 
   private boolean enabled = true;
 
@@ -111,6 +112,7 @@ public class Robot extends TimedRobot {
 	wristSubsystem = new WristSubsystem(false);
 	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
 	shooterSubsystem = new ShooterSubsystem(false);
+	vision = new Vision();
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
@@ -248,17 +250,29 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     	CommandScheduler.getInstance().run();
 
-	//
-	// read the KEYPAD, write to NETWORK TABLES
-	//
-		// String newKeypadEntry = keypad.getEntry("driver entry").getString(oldKeypadEntry);
-		// if (!newKeypadEntry.equals(oldKeypadEntry)){
-        // 	System.out.println(".\n.\n.\nDRIVER ENTRY ==========================>>>>>>>> " + newKeypadEntry + "\n.\n.\n.");
-		// 	oldKeypadEntry = newKeypadEntry;
-		// 	SmartDashboard.putString("keypadCommand", newKeypadEntry);
-		// 	m_robotContainer.processKeypadCommand(newKeypadEntry);
-		// // sm_armStateMachine.setOperatorSequence(newKeypadEntry);
-		// }
+        // Correct pose estimate with vision measurements
+        var visionEst = vision.getEstimatedGlobalPose();
+        visionEst.ifPresent(
+                est -> {
+                    var estPose = est.estimatedPose.toPose2d();
+                    // Change our trust in the measurement based on the tags we can see
+                    var estStdDevs = vision.getEstimationStdDevs(estPose);
+
+                    driveSubsystem.addVisionMeasurement(
+                            est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                });
+
+        // // Apply a random offset to pose estimator to test vision correction
+        // if (controller.getBButtonPressed()) {
+        //     var trf =
+        //             new Transform2d(
+        //                     new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
+        //                     new Rotation2d(rand.nextDouble() * 2 * Math.PI));
+        //     driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
+        // }
+
+        // Log values to the dashboard
+        driveSubsystem.log();
 
 		m_robotContainer.displayEncoders();
 	}

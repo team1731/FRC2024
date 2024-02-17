@@ -13,9 +13,11 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -99,4 +101,27 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         if(!enabled) return new ChassisSpeeds();
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
     }
+
+        /** Log various drivetrain values to the dashboard. */
+    public void log() {
+        String table = "Drive/";
+        Pose2d pose = this.getState().Pose;
+        SmartDashboard.putNumber(table + "X", pose.getX());
+        SmartDashboard.putNumber(table + "Y", pose.getY());
+        SmartDashboard.putNumber(table + "Heading", pose.getRotation().getDegrees());
+        ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
+        SmartDashboard.putNumber(table + "VX", chassisSpeeds.vxMetersPerSecond);
+        SmartDashboard.putNumber(table + "VY", chassisSpeeds.vyMetersPerSecond);
+        SmartDashboard.putNumber(
+                table + "Omega Degrees", Math.toDegrees(chassisSpeeds.omegaRadiansPerSecond));
+        // SmartDashboard.putNumber(table + "Target VX", targetChassisSpeeds.vxMetersPerSecond);
+        // SmartDashboard.putNumber(table + "Target VY", targetChassisSpeeds.vyMetersPerSecond);
+        // SmartDashboard.putNumber(
+        //         table + "Target Omega Degrees", Math.toDegrees(targetChassisSpeeds.omegaRadiansPerSecond));
+
+        // for (SwerveModule module : swerveMods) {
+        //     module.log();
+        // }
+    }
+
 }
