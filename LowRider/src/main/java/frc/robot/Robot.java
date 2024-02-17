@@ -35,6 +35,7 @@ import frc.robot.util.log.LogWriter;
 import frc.robot.util.log.MessageLog;
 import frc.robot.subsystems.*;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.TunerConstants;
 import frc.robot.TunerConstants.*;
 
 /**
@@ -106,10 +107,10 @@ public class Robot extends TimedRobot {
 	//s_Swerve = new Swerve(false);
 	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
 	m_ledstring = new LEDStringSubsystem(false);
-	intake_subsystem = new IntakeSubsystem(true);
-	wristSubsystem = new WristSubsystem(true);
-	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intake_subsystem);
-	shooterSubsystem = new ShooterSubsystem(true);
+	intake_subsystem = new IntakeSubsystem(false);
+	wristSubsystem = new WristSubsystem(false);
+	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
+	shooterSubsystem = new ShooterSubsystem(false);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
