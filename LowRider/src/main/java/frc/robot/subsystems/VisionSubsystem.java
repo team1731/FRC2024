@@ -38,7 +38,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CommandSwerveDrivetrain;
-import frc.robot.Constants.VisionConstants;
 import frc.robot.Robot;
 
 import java.util.HashMap;
@@ -90,7 +89,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         if (cameraFront != null) {
             System.out.println("VisionSubsystem: Adding vision measurement from " + kCameraNameFront);
             System.out.println(
-                "PoseEstimatorSubsystem: Adding camera " + VisionConstants.kCameraMount1Id + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                "VisionSubsystem: Adding camera " + kCameraNameFront + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             this.cameraMap.put(kCameraNameFront, new CameraTransform(cameraFront, kRobotToCamFront));
              photonEstimatorFront =
                 new PhotonPoseEstimator(
@@ -102,7 +101,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         if (cameraBack != null) {
             System.out.println("VisionSubsystem: Adding vision measurement from " + kCameraNameBack);
             System.out.println(
-                "PoseEstimatorSubsystem: Adding camera " + VisionConstants.kCameraMount1Id + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                "VisionSubsystem: Adding camera " + kCameraNameBack + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             this.cameraMap.put(kCameraNameBack, new CameraTransform(cameraBack, kRobotToCamBack));
              photonEstimatorBack =
                 new PhotonPoseEstimator(
@@ -111,8 +110,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             photonEstimatorBack.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
           }
-        
-
        
         // ----- Simulation
         if (Robot.isSimulation()) {
@@ -152,36 +149,38 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
             for (String cameraName : this.cameraMap.keySet()) {
                 PhotonCamera camera = this.cameraMap.get(cameraName).camera;
-                PhotonPoseEstimator cameraEstimator = this.estimatorMap.get(cameraName);
+                if (camera != null) {
+                    PhotonPoseEstimator cameraEstimator = this.estimatorMap.get(cameraName);
 
-                try {
+                    try {
 
-                    // Correct pose estimate with vision measurements
-                    var visionEst = getEstimatedGlobalPose(camera, cameraEstimator);
-                    visionEst.ifPresent(
-                            est -> {
-                                var estPose = est.estimatedPose.toPose2d();
-                                // Change our trust in the measurement based on the tags we can see
-                                var estStdDevs = getEstimationStdDevs(camera, estPose, cameraEstimator);
+                        // Correct pose estimate with vision measurements
+                        var visionEst = getEstimatedGlobalPose(camera, cameraEstimator);
+                        visionEst.ifPresent(
+                                est -> {
+                                    var estPose = est.estimatedPose.toPose2d();
+                                    // Change our trust in the measurement based on the tags we can see
+                                    var estStdDevs = getEstimationStdDevs(camera, estPose, cameraEstimator);
 
-                                driveSubsystem.addVisionMeasurement(
-                                        est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                            });
+                                    driveSubsystem.addVisionMeasurement(
+                                            est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                });
 
-                    // // Apply a random offset to pose estimator to test vision correction
-                    // if (controller.getBButtonPressed()) {
-                    // var trf =
-                    // new Transform2d(
-                    // new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
-                    // new Rotation2d(rand.nextDouble() * 2 * Math.PI));
-                    // driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
-                    // }
+                        // // Apply a random offset to pose estimator to test vision correction
+                        // if (controller.getBButtonPressed()) {
+                        // var trf =
+                        // new Transform2d(
+                        // new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
+                        // new Rotation2d(rand.nextDouble() * 2 * Math.PI));
+                        // driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
+                        // }
 
-                    // Log values to the dashboard
-                    // driveSubsystem.log();
+                        // Log values to the dashboard
+                        // driveSubsystem.log();
 
-                } catch (Exception e) {
-                    System.out.println("Error: PhotonVision Camera not connected !!!: " + camera.getName());
+                    } catch (Exception e) {
+                        System.out.println("Error: PhotonVision Camera not connected !!!: " + camera.getName());
+                    }
                 }
             }
 
