@@ -3,46 +3,31 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-import frc.robot.CommandSwerveDrivetrain;
-import com.ctre.phoenix6.Utils;
+
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.TunerConstants;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.util.log.LogWriter;
 import frc.robot.Constants.OperatorConsoleConstants;
 import frc.robot.Constants.GamePiece;
-import frc.robot.Constants.HighPickup;
-import frc.robot.Constants.OpConstants.LedOption;
-import frc.robot.TunerConstants.*;
-import frc.robot.autos.PathPlannerCommandGroup;
 
 
 /**
@@ -154,9 +139,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    // if(s_Swerve.isEnabled()){
-    //     s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, xboxController.getHID(), translationAxis, strafeAxis, rotationAxis, fieldRelative, openLoop)); 
-    // }
   }
    
 
@@ -377,7 +359,7 @@ public class RobotContainer {
     System.out.println("About to get Auto Path: " + alliancePathName);
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
-    return command; //PathPlannerCommandGroup.getAutoBuilderCommand(pathName);
+    return command;
   }
 
 
