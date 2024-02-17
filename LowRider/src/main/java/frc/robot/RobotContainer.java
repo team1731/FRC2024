@@ -108,7 +108,7 @@ public class RobotContainer {
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
           CommandSwerveDrivetrain driveSubsystem,
-          ShooterSubsystem ShooterSubsystem,
+          ShooterSubsystem shooterSubsystem,
           PoseEstimatorSubsystem poseEstimatorSubsystem,
           IntakeSubsystem intakeSubsystem,
           WristSubsystem wristSubsystem,
@@ -116,17 +116,14 @@ public class RobotContainer {
           ElevatorSubsystem elevatorSubsystem
           ) {
     
-	  boolean fieldRelative = true;
-    boolean openLoop = false;
+
     this.driveSubsystem = driveSubsystem;
-    s_ShooterSubsystem = ShooterSubsystem;
+    s_ShooterSubsystem = shooterSubsystem;
     s_intakeSubsystem = intakeSubsystem;
     s_wristSubsystem = wristSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
     s_poseEstimatorSubsystem = poseEstimatorSubsystem;
-    double maxModuleSpeed = 3.0;
-    double driveBaseRadius = 0.75;
-    // new PathPlannerCommandGroup(false, s_poseEstimatorSubsystem, maxModuleSpeed, driveBaseRadius);
+
 
     this.m_ledstring = m_ledstring;
 
