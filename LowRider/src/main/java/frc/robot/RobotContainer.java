@@ -122,7 +122,7 @@ public class RobotContainer {
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
           CommandSwerveDrivetrain driveSubsystem,
-          ShooterSubsystem ShooterSubsystem,
+          ShooterSubsystem shooterSubsystem,
           PoseEstimatorSubsystem poseEstimatorSubsystem,
           IntakeSubsystem intakeSubsystem,
           WristSubsystem wristSubsystem,
@@ -133,7 +133,7 @@ public class RobotContainer {
 	  boolean fieldRelative = true;
     boolean openLoop = false;
     this.driveSubsystem = driveSubsystem;
-    s_ShooterSubsystem = ShooterSubsystem;
+    s_ShooterSubsystem = shooterSubsystem;
     s_intakeSubsystem = intakeSubsystem;
     s_wristSubsystem = wristSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
@@ -141,10 +141,13 @@ public class RobotContainer {
     this.m_ledstring = m_ledstring;
 
     if(driveSubsystem.isEnabled()){
-      //
-      // REGISTER NAMED AUTO ACTIONS HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //
-      NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new IntakeCommand(intakeSubsystem, wristSubsystem) ));
+      //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new AutoIntake(intakeSubsystem, wristSubsystem) ));
+      NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(s_ShooterSubsystem) ));
+      NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(s_ShooterSubsystem) ));
+      NamedCommands.registerCommand("SetWrist1", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
+      NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( s_intakeSubsystem, s_ShooterSubsystem) ));
     }
 
     // Configure the button bindings
