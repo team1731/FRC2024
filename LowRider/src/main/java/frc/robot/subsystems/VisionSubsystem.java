@@ -46,6 +46,9 @@ import frc.robot.Robot;
 
 import java.util.HashMap;
 import java.util.Optional;
+
+import javax.xml.crypto.dsig.Transform;
+
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -86,7 +89,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
         this.enabled = enabled;
         this.driveSubsystem = driveSubsystem;
-        cameraFront = new PhotonCamera(kCameraNameBack);
+        cameraFront = new PhotonCamera(kCameraNameFront);
         cameraBack = new PhotonCamera(kCameraNameBack);
         cameraMap = new HashMap<String, CameraTransform>();
         estimatorMap = new HashMap<String, PhotonPoseEstimator>();
@@ -94,26 +97,30 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         if (cameraFront != null) {
             System.out.println("VisionSubsystem: Adding vision measurement from " + kCameraNameFront);
             System.out.println(
-                "VisionSubsystem: Adding camera " + kCameraNameFront + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            this.cameraMap.put(kCameraNameFront, new CameraTransform(cameraFront, kRobotToCamFront));
+                "VisionSubsystem: Adding camera " + kCameraNameFront + "!!!!!!! " + cameraFront);
+            CameraTransform transform = new CameraTransform(cameraFront, kRobotToCamFront);
+            System.out.println("Camera in transform = " + transform.camera);
+            System.out.println("Putting cameraTranform into map key=" + kCameraNameFront + ", " + transform);
+            this.cameraMap.put(kCameraNameFront, transform);
              photonEstimatorFront =
                 new PhotonPoseEstimator(
-                        kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraFront, kRobotToCamBack);
+                        kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraFront, kRobotToCamFront);
             this.estimatorMap.put(kCameraNameFront, photonEstimatorFront);
             photonEstimatorFront.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-
           }
         if (cameraBack != null) {
             System.out.println("VisionSubsystem: Adding vision measurement from " + kCameraNameBack);
             System.out.println(
-                "VisionSubsystem: Adding camera " + kCameraNameBack + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            this.cameraMap.put(kCameraNameBack, new CameraTransform(cameraBack, kRobotToCamBack));
+                "VisionSubsystem: Adding camera " + kCameraNameBack + "!!!!!!! " + cameraBack);
+            CameraTransform transform = new CameraTransform(cameraBack, kRobotToCamBack);
+            System.out.println("Camera in transform = " + transform.camera);
+            System.out.println("Putting cameraTranform into map key=" + kCameraNameBack + ", " + transform);
+            this.cameraMap.put(kCameraNameBack, transform);
              photonEstimatorBack =
                 new PhotonPoseEstimator(
                         kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraBack, kRobotToCamBack);
             this.estimatorMap.put(kCameraNameBack, photonEstimatorBack);
             photonEstimatorBack.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-
           }
        
         // write initial values to dashboard
@@ -178,23 +185,28 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     @Override
     public void periodic() {
         if (enabled && initialized) {
+            System.out.println("Map Size: " + cameraMap.size() + "Est Map Size: " + estimatorMap.size());
 
             for (String cameraName : this.cameraMap.keySet()) {
-                PhotonCamera camera = this.cameraMap.get(cameraName).camera;
+                System.out.println("VisionSubsystem: getting tranform out of map key= " + cameraName);
+                CameraTransform transform = this.cameraMap.get(cameraName);
+                System.out.println("VisionSubsystem: transform: " + transform.toString());
+                PhotonCamera camera = transform.camera;
                 if (camera != null) {
                     PhotonPoseEstimator cameraEstimator = this.estimatorMap.get(cameraName);
-
+                    System.out.println("VisionSubsystem: cameraEstimator " + cameraEstimator.toString());
                     try {
 
                         // Correct pose estimate with vision measurements
                         var visionEst = getEstimatedGlobalPose(camera, cameraEstimator);
+                        System.out.println("VisionSubsystem: visionEst " + visionEst.toString());
                         visionEst.ifPresent(
                                 est -> {
                                     var estPose = est.estimatedPose.toPose2d();
                                     // Change our trust in the measurement based on the tags we can see
                                     var estStdDevs = getEstimationStdDevs(camera, estPose, cameraEstimator);
 
-                                    System.out.println("PoseEstimatorSubsystem: Adding vision measurement from " + cameraName);
+                                    System.out.println("VisionSubsystem: Adding vision measurement from " + cameraName);
                                     Pose2d cameraPose2d = est.estimatedPose.toPose2d();
                                     field2d.getObject("MyRobot" + cameraName).setPose(cameraPose2d);
                                     SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
@@ -221,9 +233,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                     } catch (Exception e) {
                         System.out.println("Error: PhotonVision Camera not connected !!!: " + camera.getName());
                     }
+                } else {
+                    System.out.println("Error: Camera Object is Null: " + cameraName);
                 }
             }
-
+            enabled = false;
         }
     }
 
@@ -244,16 +258,16 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         var visionEst = photonEstimator.update();
         double latestTimestamp = camera.getLatestResult().getTimestampSeconds();
         boolean newResult = Math.abs(latestTimestamp - lastEstTimestamp) > 1e-5;
-        if (Robot.isSimulation()) {
-            visionEst.ifPresentOrElse(
-                    est ->
-                            getSimDebugField()
-                                    .getObject("VisionEstimation")
-                                    .setPose(est.estimatedPose.toPose2d()),
-                    () -> {
-                        if (newResult) getSimDebugField().getObject("VisionEstimation").setPoses();
-                    });
-        }
+        // if (Robot.isSimulation()) {
+        //     visionEst.ifPresentOrElse(
+        //             est ->
+        //                     getSimDebugField()
+        //                             .getObject("VisionEstimation")
+        //                             .setPose(est.estimatedPose.toPose2d()),
+        //             () -> {
+        //                 if (newResult) getSimDebugField().getObject("VisionEstimation").setPoses();
+        //             });
+        // }
         if (newResult) lastEstTimestamp = latestTimestamp;
         return visionEst;
     }

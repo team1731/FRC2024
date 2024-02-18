@@ -175,8 +175,8 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
             // If the distance between the vision pose estimation and the current swerve
             // pose estimation is too great we will
             // ignore it. This should help filter out bad vision data.
-              if(distanceBetweenPoseEstimations <
-              VisionConstants.kMaxDistanceBetweenPoseEstimations) {
+              // if(distanceBetweenPoseEstimations <
+              // VisionConstants.kMaxDistanceBetweenPoseEstimations) {
               System.out.println("PoseEstimatorSubsystem: Adding vision measurement from " + cameraName);
               field2d.getObject("MyRobot" + cameraName).setPose(cameraPose2d);
               SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
@@ -189,7 +189,7 @@ public class PoseEstimatorSubsystem extends SubsystemBase implements ToggleableS
               poseEstimator.addVisionMeasurement(cameraPose2d, cameraPose.timestampSeconds,
                   VisionConstants.kVisionMeasurementStdDevs);
               // }
-               }
+            //   }
             }
           }
       }
