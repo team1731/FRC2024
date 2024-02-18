@@ -555,7 +555,7 @@ public final class Constants {
     }
 
     public static class Vision {
-    public static final String kCameraNameFront = "Global_USB_Camera";
+    public static final String kCameraNameFront = "Global_Shutter_Camera";
     public static final String kCameraNameBack = "USB_Camera";
     // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     public static final Transform3d kRobotToCamFront =

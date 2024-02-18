@@ -36,13 +36,16 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.util.log.Logger;
 import frc.robot.Robot;
+import frc.robot.util.log.loggers.PoseEstimations;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -71,6 +74,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private CommandSwerveDrivetrain driveSubsystem;
     private double lastEstTimestamp = 0;
 
+  // logging
+  Logger poseLogger;
+  double lastLogTime = 0;
+  double logInterval = 1.0; // in seconds
+
     private boolean enabled;
     @Override
     public boolean isEnabled() {
@@ -86,6 +94,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private PhotonCameraSim cameraSim;
     private VisionSystemSim visionSim;
 
+    private boolean useVisionCorrection = true;
+
     public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
         this.enabled = enabled;
         this.driveSubsystem = driveSubsystem;
@@ -99,6 +109,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             System.out.println(
                 "VisionSubsystem: Adding camera " + kCameraNameFront + "!!!!!!! " + cameraFront);
             CameraTransform transform = new CameraTransform(cameraFront, kRobotToCamFront);
+            transform.camera = cameraFront;
+            transform.transform = kRobotToCamFront;
             System.out.println("Camera in transform = " + transform.camera);
             System.out.println("Putting cameraTranform into map key=" + kCameraNameFront + ", " + transform);
             this.cameraMap.put(kCameraNameFront, transform);
@@ -113,6 +125,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             System.out.println(
                 "VisionSubsystem: Adding camera " + kCameraNameBack + "!!!!!!! " + cameraBack);
             CameraTransform transform = new CameraTransform(cameraBack, kRobotToCamBack);
+            transform.camera = cameraBack;
+            transform.transform = kRobotToCamBack;
             System.out.println("Camera in transform = " + transform.camera);
             System.out.println("Putting cameraTranform into map key=" + kCameraNameBack + ", " + transform);
             this.cameraMap.put(kCameraNameBack, transform);
@@ -125,8 +139,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
        
         // write initial values to dashboard
         ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
-        tab.addString("Pose (X, Y)", this::getFormattedPose).withPosition(0, 4);
-        tab.addNumber("Pose Degrees", () -> getCurrentPose().getRotation().getDegrees()).withPosition(1, 4);
+        String formattedPose = this.getFormattedPose();
+        if(formattedPose != null){
+            tab.addString("Pose (X, Y)", this::getFormattedPose).withPosition(0, 4);
+        }
+        Pose2d currentPose = this.getCurrentPose();
+        if(currentPose != null){
+            tab.addNumber("Pose Degrees", () -> currentPose.getRotation().getDegrees()).withPosition(1, 4);
+        }
         tab.add(field2d);
 
         // ----- Simulation
@@ -159,6 +179,10 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         } else {
             System.out.println("VisionSubsystem: Initializing Failed: " + " Keys: " + photonVisionTable.getKeys().toString());
         }
+
+      // setup logger
+      //poseLogger = LogWriter.getLogger(Log.POSE_ESTIMATIONS, PoseEstimations.class);
+      //setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
     }
 
   private String getFormattedPose() {
@@ -185,28 +209,28 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     @Override
     public void periodic() {
         if (enabled && initialized) {
-            System.out.println("Map Size: " + cameraMap.size() + "Est Map Size: " + estimatorMap.size());
+            //System.out.println("Map Size: " + cameraMap.size() + "Est Map Size: " + estimatorMap.size());
 
             for (String cameraName : this.cameraMap.keySet()) {
-                System.out.println("VisionSubsystem: getting tranform out of map key= " + cameraName);
+                //System.out.println("VisionSubsystem: getting tranform out of map key= " + cameraName);
                 CameraTransform transform = this.cameraMap.get(cameraName);
-                System.out.println("VisionSubsystem: transform: " + transform.toString());
+                //System.out.println("VisionSubsystem: transform: " + transform.toString());
                 PhotonCamera camera = transform.camera;
                 if (camera != null) {
                     PhotonPoseEstimator cameraEstimator = this.estimatorMap.get(cameraName);
-                    System.out.println("VisionSubsystem: cameraEstimator " + cameraEstimator.toString());
+                    //System.out.println("VisionSubsystem: cameraEstimator " + cameraEstimator.toString());
                     try {
 
                         // Correct pose estimate with vision measurements
                         var visionEst = getEstimatedGlobalPose(camera, cameraEstimator);
-                        System.out.println("VisionSubsystem: visionEst " + visionEst.toString());
+                        //System.out.println("VisionSubsystem: visionEst " + visionEst.toString());
                         visionEst.ifPresent(
                                 est -> {
                                     var estPose = est.estimatedPose.toPose2d();
                                     // Change our trust in the measurement based on the tags we can see
                                     var estStdDevs = getEstimationStdDevs(camera, estPose, cameraEstimator);
 
-                                    System.out.println("VisionSubsystem: Adding vision measurement from " + cameraName);
+                                    //System.out.println("VisionSubsystem: Adding vision measurement from " + cameraName);
                                     Pose2d cameraPose2d = est.estimatedPose.toPose2d();
                                     field2d.getObject("MyRobot" + cameraName).setPose(cameraPose2d);
                                     SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
@@ -237,9 +261,36 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                     System.out.println("Error: Camera Object is Null: " + cameraName);
                 }
             }
-            enabled = false;
+            //enabled = false;
         }
+
+        field2d.setRobotPose(getCurrentPose());
+        Pose2d posenow = getCurrentPose();
+        //SmartDashboard.putNumber("CurrentPoseX", posenow.getX());
+        //SmartDashboard.putNumber("CurrentPoseY", posenow.getY());
+
+      // log pose estimations
+      Pose2d currentPose = getCurrentPose();
+      currentPose = getAutoPose();    // this is a hack - delete this line 
+      //poseLogger.add(new PoseEstimations(currentPose.getX(), currentPose.getY(), currentPose.getRotation().getDegrees()));
+      if(Timer.getFPGATimestamp() - lastLogTime > logInterval) {
+        //poseLogger.flush();
+        lastLogTime = Timer.getFPGATimestamp();
+      }
+
     }
+
+  public Pose2d getAutoPose() {
+    if (enabled){
+      if (useVisionCorrection) {
+        return new Pose2d(); //getAdjustedPose();
+      }
+      return new Pose2d(); //poseEstimator.getEstimatedPosition();
+    }
+    else{
+      return null;
+    }
+  }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
 
