@@ -34,7 +34,6 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -47,18 +46,12 @@ import frc.robot.util.log.Logger;
 import frc.robot.Robot;
 import frc.robot.util.log.loggers.PoseEstimations;
 
-import java.util.HashMap;
 import java.util.Optional;
-
-import javax.xml.crypto.dsig.Transform;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-import org.photonvision.simulation.PhotonCameraSim;
-import org.photonvision.simulation.SimCameraProperties;
-import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 public class VisionSubsystem extends SubsystemBase implements ToggleableSubsystem {
@@ -89,8 +82,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     public boolean isInitialized() {
         return initialized;
     }
-
-    private boolean useVisionCorrection = true;
 
     public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
         this.enabled = enabled;
