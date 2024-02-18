@@ -32,10 +32,14 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.Robot;
@@ -59,6 +63,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     private PhotonPoseEstimator photonEstimatorFront;
     private PhotonPoseEstimator photonEstimatorBack;
+    private final Field2d field2d = new Field2d();
 
     private CommandSwerveDrivetrain driveSubsystem;
     private double lastEstTimestamp = 0;
@@ -111,6 +116,12 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
           }
        
+        // write initial values to dashboard
+        ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
+        tab.addString("Pose (X, Y)", this::getFormattedPose).withPosition(0, 4);
+        tab.addNumber("Pose Degrees", () -> getCurrentPose().getRotation().getDegrees()).withPosition(1, 4);
+        tab.add(field2d);
+
         // ----- Simulation
         if (Robot.isSimulation()) {
             // Create the vision system simulation which handles cameras and targets on the field.
@@ -143,6 +154,27 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
     }
 
+  private String getFormattedPose() {
+    if (enabled){
+      var pose = getCurrentPose();
+      return String.format("(%.2f, %.2f)", 
+          Units.metersToInches(pose.getX()), 
+          Units.metersToInches(pose.getY()));
+    }
+    else{
+      return null;
+    }
+  }
+
+  public Pose2d getCurrentPose() {
+    if (enabled){
+      return driveSubsystem.getState().Pose;
+    }
+    else{
+      return null;
+    }
+  }
+
     @Override
     public void periodic() {
         if (enabled && initialized) {
@@ -161,6 +193,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                     var estPose = est.estimatedPose.toPose2d();
                                     // Change our trust in the measurement based on the tags we can see
                                     var estStdDevs = getEstimationStdDevs(camera, estPose, cameraEstimator);
+
+                                    System.out.println("PoseEstimatorSubsystem: Adding vision measurement from " + cameraName);
+                                    Pose2d cameraPose2d = est.estimatedPose.toPose2d();
+                                    field2d.getObject("MyRobot" + cameraName).setPose(cameraPose2d);
+                                    SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
+                                        cameraPose2d.getTranslation().getX(),
+                                        cameraPose2d.getTranslation().getY(),
+                                        cameraPose2d.getRotation().getDegrees()));
 
                                     driveSubsystem.addVisionMeasurement(
                                             est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
