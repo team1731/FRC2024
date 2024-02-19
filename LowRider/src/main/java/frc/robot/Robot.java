@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
 	// and put our autonomous chooser on the dashboard
 	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem); //, s_poseEstimatorSubsystem), s_armSubSystem, m_ledstring);
 
-
+    wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
 	initSubsystems();
 

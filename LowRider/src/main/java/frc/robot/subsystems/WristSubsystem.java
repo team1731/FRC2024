@@ -11,6 +11,7 @@ import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
@@ -21,6 +22,8 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor1;
     private TalonFX wristMotor2;
     private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
+    private Servo trapFlapServo = new Servo(1);
+
     // private MotionMagicVoltage mmReq2;
     // private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
 
@@ -125,5 +128,13 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     public double getWristPosition() {
         if(!enabled) return 0;
         return wristMotor1.getPosition().getValueAsDouble();
+    }
+
+    public void extendTrapFlap() {
+       trapFlapServo.set(0);
+    }
+
+    public void retractTrapFlap() {
+      trapFlapServo.set(1);
     }
 }

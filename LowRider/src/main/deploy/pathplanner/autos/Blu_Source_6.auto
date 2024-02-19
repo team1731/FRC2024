@@ -84,6 +84,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "SetWristLongShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Blu_p13"
@@ -96,15 +102,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Blu_p14"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "SetWristLongShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Blu_p15"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
           }
         }
       ]
