@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.5610640312189714,
+        "y": 4.30055187383102
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.9640242916849469,
+        "y": 4.468469300574965
+      },
+      "isLocked": false,
+      "linkedName": "pickup3"
+    },
+    {
+      "anchor": {
+        "x": 1.8054356108712217,
+        "y": 5.130810261620524
+      },
+      "prevControl": {
+        "x": 1.7198634520347538,
+        "y": 4.8075376615716445
+      },
+      "nextControl": {
+        "x": 1.8893943242431936,
+        "y": 5.4479876232479745
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.4304615881959033,
+        "y": 5.494631352899069
+      },
+      "prevControl": {
+        "x": 2.0852979887777954,
+        "y": 5.503960098829288
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "pickup2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 2.245742565895021,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_Source_6",
+  "previewStartingState": {
+    "rotation": -28.523118606311943,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

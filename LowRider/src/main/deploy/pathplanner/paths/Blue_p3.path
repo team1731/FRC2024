@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.037037892257603,
+        "y": 5.793151222666083
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.038862077724157,
+        "y": 5.8304662063869594
+      },
+      "isLocked": false,
+      "linkedName": "PickupTopMiddle"
+    },
+    {
+      "anchor": {
+        "x": 5.285057842842958,
+        "y": 6.464820929641859
+      },
+      "prevControl": {
+        "x": 6.2179324358648715,
+        "y": 6.567437134874269
+      },
+      "nextControl": {
+        "x": 4.372309547172367,
+        "y": 6.364418617118095
+      },
+      "isLocked": false,
+      "linkedName": "AboveStage"
+    },
+    {
+      "anchor": {
+        "x": 2.4118040963354654,
+        "y": 5.382686401736439
+      },
+      "prevControl": {
+        "x": 3.895074699240308,
+        "y": 5.326713926155125
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "lineshot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -1.0609116902643063,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_Stage_4",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

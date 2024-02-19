@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.3179319293111518,
-        "y": 5.507946742389212
+        "x": 7.897106703304316,
+        "y": 7.397695522663773
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5401208637175103,
-        "y": 5.98740707452925
+        "x": 7.262751980049416,
+        "y": 7.164476874408295
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.820780570336069,
-        "y": 6.7241388044029655
+        "x": 4.165608331216663,
+        "y": 6.175629805805067
       },
       "prevControl": {
-        "x": 2.5752033270448305,
-        "y": 6.1979018544931685
+        "x": 5.182441637610548,
+        "y": 6.511464659292956
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "longshot"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.0,
-      "rotationDegrees": 65.0,
-      "rotateFast": true
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -45,11 +39,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 65.0,
+    "rotation": 9.950626687951482,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Blu_Source_6",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

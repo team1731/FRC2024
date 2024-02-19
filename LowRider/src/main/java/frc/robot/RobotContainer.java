@@ -133,7 +133,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new AutoIntake(intakeSubsystem, wristSubsystem) ));
       NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(s_ShooterSubsystem) ));
       NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(s_ShooterSubsystem) ));
-      NamedCommands.registerCommand("SetWrist1", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
+      NamedCommands.registerCommand("SetWristCenterNote", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
+      NamedCommands.registerCommand("SetWristCenterLine", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( s_intakeSubsystem, s_ShooterSubsystem) ));
     }
 

@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.009051654466946,
+        "y": 5.802479968596301
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.833629667259334,
+        "y": 6.13831482208419
+      },
+      "isLocked": false,
+      "linkedName": "pickup5"
+    },
+    {
+      "anchor": {
+        "x": 5.91008382016764,
+        "y": 6.371533470339668
+      },
+      "prevControl": {
+        "x": 6.488466067841227,
+        "y": 6.296903502897915
+      },
+      "nextControl": {
+        "x": 5.60462622653104,
+        "y": 6.410947353389552
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.165608331216663,
+        "y": 6.175629805805067
+      },
+      "prevControl": {
+        "x": 4.771976816680904,
+        "y": 6.446163437781423
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "longshot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 13.240519915187146,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_Source_6",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
