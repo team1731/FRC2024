@@ -409,12 +409,9 @@ public final class Constants {
 
         // Positions
         public final static double wristHomePosition = 0;
-        public final static double wristExtendedPosition = 50.0;
-
         public final static double wristAmpPosition = 42;
         public final static double wristTrapPosition = 68;
-
-        public static final double IntakePosition = 10;
+        public static final double IntakePosition = 0;
     }
 
     public static final class ShooterConstants{

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
+import frc.robot.util.LinearServo;
 
 public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem {
 
@@ -22,7 +23,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor1;
     private TalonFX wristMotor2;
     private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
-    private Servo trapFlapServo = new Servo(1);
+    private Servo trapFlapServo = new LinearServo(0, 50,32 );
 
     // private MotionMagicVoltage mmReq2;
     // private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
@@ -131,10 +132,14 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     }
 
     public void extendTrapFlap() {
-       trapFlapServo.set(0);
+        trapFlapServo.setPosition(0);
+        System.out.println("extending");
+      
+       
     }
 
     public void retractTrapFlap() {
-      trapFlapServo.set(1);
+      trapFlapServo.setPosition(50);
+      System.out.println("retracting");
     }
 }
