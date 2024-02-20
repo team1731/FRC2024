@@ -75,7 +75,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         /* Configure current limits */
         MotionMagicConfigs mm = cfg.MotionMagic;
-        mm.MotionMagicCruiseVelocity = 70; // 5 rotations per second cruise
+        mm.MotionMagicCruiseVelocity = 80; // 5 rotations per second cruise
         mm.MotionMagicAcceleration = 140; // Take approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
         mm.MotionMagicJerk = 0;
@@ -139,7 +139,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     }
 
     public void retractTrapFlap() {
-      trapFlapServo.setPosition(50);
+      trapFlapServo.setPosition(45);
       System.out.println("retracting");
     }
 }

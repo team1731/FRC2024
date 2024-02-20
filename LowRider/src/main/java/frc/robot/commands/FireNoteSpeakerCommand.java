@@ -48,6 +48,7 @@ public class FireNoteSpeakerCommand extends Command {
 	public void initialize() {
 		
         m_intakeSubsystem.disableLimitSwitch();
+		m_ShooterSubsystem.shoot();
 		
 		// turn on the shooter if it is not already on
 	}

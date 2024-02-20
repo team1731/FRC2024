@@ -18,16 +18,13 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.Constants.OperatorConsoleConstants;
-import frc.robot.Constants.GamePiece;
+
 
 
 /**
@@ -50,16 +47,17 @@ public class RobotContainer {
 
   /* Controllers */
   private final CommandXboxController xboxController = new CommandXboxController(0);
-  private final Joystick operator = new Joystick(1);
+  private final CommandXboxController xboxOperatorController = new CommandXboxController(1);
 
 
   /* Drive Controls */
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  //private final int translationAxis = XboxController.Axis.kLeftY.value;
+  //private final int strafeAxis = XboxController.Axis.kLeftX.value;
+  //private final int rotationAxis = XboxController.Axis.kRightX.value;
 
   /* Driver Buttons */
   private final Trigger kStart = xboxController.start();
+  private final Trigger kBack = xboxController.back();
   private final Trigger ky = xboxController.y();
   private final Trigger kb = xboxController.b();
   private final Trigger ka = xboxController.a();
@@ -70,25 +68,18 @@ public class RobotContainer {
   private final Trigger kRightTrigger = xboxController.rightTrigger();
 
   /* Operator Buttons */
-  private final JoystickButton kTurnForwardBtn = new JoystickButton(operator,OperatorConsoleConstants.kPreventScoreBtnId);
-  private final JoystickButton kWheelLockBtn = new JoystickButton(operator,OperatorConsoleConstants.kWheelLockBtnId);
-  private final JoystickButton kTurnBackBtn = new JoystickButton(operator,OperatorConsoleConstants.kReleaseBtnId);
-  private final JoystickButton kIntakeBtn = new JoystickButton(operator,OperatorConsoleConstants.kIntakeBtnId);
-  private final JoystickButton kxINT = new JoystickButton(operator, OperatorConsoleConstants.kxAxis);
-  // Operator switches
-  private final JoystickButton kKillSwitch = new JoystickButton(operator,OperatorConsoleConstants.kKillSwitchId);
-  private final JoystickButton kAutoRecoverySwitch = new JoystickButton(operator,OperatorConsoleConstants.kAutoRecoverySwitchId);
-  private final JoystickButton kShooterSwitch = new JoystickButton(operator,OperatorConsoleConstants.kShooterSwitch);
-  private final JoystickButton kAngleSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreHighSwitchId);
-  private final JoystickButton kMediumScoreSwitch = new JoystickButton(operator,OperatorConsoleConstants.kScoreMediumSwitchId);
-  private final JoystickButton kWristAngle3 = new JoystickButton(operator,OperatorConsoleConstants.kWristAngle3);
-  private final JoystickButton kWristAngle4 = new JoystickButton(operator,OperatorConsoleConstants.kWristAngle4);
-  private final JoystickButton kWristSwitch = new JoystickButton(operator,OperatorConsoleConstants.kWristSwitchId);
-  
 
-  // Operator sticks
-  public final int kDistalAxis = OperatorConsoleConstants.kDistalAxisId;
-  public final int kProximalAxis = OperatorConsoleConstants.kProximalAxisId;
+  private final Trigger operatorkStart = xboxOperatorController.start();
+  private final Trigger operatorBack = xboxOperatorController.back();
+  private final Trigger operatorky = xboxOperatorController.y();
+  private final Trigger operatorkb = xboxOperatorController.b();
+  private final Trigger operatorka = xboxOperatorController.a();
+  private final Trigger operatorkx = xboxOperatorController.x();
+  private final Trigger operatorkLeftBumper = xboxOperatorController.leftBumper();
+  private final Trigger operatorkRightBumper = xboxOperatorController.rightBumper();
+  private final Trigger operatorkLeftTrigger = xboxOperatorController.leftTrigger();
+  private final Trigger operatorkRightTrigger = xboxOperatorController.rightTrigger();
+
 
 
   /* Subsystems */
@@ -103,7 +94,6 @@ public class RobotContainer {
   /* Auto Paths */
   private static HashMap<String, String> autoPaths;
 
-  private GamePiece storedPiece; // used to temporarily store game piece setting when using cone flip feature
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
@@ -133,11 +123,11 @@ public class RobotContainer {
       NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new AutoIntake(intakeSubsystem, wristSubsystem) ));
       NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(s_ShooterSubsystem) ));
       NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(s_ShooterSubsystem) ));
-      NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
-      NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
-      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
-      NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
-      NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)) ));
+      NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(0)) ));
+      NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(0)) ));
+      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(0)) ));
+      NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(19)) ));
+      NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(10)) ));
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( s_intakeSubsystem, s_ShooterSubsystem) ));
     }
 
@@ -161,164 +151,44 @@ public class RobotContainer {
      */
     if (driveSubsystem.isEnabled()) {
       driveSubsystem.setDefaultCommand( // Drivetrain will execute this command periodically
-      driveSubsystem.applyRequest(() -> drive.withVelocityX(-(Math.abs(xboxController.getLeftY()) * xboxController.getLeftY()) * MaxSpeed) // Drive forward with negative Y (forward)
-          .withVelocityY(-(Math.abs(xboxController.getLeftX()) * xboxController.getLeftX()) * MaxSpeed) // Drive left with negative X (left)
-          .withRotationalRate(-xboxController.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-      ));    
+          driveSubsystem.applyRequest(
+              () -> drive.withVelocityX(-(Math.abs(xboxController.getLeftY()) * xboxController.getLeftY()) * MaxSpeed)                                                                                                                     
+                  .withVelocityY(-(Math.abs(xboxController.getLeftX()) * xboxController.getLeftX()) * MaxSpeed) 
+                  .withRotationalRate(-xboxController.getRightX() * MaxAngularRate) 
+                                                                                    
+          ));
     }
-    
-    // RESET BUTTON
-    // kStart.onTrue(new InstantCommand(() -> {
-    //   s_Swerve.zeroGyro();
-    //   s_Swerve.adjustWheelEncoders(); 
-    //   //s_armSubSystem.resetArmEncoders();
-    // }));
 
     kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_wristSubsystem));
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem));
-  
+
     kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
-
-    kShooterSwitch.onTrue(new InstantCommand(() -> {
-        s_ShooterSubsystem.shoot();
-    }))
-    .onFalse(new InstantCommand(() -> {
-        s_ShooterSubsystem.stopShooting();
-    }));
-
-
-    
-
-    // REVERSE FEEDER INTAKE -- Temporarily commented out for manual wrist adjustments
-    // ka
-    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
-    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-  
-    // kb
-    //   .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
-    //   .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
-    kWheelLockBtn
-       .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
-       .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
     kx.whileTrue(new TrapScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
 
     ka.onTrue(new InstantCommand(() -> s_wristSubsystem.retractTrapFlap()));
     kb.onTrue(new InstantCommand(() -> s_wristSubsystem.extendTrapFlap()));
 
-    
     kStart.onTrue(driveSubsystem.runOnce(() -> driveSubsystem.seedFieldRelative()));
-    // // ELEVATOR - EXTEND AND HOME
-    // kx
-    //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
-    //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
 
-    // ky
-    //   .onTrue(new InstantCommand(() -> elevatorSubsystem.sendElevatorHome()))
-    //   .onFalse(new InstantCommand(() -> elevatorSubsystem.getElevatorPosition()));
-    //kx
-    //  .onTrue(new InstantCommand(() -> elevatorSubsystem.liftElevator()))
-    //  .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
+    operatorkLeftBumper.onTrue(new InstantCommand(() -> {
+      s_ShooterSubsystem.shoot();
+    }));
+    operatorkRightBumper.onTrue(new InstantCommand(() -> {
+      s_ShooterSubsystem.stopShooting();
+    }));
+    operatorkStart
+        .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+        .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
-   // ky
-    //  .onTrue(new InstantCommand(() -> elevatorSubsystem.lowerElevator()))
-    //  .onFalse(new InstantCommand(() -> elevatorSubsystem.stopElevator()));
-
-
-    // WRIST - FORWARD AND BACK
-    //ka
-    //  .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristForward()))
-    //  .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
-    
-    //kb
-    //  .onTrue(new InstantCommand(() -> s_wristSubsystem.turnWristBack()))
-    //  .onFalse(new InstantCommand(() -> s_wristSubsystem.stopWrist()));
-    
-    // SCORE HIGH/MED/LOW BUTTONS
-    // ky.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_HIGH, operator, kDistalAxis)));
-    // kb.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_MEDIUM, operator, kDistalAxis)));
-    // ka.whileTrue((new ArmScoreCommand(sm_armStateMachine, ArmSequence.SCORE_LOW, operator, kDistalAxis)));
-
-    // CLEAR/RESET PATH BUTTON
-    //kx.whileTrue(new InstantCommand(() -> sm_armStateMachine.clearCurrentPath()));
-
-    // BUMPERS - EITHER START/STOP RECORDING  - OR -  PICKUP HIGH/RUN OPERATOR SEQUENCE
-    // if(LogWriter.isArmRecordingEnabled()) {
-    //   kLeftBumper.onTrue(new InstantCommand(() -> s_armSubSystem.startRecordingArmPath()));
-    //   kRightBumper.onTrue(new InstantCommand(() -> s_armSubSystem.stopRecordingArmPath()));
-    // } else {
-    //   kLeftBumper.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_HIGH, operator, kDistalAxis));
-    //   kRightBumper.whileTrue(new ArmScoreCommand(sm_armStateMachine, ArmSequence.READ_OPERATOR_ENTRY, operator, kDistalAxis));
-    // }
-
-    // TRIGGERS - PICKUP LOW AND PICKUP DOWNED CONE
-    // kLeftTrigger.whileTrue(new ArmPickupCommand(sm_armStateMachine, ArmSequence.PICKUP_LOW, operator, kDistalAxis));
-
-    // kRightBumper.onTrue(new InstantCommand(() -> s_intakeSubsystem.intake()));
-    // kRightBumper.onFalse(new InstantCommand(() -> s_intakeSubsystem.stopIntake()));
-       
-    /*
-     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * OPERATOR BUTTONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    */
-
-    // WRISt MODE ON/OFF SWITCH
-    //kWristSwitch.onTrue(new InstantCommand(() -> {
-     // System.out.println("RobotContainer: Wrist to Extended.");
-     // m_ledstring.setBlink(false);
-     // m_ledstring.setColor(LedOption.YELLOW);
-     // s_wristSubsystem.wristExtended();
-    //}));
-
-    //kWristSwitch.onFalse(new InstantCommand(() -> {
-    //  System.out.println("RobotContainer: Wrist to Home.");
-    //  m_ledstring.setBlink(false);
-    //  m_ledstring.setColor(LedOption.PURPLE);
-    //  s_wristSubsystem.wristHome();
-    //}));
+    // Far Shot
+    operatorky.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(15)))
+        .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
+    // Close Shot
+    operatorkb.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(25)))
+        .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);
-
-
-    // PREVENT SCORE
-    // kPreventScoreBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.setAllowScore(false)));
-    // kPreventScoreBtn.whileFalse(new InstantCommand(() -> sm_armStateMachine.setAllowScore(true)));
-
-    // LOCK WHEELS IN X-PATTERN
-    // kWheelLockBtn.whileTrue(new InstantCommand(() -> s_Swerve.setLockWheels(true)));
-    // kWheelLockBtn.whileFalse(new InstantCommand(() -> s_Swerve.setLockWheels(false)));
-
-    // ON REQUEST INTAKE OR EJECT BUTTONS
-    // kIntakeBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.intake()));
-    // kIntakeBtn.whileFalse(new InstantCommand(() -> sm_armStateMachine.releaseIntake()));
-    // kReleaseBtn.whileTrue(new InstantCommand(() -> sm_armStateMachine.release()));
-    // kReleaseBtn.whileFalse(new InstantCommand(() -> sm_armStateMachine.stopRelease()));
-
-    // EMERENCY MODE AND AUTO-RECOVERY SWITCH
-    // kKillSwitch.onTrue(new InstantCommand(() -> {
-    //   sm_armStateMachine.addJoystickControl(operator, kProximalAxis, false);
-    //   sm_armStateMachine.addJoystickControl(operator, kDistalAxis, false);
-    //   sm_armStateMachine.emergencyInterrupt();
-    // }));
-    // kAutoRecoverySwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.attemptAutoRecovery()));
-
-    // // HIGH PICKUP SWITCH - FEEDER OR SHELF
-    // kHighPickupSwitch.onTrue(new InstantCommand(() -> {
-    //   sm_armStateMachine.setHighPickup(HighPickup.FEEDER);
-    // }));
-    // kHighPickupSwitch.onFalse(new InstantCommand(() -> {
-    //   sm_armStateMachine.setHighPickup(HighPickup.SHELF);
-    // }));
-
-    // // HIGH/MED/LOW SCORE PRE-LOAD SWITCH
-     kAngleSwitch.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(15)));
-     kMediumScoreSwitch.onTrue(new InstantCommand(() ->  s_wristSubsystem.moveWrist(0)));
-
-    // // THIEF MODE ON/OFF SWITCH
-   // kThiefOnSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(true)));
-    // kThiefOffSwitch.onTrue(new InstantCommand(() -> sm_armStateMachine.setIsInThiefMode(false)));
-    kWristAngle3.onTrue(new InstantCommand(() ->  s_wristSubsystem.moveWrist(22)));
-    kWristAngle4.onTrue(new InstantCommand(() ->  s_wristSubsystem.moveWrist(30)));
   }
 
   public static String[] deriveAutoModes() {
