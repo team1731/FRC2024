@@ -61,6 +61,8 @@ public class TrapScoringCommand extends Command {
 	@Override
 	public void execute() {
 
+		//if (m_elevatorSubsystem.isAtPosition(Constants.ElevatorConstants.elevatorTrapPosition))
+
 	
 	}
 

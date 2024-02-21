@@ -34,9 +34,9 @@ public class AutoFireNote extends Command {
 		m_ShooterSubsystem = shooterSubsystem;
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && shooterSubsystem != null ) {
-			addRequirements(intakeSubsystem, shooterSubsystem);
-		}
+		//if (intakeSubsystem != null && shooterSubsystem != null ) {
+		//	addRequirements(intakeSubsystem, shooterSubsystem);
+		//}
 	}
 
 	// Called when the command is initially scheduled.
@@ -68,13 +68,13 @@ public class AutoFireNote extends Command {
 	@Override
 	public void end(boolean interrupted) {
 		m_intakeSubsystem.enableLimitSwitch();
-        m_intakeSubsystem.stopFeed();
+        
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return (Timer.getFPGATimestamp() - shooterTimeStarted >1.0);
+		return (Timer.getFPGATimestamp() - shooterTimeStarted >.5);
 	}
 
 }

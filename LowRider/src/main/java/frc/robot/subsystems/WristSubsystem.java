@@ -76,7 +76,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         /* Configure current limits */
         MotionMagicConfigs mm = cfg.MotionMagic;
         mm.MotionMagicCruiseVelocity = 80; // 5 rotations per second cruise
-        mm.MotionMagicAcceleration = 140; // Take approximately 0.5 seconds to reach max vel
+        mm.MotionMagicAcceleration = 300; // Take approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
         mm.MotionMagicJerk = 0;
         
