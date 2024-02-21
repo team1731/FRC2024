@@ -552,8 +552,8 @@ public final class Constants {
     }
 
     public static class Vision {
-    public static final String kCameraNameFront = "USB_Camera_Front";
-    public static final String kCameraNameBack = "USB_Camera";
+    public static final String kCameraNameFront = "Global_Shutter_Camera";
+    public static final String kCameraNameBack = "H264_USB_Camera";
     // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     public static final Transform3d kRobotToCamFront =
             new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
@@ -602,12 +602,12 @@ public final class Constants {
             }
         }
 
-        public static final String kCameraMount1Id = "leftcamera";  //camera on the left looking back
-        public static final String kCameraMount2Id = "Global_Shutter_Camera";  // camera on the right looking back
-        public static final String kCameraMount3Id = "USB_Camera2";  // camera on the arm
-        public static final CameraMountPoseValues kCameraMount1Pose = new CameraMountPoseValues(kCameraMount1Id, -5.3,10.253, 17.0, 135.0,0.0);
-        public static final CameraMountPoseValues kCameraMount2Pose = new CameraMountPoseValues(kCameraMount2Id, -5.3, -10.253, 17.0, 225.0,0.0);
-        public static final CameraMountPoseValues kCameraMount3Pose = new CameraMountPoseValues(kCameraMount3Id, -11, -5.0, 37, 0.0,-80.0);
+        // public static final String kCameraMount1Id = "leftcamera";  //camera on the left looking back
+        // public static final String kCameraMount2Id = "Global_Shutter_Camera";  // camera on the right looking back
+        // public static final String kCameraMount3Id = "USB_Camera2";  // camera on the arm
+        // public static final CameraMountPoseValues kCameraMount1Pose = new CameraMountPoseValues(kCameraMount1Id, -5.3,10.253, 17.0, 135.0,0.0);
+        // public static final CameraMountPoseValues kCameraMount2Pose = new CameraMountPoseValues(kCameraMount2Id, -5.3, -10.253, 17.0, 225.0,0.0);
+        // public static final CameraMountPoseValues kCameraMount3Pose = new CameraMountPoseValues(kCameraMount3Id, -11, -5.0, 37, 0.0,-80.0);
 /*
  * The Auto angles are measured as the angle between a line from the camera perpendicular to the ground plane and the boresight of the camera.  This could be calculated from 
  * the arm geometry and arm relative encoders but it is easier to just run the pickup paths and measure it. 
