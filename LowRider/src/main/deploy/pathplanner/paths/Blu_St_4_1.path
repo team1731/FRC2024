@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4416145195926755,
-        "y": 4.0953194633662
+        "x": 0.7886023044773361,
+        "y": 4.421825570923869
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2625441614519595,
-        "y": 4.543099268016718
+        "x": 1.2830258387789502,
+        "y": 4.076661971505761
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 4.0953194633662
       },
       "prevControl": {
-        "x": 1.945366799824509,
-        "y": 4.393839333133212
+        "x": 1.6468469300574966,
+        "y": 4.244579398249706
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,9 +30,9 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.0,
-      "rotationDegrees": -47.419509216656344,
-      "rotateFast": true
+      "waypointRelativePos": 0.35,
+      "rotationDegrees": 0,
+      "rotateFast": false
     }
   ],
   "constraintZones": [
@@ -48,37 +48,7 @@
       }
     }
   ],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.2
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.0,
@@ -87,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -6.2034479016918125,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_Stage_4",
   "previewStartingState": {
-    "rotation": 14.225963898751791,
+    "rotation": -59.42077312751101,
     "velocity": 0
   },
   "useDefaultConstraints": true

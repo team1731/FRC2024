@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.999722908536725,
+        "x": 8.298242778303738,
         "y": 4.113976955226638
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.001547094003279,
+        "x": 7.300066963770292,
         "y": 4.151291938947515
       },
       "isLocked": false,
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 2.4118040963354654,
-        "y": 5.382686401736439
+        "x": 1.5722169626157434,
+        "y": 5.485302606968851
       },
       "prevControl": {
-        "x": 3.895074699240308,
-        "y": 5.326713926155125
+        "x": 3.055487565520586,
+        "y": 5.429330131387537
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,25 +46,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "SetWristLineShot"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.0,

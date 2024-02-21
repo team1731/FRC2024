@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.00884383586949,
-        "y": 5.569261320340823
+        "x": 3.605883575403514,
+        "y": 6.017041124991342
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.727157272496363,
-        "y": 5.765164984875425
+        "x": 4.324197012030387,
+        "y": 6.2129447895259435
       },
       "isLocked": false,
-      "linkedName": "pickup2"
+      "linkedName": "longshot"
     },
     {
       "anchor": {
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 8.391530237605929,
-        "y": 5.578590066271041
+        "x": 8.475488950977901,
+        "y": 5.559932574410603
       },
       "prevControl": {
-        "x": 7.775833006211467,
-        "y": 5.718521255224328
+        "x": 7.8597917195834395,
+        "y": 5.69986376336389
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,7 +46,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.0,

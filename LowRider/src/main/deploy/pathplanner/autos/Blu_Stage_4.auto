@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 2
+      "x": 0.7886023044773361,
+      "y": 4.421825570923869
     },
-    "rotation": 0
+    "rotation": -57.804266065286775
   },
   "command": {
     "type": "sequential",
@@ -15,6 +15,42 @@
           "type": "named",
           "data": {
             "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_St_4_1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_St_4_2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_St_4_3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_St_4_4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_St_4_5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_St_4_6"
           }
         }
       ]

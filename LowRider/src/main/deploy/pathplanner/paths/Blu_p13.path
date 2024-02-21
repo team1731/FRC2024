@@ -3,28 +3,28 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.447502713187244,
-        "y": 7.304408063361582
+        "x": 8.2795852864433,
+        "y": 7.295079317431362
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.813147989932344,
-        "y": 7.071189415106104
+        "x": 7.430669406793358,
+        "y": 7.0898469069665415
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": "pickup4"
     },
     {
       "anchor": {
-        "x": 4.165608331216663,
-        "y": 6.175629805805067
+        "x": 3.605883575403514,
+        "y": 6.017041124991342
       },
       "prevControl": {
-        "x": 5.182441637610548,
-        "y": 6.511464659292956
+        "x": 4.6227168817974125,
+        "y": 6.352875978479231
       },
       "nextControl": null,
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": "longshot"
     }
   ],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -42,6 +42,29 @@
               "type": "named",
               "data": {
                 "name": "SetWristLongShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
               }
             }
           ]

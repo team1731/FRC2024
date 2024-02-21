@@ -24,12 +24,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Blu_p1"
@@ -38,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "setWristNote2"
+            "name": "SetWristNote1"
           }
         },
         {

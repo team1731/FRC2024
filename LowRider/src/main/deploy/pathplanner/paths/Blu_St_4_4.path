@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6916664742420395,
-        "y": 4.0953194633662
+        "x": 8.167640335280371,
+        "y": 4.095319463370033
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1692567021497684,
-        "y": 4.253908144179925
+        "x": 6.982889602142241,
+        "y": 3.9833745122112374
       },
       "isLocked": false,
-      "linkedName": "pickup3s"
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.799963054471263,
+        "y": 3.7408271180217056
+      },
+      "prevControl": {
+        "x": 5.8704802804135605,
+        "y": 4.354639042795649
+      },
+      "nextControl": {
+        "x": 2.0666404969173575,
+        "y": 2.173597801741059
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,8 +36,8 @@
         "y": 4.2912231279008015
       },
       "prevControl": {
-        "x": 1.6468469300574962,
-        "y": 4.188606922668391
+        "x": 1.5255732329646479,
+        "y": 3.9274020366222553
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -48.5763343749974,
+    "rotation": -55.95406264339833,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_Stage_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
