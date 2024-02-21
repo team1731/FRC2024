@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.803611425404669,
+        "x": 3.00884383586949,
         "y": 5.569261320340823
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.521924862031542,
+        "x": 3.727157272496363,
         "y": 5.765164984875425
       },
       "isLocked": false,
@@ -46,25 +46,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Fire",
-      "waypointRelativePos": 0.25,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.0,
@@ -77,7 +59,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_Source_6",
+  "folder": "Blu_Speaker_6",
   "previewStartingState": {
     "rotation": 0.0,
     "velocity": 0

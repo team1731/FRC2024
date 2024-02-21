@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4322857736624564,
-      "y": 5.569261320340823
+      "x": 2,
+      "y": 2
     },
     "rotation": 0
   },
@@ -15,102 +15,6 @@
           "type": "named",
           "data": {
             "name": "Intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StartShooter"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.2
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "SetWristCenterNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blu_p1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blu_p2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue_p3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blu_p4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blu_p5"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
           }
         }
       ]

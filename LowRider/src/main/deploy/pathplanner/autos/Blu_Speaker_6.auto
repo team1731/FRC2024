@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.4322857736624564,
-      "y": 4.076661971505762
+      "y": 5.485302606968851
     },
     "rotation": 0
   },
@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "SetWristNote1"
+            "name": "FireNote"
           }
         },
         {
@@ -36,39 +36,33 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "setWristNote2"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Blu_p10"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "SetWristNote3"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Blu_p11"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SetWristNote1"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
           }
         },
         {
@@ -81,12 +75,6 @@
           "type": "path",
           "data": {
             "pathName": "Blu_p12"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "SetWristLongShot"
           }
         },
         {
@@ -104,7 +92,7 @@
         {
           "type": "named",
           "data": {
-            "name": "intake"
+            "name": "Intake"
           }
         },
         {
@@ -114,21 +102,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "SetWristLongShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Blu_p15"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
           }
         }
       ]

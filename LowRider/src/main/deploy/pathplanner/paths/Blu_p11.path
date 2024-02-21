@@ -3,53 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.803611425404669,
+        "x": 3.00884383586949,
         "y": 5.569261320340823
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5797215230794097,
-        "y": 5.839794952317179
+        "x": 2.570392777149191,
+        "y": 5.671877525573233
       },
       "isLocked": false,
       "linkedName": "pickup2"
     },
     {
       "anchor": {
-        "x": 2.0946267347080147,
-        "y": 6.390190962200107
+        "x": 1.693490659708592,
+        "y": 6.017041124991342
       },
       "prevControl": {
-        "x": 2.0423241888537214,
-        "y": 6.009129556690254
+        "x": 1.6411881138542985,
+        "y": 5.6359797194814885
       },
       "nextControl": {
-        "x": 2.1599279562195486,
-        "y": 6.865957004641284
+        "x": 1.7587918812201262,
+        "y": 6.4928071674325185
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.9622001062183942,
-        "y": 7.0058881935945685
+        "x": 2.9342138684277366,
+        "y": 6.968573209873693
       },
       "prevControl": {
-        "x": 2.5983790149398485,
-        "y": 6.893943242431939
+        "x": 2.6263652527305057,
+        "y": 6.754012053478652
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "pickup1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.45,
+      "rotationDegrees": 37.550078464939965,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Fire",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.8,
       "command": {
         "type": "sequential",
         "data": {
@@ -77,7 +83,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_Source_6",
+  "folder": "Blu_Speaker_6",
   "previewStartingState": {
     "rotation": 0.0,
     "velocity": 0

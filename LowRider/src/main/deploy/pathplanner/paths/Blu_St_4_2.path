@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4696007573833327,
-        "y": 5.513288844759509
+        "x": 2.6916664742420395,
+        "y": 4.0953194633662
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0946267347080134,
-        "y": 4.897591613365046
+        "x": 2.1692567021497684,
+        "y": 4.253908144179925
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "pickup3s"
     },
     {
       "anchor": {
-        "x": 2.710323966102478,
-        "y": 4.263236890110144
+        "x": 1.3576558062207034,
+        "y": 4.403168079063431
       },
       "prevControl": {
-        "x": 1.7401343893596877,
-        "y": 4.496455538365622
+        "x": 1.8147643568014407,
+        "y": 4.30055187383102
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "pickup3"
+      "linkedName": "StageSideShot"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -25.559965171823855,
+    "rotation": -37.50414236027018,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_Speaker_6",
+  "folder": "Blu_Stage_4",
   "previewStartingState": {
-    "rotation": -1.0050860052541593,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

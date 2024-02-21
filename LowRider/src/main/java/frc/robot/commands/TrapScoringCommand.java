@@ -57,11 +57,14 @@ public class TrapScoringCommand extends Command {
 		m_wristSubsystem.moveWrist(Constants.WristConstants.wristTrapPosition);
 		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorTrapPosition);
 		m_wristSubsystem.extendTrapFlap();
+		
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+
+		//if (m_elevatorSubsystem.isAtPosition(Constants.ElevatorConstants.elevatorTrapPosition))
 
 	
 	}

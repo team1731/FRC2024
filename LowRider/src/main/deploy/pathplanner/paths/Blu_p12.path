@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.9622001062183942,
-        "y": 7.0058881935945685
+        "x": 2.9342138684277366,
+        "y": 6.968573209873693
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.053663380054033,
-        "y": 7.033874431385225
+        "x": 4.025677142263375,
+        "y": 6.99655944766435
       },
       "isLocked": false,
       "linkedName": "pickup1"
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_Source_6",
+  "folder": "Blu_Speaker_6",
   "previewStartingState": {
     "rotation": 20.28255908891664,
     "velocity": 0
