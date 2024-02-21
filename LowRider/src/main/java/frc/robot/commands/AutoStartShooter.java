@@ -9,18 +9,22 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.WristSubsystem;
+
 
 /**
  * Command to fire into the speaker
  */
-public class FireNoteSpeakerCommand extends Command {
+public class AutoStartShooter extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private final IntakeSubsystem m_intakeSubsystem;
-    private final ShooterSubsystem m_ShooterSubsystem;
-	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
+	private final ShooterSubsystem m_shooterSubsystem;
+
 
 
 
@@ -29,16 +33,18 @@ public class FireNoteSpeakerCommand extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * 
+	 * @param PoseEstimatorSubsystem 
+	 * @param ElevatorSubsystem
+	 * @param WristSubsystem 
 	 */
-	public FireNoteSpeakerCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
-		m_intakeSubsystem = intakeSubsystem;
-		m_ShooterSubsystem = shooterSubsystem;
-		//m_poseEstimatorSubsystem = poseEstimatorSubsystem;
+	public AutoStartShooter(ShooterSubsystem shooterSubsystem) {
+		m_shooterSubsystem = shooterSubsystem;
+
+
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && shooterSubsystem != null ) {
-			addRequirements(intakeSubsystem, shooterSubsystem);
+		if (shooterSubsystem != null) {
+			addRequirements(shooterSubsystem);
 		}
 	}
 
@@ -46,37 +52,26 @@ public class FireNoteSpeakerCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		
-        m_intakeSubsystem.disableLimitSwitch();
-		m_ShooterSubsystem.shoot();
-		
-		// turn on the shooter if it is not already on
+		m_shooterSubsystem.shoot();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 
-        // if we have a good field position, set the elevator and wrist angles based on the distance to the goal
-		// optionally take over steering
-		// if the elevator and wrist are in range and the shooter is up to speed, run the feeder motor
-	    m_intakeSubsystem.feed();
-
-
-
+	
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_intakeSubsystem.enableLimitSwitch();
-        m_intakeSubsystem.stopFeed();
+		
+	
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return true;
 	}
-
 }

@@ -11,9 +11,11 @@ import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
+import frc.robot.util.LinearServo;
 
 public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem {
 
@@ -21,6 +23,8 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor1;
     private TalonFX wristMotor2;
     private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
+    private Servo trapFlapServo = new LinearServo(0, 50,32 );
+
     // private MotionMagicVoltage mmReq2;
     // private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
 
@@ -71,7 +75,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         /* Configure current limits */
         MotionMagicConfigs mm = cfg.MotionMagic;
-        mm.MotionMagicCruiseVelocity = 70; // 5 rotations per second cruise
+        mm.MotionMagicCruiseVelocity = 80; // 5 rotations per second cruise
         mm.MotionMagicAcceleration = 140; // Take approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
         mm.MotionMagicJerk = 0;
@@ -125,5 +129,17 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     public double getWristPosition() {
         if(!enabled) return 0;
         return wristMotor1.getPosition().getValueAsDouble();
+    }
+
+    public void extendTrapFlap() {
+        trapFlapServo.setPosition(0);
+        System.out.println("extending");
+      
+       
+    }
+
+    public void retractTrapFlap() {
+      trapFlapServo.setPosition(45);
+      System.out.println("retracting");
     }
 }

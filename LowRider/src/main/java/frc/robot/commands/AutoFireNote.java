@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
@@ -16,10 +17,11 @@ import frc.robot.subsystems.ShooterSubsystem;
 /**
  * Command to fire into the speaker
  */
-public class FireNoteSpeakerCommand extends Command {
+public class AutoFireNote extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_ShooterSubsystem;
+	private double shooterTimeStarted;
 	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
 
 
@@ -31,7 +33,7 @@ public class FireNoteSpeakerCommand extends Command {
 	 * @param seqSubsystem        
 	 * 
 	 */
-	public FireNoteSpeakerCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
+	public AutoFireNote(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
 		m_ShooterSubsystem = shooterSubsystem;
 		//m_poseEstimatorSubsystem = poseEstimatorSubsystem;
@@ -48,7 +50,8 @@ public class FireNoteSpeakerCommand extends Command {
 	public void initialize() {
 		
         m_intakeSubsystem.disableLimitSwitch();
-		m_ShooterSubsystem.shoot();
+		shooterTimeStarted = Timer.getFPGATimestamp();
+		m_intakeSubsystem.feed();
 		
 		// turn on the shooter if it is not already on
 	}
@@ -60,7 +63,7 @@ public class FireNoteSpeakerCommand extends Command {
         // if we have a good field position, set the elevator and wrist angles based on the distance to the goal
 		// optionally take over steering
 		// if the elevator and wrist are in range and the shooter is up to speed, run the feeder motor
-	    m_intakeSubsystem.feed();
+	   // m_intakeSubsystem.feed();
 
 
 
@@ -76,7 +79,7 @@ public class FireNoteSpeakerCommand extends Command {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return (Timer.getFPGATimestamp() - shooterTimeStarted >1.0);
 	}
 
 }
