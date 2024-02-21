@@ -90,7 +90,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         if (cameraFront != null) {
             System.out.println("VisionSubsystem: Adding vision measurement from " + kCameraNameFront);
             System.out.println(
-                "PoseEstimatorSubsystem: Adding camera " + VisionConstants.kCameraMount1Id + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                "VisionSubsystem: Adding camera " + VisionConstants.kCameraMount1Id + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             this.cameraMap.put(kCameraNameFront, new CameraTransform(cameraFront, kRobotToCamFront));
              photonEstimatorFront =
                 new PhotonPoseEstimator(
@@ -102,7 +102,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         if (cameraBack != null) {
             System.out.println("VisionSubsystem: Adding vision measurement from " + kCameraNameBack);
             System.out.println(
-                "PoseEstimatorSubsystem: Adding camera " + VisionConstants.kCameraMount1Id + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                "VisionSubsystem: Adding camera " + VisionConstants.kCameraMount1Id + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             this.cameraMap.put(kCameraNameBack, new CameraTransform(cameraBack, kRobotToCamBack));
              photonEstimatorBack =
                 new PhotonPoseEstimator(
