@@ -33,7 +33,6 @@ public class TrapScoringCommand extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * @param PoseEstimatorSubsystem 
 	 * @param ElevatorSubsystem
 	 * @param WristSubsystem 
 	 */
@@ -55,11 +54,14 @@ public class TrapScoringCommand extends Command {
 	public void initialize() {
 		m_wristSubsystem.moveWrist(Constants.WristConstants.wristTrapPosition);
 		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorTrapPosition);
+		m_wristSubsystem.extendTrapFlap();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+
+		//if (m_elevatorSubsystem.isAtPosition(Constants.ElevatorConstants.elevatorTrapPosition))
 
 	
 	}

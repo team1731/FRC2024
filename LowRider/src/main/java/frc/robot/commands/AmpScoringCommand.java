@@ -32,7 +32,6 @@ public class AmpScoringCommand extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * @param PoseEstimatorSubsystem 
 	 * @param ElevatorSubsystem
 	 * @param WristSubsystem 
 	 */

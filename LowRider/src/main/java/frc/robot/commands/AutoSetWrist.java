@@ -21,9 +21,7 @@ public class AutoSetWrist extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
     private final WristSubsystem m_wristSubsystem;
-	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
 	private double m_wristHeight;
-
 
 
 	/**

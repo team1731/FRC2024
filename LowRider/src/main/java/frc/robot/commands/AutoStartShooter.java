@@ -32,7 +32,6 @@ public class AutoStartShooter extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * @param PoseEstimatorSubsystem 
 	 * @param ElevatorSubsystem
 	 * @param WristSubsystem 
 	 */
