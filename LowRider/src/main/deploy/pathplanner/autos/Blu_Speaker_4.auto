@@ -32,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "SetWristNote1"
+            "name": "SetWristNote2"
           }
         },
         {
@@ -93,6 +93,18 @@
           "type": "named",
           "data": {
             "name": "FireNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_p6"
           }
         }
       ]

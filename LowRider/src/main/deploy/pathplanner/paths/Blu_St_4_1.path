@@ -16,25 +16,19 @@
     },
     {
       "anchor": {
-        "x": 2.6916664742420395,
-        "y": 4.0953194633662
+        "x": 2.6450227445909436,
+        "y": 4.244579398249706
       },
       "prevControl": {
-        "x": 1.6468469300574966,
-        "y": 4.244579398249706
+        "x": 1.9267093079640703,
+        "y": 4.561756759877157
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "pickup3s"
+      "linkedName": "pickup3"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.35,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
@@ -48,7 +42,25 @@
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.0,
@@ -57,7 +69,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -20.40988283380393,
     "rotateFast": false
   },
   "reversed": false,

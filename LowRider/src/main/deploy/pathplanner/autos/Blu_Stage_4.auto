@@ -5,12 +5,18 @@
       "x": 0.7886023044773361,
       "y": 4.421825570923869
     },
-    "rotation": -57.804266065286775
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooter"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -24,9 +30,27 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Blu_St_4_2"
+            "name": "SetWristNote3"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
           }
         },
         {
@@ -42,6 +66,18 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Blu_St_4_5"
@@ -51,6 +87,12 @@
           "type": "path",
           "data": {
             "pathName": "Blu_St_4_6"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
           }
         }
       ]
