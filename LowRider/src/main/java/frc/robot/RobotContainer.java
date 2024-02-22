@@ -234,44 +234,31 @@ public class RobotContainer {
     if(!autoName.startsWith("Red_") && !autoName.startsWith("Blu_")){
         alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
     }
-    assert autoPaths.keySet().contains(alliancePathName): "ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName;
+    // if the named auto (red or blue) exists, use it as-is and do NOT flip the field (red/blue)
+    if(autoPaths.keySet().contains(alliancePathName)){
+      driveSubsystem.configurePathPlanner(false);
+    }
+    // if the named auto does not exist (so there isn't a red one), use the blue one and flip the field
+    else if(isRedAlliance && alliancePathName.startsWith("Red_")) {
+      alliancePathName = alliancePathName.replace("Red_", "Blu_");
+      assert autoPaths.keySet().contains(alliancePathName): "ERROR: you need to create " + alliancePathName;
+      driveSubsystem.configurePathPlanner(true);
+    }
+    else {
+      System.out.println("ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName);
+    }
     System.out.println("About to get Auto Path: " + alliancePathName);
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
     return command;
   }
 
+  public void displayEncoders() {
+      // TODO Auto-generated method stub
+  }
 
-	public void displayEncoders() {
-	}
+  public void zeroHeading() {
+      // TODO Auto-generated method stub
+  }
 
-	public void zeroHeading() {
-	}
-
-
-	public void processKeypadCommand(String newKeypadCommand) {
-		if(newKeypadCommand.length() > 0){
-      System.out.println(newKeypadCommand + "\n");
-      if (newKeypadCommand.toLowerCase().contains("cone")){
-        // m_ledstring.setBlink(false);
-        // m_ledstring.setColor(LedOption.YELLOW);
-        // sm_armStateMachine.setGamePiece(GamePiece.CONE);
-        System.out.println("\n\nSHOWING YELLOW\n\n");
-      }
-      else if (newKeypadCommand.toLowerCase().contains("cube")){
-        // m_ledstring.setBlink(false);
-        // m_ledstring.setColor(LedOption.PURPLE);
-        // sm_armStateMachine.setGamePiece(GamePiece.CUBE);
-        System.out.println("\n\nSHOWING PURPLE\n\n");
-      }
-      else if (newKeypadCommand.toLowerCase().contains("clear")){
-        // m_ledstring.setBlink(false);
-        // m_ledstring.setColor(LedOption.WHITE);
-        // sm_armStateMachine.setGamePiece(null);
-        System.out.println("\n\nSHOWING WHITE\n\n");
-     }
-     // delegate to FSM
-		 System.out.println("SENDING NEW COMMAND FROM NETWORK TABLES TO FSM: " + newKeypadCommand + "\n\n");
-		}
-	}
 }
