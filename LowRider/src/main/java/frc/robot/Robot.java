@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private boolean isRedAlliance(){
-	return false; //DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
   }
 
 
@@ -304,7 +304,6 @@ public class Robot extends TimedRobot {
 	if (enabled){
     	System.out.println("AUTO INIT");
 		CommandScheduler.getInstance().cancelAll();
-		// s_armSubSystem.resetArmEncodersForAuto();
 
 	if(m_autonomousCommand == null) {
 		System.out.println("SOMETHING WENT WRONG - UNABLE TO RUN AUTONOMOUS! CHECK SOFTWARE!");

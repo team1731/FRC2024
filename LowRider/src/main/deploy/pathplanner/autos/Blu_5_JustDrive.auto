@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3966769976295312,
-      "y": 7.0198259161363925
+      "x": 1.4042995358717991,
+      "y": 1.6045442999976915
     },
     "rotation": 0
   },
@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "StraightBack_1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
+            "pathName": "Blu_5_p1"
           }
         }
       ]

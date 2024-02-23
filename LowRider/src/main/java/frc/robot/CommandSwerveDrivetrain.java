@@ -52,17 +52,17 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner();
+        configurePathPlanner(true);
     }
     
     public CommandSwerveDrivetrain(boolean enabled, SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner();
+        configurePathPlanner(true);
     }
 
-    private void configurePathPlanner() {
+    public void configurePathPlanner(boolean redBlueFlipping) {
         if(!enabled) return;
         double driveBaseRadius = 0;
         for (var moduleLocation : m_moduleLocations) {
@@ -81,10 +81,10 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
                                             new ReplanningConfig()),
-            ()->false, // Change this if the path needs to be flipped on red vs blue
+            ()->redBlueFlipping,
             this); // Subsystem for requirements
 
-        System.out.println("Configured AutoBuilder!");
+        System.out.println("Configured AutoBuilder! -- RED/BLUE PATH FLIPPING is " + (redBlueFlipping ? "ON" : "OFF"));
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
