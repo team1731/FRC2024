@@ -60,12 +60,6 @@
               "data": {
                 "name": "FireNote"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
             }
           ]
         }

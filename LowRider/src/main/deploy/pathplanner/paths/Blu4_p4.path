@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0124922068025954,
-        "y": 6.716697069757776
+        "x": 3.6431985591243907,
+        "y": 6.492807167432517
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.012492206802587,
-        "y": 6.716697069757776
+        "x": 5.303715334703396,
+        "y": 6.903271988362158
       },
       "isLocked": false,
-      "linkedName": "A4_Amp_Score"
+      "linkedName": "Blu4_longshot"
     },
     {
       "anchor": {
-        "x": 4.464128200983675,
-        "y": 6.642067102316023
+        "x": 8.38220149167571,
+        "y": 5.886438681968273
       },
       "prevControl": {
-        "x": 3.475229462943129,
-        "y": 6.790658104405018
-      },
-      "nextControl": {
-        "x": 6.264576165515967,
-        "y": 6.371533470339668
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 8.288914032377196,
-        "y": 5.783822476736671
-      },
-      "prevControl": {
-        "x": 8.816900270167835,
-        "y": 5.751171865980904
+        "x": 7.1787932666737655,
+        "y": 6.352875978478422
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -73,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -20.854458039860464,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_4_Amp_4",
   "previewStartingState": {
-    "rotation": 38.65980825409009,
+    "rotation": 13.172553423326855,
     "velocity": 0
   },
   "useDefaultConstraints": true

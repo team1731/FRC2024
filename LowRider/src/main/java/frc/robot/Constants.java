@@ -352,8 +352,8 @@ public final class Constants {
         public final static double elevatorHomePosition = 0;
         public final static double elevatorExtendedPosition = 75;
         public final static double elevatorPositionTolerance = 0.05;
-        public static final double wristClearsPosition = 39;
-        public static final double elevatorAmpPosition = 62;
+        public static final double wristClearsPosition = 0;
+        public static final double elevatorAmpPosition = 70;
         public static double elevatorTrapPosition = 77;  
 
     }
@@ -409,7 +409,7 @@ public final class Constants {
 
         // Positions
         public final static double wristHomePosition = 0;
-        public final static double wristAmpPosition = 42;
+        public final static double wristAmpPosition = 32;
         public final static double wristTrapPosition = 58;
         public static final double IntakePosition = 0;
     }

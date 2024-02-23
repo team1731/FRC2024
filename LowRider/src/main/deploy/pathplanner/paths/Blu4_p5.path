@@ -3,50 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.288914032377196,
-        "y": 5.783822476736671
+        "x": 8.38220149167571,
+        "y": 5.886438681968273
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.010875839940852,
-        "y": 6.390190962201723
+        "x": 6.740342207953465,
+        "y": 6.8659570046404745
       },
       "isLocked": false,
       "linkedName": "A4_Note5"
     },
     {
       "anchor": {
-        "x": 5.910083820171319,
-        "y": 6.716697069757776
+        "x": 3.6431985591243907,
+        "y": 6.492807167432517
       },
       "prevControl": {
-        "x": 7.092688932738926,
-        "y": 6.423268733555149
-      },
-      "nextControl": {
-        "x": 4.669360611455852,
-        "y": 7.024545685455817
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.0124922068025954,
-        "y": 6.716697069757776
-      },
-      "prevControl": {
-        "x": 2.7942826794781275,
-        "y": 7.323065555222828
+        "x": 4.230909552728189,
+        "y": 6.660724594176461
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A4_Amp_Score"
+      "linkedName": "Blu4_longshot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristLongShot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -55,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 34.56252464888183,
+    "rotation": 19.1336432059055,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_4_Amp_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -28.072486936147293,
     "velocity": 0
   },
   "useDefaultConstraints": true

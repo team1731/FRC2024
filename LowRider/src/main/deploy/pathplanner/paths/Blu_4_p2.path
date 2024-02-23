@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.9062276306370793,
-        "y": 6.99655944766435
+        "x": 2.738310203893135,
+        "y": 6.940586972083035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.904403445170527,
-        "y": 7.071189415106103
+        "x": 3.7364860184265827,
+        "y": 7.015216939524788
       },
       "isLocked": false,
       "linkedName": "A4_Note1"
     },
     {
       "anchor": {
-        "x": 8.2795852864433,
-        "y": 7.435010506384649
+        "x": 8.419516475396588,
+        "y": 7.528297965686841
       },
       "prevControl": {
-        "x": 7.346710693421386,
-        "y": 7.360380538942897
+        "x": 6.684369732375829,
+        "y": 7.444339252314869
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -39,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 14.34933204294719,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_4_Amp_4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 30.762719534239046,
     "velocity": 0
   },
   "useDefaultConstraints": true
