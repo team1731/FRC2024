@@ -552,8 +552,8 @@ public final class Constants {
     }
 
     public static class Vision {
-    public static final String kCameraNameFront = "ArducamUSB3";
-    public static final String kCameraNameBack = "H264_USB_Camera";
+    public static final String kCameraNameFront = "ArducamUSB1";
+    public static final String kCameraNameBack = "Global_Shutter_Camera";
     // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     public static final Transform3d kRobotToCamFront =
             new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
