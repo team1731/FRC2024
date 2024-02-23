@@ -1,14 +1,18 @@
 {
-  "robotWidth": 0.9,
-  "robotLength": 0.9,
+  "robotWidth": 0.8128,
+  "robotLength": 0.8763,
   "holonomicMode": true,
   "pathFolders": [
-    "Blu_Source_6",
-    "Blu_Stage_4"
+    "Blu_1_Speaker_6",
+    "Blu_2_Speaker_4",
+    "Blu_3_Stage_4",
+    "Blu_4_Amp_4",
+    "Blu_5_JustDrive",
+    "Blu_6_Stage_4"
   ],
   "autoFolders": [],
   "defaultMaxVel": 5.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 6.0

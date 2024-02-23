@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.3949707899415797,
+        "y": 5.531946336619947
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.4771053178469993,
+        "y": 5.2614127046435915
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.107811670168795,
+        "y": 4.123305701156857
+      },
+      "prevControl": {
+        "x": 4.231255139339861,
+        "y": 4.546810541894432
+      },
+      "nextControl": {
+        "x": 5.9380700579582975,
+        "y": 3.7221696261574344
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.372872745745491,
+        "y": 2.2948714988339067
+      },
+      "prevControl": {
+        "x": 7.6732168009790565,
+        "y": 2.640035098252015
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_2_Speaker_4",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

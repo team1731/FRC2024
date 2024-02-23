@@ -354,8 +354,8 @@ public final class Constants {
         public final static double elevatorHomePosition = 0;
         public final static double elevatorExtendedPosition = 75;
         public final static double elevatorPositionTolerance = 0.05;
-        public static final double wristClearsPosition = 39;
-        public static final double elevatorAmpPosition = 62;
+        public static final double wristClearsPosition = 0;
+        public static final double elevatorAmpPosition = 70;
         public static double elevatorTrapPosition = 77;  
 
     }
@@ -411,7 +411,7 @@ public final class Constants {
 
         // Positions
         public final static double wristHomePosition = 0;
-        public final static double wristAmpPosition = 42;
+        public final static double wristAmpPosition = 32;
         public final static double wristTrapPosition = 58;
         public static final double IntakePosition = 0;
     }
@@ -552,13 +552,13 @@ public final class Constants {
     }
 
     public static class Vision {
-    public static final String kCameraNameFront = "Global_Shutter_Camera";
+    public static final String kCameraNameFront = "ArducamUSB3";
     public static final String kCameraNameBack = "H264_USB_Camera";
     // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     public static final Transform3d kRobotToCamFront =
-            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(11)));
     public static final Transform3d kRobotToCamBack =
-            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, 0, Math.PI));
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(180)));
 
     // The layout of the AprilTags on the field
     public static final AprilTagFieldLayout kTagLayout =

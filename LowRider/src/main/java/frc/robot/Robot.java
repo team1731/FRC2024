@@ -49,8 +49,6 @@ public class Robot extends TimedRobot {
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
 
-  private boolean enabled = true;
-
   public Robot() {
   }
 
@@ -155,7 +153,7 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private boolean isRedAlliance(){
-	return false; //DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
   }
 
 
@@ -205,9 +203,7 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ██▄ █▀ ▀███ ██████ ▀▀▀ ██▄▀▀▄██ ▀▀ ██ ▀▀▀ ████ ████ ▀▀▀ ███ ████ ▀▀▀██ ███ ██ ▀▀▀ 
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private void initSubsystems() {
-	if (enabled) {
-		ledSubsystem.init();
-	}
+	ledSubsystem.init();
   }
   
 
@@ -253,42 +249,40 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledPeriodic() {
-	if (enabled){
-		//s_armSubSystem.resetArmEncoders();
-    	if (System.currentTimeMillis() % 5000 == 0) {
-	    	// SmartDashboard.putBoolean("LowSensor", m_sequencer.lowSensorHasBall());
-		    // SmartDashboard.putBoolean("MidSensor", m_sequencer.midSensorHasBall());
-		    // SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
-	    }
+	//s_armSubSystem.resetArmEncoders();
+	if (System.currentTimeMillis() % 5000 == 0) {
+		// SmartDashboard.putBoolean("LowSensor", m_sequencer.lowSensorHasBall());
+		// SmartDashboard.putBoolean("MidSensor", m_sequencer.midSensorHasBall());
+		// SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
+	}
 
-		String newCode = autoChooser.getSelected();
-		if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
-		if(!newCode.equals(autoCode)) {
-    	    System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
-			autoInitPreload();
-		}
+	String newCode = autoChooser.getSelected();
+	if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
+	if(!newCode.equals(autoCode)) {
+		System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
+		autoInitPreload();
+	}
 
-		boolean isRedAlliance = isRedAlliance();
-		if(this.isRedAlliance != isRedAlliance){
-			this.isRedAlliance = isRedAlliance;
-    	    System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
-			this.autoInitPreload();
-		}
+	boolean isRedAlliance = isRedAlliance();
+	if(this.isRedAlliance != isRedAlliance){
+		this.isRedAlliance = isRedAlliance;
+		System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
+		this.autoInitPreload();
+	}
 
-        if(Robot.isReal()){
-			try{
-				OptionalInt stationNumberInt = getStationNumber();
-				if(stationNumberInt.isPresent()) {
-					int stationNumber = stationNumberInt.getAsInt();
-					if(this.stationNumber != stationNumber){
-						this.stationNumber = stationNumber;
-						System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
-					}
+	if(Robot.isReal()){
+		try{
+			OptionalInt stationNumberInt = getStationNumber();
+			if(stationNumberInt.isPresent()) {
+				int stationNumber = stationNumberInt.getAsInt();
+				if(this.stationNumber != stationNumber){
+					this.stationNumber = stationNumber;
+					System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
 				}
-			} catch (Exception e){
-				System.out.println("Exception caught while looking for station number! == " + e);
 			}
-	    }
+		} catch (Exception e){
+			System.out.println("Exception caught while looking for station number! == " + e);
+		}
 	}
   }
 
@@ -301,10 +295,8 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousInit() {
-	if (enabled){
     	System.out.println("AUTO INIT");
 		CommandScheduler.getInstance().cancelAll();
-		// s_armSubSystem.resetArmEncodersForAuto();
 
 	if(m_autonomousCommand == null) {
 		System.out.println("SOMETHING WENT WRONG - UNABLE TO RUN AUTONOMOUS! CHECK SOFTWARE!");
@@ -316,7 +308,6 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.schedule();
 		}
     	System.out.println("autonomousInit: End");
-  	}
   }
 
 
@@ -327,9 +318,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousPeriodic() {
-	if (enabled){
-    	if(doSD()){ System.out.println("AUTO PERIODIC");}
-	}
+    if(doSD()){ System.out.println("AUTO PERIODIC");}
   }
 
 
@@ -340,26 +329,24 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopInit() {	
-	if (enabled){
-		// Record both DS control and joystick data in TELEOP
-		MessageLog.getLogger();
-    	System.out.println("TELEOP INIT");
-		CommandScheduler.getInstance().cancelAll();
-		initSubsystems();
-		//for testing only
-		ledSubsystem.setColor(LedOption.INIT);
-		// sm_armStateMachine.setIsInAuto(false);
-		// sm_armStateMachine.initializeArm();
-    	// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
-		}
-		currentKeypadCommand = "";
-		SmartDashboard.getString("keypadCommand", currentKeypadCommand);
-  	}
+	// Record both DS control and joystick data in TELEOP
+	MessageLog.getLogger();
+	System.out.println("TELEOP INIT");
+	CommandScheduler.getInstance().cancelAll();
+	initSubsystems();
+	//for testing only
+	ledSubsystem.setColor(LedOption.INIT);
+	// sm_armStateMachine.setIsInAuto(false);
+	// sm_armStateMachine.initializeArm();
+	// This makes sure that the autonomous stops running when
+	// teleop starts running. If you want the autonomous to
+	// continue until interrupted by another command, remove
+	// this line or comment it out.
+	if (m_autonomousCommand != null) {
+		m_autonomousCommand.cancel();
+	}
+	currentKeypadCommand = "";
+	SmartDashboard.getString("keypadCommand", currentKeypadCommand);
   }
 
 //   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -385,16 +372,12 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopPeriodic() {
-	if (enabled) {
-		//System.out.println("Setting the color");
-		//ledSubsystem.setColor(LedOption.INIT);
-    	if(doSD()){
-		//	System.out.println("TELEOP PERIODIC");
-
-		}
-		
+	//System.out.println("Setting the color");
+	//ledSubsystem.setColor(LedOption.INIT);
+	if(doSD()){
+	//	System.out.println("TELEOP PERIODIC");
 	}
-
+		
 	/*
 	 * Change LED blinking status depending on whether holding a game piece or not
 	 */
@@ -435,9 +418,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    if (enabled){
-		CommandScheduler.getInstance().cancelAll();
-  	}
+	CommandScheduler.getInstance().cancelAll();
   }
 
 

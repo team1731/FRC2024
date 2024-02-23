@@ -162,6 +162,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
 
+                            System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             driveSubsystem.addVisionMeasurement(
                                     est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                         });
@@ -176,7 +177,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
 
-                            System.out.println("VisionSubsystem(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
+                            System.out.println("VisionBack(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             driveSubsystem.addVisionMeasurement(
                                     est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                         });

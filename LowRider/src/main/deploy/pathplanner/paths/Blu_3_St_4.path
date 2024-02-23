@@ -1,0 +1,80 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.2795852864433,
+        "y": 2.4441314337174136
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.572424781213199,
+        "y": 1.6418592837185677
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.86708846144965,
+        "y": 2.2855427529036882
+      },
+      "prevControl": {
+        "x": 5.3503590643544925,
+        "y": 1.6698455215092252
+      },
+      "nextControl": {
+        "x": 1.974675466741103,
+        "y": 3.071072675235538
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.1897383794767589,
+        "y": 4.2912231279008015
+      },
+      "prevControl": {
+        "x": 1.5255732329646479,
+        "y": 3.9274020366222553
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "StageSideShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -55.95406264339833,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_3_Stage_4",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

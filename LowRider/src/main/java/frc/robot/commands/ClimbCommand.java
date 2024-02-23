@@ -51,6 +51,7 @@ public class ClimbCommand extends Command {
 	public void initialize() {
         m_wristSubsystem.moveWrist(Constants.WristConstants.wristTrapPosition);
 		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorTrapPosition);
+		m_wristSubsystem.extendTrapFlap();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
