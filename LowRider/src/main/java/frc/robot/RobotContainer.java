@@ -182,10 +182,13 @@ public class RobotContainer {
         .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
     // Far Shot
-    operatorky.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(15)))
+    operatorky.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(25)))
         .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
-    // Close Shot
-    operatorkb.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(25)))
+    // Safe Shot
+    operatorkb.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(22)))
+        .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
+    // Line shot
+    operatorka.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(15)))  
         .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);
