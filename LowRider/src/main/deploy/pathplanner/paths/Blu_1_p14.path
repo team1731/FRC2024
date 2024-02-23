@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.605883575403514,
+        "y": 6.017041124991342
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.324197012030387,
+        "y": 6.2129447895259435
+      },
+      "isLocked": false,
+      "linkedName": "longshot"
+    },
+    {
+      "anchor": {
+        "x": 5.424989031796245,
+        "y": 6.511464659292955
+      },
+      "prevControl": {
+        "x": 4.646427027618543,
+        "y": 6.531687049011856
+      },
+      "nextControl": {
+        "x": 6.143302468423118,
+        "y": 6.492807167432517
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.475488950977901,
+        "y": 5.559932574410603
+      },
+      "prevControl": {
+        "x": 7.8597917195834395,
+        "y": 5.69986376336389
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "pickup5"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -2.68377515946901,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_1_Speaker_6",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

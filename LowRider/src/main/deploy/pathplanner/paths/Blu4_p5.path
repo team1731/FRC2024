@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.288914032377196,
+        "y": 5.783822476736671
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.010875839940852,
+        "y": 6.390190962201723
+      },
+      "isLocked": false,
+      "linkedName": "A4_Note5"
+    },
+    {
+      "anchor": {
+        "x": 5.910083820171319,
+        "y": 6.716697069757776
+      },
+      "prevControl": {
+        "x": 7.092688932738926,
+        "y": 6.423268733555149
+      },
+      "nextControl": {
+        "x": 4.669360611455852,
+        "y": 7.024545685455817
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.0124922068025954,
+        "y": 6.716697069757776
+      },
+      "prevControl": {
+        "x": 2.7942826794781275,
+        "y": 7.323065555222828
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "A4_Amp_Score"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 34.56252464888183,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_4_Amp_4",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

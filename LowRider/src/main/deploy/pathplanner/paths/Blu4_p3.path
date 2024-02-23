@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.2795852864433,
+        "y": 7.435010506384649
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.635901817258179,
+        "y": 7.257764333710487
+      },
+      "isLocked": false,
+      "linkedName": "A4_Note4"
+    },
+    {
+      "anchor": {
+        "x": 1.0124922068025954,
+        "y": 6.716697069757776
+      },
+      "prevControl": {
+        "x": 1.880065578312977,
+        "y": 7.257764333710486
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "A4_Amp_Score"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 46.5481576989779,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_4_Amp_4",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

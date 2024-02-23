@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.0124922068025954,
+        "y": 6.716697069757776
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.012492206802587,
+        "y": 6.716697069757776
+      },
+      "isLocked": false,
+      "linkedName": "A4_Amp_Score"
+    },
+    {
+      "anchor": {
+        "x": 4.464128200983675,
+        "y": 6.642067102316023
+      },
+      "prevControl": {
+        "x": 3.475229462943129,
+        "y": 6.790658104405018
+      },
+      "nextControl": {
+        "x": 6.264576165515967,
+        "y": 6.371533470339668
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.288914032377196,
+        "y": 5.783822476736671
+      },
+      "prevControl": {
+        "x": 8.816900270167835,
+        "y": 5.751171865980904
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "A4_Note5"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.35,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_4_Amp_4",
+  "previewStartingState": {
+    "rotation": 38.65980825409009,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

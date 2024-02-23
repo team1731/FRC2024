@@ -23,7 +23,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor1;
     private TalonFX wristMotor2;
     private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
-    private Servo trapFlapServo = new LinearServo(0, 50,32 );
+    private Servo trapFlapServo = new LinearServo(0, 50,20 );
 
     // private MotionMagicVoltage mmReq2;
     // private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
