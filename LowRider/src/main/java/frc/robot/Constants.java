@@ -261,7 +261,7 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final String kAutoDefault = "Blu_Straight_Back_1"; //"Amp_1";
+        public static final String kAutoDefault = "1_Speaker_6"; //"Amp_1";
     	public static final String kAutoCodeKey = "Auto Selector";
 
         public static final double kMaxSpeedMetersPerSecond = 0.5; // disabled for testing = 3;
@@ -353,7 +353,7 @@ public final class Constants {
         public final static double elevatorExtendedPosition = 75;
         public final static double elevatorPositionTolerance = 0.05;
         public static final double wristClearsPosition = 0;
-        public static final double elevatorAmpPosition = 70;
+        public static final double elevatorAmpPosition = 75;
         public static double elevatorTrapPosition = 77;  
 
     }

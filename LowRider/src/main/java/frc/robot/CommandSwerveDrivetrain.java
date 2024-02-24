@@ -1,5 +1,6 @@
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
@@ -14,13 +15,17 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ToggleableSubsystem;
 
+class FlipRedBlueSupplier implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        return RobotContainer.isFlipRedBlue();
+    }
+}
+
 /**
  * Class that extends the Phoenix SwerveDrivetrain class and implements subsystem
  * so it can be used in command-based projects easily.
  */
-
-
-
 public class CommandSwerveDrivetrain extends SwerveDrivetrain implements ToggleableSubsystem {
     // private static final double kSimLoopPeriod = 0.005; // 5 ms
     // private Notifier m_simNotifier = null;
@@ -42,17 +47,17 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner(true);
+        configurePathPlanner();
     }
     
     public CommandSwerveDrivetrain(boolean enabled, SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner(true);
+        configurePathPlanner();
     }
 
-    public void configurePathPlanner(boolean redBlueFlipping) {
+    private void configurePathPlanner() {
         if(!enabled) return;
         double driveBaseRadius = 0;
         for (var moduleLocation : m_moduleLocations) {
@@ -71,10 +76,8 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
                                             new ReplanningConfig()),
-            ()->redBlueFlipping,
+            new FlipRedBlueSupplier(), // ()->false, // Change this if the path needs to be flipped on red vs blue
             this); // Subsystem for requirements
-
-        System.out.println("Configured AutoBuilder! -- RED/BLUE PATH FLIPPING is " + (redBlueFlipping ? "ON" : "OFF"));
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
