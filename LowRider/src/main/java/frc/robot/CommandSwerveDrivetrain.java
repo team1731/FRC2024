@@ -15,21 +15,17 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ToggleableSubsystem;
 
+class FlipRedBlueSupplier implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        return RobotContainer.isFlipRedBlue();
+    }
+}
+
 /**
  * Class that extends the Phoenix SwerveDrivetrain class and implements subsystem
  * so it can be used in command-based projects easily.
  */
-
-  class FlipRedBlueSupplier implements BooleanSupplier {
-
-    @Override
-    public boolean getAsBoolean() {
-      return RobotContainer.isFlipRedBlue();
-    }
-    
-  }
-
-
 public class CommandSwerveDrivetrain extends SwerveDrivetrain implements ToggleableSubsystem {
     // private static final double kSimLoopPeriod = 0.005; // 5 ms
     // private Notifier m_simNotifier = null;
