@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsystem {
@@ -162,7 +163,9 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     }
 
     public boolean isAtPosition(double elevatorTrapPosition) {
-        // if(TEST_ONLY_COUNTER_REMOVE_ME++ > 3) return true;
+        if(Robot.isSimulation()){
+            if(TEST_ONLY_COUNTER_REMOVE_ME++ > 3) return true;
+        }
         double tolerance = 2;
         return Math.abs(getElevatorPosition() - elevatorTrapPosition) < tolerance;
     }
