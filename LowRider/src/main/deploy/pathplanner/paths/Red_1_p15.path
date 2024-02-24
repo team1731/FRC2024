@@ -1,0 +1,103 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 641.2545110490221
+        "y": 5.559932574410603
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 642.4299330362297
+        "y": 5.895767427898491
+      },
+      "isLocked": false,
+      "linkedName": "pickup5"
+    },
+    {
+      "anchor": {
+        "x": 643.8199161798324
+        "y": 6.371533470339668
+      },
+      "prevControl": {
+        "x": 642.7783906304944
+        "y": 6.25921208756792
+      },
+      "nextControl": {
+        "x": 644.7714482647148
+        "y": 6.474149675572079
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 646.1241164245965
+        "y": 6.017041124991342
+      },
+      "prevControl": {
+        "x": 645.5177479391323
+        "y": 6.287574756967698
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "longshot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristLongShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.9,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "x": -13.240519915187146
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_1_Speaker_6",
+  "previewStartingState": {
+    "x": -0.0
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
