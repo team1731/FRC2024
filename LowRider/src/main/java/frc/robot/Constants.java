@@ -353,7 +353,7 @@ public final class Constants {
         public final static double elevatorExtendedPosition = 75;
         public final static double elevatorPositionTolerance = 0.05;
         public static final double wristClearsPosition = 0;
-        public static final double elevatorAmpPosition = 70;
+        public static final double elevatorAmpPosition = 75;
         public static double elevatorTrapPosition = 77;  
 
     }

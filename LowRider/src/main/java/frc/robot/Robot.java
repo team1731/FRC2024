@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
 
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
+	
 		autoChooser.addOption(autoMode, autoMode);
 		System.out.println("Added autoMode '" + autoMode + "' to autoChooser.");
 	}
@@ -151,7 +152,9 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private boolean isRedAlliance(){
+
 	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+
   }
 
 
