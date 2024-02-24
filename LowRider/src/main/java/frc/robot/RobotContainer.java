@@ -90,6 +90,7 @@ public class RobotContainer {
   private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem s_ShooterSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
+  private ClimbStateMachine climbStateMachine;
 
   /* Auto Paths */
   private static HashMap<String, String> autoPaths;
@@ -113,8 +114,6 @@ public class RobotContainer {
     s_wristSubsystem = wristSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;
     s_poseEstimatorSubsystem = poseEstimatorSubsystem;
-
-
     this.m_ledstring = m_ledstring;
 
     if(driveSubsystem.isEnabled()){
@@ -130,6 +129,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(10)) ));
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( s_intakeSubsystem, s_ShooterSubsystem) ));
     }
+
+    climbStateMachine = new ClimbStateMachine(State.START_CONFIG);
 
     // Configure the button bindings
     configureButtonBindings();
