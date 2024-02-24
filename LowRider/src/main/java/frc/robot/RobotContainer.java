@@ -94,6 +94,11 @@ public class RobotContainer {
   /* Auto Paths */
   private static HashMap<String, String> autoPaths;
 
+  private static boolean flipRedBlue;
+
+  public static boolean isFlipRedBlue(){
+    return flipRedBlue;
+  }
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
@@ -198,8 +203,12 @@ public class RobotContainer {
     autoPaths = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner/autos"));
     List<String> autoModes = new ArrayList<String>();
     for(String key : autoPaths.keySet()){
-      if(!autoModes.contains(key)){
-        autoModes.add(key);
+      String stripKey = key.toString();
+      if(stripKey.startsWith("Red_") || stripKey.startsWith("Blu_")){
+        stripKey = stripKey.substring(4, stripKey.length());
+      }
+      if(!autoModes.contains(stripKey)){
+        autoModes.add(stripKey);
       }
     }
     autoModes.sort((p1, p2) -> p1.compareTo(p2));
@@ -237,22 +246,25 @@ public class RobotContainer {
     if(!autoName.startsWith("Red_") && !autoName.startsWith("Blu_")){
         alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
     }
+
     // if the named auto (red or blue) exists, use it as-is and do NOT flip the field (red/blue)
     if(autoPaths.keySet().contains(alliancePathName)){
-      driveSubsystem.configurePathPlanner(false);
+      flipRedBlue = false;
     }
     // if the named auto does not exist (so there isn't a red one), use the blue one and flip the field
     else if(isRedAlliance && alliancePathName.startsWith("Red_")) {
       alliancePathName = alliancePathName.replace("Red_", "Blu_");
       assert autoPaths.keySet().contains(alliancePathName): "ERROR: you need to create " + alliancePathName;
-      driveSubsystem.configurePathPlanner(true);
+      flipRedBlue = true;
     }
     else {
       System.out.println("ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName);
     }
+
     System.out.println("About to get Auto Path: " + alliancePathName);
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
+    System.out.println("\nAUTO CODE being used by the software --> " + alliancePathName + ", RED/BLUE flipping is " + (flipRedBlue ? "ON" : "OFF") + "\n");
     return command;
   }
 

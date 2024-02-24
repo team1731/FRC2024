@@ -180,10 +180,7 @@ public class Robot extends TimedRobot {
 	if(useCode == null){
 		useCode = (autoCode == null ? Constants.AutoConstants.kAutoDefault : autoCode);
 	}
-	boolean isRedAlliance = isRedAlliance();
-	if( !useCode.startsWith("Red_") && !useCode.startsWith("Blu_")){
-		useCode = (isRedAlliance ? "Red_" : "Blu_") + useCode;
-	}
+
 	System.out.println("\nPreloading AUTO CODE --> " + useCode);
 	m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
 	if(m_autonomousCommand != null){
@@ -193,9 +190,7 @@ public class Robot extends TimedRobot {
 	else{
 		System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
 	}
-
-	System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
-	}
+}
 
 
 //   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
