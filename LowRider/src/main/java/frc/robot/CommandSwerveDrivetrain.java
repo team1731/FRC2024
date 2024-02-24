@@ -1,5 +1,6 @@
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
@@ -19,6 +20,14 @@ import frc.robot.subsystems.ToggleableSubsystem;
  * so it can be used in command-based projects easily.
  */
 
+  class FlipRedBlueSupplier implements BooleanSupplier {
+
+    @Override
+    public boolean getAsBoolean() {
+      return RobotContainer.isFlipRedBlue();
+    }
+    
+  }
 
 
 public class CommandSwerveDrivetrain extends SwerveDrivetrain implements ToggleableSubsystem {
@@ -71,7 +80,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
                                             new ReplanningConfig()),
-            ()->RobotContainer.isFlipRedBlue(), // ()->false, // Change this if the path needs to be flipped on red vs blue
+            new FlipRedBlueSupplier(), // ()->false, // Change this if the path needs to be flipped on red vs blue
             this); // Subsystem for requirements
     }
 
