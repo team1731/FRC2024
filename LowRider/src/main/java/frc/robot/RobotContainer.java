@@ -111,7 +111,6 @@ public class RobotContainer {
           LEDStringSubsystem m_ledstring,
           ElevatorSubsystem elevatorSubsystem
           ) {
-    
 
     this.driveSubsystem = driveSubsystem;
     s_ShooterSubsystem = shooterSubsystem;
@@ -135,7 +134,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( s_intakeSubsystem, s_ShooterSubsystem) ));
     }
 
-    climbStateMachine = new ClimbStateMachine(State.START_CONFIG);
+    climbStateMachine = new ClimbStateMachine(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem);
+    climbStateMachine.setInitialState(State.ROBOT_LATCHED_ON_CHAIN);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -171,6 +171,7 @@ public class RobotContainer {
     kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
     kx.whileTrue(new TrapScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
+    //kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
     ka.onTrue(new InstantCommand(() -> s_wristSubsystem.retractTrapFlap()));
     kb.onTrue(new InstantCommand(() -> s_wristSubsystem.extendTrapFlap()));
