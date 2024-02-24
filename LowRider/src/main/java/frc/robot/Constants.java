@@ -286,10 +286,6 @@ public final class Constants {
             ARM_BUFFERING_FAILED, ARM_MOTION_START_FAILED
         }
         
-        /*
-        * Constants specifically related to the ArmStateMachine
-        */
-        public static final String kArmStateMachineId = "ArmStateMachine";
     }
 
     public static final class ArmStateConstants {       

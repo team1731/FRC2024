@@ -33,6 +33,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     private boolean enabled;
     private boolean sendWristHomeWhenElevatorDown = false;
     private double ampTimeStarted;
+    private int TEST_ONLY_COUNTER_REMOVE_ME;
+    
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -157,5 +159,11 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         sendWristHomeWhenElevatorDown = true;
         ampTimeStarted = Timer.getFPGATimestamp();
        
+    }
+
+    public boolean isAtPosition(double elevatorTrapPosition) {
+        // if(TEST_ONLY_COUNTER_REMOVE_ME++ > 3) return true;
+        double tolerance = 2;
+        return Math.abs(getElevatorPosition() - elevatorTrapPosition) < tolerance;
     }
 }
