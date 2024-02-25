@@ -54,11 +54,18 @@ def parse_auto(inputfile):
 
       if line.__contains__('"pathName"'):
          zlist.append(line.replace("Blu", "Red"))
+
+         # dirname = os.path.dirname(inputfile)
+         # filename = os.path.basename(inputfile)
+         # filename = filename.replace("Blu", "Red")
+         # outputPath = os.path.join(dirname, filename)
+         # print(outputPath)
+
          pathParts = line.split('"')
          fileName = pathParts[3].split('.')[0]
-         pathName = "paths/" + fileName + ".path"
+         pathName = os.path.join("paths", fileName + ".path")
          print('In  File: ' + pathName)
-         outfilePath = "paths/Red" + fileName.split('Blu')[1] + ".path"
+         outfilePath = os.path.join("paths", "Red" + fileName.split('Blu')[1]  + ".path")
          print('Out File: ' + outfilePath)
          plist = parse_path(pathName)
          produce_output(plist, outfilePath)
@@ -90,8 +97,10 @@ def main(argv):
          outputfile = arg
    if inputfile:
       if not outputfile:
-         parts = inputfile.split("/")
-         outputfile = parts[0] + "/Red" + parts[1].split("Blu")[1]
+         dirname = os.path.dirname(inputfile)
+         filename = os.path.basename(inputfile)
+         filename = filename.replace("Blu", "Red")
+         outputfile = os.path.join(dirname, filename)
 
       print ('Input file is:  ', inputfile)
       print ('Output file is: ', outputfile)
