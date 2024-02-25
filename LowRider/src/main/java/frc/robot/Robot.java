@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -90,11 +92,11 @@ public class Robot extends TimedRobot {
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
 	ledSubsystem = new LEDStringSubsystem(false);
-	intakeSubsystem = new IntakeSubsystem(false);
-	wristSubsystem = new WristSubsystem(false);
-	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intakeSubsystem);
-	shooterSubsystem = new ShooterSubsystem(false);
-	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
+	intakeSubsystem = new IntakeSubsystem(true);
+	wristSubsystem = new WristSubsystem(true);
+	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
+	shooterSubsystem = new ShooterSubsystem(true);
+	visionSubsystem = new VisionSubsystem(false, driveSubsystem);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
@@ -154,7 +156,11 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private boolean isRedAlliance(){
-	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+	Optional<Alliance> alliance = DriverStation.getAlliance();
+	if(alliance != null){
+		return alliance.get() == DriverStation.Alliance.Red;
+	}
+	return false;
   }
 
 

@@ -115,16 +115,18 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
 
         // write initial values to dashboard
-        ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
-        String formattedPose = this.getFormattedPose();
-        if (formattedPose != null) {
-            tab.addString("Pose (X, Y)", this::getFormattedPose).withPosition(0, 4);
+        if(enabled){
+            ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
+            String formattedPose = this.getFormattedPose();
+            if (formattedPose != null) {
+                tab.addString("Pose (X, Y)", this::getFormattedPose).withPosition(0, 4);
+            }
+            Pose2d currentPose = this.getCurrentPose();
+            if (currentPose != null) {
+                tab.addNumber("Pose Degrees", () -> currentPose.getRotation().getDegrees()).withPosition(1, 4);
+            }
+            tab.add(field2d);
         }
-        Pose2d currentPose = this.getCurrentPose();
-        if (currentPose != null) {
-            tab.addNumber("Pose Degrees", () -> currentPose.getRotation().getDegrees()).withPosition(1, 4);
-        }
-        tab.add(field2d);
 
         // setup logger
         // poseLogger = LogWriter.getLogger(Log.POSE_ESTIMATIONS,
