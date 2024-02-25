@@ -47,17 +47,17 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner();
+        configurePathPlanner(true);
     }
     
     public CommandSwerveDrivetrain(boolean enabled, SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner();
+        configurePathPlanner(true);
     }
 
-    private void configurePathPlanner() {
+    public void configurePathPlanner(boolean redBlueFlipping) {
         if(!enabled) return;
         double driveBaseRadius = 0;
         for (var moduleLocation : m_moduleLocations) {
@@ -94,4 +94,27 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         if(!enabled || Robot.isSimulation()) return new ChassisSpeeds();
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
     }
+
+        /** Log various drivetrain values to the dashboard. */
+    public void log() {
+        // String table = "Drive/";
+        // Pose2d pose = this.getState().Pose;
+        // SmartDashboard.putNumber(table + "X", pose.getX());
+        // SmartDashboard.putNumber(table + "Y", pose.getY());
+        // SmartDashboard.putNumber(table + "Heading", pose.getRotation().getDegrees());
+        // ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
+        // SmartDashboard.putNumber(table + "VX", chassisSpeeds.vxMetersPerSecond);
+        // SmartDashboard.putNumber(table + "VY", chassisSpeeds.vyMetersPerSecond);
+        // SmartDashboard.putNumber(
+        //         table + "Omega Degrees", Math.toDegrees(chassisSpeeds.omegaRadiansPerSecond));
+        // SmartDashboard.putNumber(table + "Target VX", targetChassisSpeeds.vxMetersPerSecond);
+        // SmartDashboard.putNumber(table + "Target VY", targetChassisSpeeds.vyMetersPerSecond);
+        // SmartDashboard.putNumber(
+        //         table + "Target Omega Degrees", Math.toDegrees(targetChassisSpeeds.omegaRadiansPerSecond));
+
+        // for (SwerveModule module : swerveMods) {
+        //     module.log();
+        // }
+    }
+
 }

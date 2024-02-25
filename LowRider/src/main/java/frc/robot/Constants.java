@@ -7,6 +7,8 @@ import java.util.Map;
 import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -545,6 +547,25 @@ public final class Constants {
         public final static int kPrimaryPIDSlot = 0; // any slot [0,3]
     }
 
+    public static class Vision {
+    public static final String kCameraNameFront = "ArducamUSB1";
+    public static final String kCameraNameBack = "Global_Shutter_Camera";
+    // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
+    public static final Transform3d kRobotToCamFront =
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(11)));
+    public static final Transform3d kRobotToCamBack =
+            new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(180)));
+
+    // The layout of the AprilTags on the field
+    public static final AprilTagFieldLayout kTagLayout =
+            AprilTagFields.kDefaultField.loadAprilTagLayoutField();
+
+    // The standard deviations of our vision estimated poses, which affect correction rate
+    // (Fake values. Experiment and determine estimation noise on an actual robot.)
+    public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+    public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+}
+
     public static final class VisionConstants {
 		// Ensure measurements are in METERS
 		public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
@@ -577,12 +598,12 @@ public final class Constants {
             }
         }
 
-        public static final String kCameraMount1Id = "leftcamera";  //camera on the left looking back
-        public static final String kCameraMount2Id = "Global_Shutter_Camera";  // camera on the right looking back
-        public static final String kCameraMount3Id = "USB_Camera2";  // camera on the arm
-        public static final CameraMountPoseValues kCameraMount1Pose = new CameraMountPoseValues(kCameraMount1Id, -5.3,10.253, 17.0, 135.0,0.0);
-        public static final CameraMountPoseValues kCameraMount2Pose = new CameraMountPoseValues(kCameraMount2Id, -5.3, -10.253, 17.0, 225.0,0.0);
-        public static final CameraMountPoseValues kCameraMount3Pose = new CameraMountPoseValues(kCameraMount3Id, -11, -5.0, 37, 0.0,-80.0);
+        // public static final String kCameraMount1Id = "leftcamera";  //camera on the left looking back
+        // public static final String kCameraMount2Id = "Global_Shutter_Camera";  // camera on the right looking back
+        // public static final String kCameraMount3Id = "USB_Camera2";  // camera on the arm
+        // public static final CameraMountPoseValues kCameraMount1Pose = new CameraMountPoseValues(kCameraMount1Id, -5.3,10.253, 17.0, 135.0,0.0);
+        // public static final CameraMountPoseValues kCameraMount2Pose = new CameraMountPoseValues(kCameraMount2Id, -5.3, -10.253, 17.0, 225.0,0.0);
+        // public static final CameraMountPoseValues kCameraMount3Pose = new CameraMountPoseValues(kCameraMount3Id, -11, -5.0, 37, 0.0,-80.0);
 /*
  * The Auto angles are measured as the angle between a line from the camera perpendicular to the ground plane and the boresight of the camera.  This could be calculated from 
  * the arm geometry and arm relative encoders but it is easier to just run the pickup paths and measure it. 
