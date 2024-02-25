@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
@@ -19,12 +20,13 @@ import frc.robot.subsystems.WristSubsystem;
 /**
  * Command to fire into the speaker
  */
-public class AmpScoringReverseCommand extends Command {
+public class ScoreAmpAndRetractReverseCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
 	private final ElevatorSubsystem m_elevatorSubsystem;
 	private final WristSubsystem m_wristSubsystem;
-
+	private final ShooterSubsystem m_shooterSubsystem;
+    private double ampTimeStarted;
 
 
 	/**
@@ -36,10 +38,11 @@ public class AmpScoringReverseCommand extends Command {
 	 * @param ElevatorSubsystem
 	 * @param WristSubsystem 
 	 */
-	public AmpScoringReverseCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
+	public ScoreAmpAndRetractReverseCommand(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
 		m_elevatorSubsystem = elevatorSubsystem;
 		m_wristSubsystem = wristSubsystem;
+		m_shooterSubsystem = shooterSubsystem;
 
 
 		// Use addRequirements() here to declare subsystem dependencies.
@@ -52,8 +55,11 @@ public class AmpScoringReverseCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpReversePosition);
-		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorAmpReversePosition);
+	//	m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpReversePosition);
+	//	m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorAmpReversePosition);
+		m_shooterSubsystem.shootAmp();
+		ampTimeStarted = Timer.getFPGATimestamp();
+
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -66,14 +72,15 @@ public class AmpScoringReverseCommand extends Command {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		Command nextCommand = new AmpScoringReverseCommand(m_intakeSubsystem, m_elevatorSubsystem, m_wristSubsystem);
-		nextCommand.schedule();
-		//m_elevatorSubsystem.moveElevatorAndWristHome();
+			m_wristSubsystem.moveWrist(Constants.WristConstants.wristHomePosition);
+			m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
+			m_shooterSubsystem.shoot();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return ((Timer.getFPGATimestamp() - ampTimeStarted > 5));
+
 	}
 }

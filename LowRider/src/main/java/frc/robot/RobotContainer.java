@@ -167,11 +167,11 @@ public class RobotContainer {
 
     kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem));
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
-
-    kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
+   // kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem)));
+    kRightBumper.whileTrue(new AmpScoringReverseCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem));
-    kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
-    //kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
+    //kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
+    kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
     ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
     kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
