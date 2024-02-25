@@ -31,7 +31,6 @@ public class ClimbCommand extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * @param PoseEstimatorSubsystem 
 	 */
 	public ClimbCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem,  ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;

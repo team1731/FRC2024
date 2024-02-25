@@ -2,13 +2,13 @@
 
 import os, sys, getopt
 
-FieldWidth = 652.73 - 3.0
+FieldWidth = 16.503396 # inches: 652.73 - 3.0
 
 def convert_x(x):
    return FieldWidth - x
 
 def convert_rotation(rotation):
-   return -1 * rotation
+   return 180 + rotation
 
 def produce_output(zlist, outputfile):
       with open(outputfile, 'w') as fo:
@@ -29,12 +29,12 @@ def parse_path(inputfile):
          parts = line.split('"x": ')
          number = parts[1].split(',')[0]
          zx = convert_x(float(number))
-         plist.append(parts[0] + '"x": ' + str(zx) + '\n')
+         plist.append(parts[0] + '"x": ' + str(zx) + ',' + '\n')
       elif line.__contains__('"rotation"'):
          rparts = line.split('"rotation": ')
          rnumber = rparts[1].split(',')[0]
          zr = convert_rotation(float(rnumber))
-         plist.append(rparts[0] + '"x": ' + str(zr) + '\n')
+         plist.append(rparts[0] + '"rotation": ' + str(zr) + ',' + '\n')
       elif line.__contains__('"folder"'):
          fline = line.replace("Blu", "Red")
          plist.append(fline)
@@ -73,7 +73,12 @@ def parse_auto(inputfile):
          parts = line.split('"x": ')
          number = parts[1].split(',')[0]
          zx = convert_x(float(number))
-         zlist.append(parts[0] + '"x": ' + str(zx) + '\n')
+         zlist.append(parts[0] + '"x": ' + str(zx) + ',' + '\n')
+      elif line.__contains__('"rotation"'):
+         parts = line.split('"rotation": ')
+         number = parts[1].split(',')[0]
+         zx = 180.0 + float(number)
+         zlist.append(parts[0] + '"rotation": ' + str(zx) + ',' + '\n')
       else:
          zlist.append(line)
 

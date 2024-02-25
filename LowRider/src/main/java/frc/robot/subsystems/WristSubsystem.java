@@ -142,5 +142,4 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
       trapFlapServo.setPosition(45);
       System.out.println("retracting");
     }
-
 }

@@ -11,7 +11,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 /**
@@ -22,7 +21,6 @@ public class AutoFireNote extends Command {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_ShooterSubsystem;
 	private double shooterTimeStarted;
-	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
 
 
 
@@ -36,7 +34,6 @@ public class AutoFireNote extends Command {
 	public AutoFireNote(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
 		m_ShooterSubsystem = shooterSubsystem;
-		//m_poseEstimatorSubsystem = poseEstimatorSubsystem;
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		//if (intakeSubsystem != null && shooterSubsystem != null ) {

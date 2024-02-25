@@ -4,28 +4,26 @@
 
 package frc.robot;
 
-import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -84,11 +82,11 @@ public class RobotContainer {
 
   /* Subsystems */
   private CommandSwerveDrivetrain driveSubsystem;
-  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
-  private IntakeSubsystem s_intakeSubsystem;
-  private WristSubsystem s_wristSubsystem;
+  private VisionSubsystem visionSubsystem;
+  private IntakeSubsystem intakeSubsystem;
+  private WristSubsystem wristSubsystem;
   private final LEDStringSubsystem m_ledstring;
-  private ShooterSubsystem s_ShooterSubsystem;
+  private ShooterSubsystem shooterSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private ClimbStateMachine climbStateMachine;
 
@@ -101,40 +99,42 @@ public class RobotContainer {
     return flipRedBlue;
   }
 
+
+
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
-          CommandSwerveDrivetrain driveSubsystem,
-          ShooterSubsystem shooterSubsystem,
-          PoseEstimatorSubsystem poseEstimatorSubsystem,
-          IntakeSubsystem intakeSubsystem,
-          WristSubsystem wristSubsystem,
-          LEDStringSubsystem m_ledstring,
-          ElevatorSubsystem elevatorSubsystem
-          ) {
+    CommandSwerveDrivetrain s_driveSubsystem,
+    ShooterSubsystem s_shooterSubsystem,
+    VisionSubsystem s_visionSubsystem,
+    IntakeSubsystem s_intakeSubsystem,
+    WristSubsystem s_wristSubsystem,
+    LEDStringSubsystem s_ledstring,
+    ElevatorSubsystem s_elevatorSubsystem
+  ) {
 
-    this.driveSubsystem = driveSubsystem;
-    s_ShooterSubsystem = shooterSubsystem;
-    s_intakeSubsystem = intakeSubsystem;
-    s_wristSubsystem = wristSubsystem;
-    this.elevatorSubsystem = elevatorSubsystem;
-    s_poseEstimatorSubsystem = poseEstimatorSubsystem;
-    this.m_ledstring = m_ledstring;
+    driveSubsystem = s_driveSubsystem;
+    shooterSubsystem = s_shooterSubsystem;
+    intakeSubsystem = s_intakeSubsystem;
+    wristSubsystem = s_wristSubsystem;
+    elevatorSubsystem = s_elevatorSubsystem;
+    visionSubsystem = s_visionSubsystem;
+    m_ledstring = s_ledstring;
 
     if(driveSubsystem.isEnabled()){
-      //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
-      //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
+      //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
       NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new AutoIntake(intakeSubsystem, wristSubsystem) ));
-      NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(s_ShooterSubsystem) ));
-      NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(s_ShooterSubsystem) ));
-      NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(24)) ));
-      NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(18)) ));
-      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(18)) ));
-      NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(23)) ));
-      NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  s_wristSubsystem.moveWrist(10)) ));
-      NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( s_intakeSubsystem, s_ShooterSubsystem) ));
+      NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(shooterSubsystem) ));
+      NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(shooterSubsystem) ));
+      NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24)) ));
+      NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18)) ));
+      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18)) ));
+      NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23)) ));
+      NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(10)) ));
+      NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( intakeSubsystem, shooterSubsystem) ));
     }
 
-    climbStateMachine = new ClimbStateMachine(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem);
+    climbStateMachine = new ClimbStateMachine(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem);
     climbStateMachine.setInitialState(State.ROBOT_LATCHED_ON_CHAIN);
 
     // Configure the button bindings
@@ -161,42 +161,42 @@ public class RobotContainer {
               () -> drive.withVelocityX(-(Math.abs(xboxController.getLeftY()) * xboxController.getLeftY()) * MaxSpeed)                                                                                                                     
                   .withVelocityY(-(Math.abs(xboxController.getLeftX()) * xboxController.getLeftX()) * MaxSpeed) 
                   .withRotationalRate(-xboxController.getRightX() * MaxAngularRate) 
-                                                                                    
-          ));
+          )
+      );
     }
 
-    kLeftTrigger.whileTrue(new IntakeCommand(s_intakeSubsystem, s_wristSubsystem));
-    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(s_intakeSubsystem, s_ShooterSubsystem));
+    kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem));
+    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
 
-    kRightBumper.whileTrue(new AmpScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
-    kLeftBumper.whileTrue(new ClimbCommand(s_intakeSubsystem, s_ShooterSubsystem, elevatorSubsystem, s_wristSubsystem));
-    kx.whileTrue(new TrapScoringCommand(s_intakeSubsystem, elevatorSubsystem, s_wristSubsystem));
+    kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
+    kLeftBumper.whileTrue(new ClimbCommand(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem));
+    kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
     //kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
-    ka.onTrue(new InstantCommand(() -> s_wristSubsystem.retractTrapFlap()));
-    kb.onTrue(new InstantCommand(() -> s_wristSubsystem.extendTrapFlap()));
+    ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
+    kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
 
     kStart.onTrue(driveSubsystem.runOnce(() -> driveSubsystem.seedFieldRelative()));
 
     operatorkLeftBumper.onTrue(new InstantCommand(() -> {
-      s_ShooterSubsystem.shoot();
+      shooterSubsystem.shoot();
     }));
     operatorkRightBumper.onTrue(new InstantCommand(() -> {
-      s_ShooterSubsystem.stopShooting();
+      shooterSubsystem.stopShooting();
     }));
     operatorkStart
-        .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
-        .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
+        .onTrue(new InstantCommand(() -> intakeSubsystem.reverseIntake()))
+        .onFalse(new InstantCommand(() -> intakeSubsystem.stopFeed()));
 
     // Far Shot
-    operatorky.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(25)))
-        .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
+    operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(25)))
+        .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Safe Shot
-    operatorkb.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(22)))
-        .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
-    // Line shot
-    operatorka.onTrue(new InstantCommand(() -> s_wristSubsystem.moveWrist(15)))  
-        .onFalse(new InstantCommand(() -> s_wristSubsystem.moveWrist(0)));
+    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22)))
+        .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
+    // Line Shot
+    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
+        .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);
   }
@@ -262,7 +262,6 @@ public class RobotContainer {
     else {
       System.out.println("ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName);
     }
-
     System.out.println("About to get Auto Path: " + alliancePathName);
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
