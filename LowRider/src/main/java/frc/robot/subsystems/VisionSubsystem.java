@@ -24,7 +24,7 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.Vision.*;
+import java.util.Optional;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -34,22 +34,23 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.CommandSwerveDrivetrain;
-import frc.robot.util.log.Logger;
-
-import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
+
+import frc.robot.CommandSwerveDrivetrain;
+// import frc.robot.Constants.VisionConstants;
+import frc.robot.util.log.Logger;
+import static frc.robot.Constants.Vision.*;
+
 
 public class VisionSubsystem extends SubsystemBase implements ToggleableSubsystem {
     private PhotonCamera cameraFront;
@@ -164,9 +165,23 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
 
-                            System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-                            driveSubsystem.addVisionMeasurement(
-                                    est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                            Pose2d currentPose = getCurrentPose();
+
+                            double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
+                                                                              currentPose.getY(), // y1
+                                                                              estPose.getX(), // x2
+                                                                              estPose.getY()); // y2
+
+                            // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
+
+                            // conditional to check if the difference distance is within a radius of 1 from the actual distance
+                            if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
+                                driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(),
+                                                                    est.timestampSeconds, 
+                                                                    estStdDevs);
+                            } else {
+                                System.out.println("Distance isn't close enough || current difference in distance: " + distanceDifference + "!!!");
+                            }
                         });
             }
 
@@ -224,6 +239,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     //         return null;
     //     }
     // }
+
+    // uses Pythagorean theorem to find the difference of two x and y coordinates
+    private double getDistanceDifference(double x1, double y1, double x2, double y2) {
+
+        // Pythagorean theorem
+        //--
+        //  d=√((x_2-x_1)²+(y_2-y_1)²)
+        //--
+
+        return Math.sqrt(
+            Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
+        );
+    }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
 
