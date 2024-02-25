@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 import os, sys, getopt
-omit = ["G54 ", "G41 ", "G40 ", "D21 ", "D22 ", "D24 ", "D25 "]
 
 FieldWidth = 652.73 - 3.0
+
 def convert_x(x):
    return FieldWidth - x
 
@@ -35,6 +35,9 @@ def parse_path(inputfile):
          rnumber = rparts[1].split(',')[0]
          zr = convert_rotation(float(rnumber))
          plist.append(rparts[0] + '"x": ' + str(zr) + '\n')
+      elif line.__contains__('"folder"'):
+         fline = line.replace("Blu", "Red")
+         plist.append(fline)
       else:
          plist.append(line)
 
@@ -50,7 +53,7 @@ def parse_auto(inputfile):
       line = lines[linenum]
 
       if line.__contains__('"pathName"'):
-         zlist.append(line)
+         zlist.append(line.replace("Blu", "Red"))
          pathParts = line.split('"')
          fileName = pathParts[3].split('.')[0]
          pathName = "paths/" + fileName + ".path"
