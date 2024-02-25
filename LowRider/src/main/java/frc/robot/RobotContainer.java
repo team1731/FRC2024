@@ -269,12 +269,5 @@ public class RobotContainer {
     return command;
   }
 
-  public void displayEncoders() {
-      // TODO Auto-generated method stub
-  }
-
-  public void zeroHeading() {
-      // TODO Auto-generated method stub
-  }
 
 }
