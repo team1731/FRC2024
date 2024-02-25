@@ -8,7 +8,7 @@ def convert_x(x):
    return FieldWidth - x
 
 def convert_rotation(rotation):
-   return -1 * rotation
+   return 180 + rotation
 
 def produce_output(zlist, outputfile):
       with open(outputfile, 'w') as fo:
@@ -74,6 +74,11 @@ def parse_auto(inputfile):
          number = parts[1].split(',')[0]
          zx = convert_x(float(number))
          zlist.append(parts[0] + '"x": ' + str(zx) + ',' + '\n')
+      elif line.__contains__('"rotation"'):
+         parts = line.split('"rotation": ')
+         number = parts[1].split(',')[0]
+         zx = 180.0 + float(number)
+         zlist.append(parts[0] + '"rotation": ' + str(zx) + ',' + '\n')
       else:
          zlist.append(line)
 
