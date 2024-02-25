@@ -56,6 +56,7 @@ public class AutoIntake extends Command {
 	public void execute() {
 				
 	    m_intakeSubsystem.intake();
+		
 	}
 
 	// Called once the command ends or is interrupted.

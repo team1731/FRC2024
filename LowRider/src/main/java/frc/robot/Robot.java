@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -106,6 +108,7 @@ public class Robot extends TimedRobot {
 
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
+	
 		autoChooser.addOption(autoMode, autoMode);
 		System.out.println("Added autoMode '" + autoMode + "' to autoChooser.");
 	}
@@ -153,7 +156,11 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private boolean isRedAlliance(){
-	return DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+	Optional<Alliance> alliance = DriverStation.getAlliance();
+	if(alliance != null){
+		return alliance.get() == DriverStation.Alliance.Red;
+	}
+	return false;
   }
 
 
@@ -179,10 +186,7 @@ public class Robot extends TimedRobot {
 	if(useCode == null){
 		useCode = (autoCode == null ? Constants.AutoConstants.kAutoDefault : autoCode);
 	}
-	boolean isRedAlliance = isRedAlliance();
-	if( !useCode.startsWith("Red_") && !useCode.startsWith("Blu_")){
-		useCode = (isRedAlliance ? "Red_" : "Blu_") + useCode;
-	}
+
 	System.out.println("\nPreloading AUTO CODE --> " + useCode);
 	m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
 	if(m_autonomousCommand != null){
@@ -192,9 +196,7 @@ public class Robot extends TimedRobot {
 	else{
 		System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
 	}
-
-	System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
-	}
+}
 
 
 //   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄

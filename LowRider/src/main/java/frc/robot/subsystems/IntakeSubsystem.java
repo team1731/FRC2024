@@ -17,6 +17,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     private CANSparkMax feederMotor;
     private boolean noteStopEnabled = true;
     private SparkLimitSwitch m_forwardLimit;
+    private SparkLimitSwitch m_reverseLimit;
    
     
     private boolean enabled;
@@ -46,6 +47,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             feederMotor.setInverted(true);
             feederMotor.setIdleMode(IdleMode.kBrake);
             m_forwardLimit = feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
+            m_reverseLimit = feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
+            disableReverseLimitSwitch();
 
 
         }
@@ -120,6 +123,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void disableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(false);
+    }
+
+    public void disableReverseLimitSwitch() {
+        m_reverseLimit.enableLimitSwitch(false);
     }
 
     public void enableLimitSwitch() {

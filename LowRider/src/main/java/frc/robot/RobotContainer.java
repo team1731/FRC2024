@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -89,9 +88,17 @@ public class RobotContainer {
   private final LEDStringSubsystem m_ledstring;
   private ShooterSubsystem shooterSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
+  private ClimbStateMachine climbStateMachine;
 
   /* Auto Paths */
   private static HashMap<String, String> autoPaths;
+
+  private static boolean flipRedBlue;
+
+  public static boolean isFlipRedBlue(){
+    return flipRedBlue;
+  }
+
 
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
@@ -114,8 +121,8 @@ public class RobotContainer {
     m_ledstring = s_ledstring;
 
     if(driveSubsystem.isEnabled()){
-      //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
-      //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(s_Swerve.rotateRelative(-45.0) ));
+      //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
+      //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
       NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new AutoIntake(intakeSubsystem, wristSubsystem) ));
       NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(shooterSubsystem) ));
       NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(shooterSubsystem) ));
@@ -126,6 +133,9 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(10)) ));
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( intakeSubsystem, shooterSubsystem) ));
     }
+
+    climbStateMachine = new ClimbStateMachine(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem);
+    climbStateMachine.setInitialState(State.ROBOT_LATCHED_ON_CHAIN);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -161,6 +171,7 @@ public class RobotContainer {
     kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem));
     kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
+    //kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
     ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
     kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
@@ -178,10 +189,13 @@ public class RobotContainer {
         .onFalse(new InstantCommand(() -> intakeSubsystem.stopFeed()));
 
     // Far Shot
-    operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
+    operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(25)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
-    // Close Shot
-    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(25)))
+    // Safe Shot
+    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22)))
+        .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
+    // Line Shot
+    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);
@@ -191,8 +205,12 @@ public class RobotContainer {
     autoPaths = findPaths(new File(Filesystem.getLaunchDirectory(), (Robot.isReal() ? "home/lvuser" : "src/main") + "/deploy/pathplanner/autos"));
     List<String> autoModes = new ArrayList<String>();
     for(String key : autoPaths.keySet()){
-      if(!autoModes.contains(key)){
-        autoModes.add(key);
+      String stripKey = key.toString();
+      if(stripKey.startsWith("Red_") || stripKey.startsWith("Blu_")){
+        stripKey = stripKey.substring(4, stripKey.length());
+      }
+      if(!autoModes.contains(stripKey)){
+        autoModes.add(stripKey);
       }
     }
     autoModes.sort((p1, p2) -> p1.compareTo(p2));
@@ -230,15 +248,16 @@ public class RobotContainer {
     if(!autoName.startsWith("Red_") && !autoName.startsWith("Blu_")){
         alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
     }
+
     // if the named auto (red or blue) exists, use it as-is and do NOT flip the field (red/blue)
     if(autoPaths.keySet().contains(alliancePathName)){
-      driveSubsystem.configurePathPlanner(false);
+      flipRedBlue = false;
     }
     // if the named auto does not exist (so there isn't a red one), use the blue one and flip the field
     else if(isRedAlliance && alliancePathName.startsWith("Red_")) {
       alliancePathName = alliancePathName.replace("Red_", "Blu_");
       assert autoPaths.keySet().contains(alliancePathName): "ERROR: you need to create " + alliancePathName;
-      driveSubsystem.configurePathPlanner(true);
+      flipRedBlue = true;
     }
     else {
       System.out.println("ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName);
@@ -246,6 +265,7 @@ public class RobotContainer {
     System.out.println("About to get Auto Path: " + alliancePathName);
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
+    System.out.println("\nAUTO CODE being used by the software --> " + alliancePathName + ", RED/BLUE flipping is " + (flipRedBlue ? "ON" : "OFF") + "\n");
     return command;
   }
 

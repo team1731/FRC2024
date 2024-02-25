@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsystem {
@@ -33,6 +34,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     private boolean enabled;
     private boolean sendWristHomeWhenElevatorDown = false;
     private double ampTimeStarted;
+    private int TEST_ONLY_COUNTER_REMOVE_ME;
+    
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -71,8 +74,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
         /* Configure current limits */
         MotionMagicConfigs mm = cfg.MotionMagic;
-        mm.MotionMagicCruiseVelocity = 66; // 5 rotations per second cruise
-        mm.MotionMagicAcceleration = 200; // Ta200ke approximately 0.5 seconds to reach max vel
+        mm.MotionMagicCruiseVelocity = 70; // 5 rotations per second cruise
+        mm.MotionMagicAcceleration = 250; // Ta200ke approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
         mm.MotionMagicJerk = 0;
 
@@ -157,5 +160,13 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         sendWristHomeWhenElevatorDown = true;
         ampTimeStarted = Timer.getFPGATimestamp();
        
+    }
+
+    public boolean isAtPosition(double elevatorTrapPosition) {
+        if(Robot.isSimulation()){
+            if(TEST_ONLY_COUNTER_REMOVE_ME++ > 3) return true;
+        }
+        double tolerance = 2;
+        return Math.abs(getElevatorPosition() - elevatorTrapPosition) < tolerance;
     }
 }
