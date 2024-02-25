@@ -47,7 +47,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1.45,
-      "rotationDegrees": 37.550078464939965,
+      "rotationDegrees": 142.44992153506004,
       "rotateFast": false
     }
   ],
@@ -91,13 +91,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -28.810793742973143,
+    "rotation": 151.18920625702685,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_1_Speaker_6",
   "previewStartingState": {
-    "rotation": -0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

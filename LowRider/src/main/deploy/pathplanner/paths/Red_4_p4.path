@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.569182131572262,
-        "y": 6.837970766850624
+        "x": 12.860197440875607,
+        "y": 6.492807167432517
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.477718857736622,
-        "y": 6.865957004641281
+        "x": 11.199680665296603,
+        "y": 6.903271988362158
       },
       "isLocked": false,
-      "linkedName": "pickup1"
+      "linkedName": "Blu4_longshot"
     },
     {
       "anchor": {
-        "x": 8.223810713556698,
-        "y": 7.295079317431362
+        "x": 8.121194508324288,
+        "y": 5.886438681968273
       },
       "prevControl": {
-        "x": 9.147356560648394,
-        "y": 7.024545685455007
+        "x": 9.324602733326234,
+        "y": 6.352875978478422
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "pickup4"
+      "linkedName": "A4_Note5"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 200.85445803986048,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red_1_Speaker_6",
+  "folder": "Red_4_Amp_4",
   "previewStartingState": {
-    "rotation": 159.71744091108337,
+    "rotation": 166.82744657667314,
     "velocity": 0
   },
   "useDefaultConstraints": true
