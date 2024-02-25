@@ -80,11 +80,11 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         mm.MotionMagicJerk = 0;
 
         Slot0Configs slot0 = cfg.Slot0;
-        slot0.kP = 4.6875;
+        slot0.kP = 4.9;
         slot0.kI = 0;
         slot0.kD = 0.0078125;
         slot0.kV = 0.009375;
-        slot0.kS = 0.01953125; // Approximately 0.25V to get the mechanism moving
+        slot0.kS = 0.02; // Approximately 0.25V to get the mechanism moving
 
         FeedbackConfigs fdb = cfg.Feedback;
         fdb.SensorToMechanismRatio = 1;

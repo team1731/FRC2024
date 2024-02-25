@@ -185,7 +185,7 @@ public class RobotContainer {
       s_ShooterSubsystem.stopShooting();
     }));
     operatorkStart
-        .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseFeed()))
+        .onTrue(new InstantCommand(() -> s_intakeSubsystem.reverseIntake()))
         .onFalse(new InstantCommand(() -> s_intakeSubsystem.stopFeed()));
 
     // Far Shot

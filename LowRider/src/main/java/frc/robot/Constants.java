@@ -261,7 +261,7 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final String kAutoDefault = "1_Speaker_6"; //"Amp_1";
+        public static final String kAutoDefault = "5_JustDrive"; //"Amp_1";
     	public static final String kAutoCodeKey = "Auto Selector";
 
         public static final double kMaxSpeedMetersPerSecond = 0.5; // disabled for testing = 3;
@@ -405,8 +405,8 @@ public final class Constants {
 
         // Positions
         public final static double wristHomePosition = 0;
-        public final static double wristAmpPosition = 32;
-        public final static double wristTrapPosition = 58;
+        public final static double wristAmpPosition = 28;
+        public final static double wristTrapPosition = 59;
         public static final double IntakePosition = 0;
     }
 
