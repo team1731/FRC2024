@@ -230,7 +230,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-	m_robotContainer.displayEncoders();
+	//m_robotContainer.displayEncoders();
   }
 
 
@@ -306,7 +306,7 @@ public class Robot extends TimedRobot {
 	}
 	else {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
-			m_robotContainer.zeroHeading();
+		//	m_robotContainer.zeroHeading();
 			ledSubsystem.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
 			m_autonomousCommand.schedule();
 		}
