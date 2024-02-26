@@ -142,5 +142,14 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         m_forwardLimit.enableLimitSwitch(true);
     }
 
+    public void enableReverseLimitSwitch() {
+        m_reverseLimit.enableLimitSwitch(true);
+    }
+
+    public boolean noteIsPresent() {
+        // TODO Auto-generated method stub
+       return (feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
+    }
+
 
 }
