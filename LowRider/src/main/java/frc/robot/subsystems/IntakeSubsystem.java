@@ -72,6 +72,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
 
     public void intake() {
+        //enableLimitSwitch();
         noteIsRetrieved = false;
         intake(IntakeConstants.intakeSpeed);
         feed(1.0);

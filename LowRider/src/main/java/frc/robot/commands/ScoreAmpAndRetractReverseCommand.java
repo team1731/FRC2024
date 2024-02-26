@@ -78,6 +78,7 @@ public class ScoreAmpAndRetractReverseCommand extends Command {
 			m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
 			m_wristSubsystem.retractTrapFlap();
 			m_shooterSubsystem.shoot();
+			m_intakeSubsystem.enableLimitSwitch();
 	}
 
 	// Returns true when the command should end.

@@ -46,9 +46,8 @@ public class AutoFireNote extends Command {
 	@Override
 	public void initialize() {
 		m_intakeSubsystem.fireNote();
-        m_intakeSubsystem.disableLimitSwitch();
 		shooterTimeStarted = Timer.getFPGATimestamp();
-		m_intakeSubsystem.feed(1.0);
+
 		
 		// turn on the shooter if it is not already on
 	}
