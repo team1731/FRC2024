@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 15.071110226337542,
-      "y": 5.485302606968851
+      "y": 5.569261320340823
     },
     "rotation": 180.0
   },
@@ -14,37 +14,25 @@
         {
           "type": "named",
           "data": {
-            "name": "StartShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Intake"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red_1_p9"
+            "name": "StartShooter"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p10"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red_1_p11"
+            "pathName": "Red_2_p1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "SetWristNote1"
+            "name": "SetWristNote2"
           }
         },
         {
@@ -60,27 +48,57 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red_1_p12"
+            "name": "Intake"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p13"
+            "pathName": "Red_2_p2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p14"
+            "pathName": "Red_2_p3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p15"
+            "pathName": "Red_2_p4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red_2_p5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red_2_p6"
           }
         }
       ]

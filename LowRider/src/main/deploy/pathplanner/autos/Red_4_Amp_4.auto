@@ -5,7 +5,7 @@
       "x": 15.826738646685293,
       "y": 6.754012053478652
     },
-    "rotation": 240.0,
+    "rotation": 120.0
   },
   "command": {
     "type": "sequential",
@@ -56,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red4_p3"
+            "pathName": "Red_4_p3"
           }
         },
         {
@@ -68,13 +68,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red4_p4"
+            "pathName": "Red_4_p4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red4_p5"
+            "pathName": "Red_4_p5"
           }
         },
         {
