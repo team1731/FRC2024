@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.027907049022097,
-        "y": 5.559932574410603
+        "x": 14.791247848430968,
+        "y": 5.475973861038631
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.203329036229709,
-        "y": 5.895767427898491
+        "x": 14.035619428083221,
+        "y": 5.4479876232479745
       },
       "isLocked": false,
-      "linkedName": "pickup5"
+      "linkedName": "lineshot"
     },
     {
       "anchor": {
-        "x": 10.59331217983236,
-        "y": 6.371533470339668
+        "x": 11.52618677285427,
+        "y": 4.272565636040364
       },
       "prevControl": {
-        "x": 9.551786630494338,
-        "y": 6.25921208756792
+        "x": 12.77063892820967,
+        "y": 4.639781026145236
       },
       "nextControl": {
-        "x": 11.54484426471471,
-        "y": 6.474149675572079
+        "x": 10.388079769367536,
+        "y": 3.9367307825524747
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "UnderStage"
     },
     {
       "anchor": {
-        "x": 12.897512424596485,
-        "y": 6.017041124991342
+        "x": 8.158509492045166,
+        "y": 4.020689495924446
       },
       "prevControl": {
-        "x": 12.291143939132242,
-        "y": 6.287574756967698
+        "x": 9.091384085067078,
+        "y": 4.020689495924446
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "longshot"
+      "linkedName": "PickupMiddleCenter"
     }
   ],
   "rotationTargets": [],
@@ -49,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,24 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShot"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.9,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
+                "name": "Intake"
               }
             }
           ]
@@ -90,11 +73,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 166.75948008481285,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red_1_Speaker_6",
+  "folder": "Red_2_Speaker_4",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0

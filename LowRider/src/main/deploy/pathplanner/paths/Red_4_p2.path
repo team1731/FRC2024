@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.569182131572262,
-        "y": 6.837970766850624
+        "x": 13.765085796106863,
+        "y": 6.940586972083035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.477718857736622,
-        "y": 6.865957004641281
+        "x": 12.766909981573416,
+        "y": 7.015216939524788
       },
       "isLocked": false,
-      "linkedName": "pickup1"
+      "linkedName": "A4_Note1"
     },
     {
       "anchor": {
-        "x": 8.223810713556698,
-        "y": 7.295079317431362
+        "x": 8.083879524603411,
+        "y": 7.528297965686841
       },
       "prevControl": {
-        "x": 9.147356560648394,
-        "y": 7.024545685455007
+        "x": 9.81902626762417,
+        "y": 7.444339252314869
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "pickup4"
+      "linkedName": "A4_Note4"
     }
   ],
   "rotationTargets": [],
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 165.6506679570528,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red_1_Speaker_6",
+  "folder": "Red_4_Amp_4",
   "previewStartingState": {
-    "rotation": 159.71744091108337,
+    "rotation": 149.23728046576096,
     "velocity": 0
   },
   "useDefaultConstraints": true
