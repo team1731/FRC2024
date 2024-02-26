@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 // import frc.robot.Robot;
@@ -19,6 +20,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     private SparkLimitSwitch m_forwardLimit;
     private SparkLimitSwitch m_reverseLimit;
     private boolean isIntaking = false;
+    private boolean noteIsRetrieved = false;
    
     
     private boolean enabled;
@@ -48,8 +50,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             feederMotor.setInverted(true);
             feederMotor.setIdleMode(IdleMode.kBrake);
             m_forwardLimit = feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
-            m_reverseLimit = feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
-            disableReverseLimitSwitch();
+            m_reverseLimit = feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
+            enableReverseLimitSwitch();
 
 
         }
@@ -70,8 +72,9 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
 
     public void intake() {
+        noteIsRetrieved = false;
         intake(IntakeConstants.intakeSpeed);
-        feed();
+        feed(1.0);
 
     }    
 
@@ -79,8 +82,15 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
         System.out.println("IntakeSubsystem: reverse speed = " + intakeSpeed);
         intake(intakeSpeed);
-        reverseFeed();
+        feed(-1);
     }    
+    public void reverseIntakeSlow() {
+        double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
+        System.out.println("IntakeSubsystem: reverse speed = " + intakeSpeed);
+        intake(intakeSpeed);
+        feed(-0.2);
+    }    
+ 
 
     public void stopIntake() {
         if (enabled) {
@@ -93,21 +103,27 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     /*
      * FEEDER MOTOR MOVEMENT
      */
-
-    public void feed() {
+    public void shootAmp(double speed) {
         if (enabled) {
-            feederMotor.set(IntakeConstants.feederSpeed);
+            isIntaking = false;
+            disableLimitSwitch();
+            
+            feederMotor.set(speed);
+        }
+    }
+    public void feed(double speed) {
+        if (enabled) {
+            feederMotor.set(speed);
         }
     }
 
-    public void reverseFeed() {
-        if (enabled) {
-            feederMotor.set(-IntakeConstants.feederSpeed);
-        }
-    }
+    
 
     public void trapFeed() {
         if (enabled) {
+            System.out.println("trapping!!!!!!!!!!!!!!!!!!!!!");
+            isIntaking = false;
+            disableReverseLimitSwitch();
             feederMotor.set(-IntakeConstants.trapFeedSpeed);
         }
     }
@@ -122,12 +138,12 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     
     public void periodic() {
 
-        if ((feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed()) && isIntaking) {
-            reverseIntake();
-        }
-        
-        
-       
+        if (isIntaking &&(!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed())) {
+            
+            reverseIntakeSlow();
+            noteIsRetrieved = true;
+            
+        }     
     }
 
     public void disableLimitSwitch() {
@@ -146,10 +162,21 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         m_reverseLimit.enableLimitSwitch(true);
     }
 
-    public boolean noteIsPresent() {
-        // TODO Auto-generated method stub
-       return (feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
+   // public boolean noteIsNotPresent() {
+
+    //   return (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
+   // }
+
+    public boolean noteRetrieved() {
+    
+      return noteIsRetrieved;
     }
 
+    public void fireNote() {
+
+        disableLimitSwitch();		
+		feed(1.0);
+        isIntaking = false;
+    }
 
 }

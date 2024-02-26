@@ -57,7 +57,9 @@ public class ScoreAmpAndRetractReverseCommand extends Command {
 	public void initialize() {
 	//	m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpReversePosition);
 	//	m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorAmpReversePosition);
-		m_shooterSubsystem.shootAmp();
+		m_intakeSubsystem.disableLimitSwitch();
+		m_intakeSubsystem.shootAmp(1);
+	    m_shooterSubsystem.shootAmp();
 		ampTimeStarted = Timer.getFPGATimestamp();
 
 	}
@@ -74,13 +76,14 @@ public class ScoreAmpAndRetractReverseCommand extends Command {
 	public void end(boolean interrupted) {
 			m_wristSubsystem.moveWrist(Constants.WristConstants.wristHomePosition);
 			m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
+			m_wristSubsystem.retractTrapFlap();
 			m_shooterSubsystem.shoot();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return ((Timer.getFPGATimestamp() - ampTimeStarted > 5));
+		return ((Timer.getFPGATimestamp() - ampTimeStarted > .25));
 
 	}
 }

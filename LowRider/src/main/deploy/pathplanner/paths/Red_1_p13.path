@@ -1,0 +1,87 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.223810713556698,
+        "y": 7.295079317431362
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.07272659320664,
+        "y": 7.0898469069665415
+      },
+      "isLocked": true,
+      "linkedName": "Red_pickup4"
+    },
+    {
+      "anchor": {
+        "x": 12.897512424596485,
+        "y": 6.017041124991342
+      },
+      "prevControl": {
+        "x": 11.880679118202586,
+        "y": 6.352875978479231
+      },
+      "nextControl": null,
+      "isLocked": true,
+      "linkedName": "Red_longshot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristLongShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 170.04937331204852,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_1_Speaker_6",
+  "previewStartingState": {
+    "rotation": 180.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -57,7 +57,7 @@ public class FireNoteSpeakerCommand extends Command {
         // if we have a good field position, set the elevator and wrist angles based on the distance to the goal
 		// optionally take over steering
 		// if the elevator and wrist are in range and the shooter is up to speed, run the feeder motor
-	    m_intakeSubsystem.feed();
+	    m_intakeSubsystem.feed(1.0);
 
 
 

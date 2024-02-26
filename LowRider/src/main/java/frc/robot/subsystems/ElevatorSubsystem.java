@@ -156,7 +156,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     public void moveElevatorAndWristHome() {
         if(!enabled) return;
-        m_intakeSubsystem.reverseFeed();
+        m_intakeSubsystem.feed(-1.0);
         sendWristHomeWhenElevatorDown = true;
         ampTimeStarted = Timer.getFPGATimestamp();
        

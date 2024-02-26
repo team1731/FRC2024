@@ -46,7 +46,7 @@ public class IntakeCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		
+		m_wristSubsystem.retractTrapFlap();
         m_intakeSubsystem.enableLimitSwitch();
 		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
 		m_intakeSubsystem.intake();
@@ -69,6 +69,7 @@ public class IntakeCommand extends Command {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
+		//return m_intakeSubsystem.noteRetrieved();
 		return false;
 	}
 

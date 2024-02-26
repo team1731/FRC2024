@@ -52,6 +52,7 @@ public class AmpScoringReverseCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
+		m_wristSubsystem.extendTrapFlap();
 		m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpReversePosition);
 		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorAmpReversePosition);
 	}
@@ -66,8 +67,7 @@ public class AmpScoringReverseCommand extends Command {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		Command nextCommand = new AmpScoringReverseCommand(m_intakeSubsystem, m_elevatorSubsystem, m_wristSubsystem);
-		nextCommand.schedule();
+
 		//m_elevatorSubsystem.moveElevatorAndWristHome();
 	}
 

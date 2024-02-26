@@ -371,7 +371,7 @@ public final class Constants {
 
         public final static double intakeSpeed = 1;
         public final static double feederSpeed = 1;
-        public final static double trapFeedSpeed = 0.25;
+        public final static double trapFeedSpeed = .5;
 
         public final static double intakeStartedVelocityThreshold = 1000;
         public final static double intakeHoldingVelocityThreshold = 60;
@@ -407,7 +407,7 @@ public final class Constants {
         // Positions
         public final static double wristHomePosition = 0;
         public final static double wristAmpPosition = 28;
-        public final static double wristAmpReversePosition = 40;
+        public final static double wristAmpReversePosition = 91;
         public final static double wristTrapPosition = 59;
         public static final double IntakePosition = 0;
     }

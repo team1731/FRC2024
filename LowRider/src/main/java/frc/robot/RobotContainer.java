@@ -167,6 +167,9 @@ public class RobotContainer {
     }
 
     kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem));
+                
+
+
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
    // kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem)));
     kRightBumper.onTrue(new AmpScoringReverseCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem))
