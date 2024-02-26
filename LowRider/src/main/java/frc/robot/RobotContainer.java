@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -248,7 +249,6 @@ public class RobotContainer {
     if(!autoName.startsWith("Red_") && !autoName.startsWith("Blu_")){
         alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
     }
-
     // if the named auto (red or blue) exists, use it as-is and do NOT flip the field (red/blue)
     if(autoPaths.keySet().contains(alliancePathName)){
       flipRedBlue = false;
@@ -266,6 +266,8 @@ public class RobotContainer {
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
     System.out.println("\nAUTO CODE being used by the software --> " + alliancePathName + ", RED/BLUE flipping is " + (flipRedBlue ? "ON" : "OFF") + "\n");
+    SmartDashboard.putString("AUTO_FILE_IN_USE", alliancePathName);
+    SmartDashboard.putBoolean("RED_BLUE_FLIPPING", flipRedBlue);
     return command;
   }
 
