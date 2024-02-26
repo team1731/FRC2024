@@ -49,14 +49,14 @@ public class IntakeCommand extends Command {
 		
         m_intakeSubsystem.enableLimitSwitch();
 		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
-		
+		m_intakeSubsystem.intake();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 				
-	    m_intakeSubsystem.intake();
+	    
 	}
 
 	// Called once the command ends or is interrupted.
