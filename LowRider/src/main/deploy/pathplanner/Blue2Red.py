@@ -82,7 +82,7 @@ def parse_auto(inputfile):
       elif line.__contains__('"rotation"'):
          parts = line.split('"rotation": ')
          number = parts[1].split(',')[0]
-         zx = 180.0 + float(number)
+         zx = convert_rotation(float(number)) #180.0 + float(number)
          zlist.append(parts[0] + '"rotation": ' + str(zx) + '\n')
       else:
          zlist.append(line)

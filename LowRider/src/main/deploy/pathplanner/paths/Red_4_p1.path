@@ -3,41 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.569182131572262,
-        "y": 6.837970766850624
+        "x": 15.826738646685293,
+        "y": 6.754012053478652
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.477718857736622,
-        "y": 6.865957004641281
+        "x": 15.183055177500172,
+        "y": 6.837970766850624
       },
       "isLocked": false,
-      "linkedName": "pickup1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.223810713556698,
-        "y": 7.295079317431362
+        "x": 13.765085796106863,
+        "y": 6.940586972083035
       },
       "prevControl": {
-        "x": 9.147356560648394,
-        "y": 7.024545685455007
+        "x": 14.76326161064031,
+        "y": 6.903271988362159
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "pickup4"
+      "linkedName": "A4_Note1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 151.81325680869946,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.4
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -57,13 +75,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 149.47029410006581,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red_1_Speaker_6",
+  "folder": "Red_4_Amp_4",
   "previewStartingState": {
-    "rotation": 159.71744091108337,
+    "rotation": 120.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

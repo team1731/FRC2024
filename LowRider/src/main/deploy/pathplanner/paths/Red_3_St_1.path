@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 15.033795242616666,
-        "y": 5.513288844759509
+        "x": 15.714793695522662,
+        "y": 4.421825570923869
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.408769265291985,
-        "y": 4.897591613365046
+        "x": 15.220370161221048,
+        "y": 4.076661971505761
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 4.244579398249706
       },
       "prevControl": {
-        "x": 14.828562832151846,
-        "y": 4.4777980465051845
+        "x": 14.586015437966147,
+        "y": 4.431154316854089
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,11 +31,23 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 215.465105595809,
+      "rotationDegrees": 203.80962647657526,
       "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 0.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
@@ -53,7 +65,7 @@
             {
               "type": "wait",
               "data": {
-                "waitTime": 0.2
+                "waitTime": 0.3
               }
             },
             {
@@ -75,13 +87,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 205.55996517182385,
+    "rotation": 211.18497465873838,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red_1_Speaker_6",
+  "folder": "Red_3_Stage_4",
   "previewStartingState": {
-    "rotation": 181.00508600525416,
+    "rotation": 239.420773127511,
     "velocity": 0
   },
   "useDefaultConstraints": true

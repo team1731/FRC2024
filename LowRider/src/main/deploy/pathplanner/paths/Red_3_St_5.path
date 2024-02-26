@@ -3,37 +3,49 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.569182131572262,
-        "y": 6.837970766850624
+        "x": 15.313657620523239,
+        "y": 4.2912231279008015
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.477718857736622,
-        "y": 6.865957004641281
+        "x": 14.697960389128777,
+        "y": 3.460964740111299
       },
       "isLocked": false,
-      "linkedName": "pickup1"
+      "linkedName": "StageSideShot"
     },
     {
       "anchor": {
-        "x": 8.223810713556698,
-        "y": 7.295079317431362
+        "x": 7.9346195897199046,
+        "y": 0.7649571662779697
       },
       "prevControl": {
-        "x": 9.147356560648394,
-        "y": 7.024545685455007
+        "x": 9.576478873438472,
+        "y": 0.7649571662779697
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "pickup4"
+      "linkedName": "A4_Note8"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -61,9 +73,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red_1_Speaker_6",
+  "folder": "Red_3_Stage_4",
   "previewStartingState": {
-    "rotation": 159.71744091108337,
+    "rotation": 234.5829447235326,
     "velocity": 0
   },
   "useDefaultConstraints": true
