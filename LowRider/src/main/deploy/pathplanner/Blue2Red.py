@@ -40,6 +40,14 @@ def parse_path(inputfile):
          rnumber = rparts[1].split(',')[0]
          zr = convert_rotation(float(rnumber))
          plist.append(rparts[0] + '"rotation": ' + str(zr) + ',' + '\n')
+      elif line.__contains__('"linkedName"'):
+         parts = line.split('"')
+         if not 'null' in parts[2]:
+            linkedName = 'Red_' + parts[3].strip()
+            fline = parts[0] + '"linkedName": "' + linkedName + '"\n'
+         else:
+            fline = line
+         plist.append(fline)
       elif line.__contains__('"folder"'):
          fline = line.replace("Blu", "Red")
          plist.append(fline)
