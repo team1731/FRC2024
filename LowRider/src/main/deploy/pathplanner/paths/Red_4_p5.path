@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 199.1336432059055,
+    "rotation": 160.8663567940945,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_4_Amp_4",
   "previewStartingState": {
-    "rotation": 151.9275130638527,
+    "rotation": 208.0724869361473,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -73,13 +73,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 2.68377515946901,
+    "rotation": 182.683775159469,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_1_Speaker_6",
   "previewStartingState": {
-    "rotation": -0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

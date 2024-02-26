@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.326229016094397,
-        "y": 5.746507493014986
+        "x": 15.108425210058419,
+        "y": 5.531946336619947
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.346710693421388,
-        "y": 6.0356986168517786
+        "x": 14.026290682153,
+        "y": 5.2614127046435915
       },
       "isLocked": false,
-      "linkedName": "PickupTopMiddle"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.285057842842958,
-        "y": 6.464820929641859
+        "x": 11.395584329831204,
+        "y": 4.123305701156857
       },
       "prevControl": {
-        "x": 6.954903364352183,
-        "y": 6.45549218371164
+        "x": 12.272140860660137,
+        "y": 4.546810541894432
       },
       "nextControl": {
-        "x": 4.366818353135365,
-        "y": 6.469950759193298
+        "x": 10.565325942041701,
+        "y": 3.7221696261574344
       },
       "isLocked": false,
-      "linkedName": "AboveStage"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 8.130523254254507,
+        "y": 2.2948714988339067
       },
       "prevControl": {
-        "x": 3.270048721915625,
-        "y": 5.830466206386958
+        "x": 8.830179199020943,
+        "y": 2.640035098252015
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -55,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.0609116902643063,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Red_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -112,6 +112,7 @@ public class Robot extends TimedRobot {
 		autoChooser.addOption(autoMode, autoMode);
 		System.out.println("Added autoMode '" + autoMode + "' to autoChooser.");
 	}
+	autoChooser.setDefaultOption(Constants.AutoConstants.kAutoDefault, Constants.AutoConstants.kAutoDefault);
     SmartDashboard.putData(AutoConstants.kAutoCodeKey, autoChooser);
 	SmartDashboard.putString("Build Info - Branch", "N/A");
 	SmartDashboard.putString("Build Info - Commit Hash", "N/A");
@@ -141,7 +142,7 @@ public class Robot extends TimedRobot {
 		System.err.println("DeployedBranchInfo.txt not found");
 		fnf.printStackTrace();
 	}
-
+	SmartDashboard.updateValues();
 	autoInitPreload();
 
 	//For testing LED Blinking only. The arm will set blink true after a piece has been secured.
@@ -229,7 +230,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-	m_robotContainer.displayEncoders();
+	//m_robotContainer.displayEncoders();
   }
 
 
@@ -305,7 +306,7 @@ public class Robot extends TimedRobot {
 	}
 	else {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
-			m_robotContainer.zeroHeading();
+		//	m_robotContainer.zeroHeading();
 			ledSubsystem.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
 			m_autonomousCommand.schedule();
 		}

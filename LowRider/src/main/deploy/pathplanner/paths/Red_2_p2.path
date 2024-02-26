@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 13.634483353083795,
+        "y": 5.569261320340823
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 12.897512424596485,
+        "y": 5.559932574410603
+      },
+      "isLocked": false,
+      "linkedName": "PickupFirstNote"
+    },
+    {
+      "anchor": {
+        "x": 11.21833815715704,
+        "y": 6.464820929641859
+      },
+      "prevControl": {
+        "x": 12.033746220561685,
+        "y": 6.34912113686147
+      },
+      "nextControl": {
+        "x": 9.837683759484609,
+        "y": 6.660724594176462
+      },
+      "isLocked": false,
+      "linkedName": "AboveStage"
+    },
+    {
+      "anchor": {
+        "x": 8.177166983905602,
+        "y": 5.746507493014986
+      },
+      "prevControl": {
+        "x": 9.231315274020364,
+        "y": 5.793151222666081
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "PickupTopMiddle"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 181.0609116902643,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_2_Speaker_4",
+  "previewStartingState": {
+    "rotation": 180.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

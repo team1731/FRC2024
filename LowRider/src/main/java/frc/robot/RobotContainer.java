@@ -167,11 +167,11 @@ public class RobotContainer {
 
     kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem));
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
-
-    kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
+   // kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem)));
+    kRightBumper.whileTrue(new AmpScoringReverseCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem));
-    kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
-    //kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
+    //kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
+    kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
     ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
     kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
@@ -185,7 +185,7 @@ public class RobotContainer {
       shooterSubsystem.stopShooting();
     }));
     operatorkStart
-        .onTrue(new InstantCommand(() -> intakeSubsystem.reverseFeed()))
+        .onTrue(new InstantCommand(() -> intakeSubsystem.reverseIntake()))
         .onFalse(new InstantCommand(() -> intakeSubsystem.stopFeed()));
 
     // Far Shot
@@ -269,12 +269,5 @@ public class RobotContainer {
     return command;
   }
 
-  public void displayEncoders() {
-      // TODO Auto-generated method stub
-  }
-
-  public void zeroHeading() {
-      // TODO Auto-generated method stub
-  }
 
 }
