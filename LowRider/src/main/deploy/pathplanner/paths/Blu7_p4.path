@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.029533331793936,
-        "y": 1.893735423834485
+        "x": 6.7030272242362665,
+        "y": 1.6978317592998824
       },
       "isLocked": false,
       "linkedName": "A7_note7"
     },
     {
       "anchor": {
-        "x": 4.044334634123814,
-        "y": 2.108296580229524
+        "x": 3.708499780635925,
+        "y": 2.994527443600342
       },
       "prevControl": {
-        "x": 5.462304015517122,
-        "y": 1.4366268732537466
+        "x": 5.508947745168217,
+        "y": 1.539243078486157
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,42 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristBlu7Long"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,

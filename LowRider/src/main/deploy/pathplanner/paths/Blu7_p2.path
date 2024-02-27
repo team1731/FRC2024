@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.2795852864433,
-        "y": 0.7742859122081884
+        "x": 8.550118918419654,
+        "y": 0.6903271988362164
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.507123559701665,
-        "y": 0.7649571662779697
+        "x": 6.731013462026923,
+        "y": 1.2593807005795834
       },
       "isLocked": false,
       "linkedName": "A7_note8"
     },
     {
       "anchor": {
-        "x": 4.044334634123814,
-        "y": 2.108296580229524
+        "x": 3.708499780635925,
+        "y": 2.994527443600342
       },
       "prevControl": {
-        "x": 4.995866719006153,
-        "y": 1.3619969058119934
+        "x": 4.660031865518263,
+        "y": 2.248227769182811
       },
       "nextControl": null,
       "isLocked": false,
@@ -80,7 +80,7 @@
   "reversed": false,
   "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -12.380756928807138,
     "velocity": 0
   },
   "useDefaultConstraints": true

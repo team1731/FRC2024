@@ -129,10 +129,11 @@ public class RobotContainer {
       NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(shooterSubsystem) ));
       NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24)) ));
       NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(19)) ));
-      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18)) ));
+      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18.5)) ));
       NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23)) ));
       NamedCommands.registerCommand("SetWristLongShotA", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(25)) ));
       NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(10)) ));
+     NamedCommands.registerCommand("SetWristBlu7Long", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28)) ));
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( intakeSubsystem, shooterSubsystem) ));
     }
 

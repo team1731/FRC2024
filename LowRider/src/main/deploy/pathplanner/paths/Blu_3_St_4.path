@@ -8,36 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.572424781213199,
-        "y": 1.6418592837185677
+        "x": 4.165608331216663,
+        "y": 0.8862308633708179
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.86708846144965,
-        "y": 2.2855427529036882
+        "x": 1.4975869951739902,
+        "y": 4.4777980465051845
       },
       "prevControl": {
-        "x": 5.3503590643544925,
-        "y": 1.6698455215092252
-      },
-      "nextControl": {
-        "x": 1.974675466741103,
-        "y": 3.071072675235538
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.1430946498256633,
-        "y": 4.328538111621678
-      },
-      "prevControl": {
-        "x": 1.4789295033135523,
-        "y": 3.964717020343132
+        "x": 2.103955480638234,
+        "y": 3.078486156972315
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +33,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 2.0,
+      "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 5.0,
         "maxAcceleration": 4.0,
@@ -67,13 +51,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -55.95406264339833,
+    "rotation": -45.00000000000005,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_3_Stage_4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 19.98310652189991,
     "velocity": 0
   },
   "useDefaultConstraints": true

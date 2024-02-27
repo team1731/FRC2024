@@ -12,6 +12,18 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "StartShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Blu7_p1"
@@ -45,18 +57,6 @@
           "type": "path",
           "data": {
             "pathName": "Blu7_p6"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StartShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
           }
         }
       ]

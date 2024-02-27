@@ -8,27 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8707368323827551,
-        "y": 3.7594846098783115
+        "x": 2.2159004318008635,
+        "y": 3.7128408802272155
       },
       "isLocked": false,
       "linkedName": "pickup3"
-    },
-    {
-      "anchor": {
-        "x": 3.00884383586949,
-        "y": 2.9758699517399045
-      },
-      "prevControl": {
-        "x": 2.2253461567799566,
-        "y": 3.5972646627419484
-      },
-      "nextControl": {
-        "x": 3.8204447317985544,
-        "y": 2.3321864825547842
-      },
-      "isLocked": false,
-      "linkedName": "A4_Note7"
     },
     {
       "anchor": {
@@ -36,12 +20,12 @@
         "y": 1.7817904726718545
       },
       "prevControl": {
-        "x": 4.84596855863799,
-        "y": 1.8321061704585448
+        "x": 3.354007435287598,
+        "y": 1.7444754889509784
       },
       "nextControl": {
-        "x": 6.712355970166485,
-        "y": 1.7164892511603211
+        "x": 6.714238171398394,
+        "y": 1.7988921810337437
       },
       "isLocked": false,
       "linkedName": null
@@ -77,7 +61,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.44999999999999996,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {
