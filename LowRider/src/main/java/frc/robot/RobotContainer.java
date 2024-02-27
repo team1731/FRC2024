@@ -192,7 +192,7 @@ public class RobotContainer {
     }));
     operatorkStart
         .onTrue(new InstantCommand(() -> intakeSubsystem.reverseIntake()))
-        .onFalse(new InstantCommand(() -> intakeSubsystem.stopFeed()));
+        .onFalse(new InstantCommand(() -> intakeSubsystem.stopReverseIntake()));
 
     // Far Shot
     operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(25)))
@@ -201,7 +201,7 @@ public class RobotContainer {
     operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Line Shot
-    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
+    operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);

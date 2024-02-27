@@ -44,8 +44,9 @@ public class FireNoteSpeakerCommand extends Command {
 	@Override
 	public void initialize() {
 		
-        m_intakeSubsystem.disableLimitSwitch();
 		m_ShooterSubsystem.shoot();
+		m_intakeSubsystem.fireNote();
+		
 		
 		// turn on the shooter if it is not already on
 	}
@@ -57,7 +58,7 @@ public class FireNoteSpeakerCommand extends Command {
         // if we have a good field position, set the elevator and wrist angles based on the distance to the goal
 		// optionally take over steering
 		// if the elevator and wrist are in range and the shooter is up to speed, run the feeder motor
-	    m_intakeSubsystem.feed(1.0);
+	   
 
 
 
@@ -66,8 +67,8 @@ public class FireNoteSpeakerCommand extends Command {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_intakeSubsystem.enableLimitSwitch();
-        m_intakeSubsystem.stopFeed();
+
+		m_intakeSubsystem.stopFireNote();
 	}
 
 	// Returns true when the command should end.

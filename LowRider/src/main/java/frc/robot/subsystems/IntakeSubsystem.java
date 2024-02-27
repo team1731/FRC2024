@@ -51,7 +51,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             feederMotor.setIdleMode(IdleMode.kBrake);
             m_forwardLimit = feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
             m_reverseLimit = feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
-            enableReverseLimitSwitch();
+           enableReverseLimitSwitch();
+            enableLimitSwitch();
 
 
         }
@@ -61,30 +62,32 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
      * INTAKE MOTOR MOVEMENT
      */
 
-    private void intake(double intakeSpeed) {
+    public void intake(double intakeSpeed) {
         if (enabled) {
-
+            enableLimitSwitch();
             intakeMotor.set(intakeSpeed);
             feederMotor.set(intakeSpeed);
             isIntaking = true;
+            noteIsRetrieved = false;
             //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
         }
     }
 
-    public void intake() {
-        //enableLimitSwitch();
-        noteIsRetrieved = false;
-        intake(IntakeConstants.intakeSpeed);
-        feed(1.0);
-
-    }    
-
+    // used for unjam
     public void reverseIntake() {
+        disableReverseLimitSwitch();
         double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
         System.out.println("IntakeSubsystem: reverse speed = " + intakeSpeed);
         intake(intakeSpeed);
         feed(-1);
-    }    
+
+    } 
+   public void stopReverseIntake() {
+    enableReverseLimitSwitch();
+    stopIntake();
+   } 
+       
+   // used only to back up note
     public void reverseIntakeSlow() {
         double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
         System.out.println("IntakeSubsystem: reverse speed = " + intakeSpeed);
@@ -92,27 +95,20 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         feed(-0.2);
     }    
  
-
     public void stopIntake() {
         if (enabled) {
             intakeMotor.set(0);
             feederMotor.set(0);
             isIntaking = false;
+            noteIsRetrieved = false;
         }
     }
     
     /*
      * FEEDER MOTOR MOVEMENT
      */
-    public void shootAmp(double speed) {
-        if (enabled) {
-            isIntaking = false;
-            disableLimitSwitch();
-            
-            feederMotor.set(speed);
-        }
-    }
-    public void feed(double speed) {
+
+    private void feed(double speed) {
         if (enabled) {
             feederMotor.set(speed);
         }
@@ -129,7 +125,15 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
-    public void stopFeed() {
+
+    public void stoptrapFeed() {
+        stopFeed();
+        enableReverseLimitSwitch();
+        
+    }
+
+    private void stopFeed() {
+        
         if (enabled) {
             feederMotor.set(0);
         }
@@ -139,27 +143,27 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     
     public void periodic() {
 
-        if (isIntaking &&(!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed())) {
-            
-            reverseIntakeSlow();
+/* 
+        if (isIntaking &&(!feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
-            
-        }     
+            reverseIntakeSlow();
+        }
+  */
     }
 
-    public void disableLimitSwitch() {
+    private void disableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(false);
     }
 
-    public void disableReverseLimitSwitch() {
+    private void disableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(false);
     }
 
-    public void enableLimitSwitch() {
+    private void enableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(true);
     }
 
-    public void enableReverseLimitSwitch() {
+    private void enableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(true);
     }
 
@@ -175,9 +179,31 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void fireNote() {
 
-        disableLimitSwitch();		
+        disableLimitSwitch();	
+        noteIsRetrieved = false;	
 		feed(1.0);
         isIntaking = false;
     }
+
+
+    public void stopFireNote() {
+        enableLimitSwitch();
+        stopFeed();
+    }
+
+    public void shootAmp(double speed) {
+        if (enabled) {
+            isIntaking = false;
+            disableLimitSwitch();
+            feederMotor.set(speed);
+        }
+    }
+
+    public void shootAmpStop() {
+        enableLimitSwitch();
+        stopFeed();
+    }
+
+
 
 }

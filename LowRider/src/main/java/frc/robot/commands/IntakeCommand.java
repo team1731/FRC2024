@@ -47,9 +47,8 @@ public class IntakeCommand extends Command {
 	@Override
 	public void initialize() {
 		m_wristSubsystem.retractTrapFlap();
-        m_intakeSubsystem.enableLimitSwitch();
 		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
-		m_intakeSubsystem.intake();
+		m_intakeSubsystem.intake(1.0);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

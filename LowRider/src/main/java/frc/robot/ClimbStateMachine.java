@@ -156,7 +156,7 @@ public class ClimbStateMachine {
     public boolean getOffTheLedge(){
         m_wristSubsystem.retractTrapFlap();
         m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
-        m_intakeSubsystem.stopIntake();
+        m_intakeSubsystem.stoptrapFeed();
         return true;
     }
 
