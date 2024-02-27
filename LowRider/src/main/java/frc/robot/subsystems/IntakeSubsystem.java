@@ -64,7 +64,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void intake(double intakeSpeed) {
         if (enabled) {
-            enableLimitSwitch();
+         //   enableLimitSwitch();
             intakeMotor.set(intakeSpeed);
             feederMotor.set(intakeSpeed);
             isIntaking = true;
@@ -143,12 +143,12 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     
     public void periodic() {
 
-/* 
-        if (isIntaking &&(!feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
+ 
+        if (isIntaking &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
             reverseIntakeSlow();
         }
-  */
+  
     }
 
     private void disableLimitSwitch() {
