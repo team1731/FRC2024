@@ -7,6 +7,8 @@ import java.util.Map;
 import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -28,7 +30,6 @@ public final class Constants {
     public static final double stickDeadband = 0.1;
 	public static final int kTICKS = 33024; // 16.125 * 2048;
     public static final String CANBUS_NAME = "canivore1";
-
 
     public static enum GamePiece {
         CONE, CUBE
@@ -95,7 +96,6 @@ public final class Constants {
         public static final AprilTagPoseValues kAprilTagPose7 = new AprilTagPoseValues(7, 40.45, 108.19, 18.22, 0);
         public static final AprilTagPoseValues kAprilTagPose8 = new AprilTagPoseValues(8, 40.45, 42.19, 18.22, 0);
     }
-
 
     //Operator controls List
 
@@ -261,7 +261,7 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final String kAutoDefault = "1_Speaker_6"; //"Amp_1";
+        public static final String kAutoDefault = "5_JustDrive"; //"Amp_1";
     	public static final String kAutoCodeKey = "Auto Selector";
 
         public static final double kMaxSpeedMetersPerSecond = 0.5; // disabled for testing = 3;
@@ -350,6 +350,7 @@ public final class Constants {
         public final static double elevatorPositionTolerance = 0.05;
         public static final double wristClearsPosition = 0;
         public static final double elevatorAmpPosition = 75;
+        public static final double elevatorAmpReversePosition = 10;
         public static double elevatorTrapPosition = 77;  
 
     }
@@ -405,8 +406,9 @@ public final class Constants {
 
         // Positions
         public final static double wristHomePosition = 0;
-        public final static double wristAmpPosition = 32;
-        public final static double wristTrapPosition = 58;
+        public final static double wristAmpPosition = 28;
+        public final static double wristAmpReversePosition = 40;
+        public final static double wristTrapPosition = 59;
         public static final double IntakePosition = 0;
     }
 
@@ -545,60 +547,23 @@ public final class Constants {
         public final static int kPrimaryPIDSlot = 0; // any slot [0,3]
     }
 
-    public static final class VisionConstants {
-		// Ensure measurements are in METERS
-		public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
+    public static class Vision {
+        public static final String kCameraNameFront = "ArducamUSB1";
+        public static final String kCameraNameBack = "Global_Shutter_Camera";
+        // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
+        public static final Transform3d kRobotToCamFront =
+                new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(11)));
+        public static final Transform3d kRobotToCamBack =
+                new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(180)));
 
-        // Kalman Filter Configuration. These can be "tuned-to-taste" based on how much you trust your various sensors. 
-        // Smaller numbers will cause the filter to "trust" the estimate from that particular component more than the 
-        // others. This in turn means the particular component will have a stronger influence on the final pose estimate.
-        public static final Matrix<N3, N1> kVisionMeasurementStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(180));
+        // The layout of the AprilTags on the field
+        public static final AprilTagFieldLayout kTagLayout =
+                AprilTagFields.kDefaultField.loadAprilTagLayoutField();
 
-        public static class CameraMountPoseValues {
-            public String id;
-            public double x;
-            public double y;
-            public double z;
-            public double yaw;
-            public double pitch;
-
-            // Note: this constructor assumes the camera is mounted parallel to the floor
-            public CameraMountPoseValues(String cameraId, double xInches, double yInches, double zInches, double yawDegrees, double pitchDegrees) {
-                id = cameraId;
-                x = Units.inchesToMeters(xInches);
-                y = Units.inchesToMeters(yInches);
-                z = Units.inchesToMeters(zInches);
-                yaw = Units.degreesToRadians(yawDegrees);
-                pitch = Units.degreesToRadians(pitchDegrees);
-            }
-
-            public Transform3d getPoseTransform() {
-                return new Transform3d(new Translation3d(x, y, z), new Rotation3d(0.0,pitch,yaw));
-            }
-        }
-
-        public static final String kCameraMount1Id = "leftcamera";  //camera on the left looking back
-        public static final String kCameraMount2Id = "Global_Shutter_Camera";  // camera on the right looking back
-        public static final String kCameraMount3Id = "USB_Camera2";  // camera on the arm
-        public static final CameraMountPoseValues kCameraMount1Pose = new CameraMountPoseValues(kCameraMount1Id, -5.3,10.253, 17.0, 135.0,0.0);
-        public static final CameraMountPoseValues kCameraMount2Pose = new CameraMountPoseValues(kCameraMount2Id, -5.3, -10.253, 17.0, 225.0,0.0);
-        public static final CameraMountPoseValues kCameraMount3Pose = new CameraMountPoseValues(kCameraMount3Id, -11, -5.0, 37, 0.0,-80.0);
-/*
- * The Auto angles are measured as the angle between a line from the camera perpendicular to the ground plane and the boresight of the camera.  This could be calculated from 
- * the arm geometry and arm relative encoders but it is easier to just run the pickup paths and measure it. 
- */
-        public static final double ConeAutoAngle = 23.0; // degrees   Note: 
-        public static final double CubeAutoAngle = 23.0; //degrees
-
-		// #region TurnPID
-		public static final double kTurnP = 0.05;
-		public static final double kTurnI = 0;
-		public static final double kTurnD = 0.00;
-	//	public static final double kMaxTurnVelocity = 360;
-	//	public static final double kMaxTurnAcceleration = 360;
-		public static final double kTurnToleranceDeg = 5;
-		public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
-		// #endregion
+        // The standard deviations of our vision estimated poses, which affect correction rate
+        // (Fake values. Experiment and determine estimation noise on an actual robot.)
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
 
     public static final class OpConstants{
@@ -609,5 +574,55 @@ public final class Constants {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
           }
     }
+
+    // public static final class VisionConstants {
+	// 	// Ensure measurements are in METERS
+	// 	public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
+
+    //     // Kalman Filter Configuration. These can be "tuned-to-taste" based on how much you trust your various sensors. 
+    //     // Smaller numbers will cause the filter to "trust" the estimate from that particular component more than the 
+    //     // others. This in turn means the particular component will have a stronger influence on the final pose estimate.
+    //     public static final Matrix<N3, N1> kVisionMeasurementStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(180));
+
+    //     public static class CameraMountPoseValues {
+    //         public String id;
+    //         public double x;
+    //         public double y;
+    //         public double z;
+    //         public double yaw;
+    //         public double pitch;
+
+    //         // Note: this constructor assumes the camera is mounted parallel to the floor
+    //         public CameraMountPoseValues(String cameraId, double xInches, double yInches, double zInches, double yawDegrees, double pitchDegrees) {
+    //             id = cameraId;
+    //             x = Units.inchesToMeters(xInches);
+    //             y = Units.inchesToMeters(yInches);
+    //             z = Units.inchesToMeters(zInches);
+    //             yaw = Units.degreesToRadians(yawDegrees);
+    //             pitch = Units.degreesToRadians(pitchDegrees);
+    //         }
+
+    //         public Transform3d getPoseTransform() {
+    //             return new Transform3d(new Translation3d(x, y, z), new Rotation3d(0.0,pitch,yaw));
+    //         }
+    //     }
+
+    //     public static final String kCameraMount1Id = "leftcamera";  //camera on the left looking back
+    //     public static final String kCameraMount2Id = "Global_Shutter_Camera";  // camera on the right looking back
+    //     public static final String kCameraMount3Id = "USB_Camera2";  // camera on the arm
+    //     public static final CameraMountPoseValues kCameraMount1Pose = new CameraMountPoseValues(kCameraMount1Id, -5.3,10.253, 17.0, 135.0,0.0);
+    //     public static final CameraMountPoseValues kCameraMount2Pose = new CameraMountPoseValues(kCameraMount2Id, -5.3, -10.253, 17.0, 225.0,0.0);
+    //     public static final CameraMountPoseValues kCameraMount3Pose = new CameraMountPoseValues(kCameraMount3Id, -11, -5.0, 37, 0.0,-80.0);
+
+	// 	// #region TurnPID
+	// 	public static final double kTurnP = 0.05;
+	// 	public static final double kTurnI = 0;
+	// 	public static final double kTurnD = 0.00;
+	// //	public static final double kMaxTurnVelocity = 360;
+	// //	public static final double kMaxTurnAcceleration = 360;
+	// 	public static final double kTurnToleranceDeg = 5;
+	// 	public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
+	// 	// #endregion
+    // }
 
 }

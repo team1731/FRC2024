@@ -18,6 +18,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     private boolean noteStopEnabled = true;
     private SparkLimitSwitch m_forwardLimit;
     private SparkLimitSwitch m_reverseLimit;
+    private boolean isIntaking = false;
    
     
     private boolean enabled;
@@ -63,6 +64,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
             intakeMotor.set(intakeSpeed);
             feederMotor.set(intakeSpeed);
+            isIntaking = true;
             //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
         }
     }
@@ -84,6 +86,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         if (enabled) {
             intakeMotor.set(0);
             feederMotor.set(0);
+            isIntaking = false;
         }
     }
     
@@ -118,6 +121,12 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
    
     
     public void periodic() {
+
+        if ((feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed()) && isIntaking) {
+            reverseIntake();
+        }
+        
+        
        
     }
 
@@ -131,6 +140,15 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void enableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(true);
+    }
+
+    public void enableReverseLimitSwitch() {
+        m_reverseLimit.enableLimitSwitch(true);
+    }
+
+    public boolean noteIsPresent() {
+        // TODO Auto-generated method stub
+       return (feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
     }
 
 

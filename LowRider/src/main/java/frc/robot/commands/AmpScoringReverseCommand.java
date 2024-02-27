@@ -16,14 +16,14 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-
 /**
  * Command to fire into the speaker
  */
-public class AutoStartShooter extends Command {
+public class AmpScoringReverseCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private final ShooterSubsystem m_shooterSubsystem;
-
+	private final IntakeSubsystem m_intakeSubsystem;
+	private final ElevatorSubsystem m_elevatorSubsystem;
+	private final WristSubsystem m_wristSubsystem;
 
 
 
@@ -32,17 +32,19 @@ public class AutoStartShooter extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
+	 * @param PoseEstimatorSubsystem 
 	 * @param ElevatorSubsystem
 	 * @param WristSubsystem 
 	 */
-	public AutoStartShooter(ShooterSubsystem shooterSubsystem) {
-		m_shooterSubsystem = shooterSubsystem;
-
+	public AmpScoringReverseCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
+		m_intakeSubsystem = intakeSubsystem;
+		m_elevatorSubsystem = elevatorSubsystem;
+		m_wristSubsystem = wristSubsystem;
 
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (shooterSubsystem != null) {
-			addRequirements(shooterSubsystem);
+		if (intakeSubsystem != null && elevatorSubsystem != null && wristSubsystem != null) {
+			addRequirements(intakeSubsystem, elevatorSubsystem, wristSubsystem);
 		}
 	}
 
@@ -50,7 +52,8 @@ public class AutoStartShooter extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		m_shooterSubsystem.shoot();
+		m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpReversePosition);
+		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorAmpReversePosition);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -63,13 +66,14 @@ public class AutoStartShooter extends Command {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		
-	
+		Command nextCommand = new AmpScoringReverseCommand(m_intakeSubsystem, m_elevatorSubsystem, m_wristSubsystem);
+		nextCommand.schedule();
+		//m_elevatorSubsystem.moveElevatorAndWristHome();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return true;
+		return false;
 	}
 }
