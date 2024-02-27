@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 8.2795852864433,
+        "y": 0.7742859122081884
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.548086914355647,
-        "y": 5.410672639527097
+        "x": 6.507123559701665,
+        "y": 0.7649571662779697
       },
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": "A7_note8"
     },
     {
       "anchor": {
-        "x": 8.344886507954833,
-        "y": 4.020689495924446
+        "x": 4.044334634123814,
+        "y": 2.108296580229524
       },
       "prevControl": {
-        "x": 4.8652642759830975,
-        "y": 3.7874708476689682
+        "x": 4.995866719006153,
+        "y": 1.3619969058119934
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickupMiddleCenter"
+      "linkedName": "A7_shoot1"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,24 @@
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "SetWristBlu7Long"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
               }
             }
           ]
@@ -57,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -32.471192290848464,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

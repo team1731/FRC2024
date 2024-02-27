@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 0.7326298288960215,
+        "y": 4.365853095342555
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.548086914355647,
-        "y": 5.410672639527097
+        "x": 1.3980840045976297,
+        "y": 3.213252652918503
       },
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.344886507954833,
-        "y": 4.020689495924446
+        "x": 8.2795852864433,
+        "y": 0.7742859122081884
       },
       "prevControl": {
-        "x": 4.8652642759830975,
-        "y": 3.7874708476689682
+        "x": 4.9585517352852895,
+        "y": 0.9048883552312564
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickupMiddleCenter"
+      "linkedName": "A7_note8"
     }
   ],
   "rotationTargets": [],
@@ -38,6 +38,18 @@
         "type": "sequential",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.5
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -57,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -58.13402230639629,
     "velocity": 0
   },
   "useDefaultConstraints": true

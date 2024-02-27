@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 4.044334634123814,
+        "y": 2.108296580229524
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.548086914355647,
-        "y": 5.410672639527097
+        "x": 5.779481377144572,
+        "y": 1.5205855866257196
       },
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": "A7_shoot1"
     },
     {
       "anchor": {
-        "x": 8.344886507954833,
-        "y": 4.020689495924446
+        "x": 8.27025654051308,
+        "y": 2.425473941856975
       },
       "prevControl": {
-        "x": 4.8652642759830975,
-        "y": 3.7874708476689682
+        "x": 7.0855058073752515,
+        "y": 1.5952155540674717
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickupMiddleCenter"
+      "linkedName": "A7_note7"
     }
   ],
   "rotationTargets": [],
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 28.73979529168804,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -35.942111871382366,
     "velocity": 0
   },
   "useDefaultConstraints": true

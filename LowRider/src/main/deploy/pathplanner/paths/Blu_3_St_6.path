@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.568776410280094,
-        "y": 0.7649571662779697
+        "x": 8.428845221326805,
+        "y": 0.8489158796499418
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.236589927725309,
-        "y": 0.6623409610455591
+        "x": 6.09665873877202,
+        "y": 0.97951832267301
       },
       "isLocked": false,
       "linkedName": "A4_Note8"
@@ -57,7 +57,7 @@
   "reversed": false,
   "folder": "Blu_3_Stage_4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -5.946863053973527,
     "velocity": 0
   },
   "useDefaultConstraints": true
