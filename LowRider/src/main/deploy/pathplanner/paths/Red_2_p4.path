@@ -1,0 +1,87 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 14.791247848430968,
+        "y": 5.475973861038631
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.51666012422934,
+        "y": 5.522617590689727
+      },
+      "isLocked": false,
+      "linkedName": "Red_lineshot"
+    },
+    {
+      "anchor": {
+        "x": 8.158509492045166,
+        "y": 4.020689495924446
+      },
+      "prevControl": {
+        "x": 11.638131724016901,
+        "y": 3.7874708476689682
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_PickupMiddleCenter"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "StartIntake",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "StartShooter",
+      "waypointRelativePos": 0.35,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "StopShooter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_2_Speaker_4",
+  "previewStartingState": {
+    "rotation": 180.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

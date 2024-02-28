@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.121194508324288,
+        "y": 5.886438681968273
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.763053792046534,
+        "y": 6.8659570046404745
+      },
+      "isLocked": false,
+      "linkedName": "Red_A4_Note5"
+    },
+    {
+      "anchor": {
+        "x": 12.860197440875607,
+        "y": 6.492807167432517
+      },
+      "prevControl": {
+        "x": 12.27248644727181,
+        "y": 6.660724594176461
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_Blu4_longshot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristLongShotA"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 160.8663567940945,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_4_Amp_4",
+  "previewStartingState": {
+    "rotation": 208.0724869361473,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
