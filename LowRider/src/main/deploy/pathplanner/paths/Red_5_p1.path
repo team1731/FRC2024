@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 15.0990964641282,
+        "y": 1.6045442999976915
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.285057842842958,
-        "y": 5.0655090401089895
+        "x": 14.099096464128202,
+        "y": 1.6045442999976915
       },
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.316900270164176,
-        "y": 2.378830212205879
+        "x": 12.925498662387142,
+        "y": 0.5503960098829296
       },
       "prevControl": {
-        "x": 6.143302468423118,
-        "y": 3.98337451220357
+        "x": 13.925498662387142,
+        "y": 0.5503960098829296
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.326825952120146,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Red_5_JustDrive",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

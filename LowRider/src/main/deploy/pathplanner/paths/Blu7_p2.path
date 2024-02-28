@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.413628281802018,
-        "y": 5.569261320340823
+        "x": 8.550118918419654,
+        "y": 0.6903271988362164
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6655044219179347,
-        "y": 5.569261320340823
+        "x": 6.731013462026923,
+        "y": 1.2593807005795834
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "A7_note8"
     },
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 3.708499780635925,
+        "y": 2.994527443600342
       },
       "prevControl": {
-        "x": 2.7523810407555516,
-        "y": 5.578590066271043
+        "x": 4.660031865518263,
+        "y": 2.248227769182811
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2FirstShot"
+      "linkedName": "A7_shoot1"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,24 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristBlu7Long"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
         "data": {
@@ -42,18 +59,6 @@
               "type": "named",
               "data": {
                 "name": "FireNote"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
               }
             }
           ]
@@ -69,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.2453642667682019,
+    "rotation": -32.471192290848464,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -12.380756928807138,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.413628281802018,
-        "y": 5.569261320340823
+        "x": 8.158509492045166,
+        "y": 4.020689495924446
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6655044219179347,
-        "y": 5.569261320340823
+        "x": 11.516858026924051,
+        "y": 3.2837185674371354
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red_PickupMiddleCenter"
     },
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 14.791247848430968,
+        "y": 5.475973861038631
       },
       "prevControl": {
-        "x": 2.7523810407555516,
-        "y": 5.578590066271043
+        "x": 11.535317616089777,
+        "y": 5.81180871452652
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2FirstShot"
+      "linkedName": "Red_lineshot"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,19 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "FireNote"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
+                "name": "StartShooter"
               }
             }
           ]
@@ -69,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.2453642667682019,
+    "rotation": 181.0609116902643,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Red_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 171.08507304285214,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.071110226337542,
-      "y": 5.485302606968851
+      "x": 0.7326298288960215,
+      "y": 4.365853095342555
     },
-    "rotation": 180.0
+    "rotation": -61.29404745659891
   },
   "command": {
     "type": "sequential",
@@ -26,61 +26,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p9"
+            "pathName": "Blu7_p1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p10"
+            "pathName": "Blu7_p2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p11"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "SetWristNote1"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "FireNote"
+            "pathName": "Blu7_p3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p12"
+            "pathName": "Blu7_p4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p13"
+            "pathName": "Blu7_p5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p14"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red_1_p15"
+            "pathName": "Blu7_p6"
           }
         }
       ]

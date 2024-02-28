@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.413628281802018,
-        "y": 5.569261320340823
+        "x": 12.794896219364073,
+        "y": 2.994527443600342
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6655044219179347,
-        "y": 5.569261320340823
+        "x": 10.985119508901562,
+        "y": 0.8955596093010377
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red_A7_shoot1"
     },
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 7.990394162606506,
+        "y": 2.453460179647632
       },
       "prevControl": {
-        "x": 2.7523810407555516,
-        "y": 5.578590066271043
+        "x": 9.175144895744333,
+        "y": 1.623201791858129
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2FirstShot"
+      "linkedName": "Red_A7_note7"
     }
   ],
   "rotationTargets": [],
@@ -38,18 +38,6 @@
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -69,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.2453642667682019,
+    "rotation": 168.06055384208926,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": null,
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 215.94211187138237,
     "velocity": 0
   },
   "useDefaultConstraints": true

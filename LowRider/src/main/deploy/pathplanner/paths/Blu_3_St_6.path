@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.568776410280094,
-        "y": 0.7649571662779697
+        "x": 8.652735123652066,
+        "y": 0.9235458470916952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.236589927725309,
-        "y": 0.6623409610455591
+        "x": 6.3205486410972815,
+        "y": 1.0541482901147634
       },
       "isLocked": false,
       "linkedName": "A4_Note8"
     },
     {
       "anchor": {
-        "x": 1.7401343893596877,
-        "y": 4.356524349412336
+        "x": 1.4975869951739902,
+        "y": 4.4777980465051845
       },
       "prevControl": {
-        "x": 2.4771053178469993,
-        "y": 2.612048860461358
+        "x": 2.234557923661302,
+        "y": 2.7333225575542066
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StageSideShot"
     }
   ],
   "rotationTargets": [],
@@ -57,7 +57,7 @@
   "reversed": false,
   "folder": "Blu_3_Stage_4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -5.946863053973527,
     "velocity": 0
   },
   "useDefaultConstraints": true

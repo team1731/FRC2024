@@ -8,27 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.346710693421387,
-        "y": 4.058004479645323
+        "x": 4.986537973075946,
+        "y": 3.2837185674371354
       },
       "isLocked": false,
       "linkedName": "PickupMiddleCenter"
-    },
-    {
-      "anchor": {
-        "x": 4.977209227145727,
-        "y": 4.272565636040364
-      },
-      "prevControl": {
-        "x": 5.91941256609786,
-        "y": 3.871429561040941
-      },
-      "nextControl": {
-        "x": 4.132337857265855,
-        "y": 4.632263347969419
-      },
-      "isLocked": false,
-      "linkedName": "UnderStage"
     },
     {
       "anchor": {
@@ -36,8 +20,8 @@
         "y": 5.475973861038631
       },
       "prevControl": {
-        "x": 3.195418754473873,
-        "y": 5.420001385457317
+        "x": 5.033181702727042,
+        "y": 5.149467753480962
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +45,7 @@
   "reversed": false,
   "folder": "Blu_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 8.914926957147847,
     "velocity": 0
   },
   "useDefaultConstraints": true

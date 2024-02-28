@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.419516475396588,
-        "y": 7.528297965686841
+        "x": 8.456831459117463,
+        "y": 7.584270441268155
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.738518022490591,
-        "y": 7.3790380308033345
+        "x": 7.7758330062114664,
+        "y": 7.435010506384649
       },
       "isLocked": false,
       "linkedName": "A4_Note4"
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShot"
+                "name": "SetWristLongShotA"
               }
             }
           ]

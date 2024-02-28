@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.071110226337542,
-      "y": 5.485302606968851
+      "x": 15.770766171103977,
+      "y": 4.365853095342555
     },
-    "rotation": 180.0
+    "rotation": 241.29404745659892
   },
   "command": {
     "type": "sequential",
@@ -15,36 +15,6 @@
           "type": "named",
           "data": {
             "name": "StartShooter"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red_1_p9"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red_1_p10"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red_1_p11"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "SetWristNote1"
           }
         },
         {
@@ -62,25 +32,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p12"
+            "pathName": "Red7_p1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p13"
+            "pathName": "Red7_p2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p14"
+            "pathName": "Red7_p3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red_1_p15"
+            "pathName": "Red7_p4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red7_p5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red7_p6"
           }
         }
       ]

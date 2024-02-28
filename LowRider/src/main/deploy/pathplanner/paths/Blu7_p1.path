@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.413628281802018,
-        "y": 5.569261320340823
+        "x": 0.7326298288960215,
+        "y": 4.365853095342555
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6655044219179347,
-        "y": 5.569261320340823
+        "x": 2.0106680213360426,
+        "y": 3.3863347726695454
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 8.550118918419654,
+        "y": 0.6903271988362164
       },
       "prevControl": {
-        "x": 2.7523810407555516,
-        "y": 5.578590066271043
+        "x": 5.210427875401205,
+        "y": 1.2873669383702404
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2FirstShot"
+      "linkedName": "A7_note8"
     }
   ],
   "rotationTargets": [],
@@ -47,7 +47,7 @@
             {
               "type": "wait",
               "data": {
-                "waitTime": 0.25
+                "waitTime": 0.5
               }
             },
             {
@@ -69,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.2453642667682019,
+    "rotation": -10.784297867562675,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -58.13402230639629,
     "velocity": 0
   },
   "useDefaultConstraints": true
