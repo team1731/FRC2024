@@ -45,10 +45,9 @@ public class AutoFireNote extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		
-        m_intakeSubsystem.disableLimitSwitch();
+		m_intakeSubsystem.fireNote();
 		shooterTimeStarted = Timer.getFPGATimestamp();
-		m_intakeSubsystem.feed();
+
 		
 		// turn on the shooter if it is not already on
 	}

@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.475488950977901,
-        "y": 5.559932574410603
+        "x": 13.858373255409056,
+        "y": 4.244579398249706
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.3000669637702895,
-        "y": 5.895767427898491
+        "x": 14.45541299494308,
+        "y": 4.41249682499365
       },
       "isLocked": false,
-      "linkedName": "pickup5"
+      "linkedName": "Red_pickup3"
     },
     {
       "anchor": {
-        "x": 5.91008382016764,
-        "y": 6.371533470339668
+        "x": 14.912521545523816,
+        "y": 5.569261320340823
       },
       "prevControl": {
-        "x": 6.951609369505661,
-        "y": 6.25921208756792
+        "x": 14.998093704360285,
+        "y": 5.245988720291944
       },
       "nextControl": {
-        "x": 4.958551735285289,
-        "y": 6.474149675572079
+        "x": 14.828562832151846,
+        "y": 5.886438681968274
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.605883575403514,
-        "y": 6.017041124991342
+        "x": 13.569182131572262,
+        "y": 5.438658877317755
       },
       "prevControl": {
-        "x": 4.2122520608677565,
-        "y": 6.287574756967698
+        "x": 13.91434573099037,
+        "y": 5.447987623247974
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "longshot"
+      "linkedName": "Red_pickup2"
     }
   ],
   "rotationTargets": [],
@@ -49,24 +49,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.4,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "SetWristLongShotA"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.9,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "sequential",
         "data": {
@@ -75,6 +58,18 @@
               "type": "named",
               "data": {
                 "name": "FireNote"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.3
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
               }
             }
           ]
@@ -90,13 +85,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.240519915187146,
+    "rotation": 177.75425743410497,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_1_Speaker_6",
+  "folder": "Red_1_Speaker_6",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 208.52311860631195,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.413628281802018,
-        "y": 5.569261320340823
+        "x": 15.033795242616666,
+        "y": 5.513288844759509
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6655044219179347,
-        "y": 5.569261320340823
+        "x": 14.408769265291985,
+        "y": 4.897591613365046
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 13.858373255409056,
+        "y": 4.244579398249706
       },
       "prevControl": {
-        "x": 2.7523810407555516,
-        "y": 5.578590066271043
+        "x": 14.828562832151846,
+        "y": 4.4777980465051845
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red_pickup3"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 215.465105595809,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -47,7 +53,7 @@
             {
               "type": "wait",
               "data": {
-                "waitTime": 0.5
+                "waitTime": 0.2
               }
             },
             {
@@ -69,13 +75,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.2453642667682019,
+    "rotation": 205.55996517182385,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Red_1_Speaker_6",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 181.00508600525416,
     "velocity": 0
   },
   "useDefaultConstraints": true

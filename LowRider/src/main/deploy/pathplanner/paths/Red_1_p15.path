@@ -3,28 +3,28 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.475488950977901,
+        "x": 8.027907049022097,
         "y": 5.559932574410603
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.3000669637702895,
+        "x": 9.203329036229709,
         "y": 5.895767427898491
       },
       "isLocked": false,
-      "linkedName": "pickup5"
+      "linkedName": "Red_pickup5"
     },
     {
       "anchor": {
-        "x": 5.91008382016764,
+        "x": 10.59331217983236,
         "y": 6.371533470339668
       },
       "prevControl": {
-        "x": 6.951609369505661,
+        "x": 9.551786630494338,
         "y": 6.25921208756792
       },
       "nextControl": {
-        "x": 4.958551735285289,
+        "x": 11.54484426471471,
         "y": 6.474149675572079
       },
       "isLocked": false,
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 3.605883575403514,
+        "x": 12.897512424596485,
         "y": 6.017041124991342
       },
       "prevControl": {
-        "x": 4.2122520608677565,
+        "x": 12.291143939132242,
         "y": 6.287574756967698
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "longshot"
+      "linkedName": "Red_longshot"
     }
   ],
   "rotationTargets": [],
@@ -57,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShotA"
+                "name": "SetWristLongShot"
               }
             }
           ]
@@ -90,13 +90,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.240519915187146,
+    "rotation": 166.75948008481285,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_1_Speaker_6",
+  "folder": "Red_1_Speaker_6",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

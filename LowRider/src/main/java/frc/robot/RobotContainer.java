@@ -131,6 +131,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18)) ));
       NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18)) ));
       NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23)) ));
+      NamedCommands.registerCommand("SetWristLongShotA", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(25)) ));
       NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(10)) ));
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( intakeSubsystem, shooterSubsystem) ));
     }
@@ -167,6 +168,9 @@ public class RobotContainer {
     }
 
     kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem));
+                
+
+
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
    // kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem)));
     kRightBumper.onTrue(new AmpScoringReverseCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem))
@@ -188,7 +192,7 @@ public class RobotContainer {
     }));
     operatorkStart
         .onTrue(new InstantCommand(() -> intakeSubsystem.reverseIntake()))
-        .onFalse(new InstantCommand(() -> intakeSubsystem.stopFeed()));
+        .onFalse(new InstantCommand(() -> intakeSubsystem.stopReverseIntake()));
 
     // Far Shot
     operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(25)))
@@ -197,7 +201,7 @@ public class RobotContainer {
     operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Line Shot
-    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
+    operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);

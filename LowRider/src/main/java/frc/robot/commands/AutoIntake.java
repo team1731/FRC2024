@@ -46,8 +46,8 @@ public class AutoIntake extends Command {
 	@Override
 	public void initialize() {
 		
-        m_intakeSubsystem.enableLimitSwitch();
 		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
+		m_intakeSubsystem.intake(1.0);
 		
 	}
 
@@ -55,7 +55,7 @@ public class AutoIntake extends Command {
 	@Override
 	public void execute() {
 				
-	    m_intakeSubsystem.intake();
+	   
 		
 	}
 

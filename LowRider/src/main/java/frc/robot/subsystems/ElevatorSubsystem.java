@@ -135,7 +135,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
             
         }
         if (ampTimeStarted != 0 && (Timer.getFPGATimestamp() - ampTimeStarted > 0.3)) {
-            m_intakeSubsystem.stopFeed();
+            m_intakeSubsystem.shootAmpStop();
             ampTimeStarted = 0; 
             moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
 
@@ -156,7 +156,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     public void moveElevatorAndWristHome() {
         if(!enabled) return;
-        m_intakeSubsystem.reverseFeed();
+        m_intakeSubsystem.shootAmp(-1.0);
         sendWristHomeWhenElevatorDown = true;
         ampTimeStarted = Timer.getFPGATimestamp();
        

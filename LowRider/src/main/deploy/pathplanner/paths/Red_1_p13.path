@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.475488950977901,
-        "y": 5.559932574410603
+        "x": 8.223810713556698,
+        "y": 7.295079317431362
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.3000669637702895,
-        "y": 5.895767427898491
+        "x": 9.07272659320664,
+        "y": 7.0898469069665415
       },
-      "isLocked": false,
-      "linkedName": "pickup5"
+      "isLocked": true,
+      "linkedName": "Red_pickup4"
     },
     {
       "anchor": {
-        "x": 5.91008382016764,
-        "y": 6.371533470339668
-      },
-      "prevControl": {
-        "x": 6.951609369505661,
-        "y": 6.25921208756792
-      },
-      "nextControl": {
-        "x": 4.958551735285289,
-        "y": 6.474149675572079
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 3.605883575403514,
+        "x": 12.897512424596485,
         "y": 6.017041124991342
       },
       "prevControl": {
-        "x": 4.2122520608677565,
-        "y": 6.287574756967698
+        "x": 11.880679118202586,
+        "y": 6.352875978479231
       },
       "nextControl": null,
-      "isLocked": false,
-      "linkedName": "longshot"
+      "isLocked": true,
+      "linkedName": "Red_longshot"
     }
   ],
   "rotationTargets": [],
@@ -49,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShotA"
+                "name": "SetWristLongShot"
               }
             }
           ]
@@ -66,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.9,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
         "data": {
@@ -90,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.240519915187146,
+    "rotation": 170.04937331204852,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_1_Speaker_6",
+  "folder": "Red_1_Speaker_6",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
