@@ -51,10 +51,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             feederMotor.setIdleMode(IdleMode.kBrake);
             m_forwardLimit = feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen);
             m_reverseLimit = feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed);
-           enableReverseLimitSwitch();
+            enableReverseLimitSwitch();
             enableLimitSwitch();
-
-
         }
     }
 

@@ -56,6 +56,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     public void moveElevator(double position) {
         if(!enabled) return;
         desiredPosition = position;
+        m_orchestra.play();
     }
 
     // Initialize Motors
@@ -89,9 +90,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         FeedbackConfigs fdb = cfg.Feedback;
         fdb.SensorToMechanismRatio = 1;
 
-
-      //  m_orchestra.addInstrument(elevatorMotor1);
-       // m_orchestra.loadMusic("lowrider.chrp");
+        m_orchestra.addInstrument(elevatorMotor1);
+        m_orchestra.loadMusic("lowrider.chrp");
         // Apply the configs for Motor 1
         cfg.MotorOutput.Inverted = ElevatorConstants.elevatorDirection;
         StatusCode status = StatusCode.StatusCodeNotInitialized;
@@ -158,8 +158,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         if(!enabled) return;
         m_intakeSubsystem.shootAmp(-1.0);
         sendWristHomeWhenElevatorDown = true;
-        ampTimeStarted = Timer.getFPGATimestamp();
-       
+        ampTimeStarted = Timer.getFPGATimestamp();       
     }
 
     public boolean isAtPosition(double elevatorTrapPosition) {

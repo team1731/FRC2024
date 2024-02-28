@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -155,6 +156,7 @@ public class ClimbStateMachine {
 
     public boolean getOffTheLedge(){
         m_wristSubsystem.retractTrapFlap();
+        m_wristSubsystem.moveWristSlow(WristConstants.wristAmpReversePosition, WristConstants.MMVelSlow);
         m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
         m_intakeSubsystem.stoptrapFeed();
         return true;
