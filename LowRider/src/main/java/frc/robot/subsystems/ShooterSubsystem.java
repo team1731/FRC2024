@@ -84,6 +84,13 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
             m_fx.setControl(m_voltageVelocity.withVelocity(5000.0/60));
     }
 
+    public void reverseSlow() {
+
+            m_fx.setControl(m_voltageVelocity.withVelocity(-500.0/60));
+    }
+
+
+
     /*
 
     public void eject() {

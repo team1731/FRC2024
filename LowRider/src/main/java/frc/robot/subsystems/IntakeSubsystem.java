@@ -21,6 +21,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     private SparkLimitSwitch m_reverseLimit;
     private boolean isIntaking = false;
     private boolean noteIsRetrieved = false;
+    private boolean isJiggling = false;
    
     
     private boolean enabled;
@@ -142,12 +143,17 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void periodic() {
 
  
-        if (isIntaking &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
+        if (((isIntaking)||(isJiggling)) &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
             reverseIntakeSlow();
+        } else if ((isJiggling) && (feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed())) {
+            enableLimitSwitch();
+          
         }
+
   
     }
+
 
     private void disableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(false);
@@ -200,6 +206,17 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void shootAmpStop() {
         enableLimitSwitch();
         stopFeed();
+    }
+
+    public void intakeJiggle() {
+       disableLimitSwitch();
+       intake(0.25);
+       isJiggling = true;
+    }
+
+    public void stopJiggle() {
+     isJiggling = false;
+     enableLimitSwitch();
     }
 
 
