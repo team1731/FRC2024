@@ -172,15 +172,16 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                                                               estPose.getX(), // x2
                                                                               estPose.getY()); // y2
 
-                            // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
+                            System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
 
                             // conditional to check if the difference distance is within a radius of 1 from the actual distance
                             if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
                                 driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(),
                                                                     est.timestampSeconds, 
                                                                     estStdDevs);
-                            } else {
-                                System.out.println("Distance isn't close enough || current difference in distance: " + distanceDifference + "!!!");
+                                System.out.println("Current difference in distance: " + distanceDifference + "!!!");
+                            // } else {
+                            //     System.out.println("Distance isn't close enough || current difference in distance: " + distanceDifference + "!!!");
                             }
                         });
             }
