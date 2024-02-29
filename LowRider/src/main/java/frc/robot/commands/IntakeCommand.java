@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -21,6 +22,9 @@ public class IntakeCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
     private final WristSubsystem m_wristSubsystem;
+	private final ShooterSubsystem m_shooterSubsystem;
+	private boolean intakeJiggleStarted = false;
+
 
 
 
@@ -31,14 +35,15 @@ public class IntakeCommand extends Command {
 	 * @param seqSubsystem        
 	 *  
 	 */
-	public IntakeCommand(IntakeSubsystem intakeSubsystem, WristSubsystem wristSubsystem) {
+	public IntakeCommand(IntakeSubsystem intakeSubsystem, WristSubsystem wristSubsystem, ShooterSubsystem shooterSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
 		m_wristSubsystem = wristSubsystem;
+		m_shooterSubsystem = shooterSubsystem;
 		
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		if (intakeSubsystem != null && wristSubsystem != null) {
-			addRequirements(intakeSubsystem, wristSubsystem);
+			addRequirements(intakeSubsystem, wristSubsystem, shooterSubsystem);
 		}
 	}
 
@@ -49,27 +54,43 @@ public class IntakeCommand extends Command {
 		m_wristSubsystem.retractTrapFlap();
 		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
 		m_intakeSubsystem.intake(1.0);
+		m_intakeSubsystem.initializeJiggle();
+		m_shooterSubsystem.reverseSlow();
+		intakeJiggleStarted = false;
+
+
+
+
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		//	m_intakeSubsystem.intake(1.0);	
+		if (!intakeJiggleStarted && m_intakeSubsystem.hasNote() && m_shooterSubsystem.getShooterVelocity() < 0) {
+			System.out.println("has the note and shooter reversed");
+			intakeJiggleStarted = true; 
+			m_intakeSubsystem.feedUpJiggle();
+
+		}
 	    
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		System.out.println("end of intake called");
         m_intakeSubsystem.stopIntake();
 		m_wristSubsystem.moveWrist(WristConstants.wristHomePosition);
+		m_shooterSubsystem.resumeShooting();
+		m_intakeSubsystem.stopJiggle();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		//return m_intakeSubsystem.noteRetrieved();
-		return false;
+		return m_intakeSubsystem.doneJiggling();
+	
 	}
 
 }

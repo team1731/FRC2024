@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -21,6 +22,9 @@ public class JiggleCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_shooterSubsystem;
+	private boolean jiggleStarted;
+    private boolean allDone= false;
+
 
 
 
@@ -47,10 +51,9 @@ public class JiggleCommand extends Command {
 	@Override
 	public void initialize() {
 
-
-		m_intakeSubsystem.intakeJiggle();
-		m_shooterSubsystem.reverseSlow();
-		
+	    m_shooterSubsystem.reverseSlow();
+		jiggleStarted = false;
+		m_intakeSubsystem.initializeJiggle();
 
 
 
@@ -60,21 +63,27 @@ public class JiggleCommand extends Command {
 	@Override
 	public void execute() {
 		//	m_intakeSubsystem.intake(1.0);	
-	    
+	    if (!jiggleStarted && m_shooterSubsystem.getShooterVelocity() < 0) {
+			m_intakeSubsystem.feedUpJiggle();
+			jiggleStarted = true;
+			System.out.println("Done waiting for shooter");
+			
+		}
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-        m_shooterSubsystem.shoot();
+        m_shooterSubsystem.resumeShooting();
 		m_intakeSubsystem.stopJiggle();
+		System.out.println("end of Jiggle command called");
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		//return m_intakeSubsystem.noteRetrieved();
-		return false;
+		return m_intakeSubsystem.doneJiggling();
+	
 	}
 
 }
