@@ -248,7 +248,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
  
     public boolean doneJiggling() {
-        System.out.println("entering done Jiggling Sequence Complete " + sequenceComplete);
+       // System.out.println("entering done Jiggling Sequence Complete " + sequenceComplete);
         return sequenceComplete;
        
     }
