@@ -13,17 +13,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.WristSubsystem;
+
 
 /**
  * Command to fire into the speaker
  */
-public class IntakeCommand extends Command {
+public class JiggleCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
-    private final WristSubsystem m_wristSubsystem;
-	private final ShooterSubsystem m_shooterSubsystem;
-	private boolean intakeJiggleStarted = false;
+    private final ShooterSubsystem m_shooterSubsystem;
+	private boolean jiggleStarted;
+    private boolean allDone= false;
 
 
 
@@ -35,15 +35,14 @@ public class IntakeCommand extends Command {
 	 * @param seqSubsystem        
 	 *  
 	 */
-	public IntakeCommand(IntakeSubsystem intakeSubsystem, WristSubsystem wristSubsystem, ShooterSubsystem shooterSubsystem) {
+	public JiggleCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
-		m_wristSubsystem = wristSubsystem;
 		m_shooterSubsystem = shooterSubsystem;
 		
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && wristSubsystem != null) {
-			addRequirements(intakeSubsystem, wristSubsystem, shooterSubsystem);
+		if (intakeSubsystem != null && shooterSubsystem != null) {
+			addRequirements(intakeSubsystem, shooterSubsystem);
 		}
 	}
 
@@ -51,13 +50,10 @@ public class IntakeCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		m_wristSubsystem.retractTrapFlap();
-		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
-		m_intakeSubsystem.intake(1.0);
-		m_intakeSubsystem.initializeJiggle();
-		m_shooterSubsystem.reverseSlow();
-		intakeJiggleStarted = false;
 
+	    m_shooterSubsystem.reverseSlow();
+		jiggleStarted = false;
+		m_intakeSubsystem.initializeJiggle();
 
 
 
@@ -67,23 +63,20 @@ public class IntakeCommand extends Command {
 	@Override
 	public void execute() {
 		//	m_intakeSubsystem.intake(1.0);	
-		if (!intakeJiggleStarted && m_intakeSubsystem.hasNote() && m_shooterSubsystem.getShooterVelocity() < 0) {
-			System.out.println("has the note and shooter reversed");
-			intakeJiggleStarted = true; 
+	    if (!jiggleStarted && m_shooterSubsystem.getShooterVelocity() < 0) {
 			m_intakeSubsystem.feedUpJiggle();
-
+			jiggleStarted = true;
+			System.out.println("Done waiting for shooter");
+			
 		}
-	    
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		System.out.println("end of intake called");
-        m_intakeSubsystem.stopIntake();
-		m_wristSubsystem.moveWrist(WristConstants.wristHomePosition);
-		m_shooterSubsystem.resumeShooting();
+        m_shooterSubsystem.resumeShooting();
 		m_intakeSubsystem.stopJiggle();
+		System.out.println("end of Jiggle command called");
 	}
 
 	// Returns true when the command should end.

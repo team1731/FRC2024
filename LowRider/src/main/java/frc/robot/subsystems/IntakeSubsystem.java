@@ -16,11 +16,17 @@ import frc.robot.Constants.IntakeConstants;
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
     private CANSparkMax intakeMotor;
     private CANSparkMax feederMotor;
-    private boolean noteStopEnabled = true;
+
     private SparkLimitSwitch m_forwardLimit;
     private SparkLimitSwitch m_reverseLimit;
     private boolean isIntaking = false;
     private boolean noteIsRetrieved = false;
+    private boolean isJigglingFeedingUp = false;
+    private double goingUpTimer = 0;
+    private double doneJigglingTimer = 0;
+    private boolean finishedGoingUp = false;
+    private boolean backingUpComplete = false;
+    private boolean sequenceComplete = false;
    
     
     private boolean enabled;
@@ -66,6 +72,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             intakeMotor.set(intakeSpeed);
             feederMotor.set(intakeSpeed);
             isIntaking = true;
+             isJigglingFeedingUp = false;
             noteIsRetrieved = false;
             //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
         }
@@ -87,9 +94,9 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
        
    // used only to back up note
     public void reverseIntakeSlow() {
-        double intakeSpeed = -1 * IntakeConstants.intakeSpeed;
+        double intakeSpeed = -.25 * IntakeConstants.intakeSpeed;
         System.out.println("IntakeSubsystem: reverse speed = " + intakeSpeed);
-        intake(intakeSpeed);
+        intakeMotor.set(intakeSpeed);
         feed(-0.2);
     }    
  
@@ -142,12 +149,35 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void periodic() {
 
  
-        if (isIntaking &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
+        if (((isIntaking)&&(!isJigglingFeedingUp)) &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
             reverseIntakeSlow();
+            isIntaking = false;
+            System.out.println("note is here and reversing intake");
+            
+        } else if ((isJigglingFeedingUp) && goingUpTimer != 0 && Timer.getFPGATimestamp() - goingUpTimer > .1) {
+
+             System.out.println("Backing Up");
+             enableLimitSwitch();
+             reverseIntakeSlow();
+             doneJigglingTimer = Timer.getFPGATimestamp();
+             isJigglingFeedingUp = false;
+             backingUpComplete = true;  // just need to wait for note to come back down which is done below
+          
         }
+
+        if (doneJigglingTimer != 0 && backingUpComplete  && (Timer.getFPGATimestamp()- doneJigglingTimer) > 0.2) {
+            sequenceComplete = true;
+            doneJigglingTimer = 0;
+
+        }
+
+
+
+
   
     }
+
 
     private void disableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(false);
@@ -200,6 +230,35 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void shootAmpStop() {
         enableLimitSwitch();
         stopFeed();
+    }
+
+    public void feedUpJiggle() {
+       System.out.println("Starting Jiggle Feed Up");
+       disableLimitSwitch();
+       feed(1.0);
+       isJigglingFeedingUp = true;
+       goingUpTimer = Timer.getFPGATimestamp();
+    }
+
+    public void stopJiggle() {
+    System.out.println("Stopping Jiggle");
+    stopIntake();
+    sequenceComplete = false;
+     enableLimitSwitch();
+    }
+ 
+    public boolean doneJiggling() {
+        System.out.println("entering done Jiggling Sequence Complete " + sequenceComplete);
+        return sequenceComplete;
+       
+    }
+
+    public void initializeJiggle() {
+      sequenceComplete = false;
+    }
+
+    public boolean hasNote() {
+        return noteIsRetrieved;
     }
 
 
