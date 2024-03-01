@@ -82,7 +82,10 @@ public class IntakeCommand extends Command {
 		System.out.println("end of intake called");
         m_intakeSubsystem.stopIntake();
 		m_wristSubsystem.moveWrist(WristConstants.wristHomePosition);
-		m_shooterSubsystem.resumeShooting();
+		if (m_intakeSubsystem.noteIsPresent()) {
+			m_shooterSubsystem.shoot();
+		}
+
 		m_intakeSubsystem.stopJiggle();
 	}
 

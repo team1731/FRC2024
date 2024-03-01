@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -19,6 +20,7 @@ public class FireNoteSpeakerCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_ShooterSubsystem;
+	private double shotStarted;
 
 
 
@@ -46,6 +48,7 @@ public class FireNoteSpeakerCommand extends Command {
 		
 		m_ShooterSubsystem.shoot();
 		m_intakeSubsystem.fireNote();
+		shotStarted = Timer.getFPGATimestamp();
 		
 		
 		// turn on the shooter if it is not already on
@@ -59,7 +62,9 @@ public class FireNoteSpeakerCommand extends Command {
 		// optionally take over steering
 		// if the elevator and wrist are in range and the shooter is up to speed, run the feeder motor
 	   
-
+          if (Timer.getFPGATimestamp() - shotStarted > .2) {
+			m_ShooterSubsystem.stopShooting();
+		  }
 
 
 	}
@@ -67,7 +72,7 @@ public class FireNoteSpeakerCommand extends Command {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-
+		m_ShooterSubsystem.stopShooting();
 		m_intakeSubsystem.stopFireNote();
 	}
 

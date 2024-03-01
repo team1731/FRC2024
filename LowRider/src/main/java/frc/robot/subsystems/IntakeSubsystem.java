@@ -195,10 +195,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         m_reverseLimit.enableLimitSwitch(true);
     }
 
-   // public boolean noteIsNotPresent() {
+    public boolean noteIsPresent() {
 
-    //   return (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
-   // }
+       return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
+    }
 
     public boolean noteRetrieved() {
     
@@ -248,7 +248,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
  
     public boolean doneJiggling() {
-        System.out.println("entering done Jiggling Sequence Complete " + sequenceComplete);
+       // System.out.println("entering done Jiggling Sequence Complete " + sequenceComplete);
         return sequenceComplete;
        
     }
