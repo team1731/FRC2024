@@ -12,6 +12,9 @@ import java.util.Scanner;
 
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -307,6 +310,7 @@ public class Robot extends TimedRobot {
 	else {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
 		//	m_robotContainer.zeroHeading();
+
 			ledSubsystem.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
 			m_autonomousCommand.schedule();
 		}
@@ -332,6 +336,12 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopInit() {	
+
+	intakeSubsystem.stopIntake();
+	intakeSubsystem.stopJiggle();
+	intakeSubsystem.stopFireNote();
+	//driveSubsystem.seedFieldRelative(new Pose2d(new Translation2d(0,0), new Rotation2d(120)));
+	
 	// Record both DS control and joystick data in TELEOP
 	MessageLog.getLogger();
 	System.out.println("TELEOP INIT");

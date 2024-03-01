@@ -63,7 +63,7 @@ public class JiggleCommand extends Command {
 	@Override
 	public void execute() {
 		//	m_intakeSubsystem.intake(1.0);	
-	    if (!jiggleStarted && m_shooterSubsystem.getShooterVelocity() < 0) {
+	    if (!jiggleStarted && m_shooterSubsystem.getShooterVelocity() < -50/60) {
 			m_intakeSubsystem.feedUpJiggle();
 			jiggleStarted = true;
 			System.out.println("Done waiting for shooter");
