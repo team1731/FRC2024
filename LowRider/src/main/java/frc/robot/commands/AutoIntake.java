@@ -48,7 +48,7 @@ public class AutoIntake extends Command {
 		
 		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
 		m_intakeSubsystem.intake(1.0);
-		
+				
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
