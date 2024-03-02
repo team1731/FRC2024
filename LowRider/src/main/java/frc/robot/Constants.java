@@ -30,6 +30,8 @@ public final class Constants {
     public static final double stickDeadband = 0.1;
 	public static final int kTICKS = 33024; // 16.125 * 2048;
     public static final String CANBUS_NAME = "canivore1";
+    public static final double SpeakerHeight = 2.05;//in meters
+    public static final double RobotHeight = 0.62;
 
     public static enum GamePiece {
         CONE, CUBE
@@ -410,6 +412,7 @@ public final class Constants {
         public final static double wristAmpReversePosition = 40;
         public final static double wristTrapPosition = 59;
         public static final double IntakePosition = 0;
+        public static final double wristHomeAngle = Math.toRadians(51.36);
     }
 
     public static final class ShooterConstants{

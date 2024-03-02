@@ -14,6 +14,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.util.LinearServo;
 
@@ -124,6 +125,8 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         if(!enabled) return;
         SmartDashboard.putNumber("Wrist motor 1 position", wristMotor1.getRotorPosition().getValueAsDouble());
         SmartDashboard.putNumber("Wrist motor 2 position", wristMotor2.getRotorPosition().getValueAsDouble());
+        wristMotor1.setPosition(calculateAngle());
+        wristMotor2.setPosition(calculateAngle());
     }
 
     public double getWristPosition() {
@@ -137,9 +140,15 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
       
        
     }
-
     public void retractTrapFlap() {
       trapFlapServo.setPosition(45);
       System.out.println("retracting");
+    }
+    public double distance;
+    public double height = Constants.SpeakerHeight - Constants.RobotHeight; //in meters
+    public double calculateAngle() {
+        double angle =  ((Math.atan(height/distance) - Constants.WristConstants.wristHomeAngle)/ (2 * Math.PI)) * 100;//includes gear ratio
+        double wristAngle = Math.abs(angle);
+        return wristAngle; 
     }
 }
