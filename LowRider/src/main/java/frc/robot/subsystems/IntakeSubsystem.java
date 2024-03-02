@@ -144,7 +144,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
-    
+
 
    
     
@@ -237,7 +237,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void feedUpJiggle() {
        System.out.println("Starting Jiggle Feed Up");
        disableLimitSwitch();
-       feed(1.0);
+       feed(0.5);
        isJigglingFeedingUp = true;
        goingUpTimer = Timer.getFPGATimestamp();
     }
