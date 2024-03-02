@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.121194508324288,
-        "y": 5.886438681968273
+        "x": 8.094028352636311,
+        "y": 6.035815434779349
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.763053792046534,
-        "y": 6.8659570046404745
+        "x": 9.735887636358557,
+        "y": 7.01533375745155
       },
       "isLocked": false,
       "linkedName": "Red_A4_Note5"
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 160.8663567940945,
+    "rotation": 175.2313450125309,
     "rotateFast": false
   },
   "reversed": false,

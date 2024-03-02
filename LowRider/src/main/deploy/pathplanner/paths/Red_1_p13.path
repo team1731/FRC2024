@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.111667859699356,
-        "y": 7.351051793012677
+        "x": 8.046366638187822,
+        "y": 7.397695522663773
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.964264150464722,
-        "y": 7.144929612827644
+        "x": 8.898962928953187,
+        "y": 7.1915733424787405
       },
       "isLocked": true,
       "linkedName": "Red_pickup4"
@@ -74,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 170.04937331204852,
+    "rotation": 174.29181276096165,
     "rotateFast": false
   },
   "reversed": false,
