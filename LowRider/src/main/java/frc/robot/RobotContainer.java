@@ -213,6 +213,8 @@ public class RobotContainer {
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     operatorkRightTrigger.onTrue(new JiggleCommand(intakeSubsystem, shooterSubsystem));
  
+    operatorkx.onTrue(new InstantCommand(() -> wristSubsystem.slowlyDown()))
+        .onFalse(new InstantCommand(() -> wristSubsystem.stop()));
 
     driveSubsystem.registerTelemetry(logger::telemeterize);
   }
