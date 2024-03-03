@@ -220,6 +220,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         enableLimitSwitch();
         stopFeed();
     }
+    
+     public void stopFireNoteAuto() {
+        enableLimitSwitch();
+    }
 
     public void shootAmp(double speed) {
         if (enabled) {
