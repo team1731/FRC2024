@@ -128,7 +128,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(shooterSubsystem) ));
       NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(shooterSubsystem) ));
       NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24)) ));
-      NamedCommands.registerCommand("SetWristNote1Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(25)) ));
+      NamedCommands.registerCommand("SetWristNote1Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24.5)) ));
       NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(19)) ));
       NamedCommands.registerCommand("SetWristNote2Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(21)) ));
       NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18.5)) ));
@@ -136,11 +136,11 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23)) ));
       NamedCommands.registerCommand("SetWristLongShotA", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(25)) ));
       NamedCommands.registerCommand("SetWristLongShotB", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24)) ));
-      NamedCommands.registerCommand("SetWristLongShotC", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(26)) ));
+      NamedCommands.registerCommand("SetWristLongShotC", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28)) ));
       NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(10)) ));
       NamedCommands.registerCommand("SetWristBlu7Long", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28)) ));
       NamedCommands.registerCommand("SetWristRed7Long", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(27)) ));
-      NamedCommands.registerCommand("SetWristRed1Shot6", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(27)) ));
+      NamedCommands.registerCommand("SetWristRed1Shot6", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28.5)) ));
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( intakeSubsystem, shooterSubsystem) ));
     }
 
