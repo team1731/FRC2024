@@ -5,7 +5,9 @@ import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.DynamicMotionMagicVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -20,12 +22,16 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     // motors for the Wrist
     private TalonFX wristMotor1;
     private TalonFX wristMotor2;
+
     private DynamicMotionMagicVoltage mmReq = new DynamicMotionMagicVoltage(
         0, 
         WristConstants.MMVel, 
         WristConstants.MMAcc, 
         WristConstants.MMJerk
+
+        
     );
+
     // private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
 
     private Servo trapFlapServo = new LinearServo(0, 50,20 );
@@ -146,5 +152,19 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     public void retractTrapFlap() {
       trapFlapServo.setPosition(45);
       System.out.println("retracting");
+    }
+
+   public void slowlyDown() {
+        wristMotor1.setControl(new DutyCycleOut(-.1));
+        wristMotor2.setControl(new DutyCycleOut(-.1));
+    }
+   public void stop() {
+        wristMotor1.setPosition(0);
+        wristMotor2.setPosition(0);
+        wristMotor1.setControl(new DutyCycleOut(0));
+        wristMotor2.setControl(new DutyCycleOut(0));
+        mmReq.withVelocity(WristConstants.MMVel);
+        wristMotor1.setControl(mmReq.withPosition(0));
+        wristMotor2.setControl(mmReq.withPosition(0));
     }
 }

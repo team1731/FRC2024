@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.242270302722423,
-        "y": 7.407024268593991
+        "x": 7.9530791788856305,
+        "y": 7.500311727896183
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.094866593487788,
-        "y": 7.2009020884089585
+        "x": 8.805675469650996,
+        "y": 7.2941895477111505
       },
       "isLocked": true,
       "linkedName": "Red_pickup4"
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShotA"
+                "name": "SetWristLongShotC"
               }
             }
           ]
@@ -74,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 170.04937331204852,
+    "rotation": 174.29181276096165,
     "rotateFast": false
   },
   "reversed": false,

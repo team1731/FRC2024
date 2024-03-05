@@ -144,6 +144,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
+
+
    
     
     public void periodic() {
@@ -166,7 +168,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
           
         }
 
-        if (doneJigglingTimer != 0 && backingUpComplete  && (Timer.getFPGATimestamp()- doneJigglingTimer) > 0.2) {
+        if (doneJigglingTimer != 0 && backingUpComplete  && (Timer.getFPGATimestamp()- doneJigglingTimer) > 0.4) {
             sequenceComplete = true;
             doneJigglingTimer = 0;
 
@@ -218,6 +220,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         enableLimitSwitch();
         stopFeed();
     }
+    
+     public void stopFireNoteAuto() {
+        enableLimitSwitch();
+    }
 
     public void shootAmp(double speed) {
         if (enabled) {
@@ -235,7 +241,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void feedUpJiggle() {
        System.out.println("Starting Jiggle Feed Up");
        disableLimitSwitch();
-       feed(1.0);
+       feed(0.5);
        isJigglingFeedingUp = true;
        goingUpTimer = Timer.getFPGATimestamp();
     }
