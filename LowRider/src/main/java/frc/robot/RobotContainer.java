@@ -209,6 +209,8 @@ public class RobotContainer {
     operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     operatorkRightTrigger.onTrue(new JiggleCommand(intakeSubsystem, shooterSubsystem));
+
+    operatorkLeftTrigger.whileTrue(new ShooterAsIntakeCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem, shooterSubsystem));
  
 
     driveSubsystem.registerTelemetry(logger::telemeterize);
