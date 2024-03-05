@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 15.770766171103977,
+        "y": 4.365853095342555
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 14.492727978663956,
+        "y": 3.3863347726695454
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.999722908536725,
+        "y": 0.5503960098829296
+      },
+      "prevControl": {
+        "x": 11.339413951555173,
+        "y": 1.1474357494169534
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_A7_note8"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.5
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 190.78429786756269,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 238.13402230639628,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

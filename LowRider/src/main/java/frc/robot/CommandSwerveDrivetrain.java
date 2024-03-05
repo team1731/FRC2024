@@ -1,8 +1,7 @@
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
-
-import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
@@ -12,23 +11,21 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
-
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ToggleableSubsystem;
-import frc.robot.TunerConstants;
+
+class FlipRedBlueSupplier implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        return RobotContainer.isFlipRedBlue();
+    }
+}
 
 /**
  * Class that extends the Phoenix SwerveDrivetrain class and implements subsystem
  * so it can be used in command-based projects easily.
  */
-
-
-
 public class CommandSwerveDrivetrain extends SwerveDrivetrain implements ToggleableSubsystem {
     // private static final double kSimLoopPeriod = 0.005; // 5 ms
     // private Notifier m_simNotifier = null;
@@ -50,17 +47,17 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner();
+        configurePathPlanner(true);
     }
     
     public CommandSwerveDrivetrain(boolean enabled, SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
         setEnabled(enabled);
         if(!enabled) return;
-        configurePathPlanner();
+        configurePathPlanner(true);
     }
 
-    private void configurePathPlanner() {
+    public void configurePathPlanner(boolean redBlueFlipping) {
         if(!enabled) return;
         double driveBaseRadius = 0;
         for (var moduleLocation : m_moduleLocations) {
@@ -79,10 +76,8 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
                                             new ReplanningConfig()),
-            ()->false, // Change this if the path needs to be flipped on red vs blue
+            new FlipRedBlueSupplier(), // ()->false, // Change this if the path needs to be flipped on red vs blue
             this); // Subsystem for requirements
-
-        System.out.println("Configured AutoBuilder!");
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
@@ -96,7 +91,30 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     }
 
     public ChassisSpeeds getCurrentRobotChassisSpeeds() {
-        if(!enabled) return new ChassisSpeeds();
+        if(!enabled || Robot.isSimulation()) return new ChassisSpeeds();
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
     }
+
+        /** Log various drivetrain values to the dashboard. */
+    public void log() {
+        // String table = "Drive/";
+        // Pose2d pose = this.getState().Pose;
+        // SmartDashboard.putNumber(table + "X", pose.getX());
+        // SmartDashboard.putNumber(table + "Y", pose.getY());
+        // SmartDashboard.putNumber(table + "Heading", pose.getRotation().getDegrees());
+        // ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
+        // SmartDashboard.putNumber(table + "VX", chassisSpeeds.vxMetersPerSecond);
+        // SmartDashboard.putNumber(table + "VY", chassisSpeeds.vyMetersPerSecond);
+        // SmartDashboard.putNumber(
+        //         table + "Omega Degrees", Math.toDegrees(chassisSpeeds.omegaRadiansPerSecond));
+        // SmartDashboard.putNumber(table + "Target VX", targetChassisSpeeds.vxMetersPerSecond);
+        // SmartDashboard.putNumber(table + "Target VY", targetChassisSpeeds.vyMetersPerSecond);
+        // SmartDashboard.putNumber(
+        //         table + "Target Omega Degrees", Math.toDegrees(targetChassisSpeeds.omegaRadiansPerSecond));
+
+        // for (SwerveModule module : swerveMods) {
+        //     module.log();
+        // }
+    }
+
 }

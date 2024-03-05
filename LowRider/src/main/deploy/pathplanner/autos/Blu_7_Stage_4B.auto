@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7326298288960215,
+      "y": 4.365853095342555
+    },
+    "rotation": -61.29404745659891
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu7_p1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu7_p2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu7_p3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu7_p4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu7_p5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu7_p6"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -1,28 +1,34 @@
 package frc.robot.subsystems;
 
-
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.StaticBrake;
+import com.ctre.phoenix6.controls.DynamicMotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
+import frc.robot.util.LinearServo;
 
 public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem {
 
     // motors for the Wrist
     private TalonFX wristMotor1;
     private TalonFX wristMotor2;
-    private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
-    // private MotionMagicVoltage mmReq2;
-    // private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
+    private DynamicMotionMagicVoltage mmReq = new DynamicMotionMagicVoltage(
+        0, 
+        WristConstants.MMVel, 
+        WristConstants.MMAcc, 
+        WristConstants.MMJerk
+    );
+    // private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
+
+    private Servo trapFlapServo = new LinearServo(0, 50,20 );
 
     private boolean enabled;
 
@@ -44,11 +50,19 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     public void moveWrist(double position) {
         if(!enabled) return;
-        wristMotor1.setControl(mmReq1.withPosition(position));
-        wristMotor2.setControl(mmReq1.withPosition(position));
-        System.out.println("MOving wrist to" + position);
+        mmReq.withVelocity(WristConstants.MMVel);
+        wristMotor1.setControl(mmReq.withPosition(position));
+        wristMotor2.setControl(mmReq.withPosition(position));
+        System.out.println("Moving wrist to" + position);
     }
 
+    public void moveWristSlow(double position, double velocity) {
+        if(!enabled) return;
+        mmReq.withVelocity(velocity);
+        wristMotor1.setControl(mmReq.withPosition(position));
+        wristMotor2.setControl(mmReq.withPosition(position));
+        System.out.println("Moving wrist slow to" + position);
+    }
 
     // Initialize Motors
     private void initializeWristMotors() {
@@ -65,17 +79,15 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         wristMotor2 = new TalonFX(WristConstants.wrist2CanId, "canivore1");
         wristMotor1.getConfigurator().apply(cfg);
         wristMotor2.getConfigurator().apply(cfg);
-        
+
         wristMotor1.setNeutralMode(NeutralModeValue.Brake);
         wristMotor2.setNeutralMode(NeutralModeValue.Brake);
 
         /* Configure current limits */
         MotionMagicConfigs mm = cfg.MotionMagic;
-        mm.MotionMagicCruiseVelocity = 70; // 5 rotations per second cruise
-        mm.MotionMagicAcceleration = 140; // Take approximately 0.5 seconds to reach max vel
-        // Take approximately 0.2 seconds to reach max accel 
-        mm.MotionMagicJerk = 0;
-        
+        mm.MotionMagicCruiseVelocity = WristConstants.MMVel; // 5 rotations per second cruise
+        mm.MotionMagicAcceleration = WristConstants.MMAcc;   // Take approximately 0.5 seconds to reach max vel 
+        mm.MotionMagicJerk = WristConstants.MMJerk;          // Take approximately 0.2 seconds to reach max accel
 
         Slot0Configs slot0 = cfg.Slot0;
         slot0.kP = 4.6875;
@@ -87,35 +99,34 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         FeedbackConfigs fdb = cfg.Feedback;
         fdb.SensorToMechanismRatio = 1;
 
-
-
-
         // Apply the configs for Motor 1
         cfg.MotorOutput.Inverted = WristConstants.wrist2Direction;
         StatusCode status = StatusCode.StatusCodeNotInitialized;
         for(int i = 0; i < 5; ++i) {
-        status = wristMotor1.getConfigurator().apply(cfg);
-        if (status.isOK()) break;
+            status = wristMotor1.getConfigurator().apply(cfg);
+            if (status.isOK()) break;
         }
+
         if (!status.isOK()) {
-        System.out.println("Could not configure device. Error: " + status.toString());
+            System.out.println("Could not configure device. Error: " + status.toString());
         }
 
         // Apply the configs for Motor 2
         cfg.MotorOutput.Inverted = WristConstants.wrist1Direction;
         status = StatusCode.StatusCodeNotInitialized;
         for(int i = 0; i < 5; ++i) {
-        status = wristMotor2.getConfigurator().apply(cfg);
-        if (status.isOK()) break;
+            status = wristMotor2.getConfigurator().apply(cfg);
+            if (status.isOK()) break;
         }
+
         if (!status.isOK()) {
-        System.out.println("Could not configure device. Error: " + status.toString());
+            System.out.println("Could not configure device. Error: " + status.toString());
         }
         
         wristMotor1.setPosition(0);
         wristMotor2.setPosition(0);
-
     }
+
     public void periodic() {
         if(!enabled) return;
         SmartDashboard.putNumber("Wrist motor 1 position", wristMotor1.getRotorPosition().getValueAsDouble());
@@ -125,5 +136,15 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     public double getWristPosition() {
         if(!enabled) return 0;
         return wristMotor1.getPosition().getValueAsDouble();
+    }
+
+    public void extendTrapFlap() {
+        trapFlapServo.setPosition(0);
+        System.out.println("extending");
+    }
+
+    public void retractTrapFlap() {
+      trapFlapServo.setPosition(45);
+      System.out.println("retracting");
     }
 }

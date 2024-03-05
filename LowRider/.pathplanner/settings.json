@@ -1,14 +1,26 @@
 {
-  "robotWidth": 0.9,
-  "robotLength": 0.9,
+  "robotWidth": 0.8128,
+  "robotLength": 0.8763,
   "holonomicMode": true,
   "pathFolders": [
-    "New Folder"
+    "Blu_1_Speaker_6",
+    "Blu_2_Speaker_4",
+    "Blu_3_Stage_4",
+    "Blu_4_Amp_4",
+    "Blu_5_JustDrive",
+    "Blu_6_Stage_4",
+    "Blu_7_Stage_4B",
+    "Red_1_Speaker_6",
+    "Red_2_Speaker_4",
+    "Red_3_Stage_4",
+    "Red_4_Amp_4",
+    "Red_5_JustDrive",
+    "Red_6_Stage_4"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 5.0,
+  "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
-  "maxModuleSpeed": 4.5
+  "maxModuleSpeed": 6.0
 }

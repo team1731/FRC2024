@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsystem {
@@ -33,6 +34,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     private boolean enabled;
     private boolean sendWristHomeWhenElevatorDown = false;
     private double ampTimeStarted;
+    private int TEST_ONLY_COUNTER_REMOVE_ME;
+    
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -53,6 +56,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     public void moveElevator(double position) {
         if(!enabled) return;
         desiredPosition = position;
+        m_orchestra.play();
     }
 
     // Initialize Motors
@@ -71,24 +75,23 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
         /* Configure current limits */
         MotionMagicConfigs mm = cfg.MotionMagic;
-        mm.MotionMagicCruiseVelocity = 66; // 5 rotations per second cruise
-        mm.MotionMagicAcceleration = 200; // Ta200ke approximately 0.5 seconds to reach max vel
+        mm.MotionMagicCruiseVelocity = 70; // 5 rotations per second cruise
+        mm.MotionMagicAcceleration = 250; // Ta200ke approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
         mm.MotionMagicJerk = 0;
 
         Slot0Configs slot0 = cfg.Slot0;
-        slot0.kP = 4.6875;
+        slot0.kP = 4.9;
         slot0.kI = 0;
         slot0.kD = 0.0078125;
         slot0.kV = 0.009375;
-        slot0.kS = 0.01953125; // Approximately 0.25V to get the mechanism moving
+        slot0.kS = 0.02; // Approximately 0.25V to get the mechanism moving
 
         FeedbackConfigs fdb = cfg.Feedback;
         fdb.SensorToMechanismRatio = 1;
 
-
-      //  m_orchestra.addInstrument(elevatorMotor1);
-       // m_orchestra.loadMusic("lowrider.chrp");
+        m_orchestra.addInstrument(elevatorMotor1);
+        m_orchestra.loadMusic("lowrider.chrp");
         // Apply the configs for Motor 1
         cfg.MotorOutput.Inverted = ElevatorConstants.elevatorDirection;
         StatusCode status = StatusCode.StatusCodeNotInitialized;
@@ -132,7 +135,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
             
         }
         if (ampTimeStarted != 0 && (Timer.getFPGATimestamp() - ampTimeStarted > 0.3)) {
-            m_intakeSubsystem.stopFeed();
+            m_intakeSubsystem.shootAmpStop();
             ampTimeStarted = 0; 
             moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
 
@@ -153,9 +156,16 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     public void moveElevatorAndWristHome() {
         if(!enabled) return;
-        m_intakeSubsystem.reverseFeed();
+        m_intakeSubsystem.shootAmp(-1.0);
         sendWristHomeWhenElevatorDown = true;
-        ampTimeStarted = Timer.getFPGATimestamp();
-       
+        ampTimeStarted = Timer.getFPGATimestamp();       
+    }
+
+    public boolean isAtPosition(double elevatorTrapPosition) {
+        if(Robot.isSimulation()){
+            if(TEST_ONLY_COUNTER_REMOVE_ME++ > 3) return true;
+        }
+        double tolerance = 2;
+        return Math.abs(getElevatorPosition() - elevatorTrapPosition) < tolerance;
     }
 }

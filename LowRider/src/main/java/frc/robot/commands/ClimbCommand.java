@@ -31,7 +31,6 @@ public class ClimbCommand extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * @param PoseEstimatorSubsystem 
 	 */
 	public ClimbCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem,  ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
@@ -52,6 +51,8 @@ public class ClimbCommand extends Command {
 	public void initialize() {
         m_wristSubsystem.moveWrist(Constants.WristConstants.wristTrapPosition);
 		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorTrapPosition);
+		m_wristSubsystem.extendTrapFlap();
+		m_shooterSubsystem.stopShooting();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.7121481515690302,
+        "y": 5.475973861038631
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.548086914355647,
+        "y": 5.410672639527097
+      },
+      "isLocked": false,
+      "linkedName": "lineshot"
+    },
+    {
+      "anchor": {
+        "x": 8.344886507954833,
+        "y": 4.020689495924446
+      },
+      "prevControl": {
+        "x": 4.8652642759830975,
+        "y": 3.7874708476689682
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "PickupMiddleCenter"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_2_Speaker_4",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

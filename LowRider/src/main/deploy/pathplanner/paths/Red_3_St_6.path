@@ -1,0 +1,64 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.85046297365322,
+        "y": 1.0821345279054206
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.257081520955044,
+        "y": 1.5485718244163769
+      },
+      "isLocked": false,
+      "linkedName": "Red_A4_Note8"
+    },
+    {
+      "anchor": {
+        "x": 14.660447502713186,
+        "y": 5.074837786039208
+      },
+      "prevControl": {
+        "x": 14.782912554138175,
+        "y": 3.1174084925394117
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_StageSideShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -128.65980825409,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_3_Stage_4",
+  "previewStartingState": {
+    "rotation": 185.94686305397352,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

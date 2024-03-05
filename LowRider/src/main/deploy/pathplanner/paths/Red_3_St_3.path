@@ -1,0 +1,98 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 13.858373255409056,
+        "y": 4.244579398249706
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 14.287495568199136,
+        "y": 3.7128408802272155
+      },
+      "isLocked": false,
+      "linkedName": "Red_pickup3"
+    },
+    {
+      "anchor": {
+        "x": 10.845188319948274,
+        "y": 1.7817904726718545
+      },
+      "prevControl": {
+        "x": 13.1493885647124,
+        "y": 1.7444754889509784
+      },
+      "nextControl": {
+        "x": 9.789157828601605,
+        "y": 1.7988921810337437
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.20515322169626,
+        "y": 2.4161451959267564
+      },
+      "prevControl": {
+        "x": 8.448733936130417,
+        "y": 2.3970836123490433
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_3_Stage_4",
+  "previewStartingState": {
+    "rotation": 205.46334506187156,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

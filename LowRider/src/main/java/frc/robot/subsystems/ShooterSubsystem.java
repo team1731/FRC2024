@@ -24,6 +24,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private final NeutralOut m_brake = new NeutralOut();
     private boolean enabled;
+    private boolean isShooting = false;
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -68,7 +69,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
             if (Robot.doSD()) { 
                 System.out.println("ShooterSubsystem: m1speed, m2speed = " + ShooterConstants.kMotorSpeed1 + ", " + ShooterConstants.kMotorSpeed2); 
             }
-
+            isShooting = true;
             m_fx.setControl(m_voltageVelocity.withVelocity(5000.0/60));
 		}  
 
@@ -76,9 +77,40 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
 
     public void stopShooting() {
         if (enabled){
+            isShooting = false;
             m_fx.setControl(m_brake);
         }
     }
+
+    public void resumeShooting() {
+        if (isShooting) {
+            shoot();
+        } else {
+            stopShooting();
+        }
+    }
+
+    public void pauseShooting() {
+        if (enabled){
+            m_fx.setControl(m_brake);
+        }
+    }
+
+    public void shootAmp() {
+            m_fx.setControl(m_voltageVelocity.withVelocity(5000.0/60));
+    }
+
+    public void reverseSlow() {
+
+            m_fx.setControl(m_voltageVelocity.withVelocity(-100.0/60));
+    }
+
+    public double getShooterVelocity() {
+        return m_fx.getVelocity().getValueAsDouble();
+    }
+
+
+
 
     /*
 

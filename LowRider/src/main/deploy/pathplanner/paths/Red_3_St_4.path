@@ -1,0 +1,64 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.223810713556698,
+        "y": 2.4441314337174136
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.964439928879857,
+        "y": 0.5503960098829296
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 14.660447502713186,
+        "y": 5.074837786039208
+      },
+      "prevControl": {
+        "x": 14.763063707945596,
+        "y": 3.4329785023206414
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_StageSideShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -143.74616226255515,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_3_Stage_4",
+  "previewStartingState": {
+    "rotation": 160.0168934781001,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

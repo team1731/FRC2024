@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.708499780635925,
+        "y": 2.994527443600342
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.667536425981942,
+        "y": 0.9515320848823525
+      },
+      "isLocked": false,
+      "linkedName": "A7_shoot1"
+    },
+    {
+      "anchor": {
+        "x": 8.438173967257026,
+        "y": 4.151291938947515
+      },
+      "prevControl": {
+        "x": 7.421340660863139,
+        "y": 1.9217216616251425
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "A7_note6"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 53.130102354156044,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_7_Stage_4B",
+  "previewStartingState": {
+    "rotation": -38.659808254090116,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

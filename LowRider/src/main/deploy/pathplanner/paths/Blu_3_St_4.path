@@ -1,0 +1,64 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.2795852864433,
+        "y": 2.4441314337174136
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.165608331216663,
+        "y": 0.8862308633708179
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.4975869951739902,
+        "y": 4.4777980465051845
+      },
+      "prevControl": {
+        "x": 2.103955480638234,
+        "y": 3.078486156972315
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "StageSideShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -45.00000000000005,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_3_Stage_4",
+  "previewStartingState": {
+    "rotation": 19.98310652189991,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

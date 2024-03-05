@@ -11,7 +11,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 /**
@@ -22,7 +21,6 @@ public class AutoFireNote extends Command {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_ShooterSubsystem;
 	private double shooterTimeStarted;
-	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
 
 
 
@@ -36,22 +34,20 @@ public class AutoFireNote extends Command {
 	public AutoFireNote(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
 		m_ShooterSubsystem = shooterSubsystem;
-		//m_poseEstimatorSubsystem = poseEstimatorSubsystem;
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && shooterSubsystem != null ) {
-			addRequirements(intakeSubsystem, shooterSubsystem);
-		}
+		//if (intakeSubsystem != null && shooterSubsystem != null ) {
+		//	addRequirements(intakeSubsystem, shooterSubsystem);
+		//}
 	}
 
 	// Called when the command is initially scheduled.
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-		
-        m_intakeSubsystem.disableLimitSwitch();
+		m_intakeSubsystem.fireNote();
 		shooterTimeStarted = Timer.getFPGATimestamp();
-		m_intakeSubsystem.feed();
+
 		
 		// turn on the shooter if it is not already on
 	}
@@ -72,14 +68,15 @@ public class AutoFireNote extends Command {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_intakeSubsystem.enableLimitSwitch();
-        m_intakeSubsystem.stopFeed();
+		//m_intakeSubsystem.enableLimitSwitch();
+        
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return (Timer.getFPGATimestamp() - shooterTimeStarted >1.0);
+		return (Timer.getFPGATimestamp() - shooterTimeStarted >.1
+		);
 	}
 
 }

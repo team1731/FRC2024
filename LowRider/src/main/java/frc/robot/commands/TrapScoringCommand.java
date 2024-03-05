@@ -13,7 +13,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
@@ -34,7 +33,6 @@ public class TrapScoringCommand extends Command {
 	 *
 	 * @param IntakeSubsystem     
 	 * @param seqSubsystem        
-	 * @param PoseEstimatorSubsystem 
 	 * @param ElevatorSubsystem
 	 * @param WristSubsystem 
 	 */
@@ -56,11 +54,14 @@ public class TrapScoringCommand extends Command {
 	public void initialize() {
 		m_wristSubsystem.moveWrist(Constants.WristConstants.wristTrapPosition);
 		m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorTrapPosition);
+		m_wristSubsystem.extendTrapFlap();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+
+		//if (m_elevatorSubsystem.isAtPosition(Constants.ElevatorConstants.elevatorTrapPosition))
 
 	
 	}

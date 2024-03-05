@@ -8,9 +8,9 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 /**
@@ -20,7 +20,7 @@ public class FireNoteSpeakerCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_ShooterSubsystem;
-	//private final PoseEstimatorSubsystem m_poseEstimatorSubsystem;
+	private double shotStarted;
 
 
 
@@ -34,7 +34,6 @@ public class FireNoteSpeakerCommand extends Command {
 	public FireNoteSpeakerCommand(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
 		m_intakeSubsystem = intakeSubsystem;
 		m_ShooterSubsystem = shooterSubsystem;
-		//m_poseEstimatorSubsystem = poseEstimatorSubsystem;
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		if (intakeSubsystem != null && shooterSubsystem != null ) {
@@ -47,7 +46,10 @@ public class FireNoteSpeakerCommand extends Command {
 	@Override
 	public void initialize() {
 		
-        m_intakeSubsystem.disableLimitSwitch();
+		m_ShooterSubsystem.shoot();
+		m_intakeSubsystem.fireNote();
+		shotStarted = Timer.getFPGATimestamp();
+		
 		
 		// turn on the shooter if it is not already on
 	}
@@ -59,8 +61,10 @@ public class FireNoteSpeakerCommand extends Command {
         // if we have a good field position, set the elevator and wrist angles based on the distance to the goal
 		// optionally take over steering
 		// if the elevator and wrist are in range and the shooter is up to speed, run the feeder motor
-	    m_intakeSubsystem.feed();
-
+	   
+          if (Timer.getFPGATimestamp() - shotStarted > .2) {
+			m_ShooterSubsystem.stopShooting();
+		  }
 
 
 	}
@@ -68,8 +72,8 @@ public class FireNoteSpeakerCommand extends Command {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_intakeSubsystem.enableLimitSwitch();
-        m_intakeSubsystem.stopFeed();
+		m_ShooterSubsystem.stopShooting();
+		m_intakeSubsystem.stopFireNote();
 	}
 
 	// Returns true when the command should end.

@@ -6,12 +6,15 @@ package frc.robot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -42,19 +45,17 @@ public class Robot extends TimedRobot {
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
   private CommandSwerveDrivetrain driveSubsystem;
-  private PoseEstimatorSubsystem s_poseEstimatorSubsystem;
+  private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
-  private IntakeSubsystem intake_subsystem;
+  private IntakeSubsystem intakeSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
-
-  private boolean enabled = true;
 
   public Robot() {
   }
 
   // SUBSYSTEM DECLARATION
-  private LEDStringSubsystem m_ledstring;
+  private LEDStringSubsystem ledSubsystem;
   private boolean ledBlinking;
 
   // NOTE: FOR TESTING PURPOSES ONLY!
@@ -89,27 +90,29 @@ public class Robot extends TimedRobot {
 
 
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
-	s_poseEstimatorSubsystem = new PoseEstimatorSubsystem(false);
-	m_ledstring = new LEDStringSubsystem(false);
-	intake_subsystem = new IntakeSubsystem(false);
-	wristSubsystem = new WristSubsystem(false);
-	elevatorSubsystem = new ElevatorSubsystem(false, wristSubsystem, intake_subsystem);
-	shooterSubsystem = new ShooterSubsystem(false);
+
+	ledSubsystem = new LEDStringSubsystem(false);
+	intakeSubsystem = new IntakeSubsystem(true);
+	wristSubsystem = new WristSubsystem(true);
+	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
+	shooterSubsystem = new ShooterSubsystem(true);
+	visionSubsystem = new VisionSubsystem(false, driveSubsystem);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, s_poseEstimatorSubsystem, intake_subsystem,  wristSubsystem, m_ledstring, elevatorSubsystem);
+	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, visionSubsystem, intakeSubsystem,  wristSubsystem, ledSubsystem, elevatorSubsystem);
 
-
+    wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
-
 	initSubsystems();
 
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
+	
 		autoChooser.addOption(autoMode, autoMode);
 		System.out.println("Added autoMode '" + autoMode + "' to autoChooser.");
 	}
+	autoChooser.setDefaultOption(Constants.AutoConstants.kAutoDefault, Constants.AutoConstants.kAutoDefault);
     SmartDashboard.putData(AutoConstants.kAutoCodeKey, autoChooser);
 	SmartDashboard.putString("Build Info - Branch", "N/A");
 	SmartDashboard.putString("Build Info - Commit Hash", "N/A");
@@ -139,12 +142,12 @@ public class Robot extends TimedRobot {
 		System.err.println("DeployedBranchInfo.txt not found");
 		fnf.printStackTrace();
 	}
-
+	SmartDashboard.updateValues();
 	autoInitPreload();
 
 	//For testing LED Blinking only. The arm will set blink true after a piece has been secured.
 	//ledBlinking = true;
-	//blinker.onTrue(new InstantCommand(() -> {m_ledstring.setBlink(ledBlinking); ledBlinking = !ledBlinking;}));
+	//blinker.onTrue(new InstantCommand(() -> {ledSubsystem.setBlink(ledBlinking); ledBlinking = !ledBlinking;}));
   }
   
 
@@ -154,7 +157,11 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private boolean isRedAlliance(){
-	return false; //FOR DEBUG ONLY - PUT BACK -->!!!!!   DriverStation.getAlliance().equals(DriverStation.Alliance.Red);
+	Optional<Alliance> alliance = DriverStation.getAlliance();
+	if(alliance != null){
+		return alliance.get() == DriverStation.Alliance.Red;
+	}
+	return false;
   }
 
 
@@ -180,10 +187,7 @@ public class Robot extends TimedRobot {
 	if(useCode == null){
 		useCode = (autoCode == null ? Constants.AutoConstants.kAutoDefault : autoCode);
 	}
-	boolean isRedAlliance = isRedAlliance();
-	if( !useCode.startsWith("Red_") && !useCode.startsWith("Blu_")){
-		useCode = (isRedAlliance ? "Red_" : "Blu_") + useCode;
-	}
+
 	System.out.println("\nPreloading AUTO CODE --> " + useCode);
 	m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
 	if(m_autonomousCommand != null){
@@ -193,9 +197,7 @@ public class Robot extends TimedRobot {
 	else{
 		System.out.println("\nAUTO CODE " + useCode + " IS NOT IMPLEMENTED -- STAYING WITH AUTO CODE " + autoCode);
 	}
-
-	System.out.println("\nAUTO CODE being used by the software --> " + autoCode + "\n");
-	}
+}
 
 
 //   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -204,9 +206,7 @@ public class Robot extends TimedRobot {
 //   █▀ ▀██ ██▄ █▀ ▀███ ██████ ▀▀▀ ██▄▀▀▄██ ▀▀ ██ ▀▀▀ ████ ████ ▀▀▀ ███ ████ ▀▀▀██ ███ ██ ▀▀▀ 
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   private void initSubsystems() {
-	if (enabled) {
-		m_ledstring.init();
-  	}
+	ledSubsystem.init();
   }
   
 
@@ -224,15 +224,13 @@ public class Robot extends TimedRobot {
 // ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void robotPeriodic() {
-	if (enabled){
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    	CommandScheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
 
-		m_robotContainer.displayEncoders();
-	}
+	//m_robotContainer.displayEncoders();
   }
 
 
@@ -254,41 +252,40 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledPeriodic() {
-	if (enabled){
-    	if (System.currentTimeMillis() % 5000 == 0) {
-			// SmartDashboard.putBoolean("LowSensor", m_sequencer.lowSensorHasBall());
-			// SmartDashboard.putBoolean("MidSensor", m_sequencer.midSensorHasBall());
-			// SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
-		}
+	//s_armSubSystem.resetArmEncoders();
+	if (System.currentTimeMillis() % 5000 == 0) {
+		// SmartDashboard.putBoolean("LowSensor", m_sequencer.lowSensorHasBall());
+		// SmartDashboard.putBoolean("MidSensor", m_sequencer.midSensorHasBall());
+		// SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
+	}
 
-		String newCode = autoChooser.getSelected();
-		if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
-		if(!newCode.equals(autoCode)) {
-    	    System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
-			autoInitPreload();
-		}
+	String newCode = autoChooser.getSelected();
+	if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
+	if(!newCode.equals(autoCode)) {
+		System.out.println("New Auto Code read from dashboard. OLD: " + autoCode + ", NEW: " + newCode);
+		autoInitPreload();
+	}
 
-		boolean isRedAlliance = isRedAlliance();
-		if(this.isRedAlliance != isRedAlliance){
-			this.isRedAlliance = isRedAlliance;
-    	    System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
-			this.autoInitPreload();
-		}
+	boolean isRedAlliance = isRedAlliance();
+	if(this.isRedAlliance != isRedAlliance){
+		this.isRedAlliance = isRedAlliance;
+		System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
+		this.autoInitPreload();
+	}
 
-        if(Robot.isReal()){
-			try{
-				OptionalInt stationNumberInt = getStationNumber();
-				if(stationNumberInt.isPresent()) {
-					int stationNumber = stationNumberInt.getAsInt();
-					if(this.stationNumber != stationNumber){
-						this.stationNumber = stationNumber;
-						System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
-					}
+	if(Robot.isReal()){
+		try{
+			OptionalInt stationNumberInt = getStationNumber();
+			if(stationNumberInt.isPresent()) {
+				int stationNumber = stationNumberInt.getAsInt();
+				if(this.stationNumber != stationNumber){
+					this.stationNumber = stationNumber;
+					System.out.println("===============>>>>>>>>>>>>>>  WE ARE STATION NUMBER " + stationNumber + "  <<<<<<<<<<<<=========================\n");
 				}
-			} catch (Exception e){
-				System.out.println("Exception caught while looking for station number! == " + e);
 			}
-	    }
+		} catch (Exception e){
+			System.out.println("Exception caught while looking for station number! == " + e);
+		}
 	}
   }
 
@@ -301,7 +298,6 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousInit() {
-	if (enabled){
     	System.out.println("AUTO INIT");
 		CommandScheduler.getInstance().cancelAll();
 
@@ -310,13 +306,12 @@ public class Robot extends TimedRobot {
 	}
 	else {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
-			m_robotContainer.zeroHeading();
-			m_ledstring.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
+		//	m_robotContainer.zeroHeading();
+			ledSubsystem.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
 			m_autonomousCommand.schedule();
 		}
     	System.out.println("autonomousInit: End");
-  	}
-}
+  }
 
 
 //   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -326,9 +321,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousPeriodic() {
-	if (enabled){
-    	if(doSD()){ System.out.println("AUTO PERIODIC");}
-	}
+    if(doSD()){ System.out.println("AUTO PERIODIC");}
   }
 
 
@@ -339,27 +332,24 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopInit() {	
-	if (enabled){
-		// Record both DS control and joystick data in TELEOP
-		MessageLog.getLogger();
-    	System.out.println("TELEOP INIT");
-		CommandScheduler.getInstance().cancelAll();
-		initSubsystems();
-		//for testing only
-		m_ledstring.setColor(LedOption.INIT);
-		// sm_armStateMachine.setIsInAuto(false);
-		// sm_armStateMachine.initializeArm();
-    	// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
-		}
-		currentKeypadCommand = "";
-		SmartDashboard.getString("keypadCommand", currentKeypadCommand);
-		// s_poseEstimatorSubsystem.disableVisionCorrection();   // if for some reason auto does not put it back in driver mode
-  	}
+	// Record both DS control and joystick data in TELEOP
+	MessageLog.getLogger();
+	System.out.println("TELEOP INIT");
+	CommandScheduler.getInstance().cancelAll();
+	initSubsystems();
+	//for testing only
+	ledSubsystem.setColor(LedOption.INIT);
+	// sm_armStateMachine.setIsInAuto(false);
+	// sm_armStateMachine.initializeArm();
+	// This makes sure that the autonomous stops running when
+	// teleop starts running. If you want the autonomous to
+	// continue until interrupted by another command, remove
+	// this line or comment it out.
+	if (m_autonomousCommand != null) {
+		m_autonomousCommand.cancel();
+	}
+	currentKeypadCommand = "";
+	SmartDashboard.getString("keypadCommand", currentKeypadCommand);
   }
 
 //   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -385,23 +375,20 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopPeriodic() {
-	if (enabled){
-		//System.out.println("Setting the color");
-		//m_ledstring.setColor(LedOption.INIT);
-    	if(doSD()){
-		//	System.out.println("TELEOP PERIODIC");
-
-		}
+	//System.out.println("Setting the color");
+	//ledSubsystem.setColor(LedOption.INIT);
+	if(doSD()){
+	//	System.out.println("TELEOP PERIODIC");
 	}
-
+		
 	/*
 	 * Change LED blinking status depending on whether holding a game piece or not
 	 */
 	if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
-		m_ledstring.setBlink(true);
+		ledSubsystem.setBlink(true);
 		ledBlinking = true;
 	} else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
-		m_ledstring.setBlink(false);
+		ledSubsystem.setBlink(false);
 		ledBlinking = false;
 	}
 
@@ -410,17 +397,17 @@ public class Robot extends TimedRobot {
 	 */
 	// if(!armEmergencyStatus && sm_armStateMachine.isInEmergencyRecovery()) {
 	// 	armEmergencyStatus = true;
-	// 	m_ledstring.setBlink(false);
-	// 	m_ledstring.setColor(OpConstants.LedOption.RED);
+	// 	ledSubsystem.setBlink(false);
+	// 	ledSubsystem.setColor(OpConstants.LedOption.RED);
 	// } else if(armEmergencyStatus && !sm_armStateMachine.isInEmergencyRecovery()) {
 	// 	armEmergencyStatus = false;
 	// 	// if the SM has a record of a game piece setting revert to that color, otherwise just go to default color
 	// 	if(sm_armStateMachine.getGamePiece() == GamePiece.CONE) {
-	// 		m_ledstring.setColor(OpConstants.LedOption.YELLOW);
+	// 		ledSubsystem.setColor(OpConstants.LedOption.YELLOW);
 	// 	} else if(sm_armStateMachine.getGamePiece() == GamePiece.CUBE) {
-	// 		m_ledstring.setColor(OpConstants.LedOption.PURPLE);
+	// 		ledSubsystem.setColor(OpConstants.LedOption.PURPLE);
 	// 	} else {
-	// 		m_ledstring.setColor(OpConstants.LedOption.WHITE);
+	// 		ledSubsystem.setColor(OpConstants.LedOption.WHITE);
 	// 	}
 	// }
   }
@@ -434,9 +421,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    if (enabled){
-		CommandScheduler.getInstance().cancelAll();
-  	}
+	CommandScheduler.getInstance().cancelAll();
   }
 
 
