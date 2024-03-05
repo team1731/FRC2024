@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9530791788856305,
+        "x": 7.887777957374096,
         "y": 5.6438912877825755
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.12850116609324,
+        "x": 9.063199944581706,
         "y": 5.979726141270463
       },
       "isLocked": false,
@@ -57,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShotA"
+                "name": "SetWristRed1Shot6"
               }
             }
           ]
