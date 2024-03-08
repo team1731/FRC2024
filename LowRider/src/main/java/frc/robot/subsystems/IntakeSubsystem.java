@@ -10,10 +10,15 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
+
+import frc.robot.subsystems.LEDStringSubsystem;
 // import frc.robot.Robot;
 
 
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
+
+    private LEDStringSubsystem ledSubsystem;
+
     private CANSparkMax intakeMotor;
     private CANSparkMax feederMotor;
 
@@ -88,8 +93,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     } 
    public void stopReverseIntake() {
-    enableReverseLimitSwitch();
-    stopIntake();
+        enableReverseLimitSwitch();
+        stopIntake();
    } 
        
    // used only to back up note
@@ -149,14 +154,14 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
    
     
     public void periodic() {
-
  
         if (((isIntaking)&&(!isJigglingFeedingUp)) &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
             reverseIntakeSlow();
             isIntaking = false;
             System.out.println("note is here and reversing intake");
-            
+            ledSubsystem.setBlink(true);
+
         } else if ((isJigglingFeedingUp) && goingUpTimer != 0 && Timer.getFPGATimestamp() - goingUpTimer > .1) {
 
              System.out.println("Backing Up");
@@ -165,6 +170,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
              doneJigglingTimer = Timer.getFPGATimestamp();
              isJigglingFeedingUp = false;
              backingUpComplete = true;  // just need to wait for note to come back down which is done below
+             ledSubsystem.setBlink(false);
           
         }
 
@@ -174,10 +180,6 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
         }
 
-
-
-
-  
     }
 
 
@@ -209,10 +211,11 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void fireNote() {
 
-        disableLimitSwitch();	
+        disableLimitSwitch(); 
         noteIsRetrieved = false;	
 		feed(1.0);
         isIntaking = false;
+        ledSubsystem.setBlink(false);
     }
 
 
@@ -239,18 +242,18 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     }
 
     public void feedUpJiggle() {
-       System.out.println("Starting Jiggle Feed Up");
-       disableLimitSwitch();
-       feed(0.5);
-       isJigglingFeedingUp = true;
-       goingUpTimer = Timer.getFPGATimestamp();
+        System.out.println("Starting Jiggle Feed Up");
+        disableLimitSwitch();
+        feed(0.5);
+        isJigglingFeedingUp = true;
+        goingUpTimer = Timer.getFPGATimestamp();
     }
 
     public void stopJiggle() {
-    System.out.println("Stopping Jiggle");
-    stopIntake();
-    sequenceComplete = false;
-     enableLimitSwitch();
+        System.out.println("Stopping Jiggle");
+        stopIntake();
+        sequenceComplete = false;
+        enableLimitSwitch();
     }
  
     public boolean doneJiggling() {
