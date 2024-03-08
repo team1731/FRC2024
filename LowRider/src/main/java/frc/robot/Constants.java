@@ -550,12 +550,12 @@ public final class Constants {
 
     public static class Vision {
         public static final String kCameraNameFront = "ArducamUSB1";
-        public static final String kCameraNameBack = "Global_Shutter_Camera";
+        public static final String kCameraNameBack = "ArducamUSB2";
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
         public static final Transform3d kRobotToCamFront =
-                new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(11)));
+                new Transform3d(new Translation3d(0.33655, 0.2159, 0.19939), new Rotation3d(0, -Units.degreesToRadians(35), Units.degreesToRadians(-10)));
         public static final Transform3d kRobotToCamBack =
-                new Transform3d(new Translation3d(-0.34925, 0.0, 0.44), new Rotation3d(0, -Units.degreesToRadians(45), Units.degreesToRadians(180)));
+                new Transform3d(new Translation3d(-0.336555, -.05715, 0.4572), new Rotation3d(0, -Units.degreesToRadians(35), Units.degreesToRadians(180)));
 
         // The layout of the AprilTags on the field
         public static final AprilTagFieldLayout kTagLayout =

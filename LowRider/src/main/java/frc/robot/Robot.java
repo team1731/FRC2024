@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
 	wristSubsystem = new WristSubsystem(true);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
 	shooterSubsystem = new ShooterSubsystem(true);
-	visionSubsystem = new VisionSubsystem(false, driveSubsystem);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
@@ -109,8 +109,10 @@ public class Robot extends TimedRobot {
 
     wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
+	Pose2d startingConfiguration = isRedAlliance()? new Pose2d(16.57,5.5, new Rotation2d(Math.toRadians(180))): new Pose2d(1,5.5, new Rotation2d (0));
+	driveSubsystem.seedFieldRelative(startingConfiguration);
 	initSubsystems();
-
+    visionSubsystem.useVision(false);
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
 	
@@ -303,6 +305,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousInit() {
+		visionSubsystem.useVision(false);
     	System.out.println("AUTO INIT");
 		CommandScheduler.getInstance().cancelAll();
 
@@ -339,6 +342,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {	
 
+	visionSubsystem.useVision(true);
+    
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();
 	intakeSubsystem.stopFireNote();
@@ -387,7 +392,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopPeriodic() {
-	driveSubsystem.logCurrentAndVelocity();
+
 	//System.out.println("Setting the color");
 	//ledSubsystem.setColor(LedOption.INIT);
 	if(doSD()){

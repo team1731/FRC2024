@@ -29,11 +29,18 @@ import static frc.robot.Constants.Vision.*;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -48,6 +55,7 @@ import java.util.Optional;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonUtils;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
 
@@ -58,6 +66,10 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private PhotonPoseEstimator photonEstimatorFront;
     private PhotonPoseEstimator photonEstimatorBack;
     private final Field2d field2d = new Field2d();
+    private Pose2d redGoal = new Pose2d(new Translation2d(16.579342,5.547868), new Rotation2d());
+    private Pose2d blueGoal = new Pose2d(new Translation2d(0.0381,5.547868), new Rotation2d());
+    private boolean useVision = false;
+   
 
     private CommandSwerveDrivetrain driveSubsystem;
     private double lastEstTimestamp = 0;
@@ -163,10 +175,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             var estPose = est.estimatedPose.toPose2d();
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
+                            field2d.getObject("MyRobot" + cameraFront.getName()).setPose(estPose);
+                            SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
+                                estPose.getTranslation().getX(),
+                                estPose.getTranslation().getY(),
+                                estPose.getRotation().getDegrees()));
+
 
                             System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-                            driveSubsystem.addVisionMeasurement(
+                            if (useVision) {
+                                driveSubsystem.addVisionMeasurement(
                                     est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                            }
+
                         });
             }
 
@@ -180,8 +201,16 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
 
                             System.out.println("VisionBack(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-                            driveSubsystem.addVisionMeasurement(
+                            field2d.getObject("MyRobot" + cameraBack.getName()).setPose(estPose);
+                            SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
+                                estPose.getTranslation().getX(),
+                                estPose.getTranslation().getY(),
+                                estPose.getRotation().getDegrees()));
+                            if (useVision) {
+                                driveSubsystem.addVisionMeasurement(
                                     est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                            }
+
                         });
             }
 
@@ -294,4 +323,31 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         return estStdDevs;
     }
+
+    public Rotation2d getHeadingToSpeakerInRad() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = driveSubsystem.getState().Pose;
+        double headingToTarget = Math.atan(target.getY() - robot.getY()/robot.getX() - target.getX());
+        SmartDashboard.putNumber("HeadingToTarget", Math.toDegrees(headingToTarget));
+        return new Rotation2d(headingToTarget);
+    }
+
+    public double getDistanceToSpeakerInMeters() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = driveSubsystem.getState().Pose;
+        double distance = PhotonUtils.getDistanceToPose(target, robot);
+        SmartDashboard.putNumber("DistanceToTarget", distance);
+        return distance;
+    }
+
+ private boolean isRedAlliance(){
+	Optional<Alliance> alliance = DriverStation.getAlliance();
+	if(alliance != null){
+		return alliance.get() == DriverStation.Alliance.Red;
+	}
+	return false;
+  }
+  public void useVision(boolean useCameraVision) {
+    useVision = useCameraVision;
+  }
 }

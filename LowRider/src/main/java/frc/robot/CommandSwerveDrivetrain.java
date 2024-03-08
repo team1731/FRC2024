@@ -98,6 +98,10 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
     }
 
+    public void periodic() {
+        logCurrentAndVelocity();
+    }
+
 /**
 Log the torque current and velocity
  */

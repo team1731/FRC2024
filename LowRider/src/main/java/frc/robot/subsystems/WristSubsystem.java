@@ -167,4 +167,11 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         wristMotor1.setControl(mmReq.withPosition(0));
         wristMotor2.setControl(mmReq.withPosition(0));
     }
+
+    public void setWristBasedOnDistance(double distanceToSpeakerInMeters) {
+        if (distanceToSpeakerInMeters < 10) {
+            moveWrist(distanceToSpeakerInMeters * 3);
+        }
+
+    }
 }
