@@ -165,6 +165,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     @Override
     public void periodic() {
+
+        getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
         if (enabled && initialized) {
 
             if (photonEstimatorFront != null) {
@@ -182,7 +184,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getRotation().getDegrees()));
 
 
-                            System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
+                            //System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             if (useVision) {
                                 driveSubsystem.addVisionMeasurement(
                                     est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
@@ -200,7 +202,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
 
-                            System.out.println("VisionBack(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
+                            //System.out.println("VisionBack(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             field2d.getObject("MyRobot" + cameraBack.getName()).setPose(estPose);
                             SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
                                 estPose.getTranslation().getX(),
@@ -327,9 +329,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     public Rotation2d getHeadingToSpeakerInRad() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = driveSubsystem.getState().Pose;
-        double headingToTarget = Math.atan(target.getY() - robot.getY()/robot.getX() - target.getX());
-        SmartDashboard.putNumber("HeadingToTarget", Math.toDegrees(headingToTarget));
-        return new Rotation2d(headingToTarget);
+        double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
+        SmartDashboard.putNumber("HeadingToTarget", headingToTarget);
+        System.out.println("getting heading");
+        return new Rotation2d(-headingToTarget);
+
     }
 
     public double getDistanceToSpeakerInMeters() {

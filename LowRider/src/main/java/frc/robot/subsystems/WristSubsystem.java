@@ -22,6 +22,9 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     // motors for the Wrist
     private TalonFX wristMotor1;
     private TalonFX wristMotor2;
+    private double desiredPosition;
+    private double arbitraryFeedForward = 0.0;
+
 
     private DynamicMotionMagicVoltage mmReq = new DynamicMotionMagicVoltage(
         0, 
@@ -57,17 +60,20 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     public void moveWrist(double position) {
         if(!enabled) return;
         mmReq.withVelocity(WristConstants.MMVel);
-        wristMotor1.setControl(mmReq.withPosition(position));
-        wristMotor2.setControl(mmReq.withPosition(position));
+        wristMotor1.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
+        wristMotor2.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
         System.out.println("Moving wrist to" + position);
+        desiredPosition = position;
     }
 
     public void moveWristSlow(double position, double velocity) {
         if(!enabled) return;
         mmReq.withVelocity(velocity);
-        wristMotor1.setControl(mmReq.withPosition(position));
-        wristMotor2.setControl(mmReq.withPosition(position));
+        wristMotor1.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
+        wristMotor2.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
         System.out.println("Moving wrist slow to" + position);
+
+        desiredPosition = position;
     }
 
     // Initialize Motors
@@ -96,7 +102,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         mm.MotionMagicJerk = WristConstants.MMJerk;          // Take approximately 0.2 seconds to reach max accel
 
         Slot0Configs slot0 = cfg.Slot0;
-        slot0.kP = 4.6875;
+        slot0.kP = 20;
         slot0.kI = 0;
         slot0.kD = 0.0078125;
         slot0.kV = 0.009375;
@@ -137,6 +143,19 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         if(!enabled) return;
         SmartDashboard.putNumber("Wrist motor 1 position", wristMotor1.getRotorPosition().getValueAsDouble());
         SmartDashboard.putNumber("Wrist motor 2 position", wristMotor2.getRotorPosition().getValueAsDouble());
+
+
+        SmartDashboard.putNumber("wrist desired position", desiredPosition);
+        SmartDashboard.putNumber("wrist motor 1 closedLoopError", wristMotor1.getClosedLoopError().getValueAsDouble());
+        SmartDashboard.putNumber("wrist motor 1 closedLoopError", wristMotor1.getClosedLoopError().getValueAsDouble());
+        SmartDashboard.putNumber("wrist motor 1 closedLoopReference", wristMotor1.getClosedLoopReference().getValueAsDouble());     
+        SmartDashboard.putNumber("wrist motor 2 closedLoopReference", wristMotor2.getClosedLoopReference().getValueAsDouble());  
+        SmartDashboard.putNumber("wrist motor 1 closedLoopOutput", wristMotor1.getClosedLoopOutput().getValueAsDouble());    
+        SmartDashboard.putNumber("wrist motor 2 closedLoopOutput", wristMotor2.getClosedLoopOutput().getValueAsDouble()); 
+        SmartDashboard.putNumber("wrist motor 1 statorCurrent", wristMotor1.getStatorCurrent().getValueAsDouble());    
+        SmartDashboard.putNumber("wrist motor 2 statorCurrent", wristMotor2.getStatorCurrent().getValueAsDouble());  
+       //qqpppppppppppppppppppppppppppppp-dpd-fg= SmartDashboard.putNumber("Arbitrary Feed Forward", arbitraryFeedForward);
+
     }
 
     public double getWristPosition() {
@@ -164,14 +183,41 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         wristMotor1.setControl(new DutyCycleOut(0));
         wristMotor2.setControl(new DutyCycleOut(0));
         mmReq.withVelocity(WristConstants.MMVel);
-        wristMotor1.setControl(mmReq.withPosition(0));
-        wristMotor2.setControl(mmReq.withPosition(0));
+        wristMotor1.setControl(mmReq.withPosition(0).withFeedForward(arbitraryFeedForward));
+        wristMotor2.setControl(mmReq.withPosition(0).withFeedForward(arbitraryFeedForward));
+        desiredPosition = 0.0;
     }
 
     public void setWristBasedOnDistance(double distanceToSpeakerInMeters) {
-        if (distanceToSpeakerInMeters < 10) {
-            moveWrist(distanceToSpeakerInMeters * 3);
-        }
+         double distanceFromOrigin = distanceToSpeakerInMeters;
+         //old formula
+         //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
+         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4))+ (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;
+         SmartDashboard.putNumber("Angle",angle);
+         if (angle > 0 && angle < 23.4) {
+            moveWrist(angle);
+         }
+        
 
+    }
+
+
+    public void jogDown() {
+        wristMotor1.setControl(new DutyCycleOut(-.1));
+        wristMotor2.setControl(new DutyCycleOut(-.1));
+    }
+
+        public void jogUp() {
+        wristMotor1.setControl(new DutyCycleOut(.2));
+        wristMotor2.setControl(new DutyCycleOut(.2));
+    }
+
+    public void stopJog() {
+        wristMotor1.setControl(new DutyCycleOut(0));
+        wristMotor2.setControl(new DutyCycleOut(0));
+        mmReq.withVelocity(WristConstants.MMVel);
+        wristMotor1.setControl(mmReq.withPosition(getWristPosition()).withFeedForward(arbitraryFeedForward));
+        wristMotor2.setControl(mmReq.withPosition(getWristPosition()).withFeedForward(arbitraryFeedForward));
+        desiredPosition = getWristPosition();
     }
 }

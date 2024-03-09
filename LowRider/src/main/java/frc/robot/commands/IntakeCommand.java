@@ -69,8 +69,8 @@ public class IntakeCommand extends Command {
 		//	m_intakeSubsystem.intake(1.0);	
 		if (!intakeJiggleStarted && m_intakeSubsystem.hasNote() && m_shooterSubsystem.getShooterVelocity() < -50/60) {
 			System.out.println("has the note and shooter reversed");
-			//intakeJiggleStarted = true; 
-			//m_intakeSubsystem.feedUpJiggle();
+			intakeJiggleStarted = true; 
+			m_intakeSubsystem.feedUpJiggle();
 
 		}
 	    

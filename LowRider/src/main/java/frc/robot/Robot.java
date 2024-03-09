@@ -109,8 +109,12 @@ public class Robot extends TimedRobot {
 
     wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
-	Pose2d startingConfiguration = isRedAlliance()? new Pose2d(16.57,5.5, new Rotation2d(Math.toRadians(180))): new Pose2d(1,5.5, new Rotation2d (0));
+	Pose2d startingConfiguration = isRedAlliance()? new Pose2d(15.07,5.57, new Rotation2d(Math.toRadians(180))): new Pose2d(1.43,5.5, new Rotation2d (0));
 	driveSubsystem.seedFieldRelative(startingConfiguration);
+	Rotation2d operatorPerspective = isRedAlliance()? new Rotation2d(Math.toRadians(180)): new Rotation2d(Math.toRadians(0));
+	driveSubsystem.setOperatorPerspectiveForward(operatorPerspective);
+	
+	
 	initSubsystems();
     visionSubsystem.useVision(false);
 	String[] autoModes = RobotContainer.deriveAutoModes();

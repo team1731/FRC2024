@@ -406,10 +406,10 @@ public final class Constants {
 
         // Positions
         public final static double wristHomePosition = 0;
-        public final static double wristAmpPosition = 28;
-        public final static double wristAmpReversePosition = 91;
-        public final static double wristNewTrapPosition = 65;
-        public final static double wristTrapPosition = 59;
+        public final static double wristAmpPosition = 28*0.6;
+        public final static double wristAmpReversePosition = 91*0.6;
+        public final static double wristNewTrapPosition = 65*0.6;
+        public final static double wristTrapPosition = 59*0.6;
         public static final double IntakePosition = 0;
     }
 
