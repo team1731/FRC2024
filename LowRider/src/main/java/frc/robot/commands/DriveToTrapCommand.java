@@ -54,24 +54,8 @@ public class DriveToTrapCommand extends Command {
 	@Override
 	public void initialize() {
 
-      Pose2d currentPose = m_drivetrain.getState().Pose;
-	  endPos = getClosestChainPose(currentPose);
 
-	  // find the 
-      
-      // The rotation component in these poses represents the direction of travel
-      Pose2d startPos = new Pose2d(currentPose.getTranslation(), new Rotation2d());
-      
-
-      List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(startPos, endPos);
-      PathPlannerPath path = new PathPlannerPath(
-        bezierPoints, 
-        new PathConstraints(
-          4.0, 4.0, 
-          Units.degreesToRadians(360), Units.degreesToRadians(540)
-        ),  
-        new GoalEndState(0.0, currentPose.getRotation())
-      );
+	  PathPlannerPath path = PathPlannerPath.fromPathFile("paths/Chain.path");
 
       // Prevent this path from being flipped on the red alliance, since the given positions are already correct
       path.preventFlipping = true;
