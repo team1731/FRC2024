@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix6.StatusCode;
@@ -21,7 +22,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     private static final String canBusName = Constants.CANBUS_NAME;
     private final TalonFX m_fx = new TalonFX(Constants.ShooterConstants.shooterCancoderId1, canBusName);
     private final TalonFX m_fllr = new TalonFX(Constants.ShooterConstants.shooterCancoderId2, canBusName);
-    private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
+    private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, false, 0, 0, false, false, false);
     private final NeutralOut m_brake = new NeutralOut();
     private boolean enabled;
     private boolean isShooting = false;
@@ -41,7 +42,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
             TalonFXConfiguration configs = new TalonFXConfiguration();
 
             /* Voltage-based velocity requires a feed forward to account for the back-emf of the motor */
-            configs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 2V output
+            configs.Slot0.kP = 0.22; // An error of 1 rotation per second results in 2V output
             configs.Slot0.kI = 0.5; // An error of 1 rotation per second increases output by 0.5V every second
             configs.Slot0.kD = 0.0001; // A change of 1 rotation per second squared results in 0.01 volts output
             configs.Slot0.kV = 0.12; // Falcon 500 is a 500kV motor, 500rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / Rotation per second
@@ -59,7 +60,17 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
             System.out.println("Could not apply configs, error code: " + status.toString());
             }
 
-            m_fllr.setControl(new Follower(m_fx.getDeviceID(), false));
+                            /* Retry config apply up to 5 times, report if failure */
+           status = StatusCode.StatusCodeNotInitialized;
+            for (int i = 0; i < 5; ++i) {
+            status = m_fllr.getConfigurator().apply(configs);
+            if (status.isOK()) break;
+            }
+            if(!status.isOK()) {
+            System.out.println("Could not apply configs, error code: " + status.toString());
+            }
+
+           // m_fllr.setControl(new Follower(m_fx.getDeviceID(), false));
             }
                     
         }
@@ -70,15 +81,25 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
                 System.out.println("ShooterSubsystem: m1speed, m2speed = " + ShooterConstants.kMotorSpeed1 + ", " + ShooterConstants.kMotorSpeed2); 
             }
             isShooting = true;
-            m_fx.setControl(m_voltageVelocity.withVelocity(5000.0/60));
+            m_fx.setControl(m_voltageVelocity.withVelocity(6000.0/60));
+            m_fllr.setControl(m_voltageVelocity.withVelocity(6000.0/60));
 		}  
 
     }    
+
+        public void periodic() {
+        if(!enabled) return;
+        SmartDashboard.putNumber("shooter1 velocity", m_fx.getVelocity().getValueAsDouble());
+        SmartDashboard.putNumber("shooter2 velocity", m_fllr.getVelocity().getValueAsDouble());
+
+
+    }
 
     public void stopShooting() {
         if (enabled){
             isShooting = false;
             m_fx.setControl(m_brake);
+            m_fllr.setControl(m_brake);
         }
     }
 
@@ -93,13 +114,15 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     public void pauseShooting() {
         if (enabled){
             m_fx.setControl(m_brake);
+            m_fllr.setControl(m_brake);
         }
     }
 
     public void shootAmp() {
             m_fx.setControl(m_voltageVelocity.withVelocity(1000.0/60));
-    }
+            m_fllr.setControl(m_voltageVelocity.withVelocity(1000.0/60));
 
+    }
     public void reverseSlow() {
 
             m_fx.setControl(m_voltageVelocity.withVelocity(-500.0/60));

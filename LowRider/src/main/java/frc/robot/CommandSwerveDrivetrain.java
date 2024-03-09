@@ -2,6 +2,8 @@ package frc.robot;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
+
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
@@ -12,6 +14,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ToggleableSubsystem;
 
@@ -93,6 +96,24 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     public ChassisSpeeds getCurrentRobotChassisSpeeds() {
         if(!enabled || Robot.isSimulation()) return new ChassisSpeeds();
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
+    }
+
+    public void periodic() {
+        logCurrentAndVelocity();
+    }
+
+/**
+Log the torque current and velocity
+ */
+    public void logCurrentAndVelocity() {
+       
+
+        //Iterate through each module.
+        for (int i = 0; i < 4; ++i) {
+            //Get the Configurator for the current drive motor.
+            SmartDashboard.putNumber("Module " + i + "Torque Current" ,Modules[i].getDriveMotor().getTorqueCurrent().getValueAsDouble());
+            SmartDashboard.putNumber("Module " + i + "Velocity" ,Modules[i].getDriveMotor().getVelocity().getValueAsDouble());
+        }
     }
 
         /** Log various drivetrain values to the dashboard. */
