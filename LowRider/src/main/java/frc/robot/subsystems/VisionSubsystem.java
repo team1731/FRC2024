@@ -174,17 +174,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                                                               estPose.getY()); // y2
 
                             // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-                            field2d.getObject("MyRobot" + cameraFront.getName()).setPose(est.estimatedPose.toPose2d());
+                            field2d.getObject("MyRobot" + cameraFront.getName()).setPose(estPose);
                             SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
-                                            est.estimatedPose.toPose2d().getTranslation().getX(),
-                                            est.estimatedPose.toPose2d().getTranslation().getY(),
-                                            est.estimatedPose.toPose2d().getRotation().getDegrees()));
+                                            estPose.getTranslation().getX(),
+                                            estPose.getTranslation().getY(),
+                                            estPose.getRotation().getDegrees()));
                             // conditional to check if the difference distance is within a radius of 1 from the actual distance
                             if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
-                                driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(),
-                                                                    est.timestampSeconds, 
-                                                                    estStdDevs);
-
+                                driveSubsystem.addVisionMeasurement(estPose, est.timestampSeconds, estStdDevs);
                                 System.out.println("Current difference in distance: " + distanceDifference + "!!!");
                             // } else {
                             //     System.out.println("Distance isn't close enough || current difference in distance: " + distanceDifference + "!!!");
