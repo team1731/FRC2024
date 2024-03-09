@@ -41,9 +41,14 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.Constants;
+import frc.robot.Constants.OpConstants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.util.log.Logger;
 
 import java.util.Optional;
+
+import frc.robot.subsystems.LEDStringSubsystem;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
@@ -61,6 +66,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     private CommandSwerveDrivetrain driveSubsystem;
     private double lastEstTimestamp = 0;
+
+    private LEDStringSubsystem ledSubsystem;
 
     // logging
     Logger poseLogger;
@@ -115,18 +122,16 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
 
         // write initial values to dashboard
-        if(enabled){
-            ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
-            String formattedPose = this.getFormattedPose();
-            if (formattedPose != null) {
-                tab.addString("Pose (X, Y)", this::getFormattedPose).withPosition(0, 4);
-            }
-            Pose2d currentPose = this.getCurrentPose();
-            if (currentPose != null) {
-                tab.addNumber("Pose Degrees", () -> currentPose.getRotation().getDegrees()).withPosition(1, 4);
-            }
-            tab.add(field2d);
+        ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
+        String formattedPose = this.getFormattedPose();
+        if (formattedPose != null) {
+            tab.addString("Pose (X, Y)", this::getFormattedPose).withPosition(0, 4);
         }
+        Pose2d currentPose = this.getCurrentPose();
+        if (currentPose != null) {
+            tab.addNumber("Pose Degrees", () -> currentPose.getRotation().getDegrees()).withPosition(1, 4);
+        }
+        tab.add(field2d);
 
         // setup logger
         // poseLogger = LogWriter.getLogger(Log.POSE_ESTIMATIONS,
@@ -164,9 +169,23 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
 
-                            System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-                            driveSubsystem.addVisionMeasurement(
-                                    est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                            Pose2d currentPose = getCurrentPose();
+
+                            double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
+                                                                              currentPose.getY(), // y1
+                                                                              estPose.getX(), // x2
+                                                                              estPose.getY()); // y2
+
+                            // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
+
+                            // conditional to check if the difference distance is within a radius of 1 from the actual distance
+                            if (distanceDifference < VisionConstants.kMaxDistanceBetweenPoseEstimations && distanceDifference > -VisionConstants.kMaxDistanceBetweenPoseEstimations) {
+                                driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(),
+                                                                    est.timestampSeconds, 
+                                                                    estStdDevs);
+                            } else {
+                                System.out.println("Distance isn't close enough || current difference in distance: " + distanceDifference + "!!!");
+                            }
                         });
             }
 
@@ -225,6 +244,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     //     }
     // }
 
+    // uses Pythagorean theorem to find the difference of two x and y coordinates
+    private double getDistanceDifference(double x1, double y1, double x2, double y2) {
+
+        // Pythagorean theorem
+        //--
+        //  d=√((x_2-x_1)²+(y_2-y_1)²)
+        //--
+
+        return Math.sqrt(
+            Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
+        );
+    }
+
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
 
         PhotonPipelineResult cameraResult = camera.getLatestResult();
@@ -280,11 +312,18 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             numTags++;
             avgDist += tagPose.get().toPose2d().getTranslation().getDistance(estimatedPose.getTranslation());
         }
-        if (numTags == 0)
+        
+        if (numTags == 0) {
+            ledSubsystem.setColor(OpConstants.LedOption.WHITE);
             return estStdDevs;
+        }
+
         avgDist /= numTags;
         // Decrease std devs if multiple targets are visible
         if (numTags > 1)
+
+            ledSubsystem.setColor(OpConstants.LedOption.BLUE);
+            
             estStdDevs = kMultiTagStdDevs;
         // Increase std devs based on (average) distance
         if (numTags == 1 && avgDist > 4)
