@@ -24,6 +24,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     private TalonFX elevatorMotor1;
     private TalonFX elevatorMotor2;
     private double desiredPosition;
+    private double arbitraryFeedForward;
     private WristSubsystem m_wristSubsystem;
     private IntakeSubsystem m_intakeSubsystem;
     private Orchestra m_orchestra = new Orchestra();
@@ -120,18 +121,36 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     }
     public void periodic() {
         if(!enabled) return;
+
+        if ((desiredPosition == 0.0) && ((elevatorMotor1.getStatorCurrent().getValueAsDouble() > 260) || (elevatorMotor1.getStatorCurrent().getValueAsDouble() > 260))) {     
+           // we must be climbing?
+            arbitraryFeedForward = 0.01;
+        } else {
+            arbitraryFeedForward = 0;
+        }
+
         SmartDashboard.putNumber("elevator motor 1 position", elevatorMotor1.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("elevator motor 2 position", elevatorMotor2.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("elevator desired position", desiredPosition);
+        SmartDashboard.putNumber("elevator motor 1 closedLoopError", elevatorMotor1.getClosedLoopError().getValueAsDouble());
+        SmartDashboard.putNumber("elevator motor 1 closedLoopError", elevatorMotor1.getClosedLoopError().getValueAsDouble());
+        SmartDashboard.putNumber("elevator motor 1 closedLoopReference", elevatorMotor1.getClosedLoopReference().getValueAsDouble());     
+        SmartDashboard.putNumber("elevator motor 2 closedLoopReference", elevatorMotor2.getClosedLoopReference().getValueAsDouble());  
+        SmartDashboard.putNumber("elevator motor 1 closedLoopOutput", elevatorMotor1.getClosedLoopOutput().getValueAsDouble());    
+        SmartDashboard.putNumber("elevator motor 2 closedLoopOutput", elevatorMotor2.getClosedLoopOutput().getValueAsDouble()); 
+        SmartDashboard.putNumber("elevator motor 1 statorCurrent", elevatorMotor1.getStatorCurrent().getValueAsDouble());    
+        SmartDashboard.putNumber("elevator motor 2 statorCurrent", elevatorMotor2.getStatorCurrent().getValueAsDouble());  
+        SmartDashboard.putNumber("Arbitrary Feed Forward", arbitraryFeedForward);
 
         //Only Move the elevator if the wrist is above the clearance zone 
 
         
 		if (m_wristSubsystem.getWristPosition() > Constants.ElevatorConstants.wristClearsPosition){
-			elevatorMotor1.setControl(mmReq1.withPosition(desiredPosition));
-            elevatorMotor2.setControl(mmReq1.withPosition(desiredPosition));
+			elevatorMotor1.setControl(mmReq1.withPosition(desiredPosition).withFeedForward(arbitraryFeedForward));
+            elevatorMotor2.setControl(mmReq1.withPosition(desiredPosition).withFeedForward(arbitraryFeedForward));
 		} else {
-            elevatorMotor1.setControl(mmReq1.withPosition(0.0));
-            elevatorMotor2.setControl(mmReq1.withPosition(0.0));
+            elevatorMotor1.setControl(mmReq1.withPosition(0.0).withFeedForward(arbitraryFeedForward));
+            elevatorMotor2.setControl(mmReq1.withPosition(0.0).withFeedForward(arbitraryFeedForward));
             
         }
         if (ampTimeStarted != 0 && (Timer.getFPGATimestamp() - ampTimeStarted > 0.3)) {

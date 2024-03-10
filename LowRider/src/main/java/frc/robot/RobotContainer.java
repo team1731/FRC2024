@@ -15,6 +15,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -40,6 +41,11 @@ public class RobotContainer {
       .withDeadband(MaxSpeed * 0.05).withRotationalDeadband(MaxAngularRate * 0.05) // Add a 10% deadband
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric
                                                                // driving in open loop
+                                                               
+                                                            
+
+      
+    
   private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   private final Telemetry logger = new Telemetry(MaxSpeed);
@@ -175,9 +181,16 @@ public class RobotContainer {
       );
     }
 
-    kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem,shooterSubsystem));
-                
+ //   ky.whileTrue(driveSubsystem.applyRequest(
+ //             () -> driveAtSpeaker.withVelocityX(-(Math.abs(xboxController.getLeftY()) * xboxController.getLeftY()) * MaxSpeed)                                                                                                                     
+ //                 .withVelocityY(-(Math.abs(xboxController.getLeftX()) * xboxController.getLeftX()) * MaxSpeed).withTargetDirection(visionSubsystem.getHeadingToSpeakerInRad()) 
+ //               
+ //         )
+ //     );
 
+    ky.whileTrue(new DriveToSpeakerCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController));
+
+    kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem,shooterSubsystem));   
 
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
    // kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem)));
@@ -187,8 +200,17 @@ public class RobotContainer {
     //kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
     kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
-    ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
-    kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
+//    ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
+//    kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
+ //  Comment out the two lines above and uncomment this to tune shooting angles
+   //  Also uncomment the call to get the distance to the speaker in the period of vision subsystem (that sends the data to smartdashbord among other things)
+        ka.onTrue(new InstantCommand(() -> wristSubsystem.jogDown()))
+        .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
+
+        kb.onTrue(new InstantCommand(() -> wristSubsystem.jogUp()))
+        .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
+
+ 
 
     kStart.onTrue(driveSubsystem.runOnce(() -> driveSubsystem.seedFieldRelative()));
     

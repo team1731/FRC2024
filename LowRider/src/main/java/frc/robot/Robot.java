@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -79,8 +80,9 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void robotInit() {
-	
-	LogWriter.setupLogging();
+	  DataLogManager.start();
+
+//	LogWriter.setupLogging();
 	MessageLog.start();
 	System.out.println("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  EVENT: " + DriverStation.getEventName() + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
 
@@ -99,7 +101,7 @@ public class Robot extends TimedRobot {
 	wristSubsystem = new WristSubsystem(true);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
 	shooterSubsystem = new ShooterSubsystem(true);
-	visionSubsystem = new VisionSubsystem(false, driveSubsystem);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
@@ -107,8 +109,14 @@ public class Robot extends TimedRobot {
 
     wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
+	Pose2d startingConfiguration = isRedAlliance()? new Pose2d(15.07,5.57, new Rotation2d(Math.toRadians(180))): new Pose2d(1.43,5.5, new Rotation2d (0));
+	driveSubsystem.seedFieldRelative(startingConfiguration);
+	Rotation2d operatorPerspective = isRedAlliance()? new Rotation2d(Math.toRadians(180)): new Rotation2d(Math.toRadians(0));
+	driveSubsystem.setOperatorPerspectiveForward(operatorPerspective);
+	
+	
 	initSubsystems();
-
+    visionSubsystem.useVision(false);
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
 	
@@ -301,6 +309,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousInit() {
+		visionSubsystem.useVision(false);
     	System.out.println("AUTO INIT");
 		CommandScheduler.getInstance().cancelAll();
 
@@ -337,6 +346,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {	
 
+	visionSubsystem.useVision(true);
+    
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();
 	intakeSubsystem.stopFireNote();
@@ -385,6 +396,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void teleopPeriodic() {
+
 	//System.out.println("Setting the color");
 	//ledSubsystem.setColor(LedOption.INIT);
 	if(doSD()){

@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.118964601565566,
+        "y": 2.7892950331355215
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.753679339691368,
+        "y": 3.8886532078821947
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.39882697947214,
+        "y": 3.3023760592975733
+      },
+      "prevControl": {
+        "x": 3.775107696305546,
+        "y": 2.222062571192592
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 61.92751306414707,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "DriveToTrap",
+  "previewStartingState": {
+    "rotation": 57.771242564901414,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
