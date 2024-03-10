@@ -336,6 +336,30 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     }
 
+    public double getXDistanceToSpeaker() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = driveSubsystem.getState().Pose;
+        return Math.abs((robot.getX() - target.getX()));
+
+    }
+
+    public double getYDistanceToSpeaker() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = driveSubsystem.getState().Pose;
+        return Math.abs((robot.getY() - target.getY()));
+
+    }
+
+    public boolean isBelowSpeakerLine() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = driveSubsystem.getState().Pose;
+        if((robot.getY() - target.getY()) < 0) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
     public double getDistanceToSpeakerInMeters() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = driveSubsystem.getState().Pose;

@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Optional;
+
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
@@ -11,10 +13,17 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.Constants.WristConstants;
+import frc.robot.TunerConstants;
 import frc.robot.util.LinearServo;
 
 public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem {
@@ -24,7 +33,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor2;
     private double desiredPosition;
     private double arbitraryFeedForward = 0.0;
-
+    private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps;
 
     private DynamicMotionMagicVoltage mmReq = new DynamicMotionMagicVoltage(
         0, 
@@ -39,6 +48,9 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     private Servo trapFlapServo = new LinearServo(0, 50,20 );
 
+    private CommandSwerveDrivetrain driveSubsystem;
+    private VisionSubsystem m_visionSubsystem;
+
     private boolean enabled;
 
     @Override
@@ -46,11 +58,13 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         return enabled;
     }
 
-    public WristSubsystem(boolean enabled) {
+    public WristSubsystem(boolean enabled, CommandSwerveDrivetrain drivetrain, VisionSubsystem visionSubsystem) {
         this.enabled = enabled;
         if(enabled){
             initializeWristMotors();
         }
+        this.driveSubsystem = drivetrain;
+        this.m_visionSubsystem = visionSubsystem;
     }
 
     /*
@@ -188,11 +202,61 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         desiredPosition = 0.0;
     }
 
-    public void setWristBasedOnDistance(double distanceToSpeakerInMeters) {
-         double distanceFromOrigin = distanceToSpeakerInMeters;
+    private boolean isRedAlliance(){
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if(alliance != null){
+            return alliance.get() == DriverStation.Alliance.Red;
+        }
+        return false;
+    }
+
+    public void setWristBasedOnDistance(double distanceToSpeakerInMeters, double xDistanceToSpeaker, double yDistanceToSpeaker, double leftX, double leftY) {
+         
+         double shotTime = distanceToSpeakerInMeters / (3.81 * 2 * Math.PI); //speed of shot in m/s
+        
+         double robotXSpeed = driveSubsystem.getXVelocity();
+         double robotYSpeed = driveSubsystem.getYVelocity();
+         
+         double robotXSetSpeed = -(leftY*leftY * MaxSpeed);
+         double robotYSetSpeed = -(leftX*leftX * MaxSpeed);
+         
+         double robotXAcceleration;
+         double robotYAcceleration;
+        
+         if (robotXSetSpeed < robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5){
+            robotXAcceleration = -4;
+         } if (robotXSetSpeed > robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5) {
+            robotXAcceleration = 4;
+         } else {
+            robotXAcceleration = 0;
+         }
+
+         if (robotYSetSpeed < robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5){
+            robotYAcceleration = -4;
+         } if (robotYSetSpeed > robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5) {
+            robotYAcceleration = 4;
+         } else {
+            robotYAcceleration = 0;
+         }
+        
+         //code assumes that X velocity and acceleration toward the blue alliance speaker is positive, and negative for red alliance speaker
+         //code assumes that Y velocity in direction of speaker is 
+         double m = 1.0;
+         if(isRedAlliance()){
+            m = -1.0;
+         }
+
+         double m2 = 1.0;
+         if(m_visionSubsystem.isBelowSpeakerLine()){
+            m2 = -1.0;
+         }
+
+         double robotXDistance = xDistanceToSpeaker - ((robotXSpeed * shotTime) * m) - ((0.5 * robotXAcceleration * Math.pow(shotTime, 2)) * m);
+         double robotYDistance = yDistanceToSpeaker - ((robotYSpeed * shotTime) * m2) - ((0.5 * robotYAcceleration * Math.pow(shotTime, 2)) * m2);
+         double distanceFromOrigin = Math.sqrt(robotXDistance * robotYDistance);
          //old formula
          //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
-         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4))+ (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;
+         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4)) + (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;
          SmartDashboard.putNumber("Angle",angle);
          if (angle > 0 && angle < 23.4) {
             moveWrist(angle);

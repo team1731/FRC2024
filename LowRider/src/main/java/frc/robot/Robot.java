@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
 
 	ledSubsystem = new LEDStringSubsystem(false);
 	intakeSubsystem = new IntakeSubsystem(true);
-	wristSubsystem = new WristSubsystem(true);
+	wristSubsystem = new WristSubsystem(true, driveSubsystem, visionSubsystem);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
 	shooterSubsystem = new ShooterSubsystem(true);
 	visionSubsystem = new VisionSubsystem(true, driveSubsystem);

@@ -97,7 +97,14 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
         if(!enabled || Robot.isSimulation()) return new ChassisSpeeds();
         return m_kinematics.toChassisSpeeds(getState().ModuleStates);
     }
-
+    public double getXVelocity() {
+        ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
+        return chassisSpeeds.vxMetersPerSecond;
+    }
+    public double getYVelocity() {
+        ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
+        return chassisSpeeds.vyMetersPerSecond;
+    }
     public void periodic() {
         logCurrentAndVelocity();
     }
