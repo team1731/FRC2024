@@ -212,55 +212,56 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     public void setWristBasedOnDistance(double distanceToSpeakerInMeters, double xDistanceToSpeaker, double yDistanceToSpeaker, double leftX, double leftY) {
          
-         double shotTime = distanceToSpeakerInMeters / (3.81 * 2 * Math.PI); //speed of shot in m/s
+        double shotTime = distanceToSpeakerInMeters / (3.81 * 2 * Math.PI); //speed of shot in m/s
         
-         double robotXSpeed = driveSubsystem.getXVelocity();
-         double robotYSpeed = driveSubsystem.getYVelocity();
+        double robotXSpeed = driveSubsystem.getXVelocity();
+        double robotYSpeed = driveSubsystem.getYVelocity();
          
-         double robotXSetSpeed = -(leftY*leftY * MaxSpeed);
-         double robotYSetSpeed = -(leftX*leftX * MaxSpeed);
+        double robotXSetSpeed = -(leftY*leftY * MaxSpeed);
+        double robotYSetSpeed = -(leftX*leftX * MaxSpeed);
          
-         double robotXAcceleration;
-         double robotYAcceleration;
+        double robotXAcceleration;
+        double robotYAcceleration;
         
-         if (robotXSetSpeed < robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5){
+        //if statements determine if difference in current robot speed and set robot speed is indicative of acceleration, and in which direction
+        if (robotXSetSpeed < robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5){
             robotXAcceleration = -4;
-         } if (robotXSetSpeed > robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5) {
+        } if (robotXSetSpeed > robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5) {
             robotXAcceleration = 4;
-         } else {
+        } else {
             robotXAcceleration = 0;
-         }
+        }
 
-         if (robotYSetSpeed < robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5){
+        if (robotYSetSpeed < robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5){
             robotYAcceleration = -4;
-         } if (robotYSetSpeed > robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5) {
-            robotYAcceleration = 4;
-         } else {
-            robotYAcceleration = 0;
-         }
+        } if (robotYSetSpeed > robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5) {
+           robotYAcceleration = 4;
+        } else {
+           robotYAcceleration = 0;
+        }
         
-         //code assumes that X velocity and acceleration toward the blue alliance speaker is positive, and negative for red alliance speaker
-         //code assumes that Y velocity in direction of speaker is 
-         double m = 1.0;
-         if(isRedAlliance()){
-            m = -1.0;
-         }
+        //code assumes that X velocity and acceleration toward the blue alliance speaker is positive, and negative for red alliance speaker
 
-         double m2 = 1.0;
-         if(m_visionSubsystem.isBelowSpeakerLine()){
-            m2 = -1.0;
-         }
+        double m = 1.0;
+        if(isRedAlliance()){
+           m = -1.0;
+        }
+        //code assumes that Y velocity in direction of speaker is positive, and negative going away
+        double m2 = 1.0;
+        if(m_visionSubsystem.isBelowSpeakerLine()){
+           m2 = -1.0;
+        }
 
-         double robotXDistance = xDistanceToSpeaker - ((robotXSpeed * shotTime) * m) - ((0.5 * robotXAcceleration * Math.pow(shotTime, 2)) * m);
-         double robotYDistance = yDistanceToSpeaker - ((robotYSpeed * shotTime) * m2) - ((0.5 * robotYAcceleration * Math.pow(shotTime, 2)) * m2);
-         double distanceFromOrigin = Math.sqrt(robotXDistance * robotYDistance);
-         //old formula
-         //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
-         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4)) + (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;
-         SmartDashboard.putNumber("Angle",angle);
-         if (angle > 0 && angle < 23.4) {
+        double robotXDistance = xDistanceToSpeaker - ((robotXSpeed * shotTime) * m) - ((0.5 * robotXAcceleration * Math.pow(shotTime, 2)) * m);
+        double robotYDistance = yDistanceToSpeaker - ((robotYSpeed * shotTime) * m2) - ((0.5 * robotYAcceleration * Math.pow(shotTime, 2)) * m2);
+        double distanceFromOrigin = Math.sqrt(robotXDistance * robotYDistance);
+        //old formula
+        //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
+        double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4)) + (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;
+        SmartDashboard.putNumber("Angle",angle);
+        if (angle > 0 && angle < 23.4) {
             moveWrist(angle);
-         }
+        }
         
 
     }
