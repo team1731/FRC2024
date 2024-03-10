@@ -570,7 +570,9 @@ public final class Constants {
 
     public static final class OpConstants{
         // KEYBOARD CONSTANTS   
-        public static final int kPWM_LedSting = 6;         // Addressable Led String
+        public static final int kPWM_LedString = 6;     // PWM # for Addressable Led String
+        public static final int kLedStringLength = 33;  // Length of Addressable Led String
+        public static final double kLedStringBlinkDelay = 0.1;  // Delay in Seconds of Addressable Led String
 
         public enum LedOption {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
