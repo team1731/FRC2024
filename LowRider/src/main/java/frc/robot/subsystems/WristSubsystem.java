@@ -10,6 +10,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.DynamicMotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -34,6 +35,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private double desiredPosition;
     private double arbitraryFeedForward = 0.0;
     private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps;
+
 
     private DynamicMotionMagicVoltage mmReq = new DynamicMotionMagicVoltage(
         0, 
@@ -210,7 +212,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         return false;
     }
 
-    public void setWristBasedOnDistance(double distanceToSpeakerInMeters, double xDistanceToSpeaker, double yDistanceToSpeaker, double leftX, double leftY) {
+    public void setWristBasedOnDistance(double distanceToSpeakerInMeters, double xDistanceToSpeaker, double yDistanceToSpeaker, double leftX, double leftY, double accelerationXPigeon, double accelerationYPigeon) {
          
         double shotTime = distanceToSpeakerInMeters / (3.81 * 2 * Math.PI); //speed of shot in m/s
         
@@ -220,25 +222,25 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         double robotXSetSpeed = -(leftY*leftY * MaxSpeed);
         double robotYSetSpeed = -(leftX*leftX * MaxSpeed);
          
-        double robotXAcceleration;
-        double robotYAcceleration;
+        double robotXAcceleration = accelerationXPigeon;
+        double robotYAcceleration = accelerationYPigeon;
         
         //if statements determine if difference in current robot speed and set robot speed is indicative of acceleration, and in which direction
-        if (robotXSetSpeed < robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5){
-            robotXAcceleration = -4;
-        } if (robotXSetSpeed > robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5) {
-            robotXAcceleration = 4;
-        } else {
-            robotXAcceleration = 0;
-        }
+        // if (robotXSetSpeed < robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5){
+        //     robotXAcceleration = -4;
+        // } if (robotXSetSpeed > robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5) {
+        //     robotXAcceleration = 4;
+        // } else {
+        //     robotXAcceleration = 0;
+        // }
 
-        if (robotYSetSpeed < robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5){
-            robotYAcceleration = -4;
-        } if (robotYSetSpeed > robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5) {
-           robotYAcceleration = 4;
-        } else {
-           robotYAcceleration = 0;
-        }
+        // if (robotYSetSpeed < robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5){
+        //     robotYAcceleration = -4;
+        // } if (robotYSetSpeed > robotYSpeed && Math.abs(robotYSetSpeed - robotYSetSpeed) >= 0.5) {
+        //    robotYAcceleration = 4;
+        // } else {
+        //    robotYAcceleration = 0;
+        // }
         
         //code assumes that X velocity and acceleration toward the blue alliance speaker is positive, and negative for red alliance speaker
 
@@ -254,7 +256,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         double robotXDistance = xDistanceToSpeaker - ((robotXSpeed * shotTime) * m) - ((0.5 * robotXAcceleration * Math.pow(shotTime, 2)) * m);
         double robotYDistance = yDistanceToSpeaker - ((robotYSpeed * shotTime) * m2) - ((0.5 * robotYAcceleration * Math.pow(shotTime, 2)) * m2);
-        double distanceFromOrigin = Math.sqrt(robotXDistance * robotYDistance);
+        double distanceFromOrigin = Math.sqrt((robotXDistance * robotXDistance) + (robotYDistance * robotYDistance));
         //old formula
         //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4)) + (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;

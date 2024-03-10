@@ -35,7 +35,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     // private double m_lastSimTime;
     private boolean enabled;
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
-
+    
     
     private void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -104,6 +104,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     public double getYVelocity() {
         ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
         return chassisSpeeds.vyMetersPerSecond;
+        
     }
     public void periodic() {
         logCurrentAndVelocity();

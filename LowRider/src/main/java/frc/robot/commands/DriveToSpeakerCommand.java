@@ -85,7 +85,7 @@ public class DriveToSpeakerCommand extends Command {
 	@Override
 	public void execute() {
 
-		m_WristSubsystem.setWristBasedOnDistance(m_visionSubsystem.getDistanceToSpeakerInMeters(), m_visionSubsystem.getXDistanceToSpeaker(), m_visionSubsystem.getYDistanceToSpeaker(), m_XboxController.getLeftX(), m_XboxController.getLeftY());
+		m_WristSubsystem.setWristBasedOnDistance(m_visionSubsystem.getDistanceToSpeakerInMeters(), m_visionSubsystem.getXDistanceToSpeaker(), m_visionSubsystem.getYDistanceToSpeaker(), m_XboxController.getLeftX(), m_XboxController.getLeftY(), m_visionSubsystem.getAccelerationX(), m_visionSubsystem.getAccelerationY());
 		m_drivetrain.setControl( 
 			 driveAtSpeaker.withVelocityX(-(Math.abs(m_XboxController.getLeftY()) * m_XboxController.getLeftY()) * MaxSpeed)                                                                                                                     
                   .withVelocityY(-(Math.abs(m_XboxController.getLeftX()) * m_XboxController.getLeftX()) * MaxSpeed).withTargetDirection(m_visionSubsystem.getHeadingToSpeakerInRad())) 

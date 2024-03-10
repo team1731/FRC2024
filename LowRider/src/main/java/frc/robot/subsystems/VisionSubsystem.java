@@ -24,16 +24,30 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.Vision.*;
+import static frc.robot.Constants.Vision.kCameraNameBack;
+import static frc.robot.Constants.Vision.kCameraNameFront;
+import static frc.robot.Constants.Vision.kMultiTagStdDevs;
+import static frc.robot.Constants.Vision.kRobotToCamBack;
+import static frc.robot.Constants.Vision.kRobotToCamFront;
+import static frc.robot.Constants.Vision.kSingleTagStdDevs;
+import static frc.robot.Constants.Vision.kTagLayout;
+
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
+
+import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
@@ -41,7 +55,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -49,15 +62,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.util.log.Logger;
-
-import java.util.Optional;
-
-import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonUtils;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-import org.photonvision.targeting.PhotonPipelineResult;
 
 public class VisionSubsystem extends SubsystemBase implements ToggleableSubsystem {
     private PhotonCamera cameraFront;
@@ -69,7 +73,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private Pose2d redGoal = new Pose2d(new Translation2d(16.579342,5.547868), new Rotation2d());
     private Pose2d blueGoal = new Pose2d(new Translation2d(0.0381,5.547868), new Rotation2d());
     private boolean useVision = false;
-   
+
 
     private CommandSwerveDrivetrain driveSubsystem;
     private double lastEstTimestamp = 0;
@@ -78,6 +82,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     Logger poseLogger;
     double lastLogTime = 0;
     double logInterval = 1.0; // in seconds
+
+    Pigeon2 mypigeon = driveSubsystem.getPigeon2();
 
     private boolean enabled;
 
@@ -228,7 +234,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             // Log values to the dashboard
             // driveSubsystem.log();
         }
-
+        SmartDashboard.putNumber("accelerationXPigeon", mypigeon.getAccelerationX().getValueAsDouble());
+        SmartDashboard.putNumber("accelerationYPigeon", mypigeon.getAccelerationY().getValueAsDouble());
+        SmartDashboard.putNumber("accelerationZPigeon", mypigeon.getAccelerationZ().getValueAsDouble());
         field2d.setRobotPose(getCurrentPose());
         // Pose2d posenow = getCurrentPose();
         // SmartDashboard.putNumber("CurrentPoseX", posenow.getX());
@@ -340,7 +348,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = driveSubsystem.getState().Pose;
         return Math.abs((robot.getX() - target.getX()));
-
+        
     }
 
     public double getYDistanceToSpeaker() {
@@ -368,7 +376,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         return distance;
     }
 
- private boolean isRedAlliance(){
+    public double getAccelerationX() {
+        return mypigeon.getAccelerationX().getValueAsDouble();
+    }
+    public double getAccelerationY() {
+        return mypigeon.getAccelerationY().getValueAsDouble();
+    }
+
+    private boolean isRedAlliance(){
 	Optional<Alliance> alliance = DriverStation.getAlliance();
 	if(alliance != null){
 		return alliance.get() == DriverStation.Alliance.Red;
