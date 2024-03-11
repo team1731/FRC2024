@@ -71,14 +71,10 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
         }
 
         if (switched) {
-          if (currentColor == LedOption.INIT) {
-            setTeamColorBlocks();
-          } else {
-            setFullColor(currentColor);
-          }
+          _setCurrentColor();
           // switched = false;
         } else {
-          setFullColor(LedOption.BLACK);
+          _setSingleColor(LedOption.BLACK);
           // switched = true;
         }
         switched = !switched;
@@ -90,7 +86,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   public void init() {
     if (enabled) {
       // initialization stuff
-      setColor(OpConstants.LedOption.INIT);
+      _setSingleColor(OpConstants.LedOption.INIT);
       mTimer.start();
     }
   }
@@ -109,75 +105,51 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
       }
       System.out.println("Setting the color to: " + color.toString());
       currentColor = color;
-      if (currentColor == LedOption.INIT) {
-        setTeamColorBlocks();
-      } else {
-        setFullColor(currentColor);
-      }
+      _setCurrentColor();
     }
   }
 
-  private void setFullColor(OpConstants.LedOption color) {
-    if (enabled) {
-      int r = 0;
-      int g = 0;
-      int b = 0;
-      switch (color) {
-        case INIT:  // this should not be an option here
-          return;
-        case WHITE:
-          r = WHITE[0]; g = WHITE[1]; b = WHITE[2];
-          break;
-        case YELLOW:
-          r = YELLOW[0]; g = YELLOW[1]; b = YELLOW[2];
-          break;
-        case PURPLE:
-          r = PURPLE[0]; g = PURPLE[1]; b = PURPLE[2];
-          break;
-        case BLUE:
-          r = BLUE[0]; g = BLUE[1]; b = BLUE[2];
-        case RED:
-          r = RED[0]; g = RED[1]; b = RED[2];
-          break;
-        case GREEN:
-          r = GREEN[0]; g = GREEN[1]; b = GREEN[2];
-          break;
-        case BLACK:
-          r = BLACK[0]; g = BLACK[1]; b = BLACK[2];
-          break;
-      }
-      for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-        m_ledBuffer.setRGB(i, r, g, b);
-      }
-      m_led.setData(m_ledBuffer);
-      // System.out.println("Color = " + r + ", "+ g + ", "+ b);
+  private void _setCurrentColor() {
+    if (currentColor == LedOption.INIT) {
+      _setTeamColors();
+    } else {
+      _setSingleColor(currentColor);
     }
   }
 
-  // private void setFullColorOld(int r, int g, int b) {
-  //   if (enabled) {
-  //     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-  //       m_ledBuffer.setRGB(i, r, g, b);
-  //     }
-  //     m_led.setData(m_ledBuffer);
-  //     // System.out.println("Color = " + r + ", "+ g + ", "+ b);
-  //   }
-  // }
+  private void _setSingleColor(OpConstants.LedOption color) {
+    int r = 0;
+    int g = 0;
+    int b = 0;
+    switch (color) {
+      case INIT:    return; // this should not be an option here
+      case WHITE:   r = WHITE[0]; g = WHITE[1]; b = WHITE[2]; break;
+      case YELLOW:  r = YELLOW[0]; g = YELLOW[1]; b = YELLOW[2]; break;
+      case PURPLE:  r = PURPLE[0]; g = PURPLE[1]; b = PURPLE[2]; break;
+      case BLUE:    r = BLUE[0]; g = BLUE[1]; b = BLUE[2]; break;
+      case RED:     r = RED[0]; g = RED[1]; b = RED[2]; break;
+      case GREEN:   r = GREEN[0]; g = GREEN[1]; b = GREEN[2]; break;
+      case BLACK:   r = BLACK[0]; g = BLACK[1]; b = BLACK[2]; break;
+    }
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      m_ledBuffer.setRGB(i, r, g, b);
+    }
+    m_led.setData(m_ledBuffer);
+    // System.out.println("Color = " + r + ", "+ g + ", "+ b);
+  }
 
   /*
    * 5 LED blocks of Yellow/Blue for team colors
    */
-  private void setTeamColorBlocks() {
-    if (enabled) {
-      for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-        if (i % 5 >= 0 && i % 5 <= 4 % 5 && (i / 5) % 2 != 0) {
-          m_ledBuffer.setRGB(i, BLUE[0], BLUE[1], BLUE[2]);
-        } else {
-          m_ledBuffer.setRGB(i, YELLOW[0], YELLOW[1], YELLOW[2]);
-        }
+  private void _setTeamColors() {
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      if (i % 5 >= 0 && i % 5 <= 4 % 5 && (i / 5) % 2 != 0) {
+        m_ledBuffer.setRGB(i, BLUE[0], BLUE[1], BLUE[2]);
+      } else {
+        m_ledBuffer.setRGB(i, YELLOW[0], YELLOW[1], YELLOW[2]);
       }
-      m_led.setData(m_ledBuffer);
     }
+    m_led.setData(m_ledBuffer);
   }
 
   /**
