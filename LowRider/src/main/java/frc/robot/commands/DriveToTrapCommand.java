@@ -7,14 +7,11 @@
 
 package frc.robot.commands;
 
-
 import java.util.List;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -45,11 +42,12 @@ class PosePair {
 public class DriveToTrapCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final CommandSwerveDrivetrain m_drivetrain;
-	private Pose2d endPose;
+	private Pose2d waypointPose;
+	private Pose2d finalPose;
 	private Command pathFollowingCommand;
 
 	private PosePair[] STAGE_POSES = {
-        //                                      STARTING POSE                ENDING POSE
+        //                                      WAYPOINT POSE                FINAL POSE
 		/* BLUE LEFT   */ new PosePair(new Pose( 3.84, 5.81,  -60), new Pose( 4.43, 4.85,  -60)),
 		/* BLUE RIGHT  */ new PosePair(new Pose( 4.12, 2.79,   60), new Pose( 4.40, 3.30,   60)),
 		/* BLUE CENTER */ new PosePair(new Pose( 6.48, 4.17,  180), new Pose( 5.38, 4.17,  180)),
@@ -66,7 +64,6 @@ public class DriveToTrapCommand extends Command {
 	 */
 	public DriveToTrapCommand(CommandSwerveDrivetrain drivetrain) {
 		m_drivetrain = drivetrain;
-
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		if (drivetrain != null ) {
@@ -85,12 +82,16 @@ public class DriveToTrapCommand extends Command {
 
 	  Pose2d currentPose = m_drivetrain.getState().Pose;
 	  Pose2d[] closestPoses = getClosestChainPoses(currentPose);
-	  endPose = closestPoses[0];
-      
+	  if(closestPoses == null){
+		return;
+	  }
+
+	  waypointPose = closestPoses[0];
+      finalPose = closestPoses[1];
       // The rotation component in these poses represents the direction of travel
       Pose2d startPos = new Pose2d(currentPose.getTranslation(), new Rotation2d());
       
-      List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(startPos, endPose);
+      List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(startPos, waypointPose, finalPose);
       PathPlannerPath path = new PathPlannerPath(
         bezierPoints, 
         new PathConstraints(
@@ -105,11 +106,7 @@ public class DriveToTrapCommand extends Command {
 	  
 	  pathFollowingCommand = AutoBuilder.followPath(path);
       pathFollowingCommand.schedule();
-
     }
-  
-
-	
 	
 	private Pose2d[] getClosestChainPoses(Pose2d currentPose) {
 		Pose2d[] closestPoses = null;
@@ -122,6 +119,13 @@ public class DriveToTrapCommand extends Command {
 				closestPoses = fieldPoses;
 			}
 		}
+		if(closestPoses == null){
+			System.err.println("\n\nERROR: cound not find a pose to nearest chain!\n\n");
+		}
+		else{
+			Pose2d closest = closestPoses[0];
+			System.out.println("\nFOUND pose to nearest chain at " + closest.getX() + ", " + closest.getY() + ", " + closest.getRotation().getDegrees());
+		}
 		return closestPoses;
 	}
 
@@ -129,14 +133,12 @@ public class DriveToTrapCommand extends Command {
 	@Override
 	public void execute() {
 
-	
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		
-
 	}
 
 	// Returns true when the command should end.
