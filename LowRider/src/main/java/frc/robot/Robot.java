@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -54,6 +55,7 @@ public class Robot extends TimedRobot {
   private IntakeSubsystem intakeSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
+ 
 
   public Robot() {
   }
@@ -96,7 +98,7 @@ public class Robot extends TimedRobot {
 
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
-	ledSubsystem = new LEDStringSubsystem(false);
+	ledSubsystem = new LEDStringSubsystem(true);
 	intakeSubsystem = new IntakeSubsystem(true);
 	wristSubsystem = new WristSubsystem(true);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
