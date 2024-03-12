@@ -37,7 +37,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     // private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
 
-    private Servo trapFlapServo = new LinearServo(0, 50,20 );
+    private Servo trapFlapServo = new LinearServo(0, 50,32 );
 
     private boolean enabled;
 
@@ -102,7 +102,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         mm.MotionMagicJerk = WristConstants.MMJerk;          // Take approximately 0.2 seconds to reach max accel
 
         Slot0Configs slot0 = cfg.Slot0;
-        slot0.kP = 20;
+        slot0.kP = 5;
         slot0.kI = 0;
         slot0.kD = 0.0078125;
         slot0.kV = 0.009375;
