@@ -18,8 +18,8 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   // WITH NEW LED STRIP, COLORS ARE IN RBG not RGB
   private static final int[] YELLOW = { 255, 0, 120 };
   private static final int[] PURPLE = { 120, 150, 0 };
-  private static final int[] WHITE = { 255, 255, 255 };
-  private static final int[] BLUE = { 64, 0, 0 };
+  private static final int[] WHITE = { 250, 250, 250 };
+  private static final int[] BLUE = { 0, 255, 0 };
   private static final int[] BLACK = { 0, 0, 0 };
   private static final int[] RED = { 255, 0, 0 };
   private static final int[] GREEN = { 0, 0, 128 };
@@ -95,6 +95,9 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
     if (enabled) {
       this.blink = blink;
       this.startBlink = mTimer.get();
+      if (!blink) {
+        _setCurrentColor(); // make sure if blink ended in BLACK, then turn ON
+      }
     }
   }
 
@@ -116,7 +119,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
       _setSingleColor(currentColor);
     }
   }
-
+//charlie was here
   private void _setSingleColor(OpConstants.LedOption color) {
     int r = 0;
     int g = 0;
@@ -143,7 +146,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
    */
   private void _setTeamColors() {
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-      if (i % 5 >= 0 && i % 5 <= 4 % 5 && (i / 5) % 2 != 0) {
+      if (i % 2 == 0) {
         m_ledBuffer.setRGB(i, BLUE[0], BLUE[1], BLUE[2]);
       } else {
         m_ledBuffer.setRGB(i, YELLOW[0], YELLOW[1], YELLOW[2]);

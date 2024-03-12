@@ -10,15 +10,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
-
-import frc.robot.subsystems.LEDStringSubsystem;
 // import frc.robot.Robot;
 
 
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
-
-    private LEDStringSubsystem ledSubsystem;
-
     private CANSparkMax intakeMotor;
     private CANSparkMax feederMotor;
 
@@ -32,16 +27,18 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     private boolean finishedGoingUp = false;
     private boolean backingUpComplete = false;
     private boolean sequenceComplete = false;
-   
-    
+    private boolean isShooterAsIntake = false;
+    private LEDStringSubsystem ledSubsystem;
+
     private boolean enabled;
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
-    public IntakeSubsystem(boolean enabled) {
+    public IntakeSubsystem(boolean enabled, LEDStringSubsystem ledSubsystem) {
         this.enabled = enabled;
+        this.ledSubsystem = ledSubsystem;
         initializeIntakeMotor();
     }
 
@@ -93,8 +90,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     } 
    public void stopReverseIntake() {
-        enableReverseLimitSwitch();
-        stopIntake();
+    enableReverseLimitSwitch();
+    stopIntake();
    } 
        
    // used only to back up note
@@ -111,6 +108,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             feederMotor.set(0);
             isIntaking = false;
             noteIsRetrieved = false;
+            isShooterAsIntake = false;
         }
     }
     
@@ -154,14 +152,14 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
    
     
     public void periodic() {
+
  
         if (((isIntaking)&&(!isJigglingFeedingUp)) &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
             reverseIntakeSlow();
             isIntaking = false;
             System.out.println("note is here and reversing intake");
-            ledSubsystem.setBlink(true);
-
+            
         } else if ((isJigglingFeedingUp) && goingUpTimer != 0 && Timer.getFPGATimestamp() - goingUpTimer > .1) {
 
              System.out.println("Backing Up");
@@ -170,7 +168,6 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
              doneJigglingTimer = Timer.getFPGATimestamp();
              isJigglingFeedingUp = false;
              backingUpComplete = true;  // just need to wait for note to come back down which is done below
-             ledSubsystem.setBlink(false);
           
         }
 
@@ -179,9 +176,11 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             doneJigglingTimer = 0;
 
         }
-
+        if (isShooterAsIntake==true && noteIsPresentShooterIntake()){
+            enableReverseLimitSwitch();
+            isShooterAsIntake = false;
+        }
     }
-
 
     private void disableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(false);
@@ -199,9 +198,24 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         m_reverseLimit.enableLimitSwitch(true);
     }
 
+    private boolean getNoteSwitch() {
+        boolean noteCaught = feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed();
+        if (noteCaught) {
+            ledSubsystem.setBlink(true);
+        } else {
+            ledSubsystem.setBlink(false);
+        }
+        return noteCaught;
+    }
+
     public boolean noteIsPresent() {
 
-       return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
+       return getNoteSwitch();
+    }
+    public boolean noteIsPresentShooterIntake() {
+
+       return (getNoteSwitch()) || 
+       (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
     }
 
     public boolean noteRetrieved() {
@@ -211,11 +225,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     public void fireNote() {
 
-        disableLimitSwitch(); 
+        disableLimitSwitch();	
         noteIsRetrieved = false;	
 		feed(1.0);
         isIntaking = false;
-        ledSubsystem.setBlink(false);
     }
 
 
@@ -241,19 +254,25 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         stopFeed();
     }
 
+    public void shooterAsIntakeFeeder() {
+        disableReverseLimitSwitch();
+        feed(-0.2);
+        isShooterAsIntake = true;
+    }
+
     public void feedUpJiggle() {
-        System.out.println("Starting Jiggle Feed Up");
-        disableLimitSwitch();
-        feed(0.5);
-        isJigglingFeedingUp = true;
-        goingUpTimer = Timer.getFPGATimestamp();
+       System.out.println("Starting Jiggle Feed Up");
+       disableLimitSwitch();
+       feed(0.5);
+       isJigglingFeedingUp = true;
+       goingUpTimer = Timer.getFPGATimestamp();
     }
 
     public void stopJiggle() {
-        System.out.println("Stopping Jiggle");
-        stopIntake();
-        sequenceComplete = false;
-        enableLimitSwitch();
+    System.out.println("Stopping Jiggle");
+    stopIntake();
+    sequenceComplete = false;
+     enableLimitSwitch();
     }
  
     public boolean doneJiggling() {

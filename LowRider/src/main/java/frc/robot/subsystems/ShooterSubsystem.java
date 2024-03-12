@@ -85,7 +85,14 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
             m_fllr.setControl(m_voltageVelocity.withVelocity(6000.0/60));
 		}  
 
-    }    
+    }
+
+    public void shooterAsIntake(){
+        if (enabled) {
+             m_fx.setControl(m_voltageVelocity.withVelocity(-1000/60));
+             m_fllr.setControl(m_voltageVelocity.withVelocity(-1000/60));
+        }     
+    }
 
         public void periodic() {
         if(!enabled) return;
@@ -126,6 +133,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     public void reverseSlow() {
 
             m_fx.setControl(m_voltageVelocity.withVelocity(-500.0/60));
+            m_fllr.setControl(m_voltageVelocity.withVelocity(-500.0/60));
     }
 
     public double getShooterVelocity() {

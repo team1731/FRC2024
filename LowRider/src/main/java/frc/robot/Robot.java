@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -54,6 +55,7 @@ public class Robot extends TimedRobot {
   private IntakeSubsystem intakeSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
+ 
 
   public Robot() {
   }
@@ -96,12 +98,12 @@ public class Robot extends TimedRobot {
 
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
-	ledSubsystem = new LEDStringSubsystem(false);
-	intakeSubsystem = new IntakeSubsystem(true);
+	ledSubsystem = new LEDStringSubsystem(true);
+	intakeSubsystem = new IntakeSubsystem(true, ledSubsystem);
 	wristSubsystem = new WristSubsystem(true);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
 	shooterSubsystem = new ShooterSubsystem(true);
-	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem, ledSubsystem);
 
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
@@ -253,6 +255,8 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledInit() {
+	ledSubsystem.setBlink(false);
+	ledSubsystem.setColor(OpConstants.LedOption.INIT);
   }
 
 
@@ -359,7 +363,7 @@ public class Robot extends TimedRobot {
 	CommandScheduler.getInstance().cancelAll();
 	initSubsystems();
 	//for testing only
-	ledSubsystem.setColor(LedOption.INIT);
+	ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
 	// sm_armStateMachine.setIsInAuto(false);
 	// sm_armStateMachine.initializeArm();
 	// This makes sure that the autonomous stops running when
@@ -406,13 +410,13 @@ public class Robot extends TimedRobot {
 	/*
 	 * Change LED blinking status depending on whether holding a game piece or not
 	 */
-	if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
-		ledSubsystem.setBlink(true);
-		ledBlinking = true;
-	} else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
-		ledSubsystem.setBlink(false);
-		ledBlinking = false;
-	}
+	// if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
+	// 	ledSubsystem.setBlink(true);
+	// 	ledBlinking = true;
+	// } else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
+	// 	ledSubsystem.setBlink(false);
+	// 	ledBlinking = false;
+	// }
 
 	/*
 	 * Change LED to indicate emergency status entry or exit

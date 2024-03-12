@@ -200,15 +200,15 @@ public class RobotContainer {
     //kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
     kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
-//    ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
-//    kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
+    ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
+    kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
  //  Comment out the two lines above and uncomment this to tune shooting angles
    //  Also uncomment the call to get the distance to the speaker in the period of vision subsystem (that sends the data to smartdashbord among other things)
-        ka.onTrue(new InstantCommand(() -> wristSubsystem.jogDown()))
-        .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
+   //     ka.onTrue(new InstantCommand(() -> wristSubsystem.jogDown()))
+    //    .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
 
-        kb.onTrue(new InstantCommand(() -> wristSubsystem.jogUp()))
-        .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
+   //     kb.onTrue(new InstantCommand(() -> wristSubsystem.jogUp()))
+   //     .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
 
  
 
@@ -234,7 +234,9 @@ public class RobotContainer {
     operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     operatorkRightTrigger.onTrue(new JiggleCommand(intakeSubsystem, shooterSubsystem));
- 
+
+    operatorkLeftTrigger.whileTrue(new ShooterAsIntakeCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem, shooterSubsystem));
+
     operatorkx.onTrue(new InstantCommand(() -> wristSubsystem.slowlyDown()))
         .onFalse(new InstantCommand(() -> wristSubsystem.stop()));
 

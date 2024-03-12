@@ -350,6 +350,7 @@ public final class Constants {
         public final static double elevatorPositionTolerance = 0.05;
         public static final double wristClearsPosition = 0;
         public static final double elevatorAmpPosition = 75;
+        public static final double elevatorShooterAsIntakePosition = 20;
         public static final double elevatorAmpReversePosition = 10;
         public static double elevatorTrapPosition = 77;  
 
@@ -551,6 +552,8 @@ public final class Constants {
     public static class Vision {
         public static final String kCameraNameFront = "ArducamUSB1";
         public static final String kCameraNameBack = "ArducamUSB2";
+        public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
+
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
         public static final Transform3d kRobotToCamFront =
                 new Transform3d(new Translation3d(0.33655, 0.2159, 0.19939), new Rotation3d(0, -Units.degreesToRadians(35), Units.degreesToRadians(-10)));
@@ -565,13 +568,12 @@ public final class Constants {
         // (Fake values. Experiment and determine estimation noise on an actual robot.)
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
-        public static double kMaxDistanceBetweenPoseEstimations = 1.0;
     }
 
     public static final class OpConstants{
         // KEYBOARD CONSTANTS   
-        public static final int kPWM_LedString = 6;     // PWM # for Addressable Led String
-        public static final int kLedStringLength = 33;  // Length of Addressable Led String
+        public static final int kPWM_LedString = 1;     // PWM # for Addressable Led String
+        public static final int kLedStringLength = 11;  // Length of Addressable Led String; 33 individual / sets of 3
         public static final double kLedStringBlinkDelay = 0.1;  // Delay in Seconds of Addressable Led String
 
         public enum LedOption {
