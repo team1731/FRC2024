@@ -63,6 +63,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
+    public boolean forwardLimitReached(){
+        return m_forwardLimit.isPressed();
+    }
+
     /*
      * INTAKE MOTOR MOVEMENT
      */
@@ -115,7 +119,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
      * FEEDER MOTOR MOVEMENT
      */
 
-    private void feed(double speed) {
+    public void feed(double speed) {
         if (enabled) {
             feederMotor.set(speed);
         }
@@ -139,7 +143,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         
     }
 
-    private void stopFeed() {
+    public void stopFeed() {
         
         if (enabled) {
             feederMotor.set(0);
@@ -181,19 +185,19 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
-    private void disableLimitSwitch() {
+    public void disableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(false);
     }
 
-    private void disableReverseLimitSwitch() {
+    public void disableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(false);
     }
 
-    private void enableLimitSwitch() {
+    public void enableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(true);
     }
 
-    private void enableReverseLimitSwitch() {
+    public void enableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(true);
     }
 

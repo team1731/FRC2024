@@ -10,7 +10,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-enum State {
+enum CState {
     START_CONFIG,
     ELEVATOR_ABOVE_CHAIN,
     ROBOT_LATCHED_ON_CHAIN,
@@ -19,7 +19,7 @@ enum State {
     END
 }
 
-enum Input {
+enum CInput {
     BEGIN,
     STARTING,
     ELEVATOR_ABOVE_CHAIN,
@@ -34,11 +34,11 @@ public class ClimbStateMachine {
     private final ShooterSubsystem m_shooterSubsystem;
 	private final ElevatorSubsystem m_elevatorSubsystem;
 	private final WristSubsystem m_wristSubsystem;
-    private State currentState;
-    private Input currentInput;
+    private CState currentState;
+    private CInput currentInput;
     private HashMap<String, Method> methods;
     private double timerStarted;
-    private double NOTE_TIMER_SECONDS = .5;
+    private double NOTE_TIMER_SECONDS = 0.5;
 
     public ClimbStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem,  ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem){
         m_intakeSubsystem = intakeSubsystem;
@@ -62,38 +62,38 @@ public class ClimbStateMachine {
         }
     }
 
-    public void setCurrentState(State newState){
+    public void setCurrentState(CState newState){
         System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   CLIMB STATE MACHINE ========> SETTING STATE: " + newState + " $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n\n");
         currentState = newState;
     }
 
-    public void setCurrentInput(Input newInput){
+    public void setCurrentInput(CInput newInput){
         System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   CLIMB STATE MACHINE ========> SETTING INPUT: " + newInput + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
         currentInput = newInput;
     }
 
     Object STATE_TRANSITION_TABLE[][] = {
       // CURRENT                        INPUT                               OPERATION                     NEXT
-        {State.START_CONFIG,            Input.BEGIN,                        "raiseElevatorAboveChain",    State.ELEVATOR_ABOVE_CHAIN},
-        {State.ELEVATOR_ABOVE_CHAIN,    Input.ELEVATOR_ABOVE_CHAIN,         "latchRobotOnChain",          State.ROBOT_LATCHED_ON_CHAIN},
-        {State.ROBOT_LATCHED_ON_CHAIN,  Input.STARTING,                     "raiseElevatorToTrap",        State.ELEVATOR_AT_TRAP},
-        {State.ELEVATOR_AT_TRAP,        Input.ELEVATOR_AT_TRAP,             "ejectNote",                  State.LOWER_ELEVATOR},
-        {State.ELEVATOR_AT_TRAP,        Input.ABORT,                        "getOffTheLedge",             State.ROBOT_LATCHED_ON_CHAIN},
-        {State.LOWER_ELEVATOR,          Input.TIMER_HAS_EXPIRED,            "getOffTheLedge",             State.ROBOT_LATCHED_ON_CHAIN},
-        {State.LOWER_ELEVATOR,          Input.ABORT,                        "getOffTheLedge",             State.ROBOT_LATCHED_ON_CHAIN},
-        {State.END,                     Input.BEGIN,                        "lowerRobotDown",             State.START_CONFIG}
+        {CState.START_CONFIG,            CInput.BEGIN,                        "raiseElevatorAboveChain",    CState.ELEVATOR_ABOVE_CHAIN},
+        {CState.ELEVATOR_ABOVE_CHAIN,    CInput.ELEVATOR_ABOVE_CHAIN,         "latchRobotOnChain",          CState.ROBOT_LATCHED_ON_CHAIN},
+        {CState.ROBOT_LATCHED_ON_CHAIN,  CInput.STARTING,                     "raiseElevatorToTrap",        CState.ELEVATOR_AT_TRAP},
+        {CState.ELEVATOR_AT_TRAP,        CInput.ELEVATOR_AT_TRAP,             "ejectNote",                  CState.LOWER_ELEVATOR},
+        {CState.ELEVATOR_AT_TRAP,        CInput.ABORT,                        "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
+        {CState.LOWER_ELEVATOR,          CInput.TIMER_HAS_EXPIRED,            "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
+        {CState.LOWER_ELEVATOR,          CInput.ABORT,                        "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
+        {CState.END,                     CInput.BEGIN,                        "lowerRobotDown",             CState.START_CONFIG}
     };
 
     public void setInput(){
-        if(currentState == State.ELEVATOR_AT_TRAP && m_elevatorSubsystem.isAtPosition(Constants.ElevatorConstants.elevatorTrapPosition)){
-            setCurrentInput(Input.ELEVATOR_AT_TRAP);
+        if(currentState == CState.ELEVATOR_AT_TRAP && m_elevatorSubsystem.isAtPosition(Constants.ElevatorConstants.elevatorTrapPosition)){
+            setCurrentInput(CInput.ELEVATOR_AT_TRAP);
         }
-        if(currentState == State.LOWER_ELEVATOR && Timer.getFPGATimestamp() - timerStarted > NOTE_TIMER_SECONDS){
-            setCurrentInput(Input.TIMER_HAS_EXPIRED);
+        if(currentState == CState.LOWER_ELEVATOR && Timer.getFPGATimestamp() - timerStarted > NOTE_TIMER_SECONDS){
+            setCurrentInput(CInput.TIMER_HAS_EXPIRED);
         }
     }
 
-    public void setInitialState(State initialState){
+    public void setInitialState(CState initialState){
         setCurrentState(initialState);
     }
 
@@ -101,7 +101,7 @@ public class ClimbStateMachine {
         Object[] operationAndNextState = lookupOperationAndNextState(currentState, currentInput);
         if(operationAndNextState != null){
             String operation = (String) operationAndNextState[0];
-            State nextState = (State) operationAndNextState[1];
+            CState nextState = (CState) operationAndNextState[1];
             Method method = methods.get(operation);
             if(method != null){
                 try {
@@ -120,13 +120,13 @@ public class ClimbStateMachine {
         setInput();
     }
 
-    private Object[] lookupOperationAndNextState(State currentState, Input currentInput) {
+    private Object[] lookupOperationAndNextState(CState currentState, CInput currentInput) {
         if(currentState != null && currentInput != null){
             for(Object[] transition : STATE_TRANSITION_TABLE){
-                State state = (State) transition[0];
-                Input input = (Input) transition[1];
+                CState state = (CState) transition[0];
+                CInput input = (CInput) transition[1];
                 String oper = (String) transition[2];
-                State next = (State) transition[3];
+                CState next = (CState) transition[3];
                 if(state == currentState && input == currentInput){
                     return new Object[]{oper, next};
                 }
@@ -171,10 +171,10 @@ public class ClimbStateMachine {
     }
 
     public void setInputStarting() {
-        setCurrentInput(Input.STARTING);
+        setCurrentInput(CInput.STARTING);
     }
 
     public void setInputAbort() {
-        setCurrentInput(Input.ABORT);
+        setCurrentInput(CInput.ABORT);
     }
 }

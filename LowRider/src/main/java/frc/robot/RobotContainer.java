@@ -96,6 +96,7 @@ public class RobotContainer {
   private ShooterSubsystem shooterSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private ClimbStateMachine climbStateMachine;
+  private IntakeShootStateMachine intakeShootStateMachine;
 
   /* Auto Paths */
   private static HashMap<String, String> autoPaths;
@@ -151,8 +152,11 @@ public class RobotContainer {
     }
 
     climbStateMachine = new ClimbStateMachine(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem);
-    climbStateMachine.setInitialState(State.ROBOT_LATCHED_ON_CHAIN);
+    climbStateMachine.setInitialState(CState.ROBOT_LATCHED_ON_CHAIN);
 
+    intakeShootStateMachine = new IntakeShootStateMachine(s_intakeSubsystem, s_shooterSubsystem, s_wristSubsystem);
+    intakeShootStateMachine.setInitialState(ISState.ALL_STOP);
+    
     // Configure the button bindings
     configureButtonBindings();
 
@@ -190,9 +194,23 @@ public class RobotContainer {
 
     ky.whileTrue(new DriveToSpeakerCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController));
 
+    //
+    //
+    //
+    // TRADITIONAL WAY
     kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem,shooterSubsystem));   
-
     kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
+    //
+    //
+    // STATE MACHINE WAY
+    // kLeftTrigger.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_INTAKE))
+    //             .onFalse(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.STOP_INTAKE));
+    // kRightTrigger.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_EJECT))
+    //              .onFalse(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.STOP_EJECT));
+    //
+    //
+    //
+
    // kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem)));
     kRightBumper.onTrue(new AmpScoringReverseCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem))
                 .onFalse(new ScoreAmpAndRetractReverseCommand(shooterSubsystem, intakeSubsystem, elevatorSubsystem, wristSubsystem));

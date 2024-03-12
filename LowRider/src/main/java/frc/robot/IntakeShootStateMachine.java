@@ -4,13 +4,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants.WristConstants;
-import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-enum State {
+enum ISState {
     ALL_STOP,
     INTAKING,
     JIGGLING_UP,
@@ -21,7 +19,7 @@ enum State {
     EJECTING
 }
 
-enum Input {
+enum ISInput {
     START_INTAKE,
     STOP_INTAKE,
     START_AMP,
@@ -31,20 +29,22 @@ enum Input {
     START_JIGGLE,
     STOP_JIGGLE,
     START_EJECT,
-    STOP_EJECT
+    STOP_EJECT,
+    FORWARD_LIMIT_REACHED,
+    JIGGLE_UP_TIMER_EXPIRED
 }
 
 public class IntakeShootStateMachine {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_shooterSubsystem;
 	private final WristSubsystem m_wristSubsystem;
-    private State currentState;
-    private Input currentInput;
+    private ISState currentState;
+    private ISInput currentInput;
     private HashMap<String, Method> methods;
-    private double timerStarted;
-    private double NOTE_TIMER_SECONDS = .5;
+    private double jiggleUpTimerStarted;
+    private double JIGGLE_UP_TIMER_SECONDS = 0.5;
 
-    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem,   WristSubsystem wristSubsystem){
+    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, WristSubsystem wristSubsystem){
         m_intakeSubsystem = intakeSubsystem;
 		m_shooterSubsystem = shooterSubsystem;
 		m_wristSubsystem = wristSubsystem;
@@ -53,62 +53,93 @@ public class IntakeShootStateMachine {
         for(Object[] transition : STATE_TRANSITION_TABLE){
             String name = (String) transition[2];
             try {
-                Method method = ClimbStateMachine.class.getMethod(name);
+                Method method = IntakeShootStateMachine.class.getMethod(name);
                 if(method != null){
                     methods.put(name, method);
                 }
             } catch (NoSuchMethodException e) {
-                System.out.println("\n\n\n\n" + Timer.getFPGATimestamp() + " ERROR: method '" + name + "' NOT FOUND IN CLASS ClimbStateMachine!\n\n\n\n");
+                System.out.println("\n\n\n\n" + Timer.getFPGATimestamp() + " ERROR: method '" + name + "' NOT FOUND IN CLASS IntakeShootStateMachine!\n\n\n\n");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void setCurrentState(State newState){
-        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   CLIMB STATE MACHINE ========> SETTING STATE: " + newState + " $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n\n");
+    public void setCurrentState(ISState newState){
+        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: " + newState + " $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n\n");
         currentState = newState;
+        if(currentState == ISState.ALL_STOP){
+            allStop();
+        }
     }
 
-    public void setCurrentInput(Input newInput){
-        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   CLIMB STATE MACHINE ========> SETTING INPUT: " + newInput + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
+    public void setCurrentInput(ISInput newInput){
+        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: " + newInput + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
         currentInput = newInput;
     }
 
     Object STATE_TRANSITION_TABLE[][] = {
-      // CURRENT                        INPUT                               OPERATION                     NEXT
-        {State.START_CONFIG,            Input.BEGIN,                        "raiseElevatorAboveChain",    State.ELEVATOR_ABOVE_CHAIN},
-        {State.ELEVATOR_ABOVE_CHAIN,    Input.ELEVATOR_ABOVE_CHAIN,         "latchRobotOnChain",          State.ROBOT_LATCHED_ON_CHAIN},
-        {State.ROBOT_LATCHED_ON_CHAIN,  Input.STARTING,                     "raiseElevatorToTrap",        State.ELEVATOR_AT_TRAP},
-        {State.ELEVATOR_AT_TRAP,        Input.ELEVATOR_AT_TRAP,             "ejectNote",                  State.LOWER_ELEVATOR},
-        {State.ELEVATOR_AT_TRAP,        Input.ABORT,                        "getOffTheLedge",             State.ROBOT_LATCHED_ON_CHAIN},
-        {State.LOWER_ELEVATOR,          Input.TIMER_HAS_EXPIRED,            "getOffTheLedge",             State.ROBOT_LATCHED_ON_CHAIN},
-        {State.LOWER_ELEVATOR,          Input.ABORT,                        "getOffTheLedge",             State.ROBOT_LATCHED_ON_CHAIN},
-        {State.END,                     Input.BEGIN,                        "lowerRobotDown",             State.START_CONFIG}
+    //   CURRENT                          INPUT                                 OPERATION                     NEXT
+        {ISState.ALL_STOP,                ISInput.START_INTAKE,                 "startIntake",                ISState.INTAKING},
+        {ISState.INTAKING,                ISInput.START_INTAKE,                 "doNothing",                  ISState.INTAKING},
+        {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "allStop",                    ISState.ALL_STOP},
+        {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "jiggleUp",                   ISState.JIGGLING_UP},
+        {ISState.JIGGLING_UP,             ISInput.START_INTAKE,                 "doNothing",                  ISState.JIGGLING_UP},
+        {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "jiggleDown",                 ISState.JIGGLING_DOWN},
+
     };
 
+
     public void setInput(){
-        if(currentState == State.ELEVATOR_AT_TRAP && m_elevatorSubsystem.isAtPosition(Constants.ElevatorConstants.elevatorTrapPosition)){
-            setCurrentInput(Input.ELEVATOR_AT_TRAP);
+        if(currentState == ISState.INTAKING && m_intakeSubsystem.forwardLimitReached()){
+            setCurrentInput(ISInput.FORWARD_LIMIT_REACHED);
         }
-        if(currentState == State.LOWER_ELEVATOR && Timer.getFPGATimestamp() - timerStarted > NOTE_TIMER_SECONDS){
-            setCurrentInput(Input.TIMER_HAS_EXPIRED);
+        if(currentState == ISState.JIGGLING_UP && Timer.getFPGATimestamp() - jiggleUpTimerStarted > JIGGLE_UP_TIMER_SECONDS){
+            setCurrentInput(ISInput.JIGGLE_UP_TIMER_EXPIRED);
         }
     }
 
-    public void setInitialState(State initialState){
+    public void setInitialState(ISState initialState){
         setCurrentState(initialState);
+    }
+
+    public boolean allStop(){
+        m_shooterSubsystem.stopShooting();
+        m_intakeSubsystem.stopIntake();
+        m_intakeSubsystem.stopFeed();
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        return true;
+    }
+
+    public boolean startIntake(){
+        m_shooterSubsystem.reverseSlow();
+        m_intakeSubsystem.intake(1.0);
+        m_intakeSubsystem.feed(1.0);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        return true;
+    }
+
+    public boolean jiggleUp(){
+        m_shooterSubsystem.reverseSlow();
+        m_intakeSubsystem.intake(-0.5);
+        m_intakeSubsystem.feed(0.5);
+        m_intakeSubsystem.disableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        jiggleUpTimerStarted = Timer.getFPGATimestamp();
+        return true;
     }
 
     public void run(){
         Object[] operationAndNextState = lookupOperationAndNextState(currentState, currentInput);
         if(operationAndNextState != null){
             String operation = (String) operationAndNextState[0];
-            State nextState = (State) operationAndNextState[1];
+            ISState nextState = (ISState) operationAndNextState[1];
             Method method = methods.get(operation);
             if(method != null){
                 try {
-                    System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   CLIMB STATE MACHINE ========> RUNNING: " + operation + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
+                    System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
                     if((Boolean)method.invoke(this) && nextState != null){
                         setCurrentState(nextState);
                     }
@@ -117,19 +148,19 @@ public class IntakeShootStateMachine {
                 }
             }
             else{
-                System.err.println("\n\n" + Timer.getFPGATimestamp() + " FATAL: STATE MACHINE OPERATION NOT FOUND: " + operation + "() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
+                System.err.println("\n\n" + Timer.getFPGATimestamp() + " FATAL: INTAKE/SHOOT STATE MACHINE OPERATION NOT FOUND: " + operation + "() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
             }
         }
         setInput();
     }
 
-    private Object[] lookupOperationAndNextState(State currentState, Input currentInput) {
+    private Object[] lookupOperationAndNextState(ISState currentState, ISInput currentInput) {
         if(currentState != null && currentInput != null){
             for(Object[] transition : STATE_TRANSITION_TABLE){
-                State state = (State) transition[0];
-                Input input = (Input) transition[1];
+                ISState state = (ISState) transition[0];
+                ISInput input = (ISInput) transition[1];
                 String oper = (String) transition[2];
-                State next = (State) transition[3];
+                ISState next = (ISState) transition[3];
                 if(state == currentState && input == currentInput){
                     return new Object[]{oper, next};
                 }
@@ -138,32 +169,6 @@ public class IntakeShootStateMachine {
         return null;
     }
 
-    public boolean raiseElevatorAboveChain(){
-        return true;
-    }
-
-    public boolean latchRobotOnChain(){
-        return true;
-    }
-
-    public boolean raiseElevatorToTrap(){
-        m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorTrapPosition);
-        return true;
-    }
-
-    public boolean ejectNote(){
-        m_intakeSubsystem.trapFeed();
-        timerStarted = Timer.getFPGATimestamp();
-        return true;
-    }
-
-    public boolean getOffTheLedge(){
-        m_wristSubsystem.retractTrapFlap();
-        m_wristSubsystem.moveWristSlow(WristConstants.wristNewTrapPosition, WristConstants.MMVelSlow);
-        m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
-        m_intakeSubsystem.stoptrapFeed();
-        return true;
-    }
 
     public boolean doNothing(){
         return true;
@@ -171,13 +176,5 @@ public class IntakeShootStateMachine {
 
     public boolean lowerRobotDown(){
         return true;
-    }
-
-    public void setInputStarting() {
-        setCurrentInput(Input.STARTING);
-    }
-
-    public void setInputAbort() {
-        setCurrentInput(Input.ABORT);
     }
 }
