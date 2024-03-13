@@ -110,20 +110,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
-    public void resumeShooting() {
-        if (isShooting) {
-            shoot();
-        } else {
-            stopShooting();
-        }
-    }
 
-    public void pauseShooting() {
-        if (enabled){
-            m_fx.setControl(m_brake);
-            m_fllr.setControl(m_brake);
-        }
-    }
 
     public void shootAmp() {
             m_fx.setControl(m_voltageVelocity.withVelocity(1000.0/60));
@@ -143,53 +130,5 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
 
 
 
-    /*
-
-    public void eject() {
-        if (enabled){
-          //shooterMotor.setSmartCurrentLimit(ArmConstants.EJECT_CURRENT_LIMIT);
-          // shooterMotor.set((stateMachine.getGamePiece() == GamePiece.CONE)? -1.0 : 1.0);
-          shooterMotor1.set(-1.0);
-          shooterMotor2.set(1);
-		}
-    }
-
-    public void holdShooting() {
-        if (enabled){
-            shooterMotor1.setSmartCurrentLimit(ArmConstants.INTAKE_HOLD_CURRENT_LIMIT_A);
-            // shooterMotor.set((stateMachine.getGamePiece() == GamePiece.CONE)? ArmConstants.INTAKE_HOLD_POWER : -1 * ArmConstants.INTAKE_HOLD_POWER);
-            shooterMotor1.set(ArmConstants.INTAKE_HOLD_POWER);
-            shooterMotor2.set(ArmConstants.INTAKE_HOLD_POWER);
-        }
-    }
-
-    public boolean isIntakeAtStartedVelocity() {
-        if (enabled){
-            return (Math.abs(shooterMotor1.getEncoder().getVelocity()) > ArmConstants.intakeStartedVelocityThreshold);
-        }
-        else{
-            return false;
-        }
-    }
-
-    public boolean isIntakeBelowStartedVelocity() {
-        if (enabled){
-            return (Math.abs(shooterMotor1.getEncoder().getVelocity()) < ArmConstants.intakeStartedVelocityThreshold);
-        }
-        else{
-            return false;
-            }
-        
-    }
-
-    public boolean isIntakeAtHoldingVelocity() {
-        if (enabled){
-            return (Math.abs(shooterMotor1.getEncoder().getVelocity()) < ArmConstants.intakeHoldingVelocityThreshold);
-        }
-        else{
-            return false;
-        }
-    }
-    */
 }
 

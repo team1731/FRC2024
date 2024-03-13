@@ -1,0 +1,6198 @@
+[
+    {
+        "messageType": 2,
+        "timestamp": 82.26971435546875,
+        "seqNumber": 878,
+        "line": "169.937467 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.2703857421875,
+        "seqNumber": 879,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.27117919921875,
+        "seqNumber": 880,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.27191162109375,
+        "seqNumber": 881,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.28134155273438,
+        "seqNumber": 882,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.28369140625,
+        "seqNumber": 883,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.28411865234375,
+        "seqNumber": 884,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.284423828125,
+        "seqNumber": 885,
+        "line": "169.95355 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.2933349609375,
+        "seqNumber": 886,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.29360961914062,
+        "seqNumber": 887,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.29443359375,
+        "seqNumber": 888,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.2967529296875,
+        "seqNumber": 889,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.29714965820312,
+        "seqNumber": 890,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.29739379882812,
+        "seqNumber": 891,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.298583984375,
+        "seqNumber": 892,
+        "line": "169.966164 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.30084228515625,
+        "seqNumber": 893,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3023681640625,
+        "seqNumber": 894,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.30270385742188,
+        "seqNumber": 895,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.30892944335938,
+        "seqNumber": 896,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.31008911132812,
+        "seqNumber": 897,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.310546875,
+        "seqNumber": 898,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.31085205078125,
+        "seqNumber": 899,
+        "line": "169.978295 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.31320190429688,
+        "seqNumber": 900,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.31625366210938,
+        "seqNumber": 901,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3167724609375,
+        "seqNumber": 902,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.321533203125,
+        "seqNumber": 903,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.32568359375,
+        "seqNumber": 904,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.32925415039062,
+        "seqNumber": 905,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33010864257812,
+        "seqNumber": 906,
+        "line": "169.991058 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33059692382812,
+        "seqNumber": 907,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33108520507812,
+        "seqNumber": 908,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33303833007812,
+        "seqNumber": 909,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33468627929688,
+        "seqNumber": 910,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33636474609375,
+        "seqNumber": 911,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33694458007812,
+        "seqNumber": 912,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.33847045898438,
+        "seqNumber": 913,
+        "line": "170.004989 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.34133911132812,
+        "seqNumber": 914,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.34234619140625,
+        "seqNumber": 915,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.34451293945312,
+        "seqNumber": 916,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.345703125,
+        "seqNumber": 917,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.34637451171875,
+        "seqNumber": 918,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3466796875,
+        "seqNumber": 919,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.34738159179688,
+        "seqNumber": 920,
+        "line": "170.017881 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.34884643554688,
+        "seqNumber": 921,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3529052734375,
+        "seqNumber": 922,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.353271484375,
+        "seqNumber": 923,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.36380004882812,
+        "seqNumber": 924,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.36404418945312,
+        "seqNumber": 925,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3642578125,
+        "seqNumber": 926,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3651123046875,
+        "seqNumber": 927,
+        "line": "170.031905 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.36529541015625,
+        "seqNumber": 928,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.365478515625,
+        "seqNumber": 929,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.36566162109375,
+        "seqNumber": 930,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3759765625,
+        "seqNumber": 931,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.376708984375,
+        "seqNumber": 932,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.37689208984375,
+        "seqNumber": 933,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.37713623046875,
+        "seqNumber": 934,
+        "line": "170.048173 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.37750244140625,
+        "seqNumber": 935,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.37765502929688,
+        "seqNumber": 936,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.37802124023438,
+        "seqNumber": 937,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.38873291015625,
+        "seqNumber": 938,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.38958740234375,
+        "seqNumber": 939,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.38995361328125,
+        "seqNumber": 940,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3905029296875,
+        "seqNumber": 941,
+        "line": "170.059192 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3907470703125,
+        "seqNumber": 942,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.3922119140625,
+        "seqNumber": 943,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.39248657226562,
+        "seqNumber": 944,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.41787719726562,
+        "seqNumber": 945,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.42086791992188,
+        "seqNumber": 946,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.421142578125,
+        "seqNumber": 947,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.42138671875,
+        "seqNumber": 948,
+        "line": "170.089837 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.42156982421875,
+        "seqNumber": 949,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.42227172851562,
+        "seqNumber": 950,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.42459106445312,
+        "seqNumber": 951,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.42831420898438,
+        "seqNumber": 952,
+        "line": "CommandScheduler loop overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.436767578125,
+        "seqNumber": 953,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.43701171875,
+        "seqNumber": 954,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.43719482421875,
+        "seqNumber": 955,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.43743896484375,
+        "seqNumber": 956,
+        "line": "170.108813 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.4376220703125,
+        "seqNumber": 957,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.43975830078125,
+        "seqNumber": 958,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.43994140625,
+        "seqNumber": 959,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.45254516601562,
+        "seqNumber": 960,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.45291137695312,
+        "seqNumber": 961,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.45318603515625,
+        "seqNumber": 962,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.45343017578125,
+        "seqNumber": 963,
+        "line": "170.122262 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.45370483398438,
+        "seqNumber": 964,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.45571899414062,
+        "seqNumber": 965,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.45608520507812,
+        "seqNumber": 966,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.46563720703125,
+        "seqNumber": 967,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.46603393554688,
+        "seqNumber": 968,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.46646118164062,
+        "seqNumber": 969,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.46908569335938,
+        "seqNumber": 970,
+        "line": "170.137751 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.46954345703125,
+        "seqNumber": 971,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.4697265625,
+        "seqNumber": 972,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.47198486328125,
+        "seqNumber": 973,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.48489379882812,
+        "seqNumber": 974,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.48513793945312,
+        "seqNumber": 975,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.48532104492188,
+        "seqNumber": 976,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.486328125,
+        "seqNumber": 977,
+        "line": "170.156969 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.486572265625,
+        "seqNumber": 978,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.48699951171875,
+        "seqNumber": 979,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.48907470703125,
+        "seqNumber": 980,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.50387573242188,
+        "seqNumber": 981,
+        "line": "CommandScheduler loop overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.51693725585938,
+        "seqNumber": 982,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.51718139648438,
+        "seqNumber": 983,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5174560546875,
+        "seqNumber": 984,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.51821899414062,
+        "seqNumber": 985,
+        "line": "170.188819 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5185546875,
+        "seqNumber": 986,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.52163696289062,
+        "seqNumber": 987,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.52340698242188,
+        "seqNumber": 988,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.53311157226562,
+        "seqNumber": 989,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.53335571289062,
+        "seqNumber": 990,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.53353881835938,
+        "seqNumber": 991,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.53421020507812,
+        "seqNumber": 992,
+        "line": "170.204976 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.53448486328125,
+        "seqNumber": 993,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.53512573242188,
+        "seqNumber": 994,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.53607177734375,
+        "seqNumber": 995,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.54238891601562,
+        "seqNumber": 996,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.54547119140625,
+        "seqNumber": 997,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.54583740234375,
+        "seqNumber": 998,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.54608154296875,
+        "seqNumber": 999,
+        "line": "170.214103 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5465087890625,
+        "seqNumber": 1000,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5469970703125,
+        "seqNumber": 1001,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.54733276367188,
+        "seqNumber": 1002,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.56134033203125,
+        "seqNumber": 1003,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5623779296875,
+        "seqNumber": 1004,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.56265258789062,
+        "seqNumber": 1005,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.56427001953125,
+        "seqNumber": 1006,
+        "line": "170.233543 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.56448364257812,
+        "seqNumber": 1007,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.56466674804688,
+        "seqNumber": 1008,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5648193359375,
+        "seqNumber": 1009,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5758056640625,
+        "seqNumber": 1010,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.576416015625,
+        "seqNumber": 1011,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.57696533203125,
+        "seqNumber": 1012,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.57723999023438,
+        "seqNumber": 1013,
+        "line": "170.246139 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.57785034179688,
+        "seqNumber": 1014,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.57806396484375,
+        "seqNumber": 1015,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.57846069335938,
+        "seqNumber": 1016,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.59536743164062,
+        "seqNumber": 1017,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.59634399414062,
+        "seqNumber": 1018,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.5965576171875,
+        "seqNumber": 1019,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.596923828125,
+        "seqNumber": 1020,
+        "line": "170.266173 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.59719848632812,
+        "seqNumber": 1021,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.59747314453125,
+        "seqNumber": 1022,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.59783935546875,
+        "seqNumber": 1023,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.62139892578125,
+        "seqNumber": 1024,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.62164306640625,
+        "seqNumber": 1025,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.62222290039062,
+        "seqNumber": 1026,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.62255859375,
+        "seqNumber": 1027,
+        "line": "170.292551 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.62396240234375,
+        "seqNumber": 1028,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.62417602539062,
+        "seqNumber": 1029,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.62435913085938,
+        "seqNumber": 1030,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.64111328125,
+        "seqNumber": 1031,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.64138793945312,
+        "seqNumber": 1032,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.6439208984375,
+        "seqNumber": 1033,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.64474487304688,
+        "seqNumber": 1034,
+        "line": "170.313271 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.6453857421875,
+        "seqNumber": 1035,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.64596557617188,
+        "seqNumber": 1036,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.6463623046875,
+        "seqNumber": 1037,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.65341186523438,
+        "seqNumber": 1038,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.65463256835938,
+        "seqNumber": 1039,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.6563720703125,
+        "seqNumber": 1040,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.65664672851562,
+        "seqNumber": 1041,
+        "line": "170.325514 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.65692138671875,
+        "seqNumber": 1042,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.6571044921875,
+        "seqNumber": 1043,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.65768432617188,
+        "seqNumber": 1044,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.67254638671875,
+        "seqNumber": 1045,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.67282104492188,
+        "seqNumber": 1046,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.67340087890625,
+        "seqNumber": 1047,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.673828125,
+        "seqNumber": 1048,
+        "line": "170.344788 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.6768798828125,
+        "seqNumber": 1049,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.67730712890625,
+        "seqNumber": 1050,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.6778564453125,
+        "seqNumber": 1051,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.69366455078125,
+        "seqNumber": 1052,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.69448852539062,
+        "seqNumber": 1053,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.69473266601562,
+        "seqNumber": 1054,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.69696044921875,
+        "seqNumber": 1055,
+        "line": "170.36549 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.69717407226562,
+        "seqNumber": 1056,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.69735717773438,
+        "seqNumber": 1057,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.69772338867188,
+        "seqNumber": 1058,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.71261596679688,
+        "seqNumber": 1059,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.713134765625,
+        "seqNumber": 1060,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.71334838867188,
+        "seqNumber": 1061,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.71365356445312,
+        "seqNumber": 1062,
+        "line": "170.384615 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.71408081054688,
+        "seqNumber": 1063,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.71438598632812,
+        "seqNumber": 1064,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.71475219726562,
+        "seqNumber": 1065,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.73291015625,
+        "seqNumber": 1066,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.73333740234375,
+        "seqNumber": 1067,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.7335205078125,
+        "seqNumber": 1068,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.73422241210938,
+        "seqNumber": 1069,
+        "line": "170.405038 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.7344970703125,
+        "seqNumber": 1070,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.73593139648438,
+        "seqNumber": 1071,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.73641967773438,
+        "seqNumber": 1072,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.75341796875,
+        "seqNumber": 1073,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.75369262695312,
+        "seqNumber": 1074,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.75555419921875,
+        "seqNumber": 1075,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.75592041015625,
+        "seqNumber": 1076,
+        "line": "170.425054 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.75662231445312,
+        "seqNumber": 1077,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.7568359375,
+        "seqNumber": 1078,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.75698852539062,
+        "seqNumber": 1079,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.77316284179688,
+        "seqNumber": 1080,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.77398681640625,
+        "seqNumber": 1081,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.77462768554688,
+        "seqNumber": 1082,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.7763671875,
+        "seqNumber": 1083,
+        "line": "170.444939 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.77655029296875,
+        "seqNumber": 1084,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.77688598632812,
+        "seqNumber": 1085,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.77706909179688,
+        "seqNumber": 1086,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.79476928710938,
+        "seqNumber": 1087,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.7958984375,
+        "seqNumber": 1088,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.7969970703125,
+        "seqNumber": 1089,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.79800415039062,
+        "seqNumber": 1090,
+        "line": "170.465975 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.80087280273438,
+        "seqNumber": 1091,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.8011474609375,
+        "seqNumber": 1092,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.80148315429688,
+        "seqNumber": 1093,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.817138671875,
+        "seqNumber": 1094,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.8173828125,
+        "seqNumber": 1095,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.81756591796875,
+        "seqNumber": 1096,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.81976318359375,
+        "seqNumber": 1097,
+        "line": "170.489162 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.82135009765625,
+        "seqNumber": 1098,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.82156372070312,
+        "seqNumber": 1099,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.82196044921875,
+        "seqNumber": 1100,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.83941650390625,
+        "seqNumber": 1101,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.83990478515625,
+        "seqNumber": 1102,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.84014892578125,
+        "seqNumber": 1103,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.84042358398438,
+        "seqNumber": 1104,
+        "line": "170.510105 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.84078979492188,
+        "seqNumber": 1105,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.84140014648438,
+        "seqNumber": 1106,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.84170532226562,
+        "seqNumber": 1107,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.85418701171875,
+        "seqNumber": 1108,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.85482788085938,
+        "seqNumber": 1109,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.85610961914062,
+        "seqNumber": 1110,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.85641479492188,
+        "seqNumber": 1111,
+        "line": "170.526077 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.85675048828125,
+        "seqNumber": 1112,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.85693359375,
+        "seqNumber": 1113,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.857421875,
+        "seqNumber": 1114,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.873291015625,
+        "seqNumber": 1115,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.87356567382812,
+        "seqNumber": 1116,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.8740234375,
+        "seqNumber": 1117,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.87429809570312,
+        "seqNumber": 1118,
+        "line": "170.545369 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.87603759765625,
+        "seqNumber": 1119,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.87649536132812,
+        "seqNumber": 1120,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.87667846679688,
+        "seqNumber": 1121,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.8927001953125,
+        "seqNumber": 1122,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.89309692382812,
+        "seqNumber": 1123,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.89328002929688,
+        "seqNumber": 1124,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.89352416992188,
+        "seqNumber": 1125,
+        "line": "170.564679 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.89443969726562,
+        "seqNumber": 1126,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.89605712890625,
+        "seqNumber": 1127,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.89630126953125,
+        "seqNumber": 1128,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.91250610351562,
+        "seqNumber": 1129,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.91281127929688,
+        "seqNumber": 1130,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.91314697265625,
+        "seqNumber": 1131,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.91342163085938,
+        "seqNumber": 1132,
+        "line": "170.584602 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.9136962890625,
+        "seqNumber": 1133,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.915771484375,
+        "seqNumber": 1134,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.91635131835938,
+        "seqNumber": 1135,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.93231201171875,
+        "seqNumber": 1136,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.93270874023438,
+        "seqNumber": 1137,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.9354248046875,
+        "seqNumber": 1138,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.93594360351562,
+        "seqNumber": 1139,
+        "line": "170.60395 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.9365234375,
+        "seqNumber": 1140,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.93829345703125,
+        "seqNumber": 1141,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.93911743164062,
+        "seqNumber": 1142,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.95736694335938,
+        "seqNumber": 1143,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.95785522460938,
+        "seqNumber": 1144,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.95880126953125,
+        "seqNumber": 1145,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.960205078125,
+        "seqNumber": 1146,
+        "line": "170.6294 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.9605712890625,
+        "seqNumber": 1147,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.96127319335938,
+        "seqNumber": 1148,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.96221923828125,
+        "seqNumber": 1149,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.97412109375,
+        "seqNumber": 1150,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.97445678710938,
+        "seqNumber": 1151,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.97494506835938,
+        "seqNumber": 1152,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.975341796875,
+        "seqNumber": 1153,
+        "line": "170.645428 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.97561645507812,
+        "seqNumber": 1154,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.9761962890625,
+        "seqNumber": 1155,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.9764404296875,
+        "seqNumber": 1156,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.99386596679688,
+        "seqNumber": 1157,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.99496459960938,
+        "seqNumber": 1158,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.99551391601562,
+        "seqNumber": 1159,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.99630737304688,
+        "seqNumber": 1160,
+        "line": "170.664293 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.99652099609375,
+        "seqNumber": 1161,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.99673461914062,
+        "seqNumber": 1162,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 82.9969482421875,
+        "seqNumber": 1163,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.01254272460938,
+        "seqNumber": 1164,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.0128173828125,
+        "seqNumber": 1165,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.01318359375,
+        "seqNumber": 1166,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.01351928710938,
+        "seqNumber": 1167,
+        "line": "170.684531 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.01480102539062,
+        "seqNumber": 1168,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.01544189453125,
+        "seqNumber": 1169,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.015625,
+        "seqNumber": 1170,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.03387451171875,
+        "seqNumber": 1171,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.03414916992188,
+        "seqNumber": 1172,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.03521728515625,
+        "seqNumber": 1173,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.03567504882812,
+        "seqNumber": 1174,
+        "line": "170.705938 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.0362548828125,
+        "seqNumber": 1175,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.03643798828125,
+        "seqNumber": 1176,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.03665161132812,
+        "seqNumber": 1177,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.05673217773438,
+        "seqNumber": 1178,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.05740356445312,
+        "seqNumber": 1179,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.05767822265625,
+        "seqNumber": 1180,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.06109619140625,
+        "seqNumber": 1181,
+        "line": "170.726083 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.0614013671875,
+        "seqNumber": 1182,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.06158447265625,
+        "seqNumber": 1183,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.061767578125,
+        "seqNumber": 1184,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.06954956054688,
+        "seqNumber": 1185,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.07000732421875,
+        "seqNumber": 1186,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.07046508789062,
+        "seqNumber": 1187,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.07208251953125,
+        "seqNumber": 1188,
+        "line": "170.741684 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.072509765625,
+        "seqNumber": 1189,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.0728759765625,
+        "seqNumber": 1190,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.07318115234375,
+        "seqNumber": 1191,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.09259033203125,
+        "seqNumber": 1192,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.09341430664062,
+        "seqNumber": 1193,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.09445190429688,
+        "seqNumber": 1194,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.09622192382812,
+        "seqNumber": 1195,
+        "line": "170.761977 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.0970458984375,
+        "seqNumber": 1196,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.09881591796875,
+        "seqNumber": 1197,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.0992431640625,
+        "seqNumber": 1198,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.11203002929688,
+        "seqNumber": 1199,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.11227416992188,
+        "seqNumber": 1200,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.11257934570312,
+        "seqNumber": 1201,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.11282348632812,
+        "seqNumber": 1202,
+        "line": "170.784015 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.11306762695312,
+        "seqNumber": 1203,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.11337280273438,
+        "seqNumber": 1204,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.11410522460938,
+        "seqNumber": 1205,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.13275146484375,
+        "seqNumber": 1206,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.133056640625,
+        "seqNumber": 1207,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.13323974609375,
+        "seqNumber": 1208,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.13357543945312,
+        "seqNumber": 1209,
+        "line": "170.804624 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.13394165039062,
+        "seqNumber": 1210,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.13412475585938,
+        "seqNumber": 1211,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.13430786132812,
+        "seqNumber": 1212,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.15805053710938,
+        "seqNumber": 1213,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.15835571289062,
+        "seqNumber": 1214,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.15896606445312,
+        "seqNumber": 1215,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.159423828125,
+        "seqNumber": 1216,
+        "line": "170.829982 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.16033935546875,
+        "seqNumber": 1217,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.16061401367188,
+        "seqNumber": 1218,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.1610107421875,
+        "seqNumber": 1219,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.17111206054688,
+        "seqNumber": 1220,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.17166137695312,
+        "seqNumber": 1221,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.171875,
+        "seqNumber": 1222,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.17245483398438,
+        "seqNumber": 1223,
+        "line": "170.842317 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.17291259765625,
+        "seqNumber": 1224,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.1732177734375,
+        "seqNumber": 1225,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.17355346679688,
+        "seqNumber": 1226,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.19009399414062,
+        "seqNumber": 1227,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.19131469726562,
+        "seqNumber": 1228,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.19155883789062,
+        "seqNumber": 1229,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.19198608398438,
+        "seqNumber": 1230,
+        "line": "170.861869 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.19235229492188,
+        "seqNumber": 1231,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.19259643554688,
+        "seqNumber": 1232,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.19281005859375,
+        "seqNumber": 1233,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.21112060546875,
+        "seqNumber": 1234,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.21185302734375,
+        "seqNumber": 1235,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.21221923828125,
+        "seqNumber": 1236,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.21249389648438,
+        "seqNumber": 1237,
+        "line": "170.882738 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.21267700195312,
+        "seqNumber": 1238,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.21282958984375,
+        "seqNumber": 1239,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.21331787109375,
+        "seqNumber": 1240,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.23226928710938,
+        "seqNumber": 1241,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.23269653320312,
+        "seqNumber": 1242,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.23294067382812,
+        "seqNumber": 1243,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.23336791992188,
+        "seqNumber": 1244,
+        "line": "170.904163 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.23355102539062,
+        "seqNumber": 1245,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.23397827148438,
+        "seqNumber": 1246,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.234375,
+        "seqNumber": 1247,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.25146484375,
+        "seqNumber": 1248,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.25210571289062,
+        "seqNumber": 1249,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.2523193359375,
+        "seqNumber": 1250,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.25265502929688,
+        "seqNumber": 1251,
+        "line": "170.922657 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.25296020507812,
+        "seqNumber": 1252,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.25509643554688,
+        "seqNumber": 1253,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.255615234375,
+        "seqNumber": 1254,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.27236938476562,
+        "seqNumber": 1255,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.27261352539062,
+        "seqNumber": 1256,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.27297973632812,
+        "seqNumber": 1257,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.27349853515625,
+        "seqNumber": 1258,
+        "line": "170.944398 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.27609252929688,
+        "seqNumber": 1259,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.27633666992188,
+        "seqNumber": 1260,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.27651977539062,
+        "seqNumber": 1261,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.29217529296875,
+        "seqNumber": 1262,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.29254150390625,
+        "seqNumber": 1263,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.29293823242188,
+        "seqNumber": 1264,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.29522705078125,
+        "seqNumber": 1265,
+        "line": "170.963282 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.296142578125,
+        "seqNumber": 1266,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.29653930664062,
+        "seqNumber": 1267,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.29672241210938,
+        "seqNumber": 1268,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.312744140625,
+        "seqNumber": 1269,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3131103515625,
+        "seqNumber": 1270,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.31332397460938,
+        "seqNumber": 1271,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3135986328125,
+        "seqNumber": 1272,
+        "line": "170.984781 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.314697265625,
+        "seqNumber": 1273,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.31640625,
+        "seqNumber": 1274,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.31661987304688,
+        "seqNumber": 1275,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3314208984375,
+        "seqNumber": 1276,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.33181762695312,
+        "seqNumber": 1277,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.33224487304688,
+        "seqNumber": 1278,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.33255004882812,
+        "seqNumber": 1279,
+        "line": "171.002589 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.33319091796875,
+        "seqNumber": 1280,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.33340454101562,
+        "seqNumber": 1281,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.33392333984375,
+        "seqNumber": 1282,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.35293579101562,
+        "seqNumber": 1283,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.35333251953125,
+        "seqNumber": 1284,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.35372924804688,
+        "seqNumber": 1285,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.35595703125,
+        "seqNumber": 1286,
+        "line": "171.025128 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.35623168945312,
+        "seqNumber": 1287,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3564453125,
+        "seqNumber": 1288,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3568115234375,
+        "seqNumber": 1289,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3721923828125,
+        "seqNumber": 1290,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.37246704101562,
+        "seqNumber": 1291,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.37271118164062,
+        "seqNumber": 1292,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.37295532226562,
+        "seqNumber": 1293,
+        "line": "171.044086 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.37384033203125,
+        "seqNumber": 1294,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.37469482421875,
+        "seqNumber": 1295,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.37527465820312,
+        "seqNumber": 1296,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.39077758789062,
+        "seqNumber": 1297,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3914794921875,
+        "seqNumber": 1298,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3917236328125,
+        "seqNumber": 1299,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.39212036132812,
+        "seqNumber": 1300,
+        "line": "171.062803 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.39236450195312,
+        "seqNumber": 1301,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.392578125,
+        "seqNumber": 1302,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.3929443359375,
+        "seqNumber": 1303,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.4122314453125,
+        "seqNumber": 1304,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.41262817382812,
+        "seqNumber": 1305,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.41342163085938,
+        "seqNumber": 1306,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.41543579101562,
+        "seqNumber": 1307,
+        "line": "171.084413 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.41607666015625,
+        "seqNumber": 1308,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.41635131835938,
+        "seqNumber": 1309,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.41656494140625,
+        "seqNumber": 1310,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.43197631835938,
+        "seqNumber": 1311,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.43264770507812,
+        "seqNumber": 1312,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.43405151367188,
+        "seqNumber": 1313,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.43533325195312,
+        "seqNumber": 1314,
+        "line": "171.10339 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.43634033203125,
+        "seqNumber": 1315,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.43655395507812,
+        "seqNumber": 1316,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.43673706054688,
+        "seqNumber": 1317,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.45199584960938,
+        "seqNumber": 1318,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.45248413085938,
+        "seqNumber": 1319,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.45285034179688,
+        "seqNumber": 1320,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.45343017578125,
+        "seqNumber": 1321,
+        "line": "171.122088 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.454833984375,
+        "seqNumber": 1322,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.45547485351562,
+        "seqNumber": 1323,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.45574951171875,
+        "seqNumber": 1324,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.47293090820312,
+        "seqNumber": 1325,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.473388671875,
+        "seqNumber": 1326,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.47525024414062,
+        "seqNumber": 1327,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.47567749023438,
+        "seqNumber": 1328,
+        "line": "171.145183 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.47589111328125,
+        "seqNumber": 1329,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.47625732421875,
+        "seqNumber": 1330,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.47653198242188,
+        "seqNumber": 1331,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.49325561523438,
+        "seqNumber": 1332,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.49359130859375,
+        "seqNumber": 1333,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.4951171875,
+        "seqNumber": 1334,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.49636840820312,
+        "seqNumber": 1335,
+        "line": "171.164883 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.49658203125,
+        "seqNumber": 1336,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.49725341796875,
+        "seqNumber": 1337,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.49746704101562,
+        "seqNumber": 1338,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.51235961914062,
+        "seqNumber": 1339,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.51272583007812,
+        "seqNumber": 1340,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.51385498046875,
+        "seqNumber": 1341,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5152587890625,
+        "seqNumber": 1342,
+        "line": "171.184324 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.51580810546875,
+        "seqNumber": 1343,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.51602172851562,
+        "seqNumber": 1344,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.51638793945312,
+        "seqNumber": 1345,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.53216552734375,
+        "seqNumber": 1346,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.533203125,
+        "seqNumber": 1347,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.53585815429688,
+        "seqNumber": 1348,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.53640747070312,
+        "seqNumber": 1349,
+        "line": "171.204172 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.53707885742188,
+        "seqNumber": 1350,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.53729248046875,
+        "seqNumber": 1351,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.53744506835938,
+        "seqNumber": 1352,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5504150390625,
+        "seqNumber": 1353,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.55068969726562,
+        "seqNumber": 1354,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.55093383789062,
+        "seqNumber": 1355,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.55267333984375,
+        "seqNumber": 1356,
+        "line": "171.222184 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5531005859375,
+        "seqNumber": 1357,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.55340576171875,
+        "seqNumber": 1358,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5535888671875,
+        "seqNumber": 1359,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5711669921875,
+        "seqNumber": 1360,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.571533203125,
+        "seqNumber": 1361,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.57174682617188,
+        "seqNumber": 1362,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.572021484375,
+        "seqNumber": 1363,
+        "line": "171.24233 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.57244873046875,
+        "seqNumber": 1364,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5726318359375,
+        "seqNumber": 1365,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.57315063476562,
+        "seqNumber": 1366,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.59042358398438,
+        "seqNumber": 1367,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.59197998046875,
+        "seqNumber": 1368,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5924072265625,
+        "seqNumber": 1369,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.59271240234375,
+        "seqNumber": 1370,
+        "line": "171.262085 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.5928955078125,
+        "seqNumber": 1371,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.59317016601562,
+        "seqNumber": 1372,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.59335327148438,
+        "seqNumber": 1373,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.61297607421875,
+        "seqNumber": 1374,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.61334228515625,
+        "seqNumber": 1375,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.61380004882812,
+        "seqNumber": 1376,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.61605834960938,
+        "seqNumber": 1377,
+        "line": "171.285124 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.61654663085938,
+        "seqNumber": 1378,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.61676025390625,
+        "seqNumber": 1379,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.61785888671875,
+        "seqNumber": 1380,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.6314697265625,
+        "seqNumber": 1381,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.6319580078125,
+        "seqNumber": 1382,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.63235473632812,
+        "seqNumber": 1383,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.63259887695312,
+        "seqNumber": 1384,
+        "line": "171.302691 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.6329345703125,
+        "seqNumber": 1385,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.63323974609375,
+        "seqNumber": 1386,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.63351440429688,
+        "seqNumber": 1387,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.65145874023438,
+        "seqNumber": 1388,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.65191650390625,
+        "seqNumber": 1389,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.65237426757812,
+        "seqNumber": 1390,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.65338134765625,
+        "seqNumber": 1391,
+        "line": "171.322447 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.65518188476562,
+        "seqNumber": 1392,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.65631103515625,
+        "seqNumber": 1393,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.65655517578125,
+        "seqNumber": 1394,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.67156982421875,
+        "seqNumber": 1395,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.67181396484375,
+        "seqNumber": 1396,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.67233276367188,
+        "seqNumber": 1397,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.672607421875,
+        "seqNumber": 1398,
+        "line": "171.342611 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.67279052734375,
+        "seqNumber": 1399,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.67294311523438,
+        "seqNumber": 1400,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.6732177734375,
+        "seqNumber": 1401,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.69046020507812,
+        "seqNumber": 1402,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.69100952148438,
+        "seqNumber": 1403,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.69122314453125,
+        "seqNumber": 1404,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.69235229492188,
+        "seqNumber": 1405,
+        "line": "171.362571 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.69271850585938,
+        "seqNumber": 1406,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.693359375,
+        "seqNumber": 1407,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.69390869140625,
+        "seqNumber": 1408,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.70965576171875,
+        "seqNumber": 1409,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.71041870117188,
+        "seqNumber": 1410,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.71084594726562,
+        "seqNumber": 1411,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.71234130859375,
+        "seqNumber": 1412,
+        "line": "171.381826 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.71322631835938,
+        "seqNumber": 1413,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.7142333984375,
+        "seqNumber": 1414,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.71463012695312,
+        "seqNumber": 1415,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.7315673828125,
+        "seqNumber": 1416,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.73196411132812,
+        "seqNumber": 1417,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.73214721679688,
+        "seqNumber": 1418,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.732421875,
+        "seqNumber": 1419,
+        "line": "171.402731 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.732666015625,
+        "seqNumber": 1420,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.73287963867188,
+        "seqNumber": 1421,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.73324584960938,
+        "seqNumber": 1422,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.75039672851562,
+        "seqNumber": 1423,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.7510986328125,
+        "seqNumber": 1424,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.75259399414062,
+        "seqNumber": 1425,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.75411987304688,
+        "seqNumber": 1426,
+        "line": "171.422135 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.75518798828125,
+        "seqNumber": 1427,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.75601196289062,
+        "seqNumber": 1428,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.75634765625,
+        "seqNumber": 1429,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.77200317382812,
+        "seqNumber": 1430,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.77285766601562,
+        "seqNumber": 1431,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.77328491210938,
+        "seqNumber": 1432,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.77365112304688,
+        "seqNumber": 1433,
+        "line": "171.443894 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.77548217773438,
+        "seqNumber": 1434,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.77581787109375,
+        "seqNumber": 1435,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.77603149414062,
+        "seqNumber": 1436,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.795166015625,
+        "seqNumber": 1437,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.79544067382812,
+        "seqNumber": 1438,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.79574584960938,
+        "seqNumber": 1439,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.79605102539062,
+        "seqNumber": 1440,
+        "line": "171.465505 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.79629516601562,
+        "seqNumber": 1441,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.796630859375,
+        "seqNumber": 1442,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.79864501953125,
+        "seqNumber": 1443,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.81134033203125,
+        "seqNumber": 1444,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.8118896484375,
+        "seqNumber": 1445,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.81243896484375,
+        "seqNumber": 1446,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.81393432617188,
+        "seqNumber": 1447,
+        "line": "171.482552 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.81439208984375,
+        "seqNumber": 1448,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.81491088867188,
+        "seqNumber": 1449,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.81527709960938,
+        "seqNumber": 1450,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.82998657226562,
+        "seqNumber": 1451,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.83096313476562,
+        "seqNumber": 1452,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.8314208984375,
+        "seqNumber": 1453,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.83221435546875,
+        "seqNumber": 1454,
+        "line": "171.502011 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.83248901367188,
+        "seqNumber": 1455,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.83273315429688,
+        "seqNumber": 1456,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.83358764648438,
+        "seqNumber": 1457,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.85186767578125,
+        "seqNumber": 1458,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.85214233398438,
+        "seqNumber": 1459,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.85256958007812,
+        "seqNumber": 1460,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.8529052734375,
+        "seqNumber": 1461,
+        "line": "171.523047 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.85382080078125,
+        "seqNumber": 1462,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.85403442382812,
+        "seqNumber": 1463,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.8543701171875,
+        "seqNumber": 1464,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.87026977539062,
+        "seqNumber": 1465,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.87063598632812,
+        "seqNumber": 1466,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.87081909179688,
+        "seqNumber": 1467,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.87106323242188,
+        "seqNumber": 1468,
+        "line": "171.542246 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.87124633789062,
+        "seqNumber": 1469,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.87149047851562,
+        "seqNumber": 1470,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.87167358398438,
+        "seqNumber": 1471,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.8929443359375,
+        "seqNumber": 1472,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.89340209960938,
+        "seqNumber": 1473,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.893798828125,
+        "seqNumber": 1474,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.89413452148438,
+        "seqNumber": 1475,
+        "line": "171.5651 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.89532470703125,
+        "seqNumber": 1476,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.8963623046875,
+        "seqNumber": 1477,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.89654541015625,
+        "seqNumber": 1478,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.91015625,
+        "seqNumber": 1479,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.91061401367188,
+        "seqNumber": 1480,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.91177368164062,
+        "seqNumber": 1481,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.91256713867188,
+        "seqNumber": 1482,
+        "line": "171.582091 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.9136962890625,
+        "seqNumber": 1483,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.91622924804688,
+        "seqNumber": 1484,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.91714477539062,
+        "seqNumber": 1485,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.93231201171875,
+        "seqNumber": 1486,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.93258666992188,
+        "seqNumber": 1487,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.93280029296875,
+        "seqNumber": 1488,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.93319702148438,
+        "seqNumber": 1489,
+        "line": "171.604407 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.93453979492188,
+        "seqNumber": 1490,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.934814453125,
+        "seqNumber": 1491,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.93606567382812,
+        "seqNumber": 1492,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.95260620117188,
+        "seqNumber": 1493,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.9532470703125,
+        "seqNumber": 1494,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.95401000976562,
+        "seqNumber": 1495,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.954345703125,
+        "seqNumber": 1496,
+        "line": "171.624645 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.9556884765625,
+        "seqNumber": 1497,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.95712280273438,
+        "seqNumber": 1498,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.95733642578125,
+        "seqNumber": 1499,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.97216796875,
+        "seqNumber": 1500,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.972412109375,
+        "seqNumber": 1501,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.97259521484375,
+        "seqNumber": 1502,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.97320556640625,
+        "seqNumber": 1503,
+        "line": "171.643937 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.97341918945312,
+        "seqNumber": 1504,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.97357177734375,
+        "seqNumber": 1505,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.97439575195312,
+        "seqNumber": 1506,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.99252319335938,
+        "seqNumber": 1507,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.9927978515625,
+        "seqNumber": 1508,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.99298095703125,
+        "seqNumber": 1509,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.99398803710938,
+        "seqNumber": 1510,
+        "line": "171.664472 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.99493408203125,
+        "seqNumber": 1511,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.99530029296875,
+        "seqNumber": 1512,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 83.99563598632812,
+        "seqNumber": 1513,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.0118408203125,
+        "seqNumber": 1514,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.01229858398438,
+        "seqNumber": 1515,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.01251220703125,
+        "seqNumber": 1516,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.01272583007812,
+        "seqNumber": 1517,
+        "line": "171.683059 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.01318359375,
+        "seqNumber": 1518,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.013427734375,
+        "seqNumber": 1519,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.01364135742188,
+        "seqNumber": 1520,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.03036499023438,
+        "seqNumber": 1521,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.03079223632812,
+        "seqNumber": 1522,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.031982421875,
+        "seqNumber": 1523,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.03277587890625,
+        "seqNumber": 1524,
+        "line": "171.702277 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.03353881835938,
+        "seqNumber": 1525,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.03399658203125,
+        "seqNumber": 1526,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.03451538085938,
+        "seqNumber": 1527,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.05136108398438,
+        "seqNumber": 1528,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.05178833007812,
+        "seqNumber": 1529,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.05255126953125,
+        "seqNumber": 1530,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.05328369140625,
+        "seqNumber": 1531,
+        "line": "171.722162 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.0538330078125,
+        "seqNumber": 1532,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.054931640625,
+        "seqNumber": 1533,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.05557250976562,
+        "seqNumber": 1534,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.0701904296875,
+        "seqNumber": 1535,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.07064819335938,
+        "seqNumber": 1536,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.07089233398438,
+        "seqNumber": 1537,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.07144165039062,
+        "seqNumber": 1538,
+        "line": "171.742122 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.07394409179688,
+        "seqNumber": 1539,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.07559204101562,
+        "seqNumber": 1540,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.07608032226562,
+        "seqNumber": 1541,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.09115600585938,
+        "seqNumber": 1542,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.09161376953125,
+        "seqNumber": 1543,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.09182739257812,
+        "seqNumber": 1544,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.09234619140625,
+        "seqNumber": 1545,
+        "line": "171.76223 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.092529296875,
+        "seqNumber": 1546,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.09271240234375,
+        "seqNumber": 1547,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.09286499023438,
+        "seqNumber": 1548,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.11099243164062,
+        "seqNumber": 1549,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.1114501953125,
+        "seqNumber": 1550,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.1116943359375,
+        "seqNumber": 1551,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.11276245117188,
+        "seqNumber": 1552,
+        "line": "171.783173 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.11483764648438,
+        "seqNumber": 1553,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.1151123046875,
+        "seqNumber": 1554,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.11529541015625,
+        "seqNumber": 1555,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.13140869140625,
+        "seqNumber": 1556,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.13168334960938,
+        "seqNumber": 1557,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.1319580078125,
+        "seqNumber": 1558,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.13235473632812,
+        "seqNumber": 1559,
+        "line": "171.802428 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.13290405273438,
+        "seqNumber": 1560,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.13330078125,
+        "seqNumber": 1561,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.1336669921875,
+        "seqNumber": 1562,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.15097045898438,
+        "seqNumber": 1563,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.15121459960938,
+        "seqNumber": 1564,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.15139770507812,
+        "seqNumber": 1565,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.15164184570312,
+        "seqNumber": 1566,
+        "line": "171.823093 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.15182495117188,
+        "seqNumber": 1567,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.15216064453125,
+        "seqNumber": 1568,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.15237426757812,
+        "seqNumber": 1569,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.172119140625,
+        "seqNumber": 1570,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.17251586914062,
+        "seqNumber": 1571,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.1727294921875,
+        "seqNumber": 1572,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.17349243164062,
+        "seqNumber": 1573,
+        "line": "171.844314 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.17559814453125,
+        "seqNumber": 1574,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.17608642578125,
+        "seqNumber": 1575,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.17648315429688,
+        "seqNumber": 1576,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.19168090820312,
+        "seqNumber": 1577,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.19195556640625,
+        "seqNumber": 1578,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.19241333007812,
+        "seqNumber": 1579,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.19271850585938,
+        "seqNumber": 1580,
+        "line": "171.862419 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.19293212890625,
+        "seqNumber": 1581,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.19320678710938,
+        "seqNumber": 1582,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.193359375,
+        "seqNumber": 1583,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.21218872070312,
+        "seqNumber": 1584,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.21307373046875,
+        "seqNumber": 1585,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.21337890625,
+        "seqNumber": 1586,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.21414184570312,
+        "seqNumber": 1587,
+        "line": "171.883009 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.2154541015625,
+        "seqNumber": 1588,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.216064453125,
+        "seqNumber": 1589,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.21640014648438,
+        "seqNumber": 1590,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.23187255859375,
+        "seqNumber": 1591,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.2322998046875,
+        "seqNumber": 1592,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.23251342773438,
+        "seqNumber": 1593,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.23275756835938,
+        "seqNumber": 1594,
+        "line": "171.903785 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.23294067382812,
+        "seqNumber": 1595,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.2332763671875,
+        "seqNumber": 1596,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.23342895507812,
+        "seqNumber": 1597,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.25119018554688,
+        "seqNumber": 1598,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.25167846679688,
+        "seqNumber": 1599,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.251953125,
+        "seqNumber": 1600,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.252197265625,
+        "seqNumber": 1601,
+        "line": "171.922243 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.25241088867188,
+        "seqNumber": 1602,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.2525634765625,
+        "seqNumber": 1603,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.25271606445312,
+        "seqNumber": 1604,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.27166748046875,
+        "seqNumber": 1605,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.27267456054688,
+        "seqNumber": 1606,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.27294921875,
+        "seqNumber": 1607,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.273681640625,
+        "seqNumber": 1608,
+        "line": "171.943631 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.27536010742188,
+        "seqNumber": 1609,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.27572631835938,
+        "seqNumber": 1610,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.27639770507812,
+        "seqNumber": 1611,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29266357421875,
+        "seqNumber": 1612,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29327392578125,
+        "seqNumber": 1613,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29348754882812,
+        "seqNumber": 1614,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29373168945312,
+        "seqNumber": 1615,
+        "line": "171.963758 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: doNothing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.2950439453125,
+        "seqNumber": 1616,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29547119140625,
+        "seqNumber": 1617,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29620361328125,
+        "seqNumber": 1618,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29644775390625,
+        "seqNumber": 1619,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.2967529296875,
+        "seqNumber": 1620,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.2969970703125,
+        "seqNumber": 1621,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29733276367188,
+        "seqNumber": 1622,
+        "line": "171.965594 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: FORWARD_LIMIT_REACHED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29751586914062,
+        "seqNumber": 1623,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29934692382812,
+        "seqNumber": 1624,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.29974365234375,
+        "seqNumber": 1625,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30087280273438,
+        "seqNumber": 1626,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30108642578125,
+        "seqNumber": 1627,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30123901367188,
+        "seqNumber": 1628,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30322265625,
+        "seqNumber": 1629,
+        "line": "171.966039 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: startJiggleUp <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30374145507812,
+        "seqNumber": 1630,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30392456054688,
+        "seqNumber": 1631,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30410766601562,
+        "seqNumber": 1632,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.30987548828125,
+        "seqNumber": 1633,
+        "line": ""
+    },
+    {
+        "timestamp": 84.30987548828125,
+        "seqNumber": 1634,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Loop time of 0.02s overrun\n",
+        "location": "edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.31509399414062,
+        "seqNumber": 1635,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.31558227539062,
+        "seqNumber": 1636,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.31661987304688,
+        "seqNumber": 1637,
+        "line": "171.980174 $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: JIGGLING_UP $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.3172607421875,
+        "seqNumber": 1638,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.31759643554688,
+        "seqNumber": 1639,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.3197021484375,
+        "seqNumber": 1640,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.32080078125,
+        "seqNumber": 1641,
+        "line": "Warning at edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412): Loop time of 0.02s overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.32131958007812,
+        "seqNumber": 1642,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.32943725585938,
+        "seqNumber": 1643,
+        "line": "CommandScheduler loop overrun"
+    },
+    {
+        "timestamp": 84.34564208984375,
+        "seqNumber": 1644,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tIntakeSubsystem.periodic(): 0.000019s\n\tVisionSubsystem.periodic(): 0.000186s\n\tCommandSwerveDrivetrain.periodic(): 0.003227s\n\tIntakeShootStateMachine.periodic(): 0.034596s\n\tRunCommand.execute(): 0.000074s\n\tbuttons.run(): 0.000056s\n\tIntakeCommand.execute(): 0.000000s\n\tElevatorSubsystem.periodic(): 0.001317s\n\tLEDStringSubsystem.periodic(): 0.000019s\n\tShooterSubsystem.periodic(): 0.000148s\n\tWristSubsystem.periodic(): 0.000556s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.34732055664062,
+        "seqNumber": 1645,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tIntakeSubsystem.periodic(): 0.000019s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.3482666015625,
+        "seqNumber": 1646,
+        "line": "\tVisionSubsystem.periodic(): 0.000186s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.34893798828125,
+        "seqNumber": 1647,
+        "line": "\tCommandSwerveDrivetrain.periodic(): 0.003227s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.34915161132812,
+        "seqNumber": 1648,
+        "line": "\tIntakeShootStateMachine.periodic(): 0.034596s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.34939575195312,
+        "seqNumber": 1649,
+        "line": "\tRunCommand.execute(): 0.000074s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.34957885742188,
+        "seqNumber": 1650,
+        "line": "\tbuttons.run(): 0.000056s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.35009765625,
+        "seqNumber": 1651,
+        "line": "\tIntakeCommand.execute(): 0.000000s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.35177612304688,
+        "seqNumber": 1652,
+        "line": "\tElevatorSubsystem.periodic(): 0.001317s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.35235595703125,
+        "seqNumber": 1653,
+        "line": "\tLEDStringSubsystem.periodic(): 0.000019s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.35260009765625,
+        "seqNumber": 1654,
+        "line": "\tShooterSubsystem.periodic(): 0.000148s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.35287475585938,
+        "seqNumber": 1655,
+        "line": "\tWristSubsystem.periodic(): 0.000556s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.35311889648438,
+        "seqNumber": 1656,
+        "line": ""
+    },
+    {
+        "timestamp": 84.3643798828125,
+        "seqNumber": 1657,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tteleopPeriodic(): 0.000353s\n\tSmartDashboard.updateValues(): 0.000185s\n\trobotPeriodic(): 0.057190s\n\tLiveWindow.updateValues(): 0.000000s\n\tShuffleboard.update(): 0.003673s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.36538696289062,
+        "seqNumber": 1658,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tteleopPeriodic(): 0.000353s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.36563110351562,
+        "seqNumber": 1659,
+        "line": "\tSmartDashboard.updateValues(): 0.000185s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.36593627929688,
+        "seqNumber": 1660,
+        "line": "\trobotPeriodic(): 0.057190s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.3663330078125,
+        "seqNumber": 1661,
+        "line": "\tLiveWindow.updateValues(): 0.000000s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.36663818359375,
+        "seqNumber": 1662,
+        "line": "\tShuffleboard.update(): 0.003673s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 84.36709594726562,
+        "seqNumber": 1663,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.3118896484375,
+        "seqNumber": 1664,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31228637695312,
+        "seqNumber": 1665,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31268310546875,
+        "seqNumber": 1666,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31329345703125,
+        "seqNumber": 1667,
+        "line": "173.982276 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: JIGGLE_UP_TIMER_EXPIRED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31353759765625,
+        "seqNumber": 1668,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31365966796875,
+        "seqNumber": 1669,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31387329101562,
+        "seqNumber": 1670,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31402587890625,
+        "seqNumber": 1671,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.315673828125,
+        "seqNumber": 1672,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31607055664062,
+        "seqNumber": 1673,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31689453125,
+        "seqNumber": 1674,
+        "line": "173.983073 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: startJiggleDown <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31710815429688,
+        "seqNumber": 1675,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31729125976562,
+        "seqNumber": 1676,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.3175048828125,
+        "seqNumber": 1677,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31866455078125,
+        "seqNumber": 1678,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31906127929688,
+        "seqNumber": 1679,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.31948852539062,
+        "seqNumber": 1680,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.32089233398438,
+        "seqNumber": 1681,
+        "line": "173.98849 $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: JIGGLING_DOWN $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.32113647460938,
+        "seqNumber": 1682,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.32150268554688,
+        "seqNumber": 1683,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 86.32183837890625,
+        "seqNumber": 1684,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3319091796875,
+        "seqNumber": 1685,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33258056640625,
+        "seqNumber": 1686,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33309936523438,
+        "seqNumber": 1687,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33346557617188,
+        "seqNumber": 1688,
+        "line": "176.002946 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: JIGGLE_DOWN_TIMER_EXPIRED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33370971679688,
+        "seqNumber": 1689,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3338623046875,
+        "seqNumber": 1690,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.334228515625,
+        "seqNumber": 1691,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33447265625,
+        "seqNumber": 1692,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3350830078125,
+        "seqNumber": 1693,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33578491210938,
+        "seqNumber": 1694,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33624267578125,
+        "seqNumber": 1695,
+        "line": "176.004411 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: startSpinUpShooter <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33651733398438,
+        "seqNumber": 1696,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.33685302734375,
+        "seqNumber": 1697,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3370361328125,
+        "seqNumber": 1698,
+        "line": ""
+    },
+    {
+        "timestamp": 88.3480224609375,
+        "seqNumber": 1699,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Loop time of 0.02s overrun\n",
+        "location": "edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.34869384765625,
+        "seqNumber": 1700,
+        "line": "Warning at edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412): Loop time of 0.02s overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3489990234375,
+        "seqNumber": 1701,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.35708618164062,
+        "seqNumber": 1702,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.35736083984375,
+        "seqNumber": 1703,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.35784912109375,
+        "seqNumber": 1704,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.358154296875,
+        "seqNumber": 1705,
+        "line": "176.028786 $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: SPIN_UP_SHOOTER $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.35855102539062,
+        "seqNumber": 1706,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.36236572265625,
+        "seqNumber": 1707,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3643798828125,
+        "seqNumber": 1708,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3671875,
+        "seqNumber": 1709,
+        "line": "CommandScheduler loop overrun"
+    },
+    {
+        "timestamp": 88.37713623046875,
+        "seqNumber": 1710,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tIntakeSubsystem.periodic(): 0.000019s\n\tVisionSubsystem.periodic(): 0.000241s\n\tCommandSwerveDrivetrain.periodic(): 0.001466s\n\tIntakeShootStateMachine.periodic(): 0.026582s\n\tRunCommand.execute(): 0.001892s\n\tbuttons.run(): 0.000056s\n\tIntakeCommand.execute(): 0.000037s\n\tElevatorSubsystem.periodic(): 0.000723s\n\tLEDStringSubsystem.periodic(): 0.000074s\n\tShooterSubsystem.periodic(): 0.000074s\n\tWristSubsystem.periodic(): 0.000371s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.377685546875,
+        "seqNumber": 1711,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tIntakeSubsystem.periodic(): 0.000019s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3798828125,
+        "seqNumber": 1712,
+        "line": "\tVisionSubsystem.periodic(): 0.000241s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.38134765625,
+        "seqNumber": 1713,
+        "line": "\tCommandSwerveDrivetrain.periodic(): 0.001466s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.38180541992188,
+        "seqNumber": 1714,
+        "line": "\tIntakeShootStateMachine.periodic(): 0.026582s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.382080078125,
+        "seqNumber": 1715,
+        "line": "\tRunCommand.execute(): 0.001892s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3824462890625,
+        "seqNumber": 1716,
+        "line": "\tbuttons.run(): 0.000056s"
+    },
+    {
+        "timestamp": 88.38442993164062,
+        "seqNumber": 1717,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tteleopPeriodic(): 0.001188s\n\tSmartDashboard.updateValues(): 0.000186s\n\trobotPeriodic(): 0.049064s\n\tLiveWindow.updateValues(): 0.000000s\n\tShuffleboard.update(): 0.001836s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.38565063476562,
+        "seqNumber": 1718,
+        "line": "\tIntakeCommand.execute(): 0.000037s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.38595581054688,
+        "seqNumber": 1719,
+        "line": "\tElevatorSubsystem.periodic(): 0.000723s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.386474609375,
+        "seqNumber": 1720,
+        "line": "\tLEDStringSubsystem.periodic(): 0.000074s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.38739013671875,
+        "seqNumber": 1721,
+        "line": "\tShooterSubsystem.periodic(): 0.000074s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.38888549804688,
+        "seqNumber": 1722,
+        "line": "\tWristSubsystem.periodic(): 0.000371s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.38934326171875,
+        "seqNumber": 1723,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.3896484375,
+        "seqNumber": 1724,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tteleopPeriodic(): 0.001188s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.392333984375,
+        "seqNumber": 1725,
+        "line": "\tSmartDashboard.updateValues(): 0.000186s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.39260864257812,
+        "seqNumber": 1726,
+        "line": "\trobotPeriodic(): 0.049064s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.393310546875,
+        "seqNumber": 1727,
+        "line": "\tLiveWindow.updateValues(): 0.000000s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.39642333984375,
+        "seqNumber": 1728,
+        "line": "\tShuffleboard.update(): 0.001836s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.39682006835938,
+        "seqNumber": 1729,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.6319580078125,
+        "seqNumber": 1730,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.6326904296875,
+        "seqNumber": 1731,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.63339233398438,
+        "seqNumber": 1732,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.6343994140625,
+        "seqNumber": 1733,
+        "line": "176.304031 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: STOP_INTAKE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.63607788085938,
+        "seqNumber": 1734,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.63644409179688,
+        "seqNumber": 1735,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 88.63751220703125,
+        "seqNumber": 1736,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.29254150390625,
+        "seqNumber": 1737,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.29327392578125,
+        "seqNumber": 1738,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.29360961914062,
+        "seqNumber": 1739,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.2939453125,
+        "seqNumber": 1740,
+        "line": "179.964706 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: START_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.2945556640625,
+        "seqNumber": 1741,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.29718017578125,
+        "seqNumber": 1742,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.297607421875,
+        "seqNumber": 1743,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.85208129882812,
+        "seqNumber": 1744,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.85476684570312,
+        "seqNumber": 1745,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.85543823242188,
+        "seqNumber": 1746,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.85577392578125,
+        "seqNumber": 1747,
+        "line": "180.523915 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: STOP_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.85604858398438,
+        "seqNumber": 1748,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.85659790039062,
+        "seqNumber": 1749,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 92.85684204101562,
+        "seqNumber": 1750,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.07192993164062,
+        "seqNumber": 1751,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.07257080078125,
+        "seqNumber": 1752,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.0732421875,
+        "seqNumber": 1753,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.07363891601562,
+        "seqNumber": 1754,
+        "line": "180.743881 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: START_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.0738525390625,
+        "seqNumber": 1755,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.0748291015625,
+        "seqNumber": 1756,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.07574462890625,
+        "seqNumber": 1757,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.41192626953125,
+        "seqNumber": 1758,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.41287231445312,
+        "seqNumber": 1759,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.41357421875,
+        "seqNumber": 1760,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.41583251953125,
+        "seqNumber": 1761,
+        "line": "181.08368 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: STOP_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.41665649414062,
+        "seqNumber": 1762,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.4176025390625,
+        "seqNumber": 1763,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.41839599609375,
+        "seqNumber": 1764,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.57293701171875,
+        "seqNumber": 1765,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.57357788085938,
+        "seqNumber": 1766,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.57394409179688,
+        "seqNumber": 1767,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.57443237304688,
+        "seqNumber": 1768,
+        "line": "181.244898 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: START_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.57504272460938,
+        "seqNumber": 1769,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.57647705078125,
+        "seqNumber": 1770,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 93.57736206054688,
+        "seqNumber": 1771,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.03244018554688,
+        "seqNumber": 1772,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.03317260742188,
+        "seqNumber": 1773,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.03375244140625,
+        "seqNumber": 1774,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.03439331054688,
+        "seqNumber": 1775,
+        "line": "181.7044 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: STOP_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.0357666015625,
+        "seqNumber": 1776,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.03616333007812,
+        "seqNumber": 1777,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.03643798828125,
+        "seqNumber": 1778,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.31265258789062,
+        "seqNumber": 1779,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.31341552734375,
+        "seqNumber": 1780,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.31375122070312,
+        "seqNumber": 1781,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.3143310546875,
+        "seqNumber": 1782,
+        "line": "181.984894 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: START_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.31570434570312,
+        "seqNumber": 1783,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.31591796875,
+        "seqNumber": 1784,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 94.31622314453125,
+        "seqNumber": 1785,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.13229370117188,
+        "seqNumber": 1786,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.13284301757812,
+        "seqNumber": 1787,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.1331787109375,
+        "seqNumber": 1788,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.13629150390625,
+        "seqNumber": 1789,
+        "line": "182.804174 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: STOP_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.13763427734375,
+        "seqNumber": 1790,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.1385498046875,
+        "seqNumber": 1791,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.1390380859375,
+        "seqNumber": 1792,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.77230834960938,
+        "seqNumber": 1793,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.77322387695312,
+        "seqNumber": 1794,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.77398681640625,
+        "seqNumber": 1795,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.77462768554688,
+        "seqNumber": 1796,
+        "line": "183.444111 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: START_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.77606201171875,
+        "seqNumber": 1797,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.77633666992188,
+        "seqNumber": 1798,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 95.776611328125,
+        "seqNumber": 1799,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 96.65289306640625,
+        "seqNumber": 1800,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 96.65402221679688,
+        "seqNumber": 1801,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 96.656005859375,
+        "seqNumber": 1802,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 96.65667724609375,
+        "seqNumber": 1803,
+        "line": "184.325032 >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: STOP_SPEAKER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 96.6580810546875,
+        "seqNumber": 1804,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 96.65933227539062,
+        "seqNumber": 1805,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 96.66058349609375,
+        "seqNumber": 1806,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 153.24853515625,
+        "seqNumber": 1807,
+        "line": "TELEOP INIT"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 161.19183349609375,
+        "seqNumber": 1808,
+        "line": "Moving wrist to35.4"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 161.19537353515625,
+        "seqNumber": 1809,
+        "line": "extending"
+    },
+    {
+        "timestamp": 172.21328735351562,
+        "seqNumber": 1810,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 172.214111328125,
+        "seqNumber": 1811,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 173.23703002929688,
+        "seqNumber": 1812,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.23776245117188,
+        "seqNumber": 1813,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 173.24884033203125,
+        "seqNumber": 1814,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Loop time of 0.02s overrun\n",
+        "location": "edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.24990844726562,
+        "seqNumber": 1815,
+        "line": "Warning at edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412): Loop time of 0.02s overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.25021362304688,
+        "seqNumber": 1816,
+        "line": ""
+    },
+    {
+        "timestamp": 173.25637817382812,
+        "seqNumber": 1817,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tSmartDashboard.updateValues(): 0.001707s\n\trobotPeriodic(): 0.013671s\n\tLiveWindow.updateValues(): 0.000000s\n\tShuffleboard.update(): 0.006622s\n\tdisabledPeriodic(): 0.000223s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.25714111328125,
+        "seqNumber": 1818,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tSmartDashboard.updateValues(): 0.001707s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.25738525390625,
+        "seqNumber": 1819,
+        "line": "\trobotPeriodic(): 0.013671s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.25778198242188,
+        "seqNumber": 1820,
+        "line": "\tLiveWindow.updateValues(): 0.000000s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.25814819335938,
+        "seqNumber": 1821,
+        "line": "\tShuffleboard.update(): 0.006622s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.25839233398438,
+        "seqNumber": 1822,
+        "line": "\tdisabledPeriodic(): 0.000223s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 173.259765625,
+        "seqNumber": 1823,
+        "line": ""
+    },
+    {
+        "timestamp": 174.2515869140625,
+        "seqNumber": 1824,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 174.25222778320312,
+        "seqNumber": 1825,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 175.271484375,
+        "seqNumber": 1826,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 175.2720947265625,
+        "seqNumber": 1827,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 176.2916259765625,
+        "seqNumber": 1828,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 176.29251098632812,
+        "seqNumber": 1829,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 178.29190063476562,
+        "seqNumber": 1830,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 178.29306030273438,
+        "seqNumber": 1831,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 179.31088256835938,
+        "seqNumber": 1832,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 179.3118896484375,
+        "seqNumber": 1833,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 180.31167602539062,
+        "seqNumber": 1834,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 180.31256103515625,
+        "seqNumber": 1835,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 181.33209228515625,
+        "seqNumber": 1836,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 181.33273315429688,
+        "seqNumber": 1837,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 182.35128784179688,
+        "seqNumber": 1838,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 182.35202026367188,
+        "seqNumber": 1839,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 183.351806640625,
+        "seqNumber": 1840,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 183.35247802734375,
+        "seqNumber": 1841,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 184.371826171875,
+        "seqNumber": 1842,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 184.37265014648438,
+        "seqNumber": 1843,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 185.37405395507812,
+        "seqNumber": 1844,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 185.3756103515625,
+        "seqNumber": 1845,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 186.39166259765625,
+        "seqNumber": 1846,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 186.39218139648438,
+        "seqNumber": 1847,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 187.3916015625,
+        "seqNumber": 1848,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 187.39227294921875,
+        "seqNumber": 1849,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 189.41265869140625,
+        "seqNumber": 1850,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 189.41357421875,
+        "seqNumber": 1851,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 190.43240356445312,
+        "seqNumber": 1852,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 190.43310546875,
+        "seqNumber": 1853,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 191.43252563476562,
+        "seqNumber": 1854,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 191.4332275390625,
+        "seqNumber": 1855,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 192.45172119140625,
+        "seqNumber": 1856,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 192.4522705078125,
+        "seqNumber": 1857,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 193.45230102539062,
+        "seqNumber": 1858,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 193.45327758789062,
+        "seqNumber": 1859,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 194.47177124023438,
+        "seqNumber": 1860,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 194.47235107421875,
+        "seqNumber": 1861,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 196.47171020507812,
+        "seqNumber": 1862,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 196.47244262695312,
+        "seqNumber": 1863,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 197.47265625,
+        "seqNumber": 1864,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 197.47341918945312,
+        "seqNumber": 1865,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 198.49148559570312,
+        "seqNumber": 1866,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 198.49270629882812,
+        "seqNumber": 1867,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 198.8162841796875,
+        "seqNumber": 1868,
+        "line": "NT: DISCONNECTED NT4 client 'shuffleboard@2' (from 10.17.31.199:64077): connection timed out"
+    },
+    {
+        "timestamp": 199.49234008789062,
+        "seqNumber": 1869,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 199.49295043945312,
+        "seqNumber": 1870,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 200.49322509765625,
+        "seqNumber": 1871,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 200.49395751953125,
+        "seqNumber": 1872,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 201.51202392578125,
+        "seqNumber": 1873,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 201.5128173828125,
+        "seqNumber": 1874,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 202.53277587890625,
+        "seqNumber": 1875,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 202.5335693359375,
+        "seqNumber": 1876,
+        "line": "Warning at edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364): Joystick Button 8 on port 0 not available, check if controller is plugged in"
+    },
+    {
+        "timestamp": 203.55206298828125,
+        "seqNumber": 1877,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 203.55206298828125,
+        "seqNumber": 1877,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Joystick Button 8 on port 0 not available, check if controller is plugged in",
+        "location": "edu.wpi.first.wpilibj.DriverStation.reportJoystickUnpluggedWarning(DriverStation.java:1364)",
+        "callStack": "",
+        "messageType": 1
+    }
+]

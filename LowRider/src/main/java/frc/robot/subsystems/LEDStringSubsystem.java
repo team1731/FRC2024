@@ -140,7 +140,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
           if (currentColor == color) {
             return;
           }
-          System.out.println("Setting the color");
+         // System.out.println("Setting the color");
           // Fill the buffer with selection
           switch (color) {
             case INIT:

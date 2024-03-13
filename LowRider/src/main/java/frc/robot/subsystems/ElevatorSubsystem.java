@@ -15,8 +15,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.ISInput;
+import frc.robot.IntakeShootStateMachine;
 import frc.robot.Robot;
 import frc.robot.Constants.ElevatorConstants;
+
 
 public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsystem {
 
@@ -27,6 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
     private double arbitraryFeedForward;
     private WristSubsystem m_wristSubsystem;
     private IntakeSubsystem m_intakeSubsystem;
+    private IntakeShootStateMachine m_intakeShootStateMachine;
     private Orchestra m_orchestra = new Orchestra();
     private MotionMagicVoltage mmReq1= new MotionMagicVoltage(0);
     // private MotionMagicVoltage mmReq2;
@@ -42,9 +46,9 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         return enabled;
     }
 
-    public ElevatorSubsystem(boolean enabled, WristSubsystem wristSubsystem, IntakeSubsystem intakeSubsystem) {
+    public ElevatorSubsystem(boolean enabled, WristSubsystem wristSubsystem, IntakeShootStateMachine intakeShootStateMachine) {
         m_wristSubsystem = wristSubsystem;
-        m_intakeSubsystem = intakeSubsystem;
+        m_intakeShootStateMachine = intakeShootStateMachine;
         this.enabled = enabled;
         if(!enabled) return;
         initializeElevatorMotors();
@@ -154,7 +158,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
             
         }
         if (ampTimeStarted != 0 && (Timer.getFPGATimestamp() - ampTimeStarted > 0.3)) {
-            m_intakeSubsystem.shootAmpStop();
+            m_intakeShootStateMachine.setCurrentInput(frc.robot.ISInput.STOP_AMP);
+           // m_intakeSubsystem.shootAmpStop();
             ampTimeStarted = 0; 
             moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
 
@@ -175,7 +180,9 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
 
     public void moveElevatorAndWristHome() {
         if(!enabled) return;
-        m_intakeSubsystem.shootAmp(-1.0);
+
+        m_intakeShootStateMachine.setCurrentInput(ISInput.START_AMP);
+
         sendWristHomeWhenElevatorDown = true;
         ampTimeStarted = Timer.getFPGATimestamp();       
     }

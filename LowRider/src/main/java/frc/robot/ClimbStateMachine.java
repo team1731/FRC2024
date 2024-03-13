@@ -30,21 +30,19 @@ enum CInput {
 }
 
 public class ClimbStateMachine {
-	private final IntakeSubsystem m_intakeSubsystem;
-    private final ShooterSubsystem m_shooterSubsystem;
 	private final ElevatorSubsystem m_elevatorSubsystem;
 	private final WristSubsystem m_wristSubsystem;
+    private final IntakeShootStateMachine m_intakeShootStateMachine;
     private CState currentState;
     private CInput currentInput;
     private HashMap<String, Method> methods;
     private double timerStarted;
     private double NOTE_TIMER_SECONDS = 0.5;
 
-    public ClimbStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem,  ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem){
-        m_intakeSubsystem = intakeSubsystem;
-		m_shooterSubsystem = shooterSubsystem;
+    public ClimbStateMachine( ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem, IntakeShootStateMachine intakeShootStateMachine){
 		m_elevatorSubsystem = elevatorSubsystem;
 		m_wristSubsystem = wristSubsystem;
+        m_intakeShootStateMachine = intakeShootStateMachine;
 
         methods = new HashMap<String, Method>();
         for(Object[] transition : STATE_TRANSITION_TABLE){
@@ -149,7 +147,8 @@ public class ClimbStateMachine {
     }
 
     public boolean ejectNote(){
-        m_intakeSubsystem.trapFeed();
+        m_intakeShootStateMachine.setCurrentInput(ISInput.START_TRAP);
+       // m_intakeSubsystem.trapFeed();
         timerStarted = Timer.getFPGATimestamp();
         return true;
     }
@@ -158,7 +157,8 @@ public class ClimbStateMachine {
         m_wristSubsystem.retractTrapFlap();
         m_wristSubsystem.moveWristSlow(WristConstants.wristNewTrapPosition, WristConstants.MMVelSlow);
         m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
-        m_intakeSubsystem.stoptrapFeed();
+        m_intakeShootStateMachine.setCurrentInput(ISInput.STOP_TRAP);
+       // m_intakeSubsystem.stoptrapFeed();
         return true;
     }
 

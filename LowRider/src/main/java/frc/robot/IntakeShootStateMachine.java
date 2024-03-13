@@ -4,9 +4,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.WristSubsystem;
 
 enum ISState {
     ALL_STOP,
@@ -15,39 +15,31 @@ enum ISState {
     JIGGLING_DOWN,
     SHOOTING_AT_SPEAKER,
     SHOOTING_AT_AMP,
-    PREPARE_TO_SHOOT,
-    EJECTING
+    SHOOTING_AT_TRAP,
+    SPIN_UP_SHOOTER,
+    READY_TO_SHOOT,
+    SPIN_DOWN_SHOOTER,
+    EJECTING,
+    INTAKE_SHOOTER_WAIT,
+    INTAKE_SHOOTER_HAS_NOTE
 }
 
-enum ISInput {
-    START_INTAKE,
-    STOP_INTAKE,
-    START_AMP,
-    STOP_AMP,
-    START_SPEAKER,
-    STOP_SPEAKER,
-    START_JIGGLE,
-    STOP_JIGGLE,
-    START_EJECT,
-    STOP_EJECT,
-    FORWARD_LIMIT_REACHED,
-    JIGGLE_UP_TIMER_EXPIRED
-}
 
-public class IntakeShootStateMachine {
+public class IntakeShootStateMachine extends SubsystemBase {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_shooterSubsystem;
-	private final WristSubsystem m_wristSubsystem;
     private ISState currentState;
     private ISInput currentInput;
     private HashMap<String, Method> methods;
     private double jiggleUpTimerStarted;
-    private double JIGGLE_UP_TIMER_SECONDS = 0.5;
+    private double JIGGLE_UP_TIMER_SECONDS = 0.1;
+    private double jiggleDownTimerStarted;
+    private double JIGGLE_DOWN_TIMER_SECONDS = 0.1;
 
-    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, WristSubsystem wristSubsystem){
+    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem){
         m_intakeSubsystem = intakeSubsystem;
 		m_shooterSubsystem = shooterSubsystem;
-		m_wristSubsystem = wristSubsystem;
+
 
         methods = new HashMap<String, Method>();
         for(Object[] transition : STATE_TRANSITION_TABLE){
@@ -66,47 +58,104 @@ public class IntakeShootStateMachine {
     }
 
     public void setCurrentState(ISState newState){
-        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: " + newState + " $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n\n");
+        if (currentState != newState ) {
+        System.out.println("\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: " + newState + " CurrentState:" + currentState + "\n");
+        }
         currentState = newState;
         if(currentState == ISState.ALL_STOP){
-            allStop();
+            setAllStop();
+
         }
     }
 
-    public void setCurrentInput(ISInput newInput){
-        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: " + newInput + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
+    public synchronized void setCurrentInput(ISInput newInput){
+        if (currentInput != newInput) {
+            System.out.println("\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: " + newInput +  currentState + "\n");
+        }
         currentInput = newInput;
+        run();
     }
 
     Object STATE_TRANSITION_TABLE[][] = {
     //   CURRENT                          INPUT                                 OPERATION                     NEXT
         {ISState.ALL_STOP,                ISInput.START_INTAKE,                 "startIntake",                ISState.INTAKING},
-        {ISState.INTAKING,                ISInput.START_INTAKE,                 "doNothing",                  ISState.INTAKING},
-        {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "allStop",                    ISState.ALL_STOP},
-        {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "jiggleUp",                   ISState.JIGGLING_UP},
-        {ISState.JIGGLING_UP,             ISInput.START_INTAKE,                 "doNothing",                  ISState.JIGGLING_UP},
-        {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "jiggleDown",                 ISState.JIGGLING_DOWN},
+        {ISState.ALL_STOP,                ISInput.START_JIGGLE,                 "startJiggleUp",              ISState.JIGGLING_UP},
+        {ISState.ALL_STOP,                ISInput.START_SPEAKER,                "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},    
+        {ISState.ALL_STOP,                ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP},     
+        {ISState.ALL_STOP,                ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
+        {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",        ISState.INTAKE_SHOOTER_WAIT},
+        {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",             ISState.INTAKE_SHOOTER_HAS_NOTE}, 
+        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                "startJiggleUp",              ISState.JIGGLING_UP},       
+        {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
+        {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
+       
+        {ISState.SPIN_DOWN_SHOOTER,       ISInput.SHOOTER_READY_FOR_JIGGLE,     "startJiggleUp",              ISState.JIGGLING_UP},
+        
+        {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "startJiggleDown",            ISState.JIGGLING_DOWN},
+        
+        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_TIMER_EXPIRED,    "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
+        
+        {ISState.SPIN_UP_SHOOTER,         ISInput.SHOOTER_UP_TO_SPEED,          "doNothing",                  ISState.READY_TO_SHOOT},
+        
+        {ISState.READY_TO_SHOOT,          ISInput.START_SPEAKER,                "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.READY_TO_SHOOT,          ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},
+        {ISState.READY_TO_SHOOT,          ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP},
+        {ISState.READY_TO_SHOOT,          ISInput.START_JIGGLE,                 "startSpinDownShooter",        ISState.SPIN_DOWN_SHOOTER},
+        {ISState.READY_TO_SHOOT,          ISInput.START_EJECT,                  "startEject",                  ISState.EJECTING},
 
+        {ISState.SHOOTING_AT_SPEAKER,     ISInput.STOP_SPEAKER,                 "setAllStop",                 ISState.ALL_STOP},
+       
+        {ISState.SHOOTING_AT_AMP,         ISInput.STOP_AMP,                     "setAllStop",                 ISState.ALL_STOP},
+
+        {ISState.SHOOTING_AT_TRAP,        ISInput.STOP_TRAP,                    "setAllStop",                 ISState.ALL_STOP},
+       
+        {ISState.EJECTING,                ISInput.STOP_EJECT,                   "setAllStop",                 ISState.ALL_STOP},
+       
+        
     };
-
-
-    public void setInput(){
+    
+    private void setInputs() {
         if(currentState == ISState.INTAKING && m_intakeSubsystem.forwardLimitReached()){
             setCurrentInput(ISInput.FORWARD_LIMIT_REACHED);
         }
+        
         if(currentState == ISState.JIGGLING_UP && Timer.getFPGATimestamp() - jiggleUpTimerStarted > JIGGLE_UP_TIMER_SECONDS){
             setCurrentInput(ISInput.JIGGLE_UP_TIMER_EXPIRED);
         }
+        
+        if(currentState == ISState.JIGGLING_DOWN && Timer.getFPGATimestamp() - jiggleDownTimerStarted > JIGGLE_DOWN_TIMER_SECONDS){
+            setCurrentInput(ISInput.JIGGLE_DOWN_TIMER_EXPIRED);
+        }
+
+        if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 99)){
+            setCurrentInput(ISInput.SHOOTER_UP_TO_SPEED);
+        }
+
+        if(currentState == ISState.SPIN_DOWN_SHOOTER && (m_shooterSubsystem.getShooterVelocity()  < -50/60)){
+            setCurrentInput(ISInput.SHOOTER_READY_FOR_JIGGLE);
+        }
+
+        if(currentState == ISState.INTAKE_SHOOTER_WAIT && (m_intakeSubsystem.hasNote())){
+            setCurrentInput(ISInput.HAS_NOTE);
+        }
+
+        if(currentState == ISState.INTAKE_SHOOTER_HAS_NOTE && (m_intakeSubsystem.noteSettled())){
+            setCurrentInput(ISInput.NOTE_SETTLED);
+        }
+    }
+
+    public void periodic() { 
+        run();
     }
 
     public void setInitialState(ISState initialState){
         setCurrentState(initialState);
     }
 
-    public boolean allStop(){
+    public boolean setAllStop(){
         m_shooterSubsystem.stopShooting();
-        m_intakeSubsystem.stopIntake();
-        m_intakeSubsystem.stopFeed();
+        m_intakeSubsystem.intakeState(0.0);
+        m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         return true;
@@ -114,32 +163,117 @@ public class IntakeShootStateMachine {
 
     public boolean startIntake(){
         m_shooterSubsystem.reverseSlow();
-        m_intakeSubsystem.intake(1.0);
-        m_intakeSubsystem.feed(1.0);
+        m_intakeSubsystem.intakeState(1.0);
+        m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         return true;
     }
 
-    public boolean jiggleUp(){
+    public boolean startJiggleUp(){
         m_shooterSubsystem.reverseSlow();
-        m_intakeSubsystem.intake(-0.5);
-        m_intakeSubsystem.feed(0.5);
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(0.5);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         jiggleUpTimerStarted = Timer.getFPGATimestamp();
         return true;
     }
 
+    public boolean startSpinDownShooter(){
+        m_shooterSubsystem.reverseSlow();
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(0.5);
+        m_intakeSubsystem.disableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        return true;
+    }
+
+    public boolean startJiggleDown(){
+        m_shooterSubsystem.reverseSlow();
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(-0.5);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        jiggleDownTimerStarted = Timer.getFPGATimestamp();
+        return true;
+    }
+
+    public boolean startSpinUpShooter(){
+        m_shooterSubsystem.shoot();
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(1.0);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+
+        return true;
+    }
+
+    public boolean startShootSpeaker(){
+        m_shooterSubsystem.shoot();
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(1.0);
+        m_intakeSubsystem.disableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        return true;
+    }
+    public boolean startShootAmp(){
+        m_shooterSubsystem.shootAmp();
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(1.0);
+        m_intakeSubsystem.disableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+    return true;
+    }
+
+    public boolean startShootTrap(){
+        m_shooterSubsystem.stopShooting();
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(-0.5);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.disableReverseLimitSwitch();
+    return true;
+    }
+
+    public boolean startEject(){
+        m_shooterSubsystem.stopShooting();
+        m_intakeSubsystem.intakeState(-1.0);
+        m_intakeSubsystem.feedState(-1.0);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.disableReverseLimitSwitch();
+    return true;
+    }
+
+    public boolean startIntakeFromShoot(){
+        m_shooterSubsystem.shooterAsIntake();
+        m_intakeSubsystem.intakeState(-0.2);
+        m_intakeSubsystem.feedState(-0.2);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.disableReverseLimitSwitch();
+    return true;
+    }
+    
+   public boolean startIFRHasNote(){
+        m_shooterSubsystem.shooterAsIntake();
+        m_intakeSubsystem.intakeState(-0.2);
+        m_intakeSubsystem.feedState(-0.2);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+    return true;
+    }
+
+
     public void run(){
         Object[] operationAndNextState = lookupOperationAndNextState(currentState, currentInput);
         if(operationAndNextState != null){
             String operation = (String) operationAndNextState[0];
             ISState nextState = (ISState) operationAndNextState[1];
+
+            if (nextState == null) System.out.println ("NULLLLLLLL  OPERATION" + operation);
             Method method = methods.get(operation);
             if(method != null){
                 try {
-                    System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
+                    System.out.println("\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " CurrentState:" + currentState + " NextState:" + nextState + "\n");
                     if((Boolean)method.invoke(this) && nextState != null){
                         setCurrentState(nextState);
                     }
@@ -148,10 +282,10 @@ public class IntakeShootStateMachine {
                 }
             }
             else{
-                System.err.println("\n\n" + Timer.getFPGATimestamp() + " FATAL: INTAKE/SHOOT STATE MACHINE OPERATION NOT FOUND: " + operation + "() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
+                System.err.println("\n" + Timer.getFPGATimestamp() + " FATAL: INTAKE/SHOOT STATE MACHINE OPERATION NOT FOUND: " + operation + "() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
             }
         }
-        setInput();
+        setInputs();
     }
 
     private Object[] lookupOperationAndNextState(ISState currentState, ISInput currentInput) {
@@ -174,7 +308,5 @@ public class IntakeShootStateMachine {
         return true;
     }
 
-    public boolean lowerRobotDown(){
-        return true;
-    }
+
 }

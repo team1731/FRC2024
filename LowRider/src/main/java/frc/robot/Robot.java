@@ -55,6 +55,8 @@ public class Robot extends TimedRobot {
   private IntakeSubsystem intakeSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
+  private IntakeShootStateMachine intakeShootStateMachine;
+private ClimbStateMachine climbStateMachine;
  
 
   public Robot() {
@@ -101,13 +103,16 @@ public class Robot extends TimedRobot {
 	ledSubsystem = new LEDStringSubsystem(true);
 	intakeSubsystem = new IntakeSubsystem(true);
 	wristSubsystem = new WristSubsystem(true);
-	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
+
 	shooterSubsystem = new ShooterSubsystem(true);
 	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
 
+	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem);
+	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
+	 climbStateMachine = new ClimbStateMachine(elevatorSubsystem, wristSubsystem, intakeShootStateMachine);
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, visionSubsystem, intakeSubsystem,  wristSubsystem, ledSubsystem, elevatorSubsystem);
+	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, visionSubsystem, intakeSubsystem,  wristSubsystem, ledSubsystem, elevatorSubsystem,intakeShootStateMachine, climbStateMachine);
 
     wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
@@ -349,10 +354,11 @@ public class Robot extends TimedRobot {
   public void teleopInit() {	
 
 	visionSubsystem.useVision(true);
-    
+    /* 
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();
 	intakeSubsystem.stopFireNote();
+	*/
 	//driveSubsystem.seedFieldRelative(new Pose2d(new Translation2d(0,0), new Rotation2d(120)));
 	
 	// Record both DS control and joystick data in TELEOP

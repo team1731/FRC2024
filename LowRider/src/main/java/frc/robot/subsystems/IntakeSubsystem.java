@@ -67,10 +67,26 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         return m_forwardLimit.isPressed();
     }
 
-    /*
-     * INTAKE MOTOR MOVEMENT
-     */
 
+  public void intakeState(double intakeSpeed) {
+        if (enabled) {
+         //   enableLimitSwitch();
+            intakeMotor.set(intakeSpeed);
+           
+            //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
+        }
+    }
+
+    public void feedState(double feedSpeed) {
+        if (enabled) {
+         //   enableLimitSwitch();
+            feederMotor.set(feedSpeed);
+           
+            //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
+        }
+    }
+
+/* 
     public void intake(double intakeSpeed) {
         if (enabled) {
          //   enableLimitSwitch();
@@ -115,9 +131,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
     
-    /*
-     * FEEDER MOTOR MOVEMENT
-     */
+
 
     public void feed(double speed) {
         if (enabled) {
@@ -152,10 +166,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
 
 
-   
+    */
     
     public void periodic() {
-
+/* 
  
         if (((isIntaking)&&(!isJigglingFeedingUp)) &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
@@ -183,6 +197,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             enableReverseLimitSwitch();
             isShooterAsIntake = false;
         }
+        */
     }
 
     public void disableLimitSwitch() {
@@ -200,7 +215,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void enableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(true);
     }
-
+/* 
     public boolean noteIsPresent() {
 
        return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
@@ -282,6 +297,16 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         return noteIsRetrieved;
     }
 
+*/
 
+    public boolean hasNote() {
+
+       return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed()) || 
+       (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
+    }
+
+    public boolean noteSettled() {
+        return feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed();
+    }
 
 }

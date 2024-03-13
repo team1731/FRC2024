@@ -3,11 +3,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class IntakeShootStateMachineCommand extends Command {
+public class IntakeShootStateMachineOneShotCommand extends Command {
     private IntakeShootStateMachine intakeShootStateMachine;
     private ISInput input;
 
-    public IntakeShootStateMachineCommand(IntakeShootStateMachine intakeShootStateMachine, ISInput input){
+    public IntakeShootStateMachineOneShotCommand(IntakeShootStateMachine intakeShootStateMachine, ISInput input){
         this.intakeShootStateMachine = intakeShootStateMachine;
         this.input = input;
 
@@ -17,14 +17,14 @@ public class IntakeShootStateMachineCommand extends Command {
 	// If it is used as Default command then it gets call all the time
 	@Override
 	public void initialize() {
-       
+       	 intakeShootStateMachine.setCurrentInput(input);
 		
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-	 intakeShootStateMachine.setCurrentInput(input);
+
 	}
 
 	// Called once the command ends or is interrupted.
@@ -36,6 +36,6 @@ public class IntakeShootStateMachineCommand extends Command {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return true;
 	}
 }
