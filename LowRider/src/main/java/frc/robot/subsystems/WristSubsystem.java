@@ -16,6 +16,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -170,6 +171,11 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         SmartDashboard.putNumber("wrist motor 2 closedLoopOutput", wristMotor2.getClosedLoopOutput().getValueAsDouble()); 
         SmartDashboard.putNumber("wrist motor 1 statorCurrent", wristMotor1.getStatorCurrent().getValueAsDouble());    
         SmartDashboard.putNumber("wrist motor 2 statorCurrent", wristMotor2.getStatorCurrent().getValueAsDouble());  
+
+        // SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
+        //                         estPose.getTranslation().getX(),
+        //                         estPose.getTranslation().getY(),
+        //                         estPose.getRotation().getDegrees()));
        //qqpppppppppppppppppppppppppppppp-dpd-fg= SmartDashboard.putNumber("Arbitrary Feed Forward", arbitraryFeedForward);
 
     }
@@ -212,19 +218,24 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         return false;
     }
 
-    public void setWristBasedOnDistance(double distanceToSpeakerInMeters, double xDistanceToSpeaker, double yDistanceToSpeaker, double leftX, double leftY, double accelerationXPigeon, double accelerationYPigeon) {
+    public void setWristBasedOnDistance(double distanceToSpeakerInMeters, double xDistanceToSpeaker, double yDistanceToSpeaker, double leftX, double leftY, double accelerationXPigeon, double accelerationYPigeon, double robotHeading) {
          
         double shotTime = distanceToSpeakerInMeters / (3.81 * 2 * Math.PI); //speed of shot in m/s
         
         double robotXSpeed = driveSubsystem.getXVelocity();
         double robotYSpeed = driveSubsystem.getYVelocity();
-         
+        
+        double fieldRelativeRobotXSpeed = (robotXSpeed * Math.sin(robotHeading)) + (robotYSpeed * Math.cos(robotHeading));
+        double fieldRelativeRobotYSpeed = (robotXSpeed * Math.cos(robotHeading)) + (robotYSpeed * Math.sin(robotHeading));
+
         double robotXSetSpeed = -(leftY*leftY * MaxSpeed);
         double robotYSetSpeed = -(leftX*leftX * MaxSpeed);
          
         double robotXAcceleration = accelerationXPigeon;
         double robotYAcceleration = accelerationYPigeon;
         
+        double fieldRelativeRobotXAcceleration = (robotXAcceleration * Math.sin(robotHeading)) + (robotYAcceleration * Math.cos(robotHeading));
+        double fieldRelativeRobotYAcceleration = (robotXAcceleration * Math.cos(robotHeading)) + (robotYAcceleration * Math.sin(robotHeading));
         //if statements determine if difference in current robot speed and set robot speed is indicative of acceleration, and in which direction
         // if (robotXSetSpeed < robotXSpeed && Math.abs(robotXSetSpeed - robotXSetSpeed) >= 0.5){
         //     robotXAcceleration = -4;
@@ -254,9 +265,11 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
            m2 = -1.0;
         }
 
+
         double robotXDistance = xDistanceToSpeaker - ((robotXSpeed * shotTime) * m) - ((0.5 * robotXAcceleration * Math.pow(shotTime, 2)) * m);
         double robotYDistance = yDistanceToSpeaker - ((robotYSpeed * shotTime) * m2) - ((0.5 * robotYAcceleration * Math.pow(shotTime, 2)) * m2);
-        double distanceFromOrigin = Math.sqrt((robotXDistance * robotXDistance) + (robotYDistance * robotYDistance));
+       //double distanceFromOrigin = Math.sqrt((robotXDistance * robotXDistance) + (robotYDistance * robotYDistance));
+       double distanceFromOrigin = distanceToSpeakerInMeters;
         //old formula
         //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4)) + (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;

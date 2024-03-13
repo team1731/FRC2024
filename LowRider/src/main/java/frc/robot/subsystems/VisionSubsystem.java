@@ -172,7 +172,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     @Override
     public void periodic() {
 
-        getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
+        //getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
         if (enabled && initialized) {
 
             if (photonEstimatorFront != null) {
@@ -336,7 +336,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public Rotation2d getHeadingToSpeakerInRad() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
-        Pose2d robot = driveSubsystem.getState().Pose;
+        Pose2d robot = adjustedRobotPose();
         double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
         SmartDashboard.putNumber("HeadingToTarget", headingToTarget);
         System.out.println("getting heading");
@@ -344,6 +344,44 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     }
 
+    public double getHeadingAngleToSpeaker() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = driveSubsystem.getState().Pose;
+        double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
+        SmartDashboard.putNumber("HeadingToTarget", headingToTarget);
+        System.out.println("getting heading");
+        return headingToTarget;
+
+    }
+    public Pose2d adjustedRobotPose() {
+        Pose2d robot = driveSubsystem.getState().Pose;
+
+        double shotTime = getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI); //speed of shot in m/s
+        
+        double robotXSpeed = driveSubsystem.getXVelocity();
+        double robotYSpeed = driveSubsystem.getYVelocity();
+        
+        double fieldRelativeRobotXSpeed = (robotXSpeed * Math.sin(getHeadingAngleToSpeaker())) + (robotYSpeed * Math.cos(getHeadingAngleToSpeaker()));
+        double fieldRelativeRobotYSpeed = (robotXSpeed * Math.cos(getHeadingAngleToSpeaker())) + (robotYSpeed * Math.sin(getHeadingAngleToSpeaker()));
+
+        double robotXAcceleration = getAccelerationX();
+        double robotYAcceleration = getAccelerationY();
+        
+        double fieldRelativeRobotXAcceleration = (robotXAcceleration * Math.sin(getHeadingAngleToSpeaker())) + (robotYAcceleration * Math.cos(getHeadingAngleToSpeaker()));
+        double fieldRelativeRobotYAcceleration = (robotXAcceleration * Math.cos(getHeadingAngleToSpeaker())) + (robotYAcceleration * Math.sin(getHeadingAngleToSpeaker()));
+
+        Translation2d  velocityVector = new Translation2d(fieldRelativeRobotXSpeed , fieldRelativeRobotYSpeed);
+
+        Translation2d  accelerationVector = new Translation2d(fieldRelativeRobotXAcceleration , fieldRelativeRobotYAcceleration);
+
+        Translation2d displacementTranslation2d = velocityVector.times(shotTime).plus(accelerationVector.times(0.5 * (shotTime*shotTime)));
+
+        Translation2d robotPose = new Translation2d(robot.getX(), robot.getY());
+        Translation2d adjustedRobotPose = robotPose.plus(displacementTranslation2d);
+
+        return new Pose2d(adjustedRobotPose, new Rotation2d());
+        
+    }
     public double getXDistanceToSpeaker() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = driveSubsystem.getState().Pose;
@@ -368,7 +406,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
     }
 
-    public double getDistanceToSpeakerInMeters() {
+    public double getDistanceToSpeakerInMeters(Pose2d Pose) {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = driveSubsystem.getState().Pose;
+        double distance = PhotonUtils.getDistanceToPose(target, Pose);
+        SmartDashboard.putNumber("DistanceToTarget", distance);
+        return distance;
+    }
+    public double getStaticDistanceToSpeakerInMeters() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = driveSubsystem.getState().Pose;
         double distance = PhotonUtils.getDistanceToPose(target, robot);
@@ -376,11 +421,13 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         return distance;
     }
 
+    
+
     public double getAccelerationX() {
-        return mypigeon.getAccelerationX().getValueAsDouble();
+        return (mypigeon.getAccelerationX().getValueAsDouble())/9.81;
     }
     public double getAccelerationY() {
-        return mypigeon.getAccelerationY().getValueAsDouble();
+        return (mypigeon.getAccelerationY().getValueAsDouble())/9.81;
     }
 
     private boolean isRedAlliance(){
