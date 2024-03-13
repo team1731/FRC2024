@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -34,7 +35,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private double jiggleUpTimerStarted;
     private double JIGGLE_UP_TIMER_SECONDS = 0.1;
     private double jiggleDownTimerStarted;
-    private double JIGGLE_DOWN_TIMER_SECONDS = 0.1;
+    private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem){
         m_intakeSubsystem = intakeSubsystem;
@@ -79,13 +80,14 @@ public class IntakeShootStateMachine extends SubsystemBase {
     Object STATE_TRANSITION_TABLE[][] = {
     //   CURRENT                          INPUT                                 OPERATION                     NEXT
         {ISState.ALL_STOP,                ISInput.START_INTAKE,                 "startIntake",                ISState.INTAKING},
-        {ISState.ALL_STOP,                ISInput.START_JIGGLE,                 "startJiggleUp",              ISState.JIGGLING_UP},
+        {ISState.ALL_STOP,                ISInput.START_JIGGLE,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
         {ISState.ALL_STOP,                ISInput.START_SPEAKER,                "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},    
-        {ISState.ALL_STOP,                ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP},     
+        {ISState.ALL_STOP,                ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP}, 
+        {ISState.ALL_STOP,                ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},    
         {ISState.ALL_STOP,                ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
         {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",        ISState.INTAKE_SHOOTER_WAIT},
         {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",             ISState.INTAKE_SHOOTER_HAS_NOTE}, 
-        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                "startJiggleUp",              ISState.JIGGLING_UP},       
+        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                  "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
         {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
         {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
        
@@ -93,7 +95,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         
         {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "startJiggleDown",            ISState.JIGGLING_DOWN},
         
-        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_TIMER_EXPIRED,    "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
+        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,    "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
         
         {ISState.SPIN_UP_SHOOTER,         ISInput.SHOOTER_UP_TO_SPEED,          "doNothing",                  ISState.READY_TO_SHOOT},
         
@@ -123,8 +125,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
             setCurrentInput(ISInput.JIGGLE_UP_TIMER_EXPIRED);
         }
         
-        if(currentState == ISState.JIGGLING_DOWN && Timer.getFPGATimestamp() - jiggleDownTimerStarted > JIGGLE_DOWN_TIMER_SECONDS){
-            setCurrentInput(ISInput.JIGGLE_DOWN_TIMER_EXPIRED);
+        if(currentState == ISState.JIGGLING_DOWN && ((Timer.getFPGATimestamp() - jiggleDownTimerStarted > JIGGLE_DOWN_TIMER_SECONDS) || m_intakeSubsystem.noteSettled())){
+           setCurrentInput(ISInput.JIGGLE_DOWN_NOTE_SETTLED);
         }
 
         if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 99)){
@@ -142,10 +144,14 @@ public class IntakeShootStateMachine extends SubsystemBase {
         if(currentState == ISState.INTAKE_SHOOTER_HAS_NOTE && (m_intakeSubsystem.noteSettled())){
             setCurrentInput(ISInput.NOTE_SETTLED);
         }
+
+
     }
 
     public void periodic() { 
         run();
+        SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
+        SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
     }
 
     public void setInitialState(ISState initialState){
@@ -183,7 +189,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     public boolean startSpinDownShooter(){
         m_shooterSubsystem.reverseSlow();
         m_intakeSubsystem.intakeState(-0.5);
-        m_intakeSubsystem.feedState(0.5);
+        m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         return true;
