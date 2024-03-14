@@ -156,7 +156,7 @@ public class ClimbStateMachine {
     public boolean getOffTheLedge(){
         m_wristSubsystem.retractTrapFlap();
         m_wristSubsystem.moveWristSlow(WristConstants.wristNewTrapPosition, WristConstants.MMVelSlow);
-        m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
+        m_elevatorSubsystem.moveElevator(0);// To account for slack in chain
         m_intakeShootStateMachine.setCurrentInput(ISInput.STOP_TRAP);
        // m_intakeSubsystem.stoptrapFeed();
         return true;

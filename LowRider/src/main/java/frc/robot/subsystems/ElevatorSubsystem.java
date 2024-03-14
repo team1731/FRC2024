@@ -121,6 +121,8 @@ public class ElevatorSubsystem extends SubsystemBase implements ToggleableSubsys
         
         elevatorMotor1.setPosition(0);
         elevatorMotor2.setPosition(0);
+        elevatorMotor1.setNeutralMode(NeutralModeValue.Brake);
+        elevatorMotor2.setNeutralMode(NeutralModeValue.Brake);
 
     }
     public void periodic() {

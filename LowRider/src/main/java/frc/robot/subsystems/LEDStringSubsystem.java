@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OpConstants;
 import frc.robot.Constants.OpConstants.LedOption;
 
@@ -106,7 +106,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
       if (currentColor == color) {
         return;
       }
-      System.out.println("Setting the color to: " + color.toString());
+      SmartDashboard.putString("Color", color.toString());
       currentColor = color;
       _setCurrentColor();
     }

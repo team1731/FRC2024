@@ -89,8 +89,9 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",        ISState.INTAKE_SHOOTER_WAIT},
         {ISState.ALL_STOP,                ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-
-        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,              "startIntake",               ISState.INTAKING_NO_JIGGLE},
+        {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.SPIN_UP_SHOOTER,          ISInput.JUST_SHOOT,                  "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,              "startIntakeNoJiggle",       ISState.INTAKING_NO_JIGGLE},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,         "doNothing",                 ISState.READY_TO_SHOOT},
 
 
@@ -177,6 +178,15 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public boolean startIntake(){
         m_shooterSubsystem.reverseSlow();
+        m_intakeSubsystem.intakeState(1.0);
+        m_intakeSubsystem.feedState(1.0);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        return true;
+    }
+
+    public boolean startIntakeNoJiggle(){
+        m_shooterSubsystem.shoot();
         m_intakeSubsystem.intakeState(1.0);
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.enableLimitSwitch();
