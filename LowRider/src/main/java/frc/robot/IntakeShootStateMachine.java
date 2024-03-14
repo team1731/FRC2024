@@ -22,7 +22,8 @@ enum ISState {
     SPIN_DOWN_SHOOTER,
     EJECTING,
     INTAKE_SHOOTER_WAIT,
-    INTAKE_SHOOTER_HAS_NOTE
+    INTAKE_SHOOTER_HAS_NOTE,
+    INTAKING_NO_JIGGLE
 }
 
 
@@ -86,6 +87,13 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.ALL_STOP,                ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},    
         {ISState.ALL_STOP,                ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
         {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",        ISState.INTAKE_SHOOTER_WAIT},
+        {ISState.ALL_STOP,                ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+
+        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,              "startIntake",               ISState.INTAKING_NO_JIGGLE},
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,         "doNothing",                 ISState.READY_TO_SHOOT},
+
+
         {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",             ISState.INTAKE_SHOOTER_HAS_NOTE}, 
         {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                  "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
         {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
