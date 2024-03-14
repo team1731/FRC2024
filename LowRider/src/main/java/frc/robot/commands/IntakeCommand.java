@@ -8,13 +8,10 @@
 package frc.robot.commands;
 
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.ISInput;
 import frc.robot.IntakeShootStateMachine;
 import frc.robot.Constants.WristConstants;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 /**
@@ -24,10 +21,6 @@ public class IntakeCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final IntakeShootStateMachine m_intakeShootStateMachine;
     private final WristSubsystem m_wristSubsystem;
-	private boolean intakeJiggleStarted = false;
-
-
-
 
 	/**
 	 * Creates a new Fire into the speaker
@@ -39,8 +32,6 @@ public class IntakeCommand extends Command {
 	public IntakeCommand(IntakeShootStateMachine intakeStateMachine, WristSubsystem wristSubsystem) {
 		m_intakeShootStateMachine = intakeStateMachine;
 		m_wristSubsystem = wristSubsystem;
-
-		
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		if ( wristSubsystem != null) {
@@ -54,15 +45,12 @@ public class IntakeCommand extends Command {
 	public void initialize() {
 		m_wristSubsystem.retractTrapFlap();
 		m_wristSubsystem.moveWrist(WristConstants.IntakePosition);
-
-
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		m_intakeShootStateMachine.setCurrentInput(ISInput.START_INTAKE);
-
 	}
 
 	// Called once the command ends or is interrupted.

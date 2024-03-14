@@ -28,16 +28,17 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     private boolean backingUpComplete = false;
     private boolean sequenceComplete = false;
     private boolean isShooterAsIntake = false;
-   
-    
+    private LEDStringSubsystem ledSubsystem;
+
     private boolean enabled;
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
-    public IntakeSubsystem(boolean enabled) {
+    public IntakeSubsystem(boolean enabled, LEDStringSubsystem ledSubsystem) {
         this.enabled = enabled;
+        this.ledSubsystem = ledSubsystem;
         initializeIntakeMotor();
     }
 
@@ -215,10 +216,16 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     public void enableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(true);
     }
+    
 /* 
     public boolean noteIsPresent() {
 
-       return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
+       return getNoteSwitch();
+    }
+    public boolean noteIsPresentShooterIntake() {
+
+       return (getNoteSwitch()) || 
+       (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
     }
     public boolean noteIsPresentShooterIntake() {
 

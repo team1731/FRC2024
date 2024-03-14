@@ -49,6 +49,7 @@ public class Robot extends TimedRobot {
   private boolean isRedAlliance;
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
+  
   private CommandSwerveDrivetrain driveSubsystem;
   private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
@@ -56,7 +57,7 @@ public class Robot extends TimedRobot {
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
   private IntakeShootStateMachine intakeShootStateMachine;
-private ClimbStateMachine climbStateMachine;
+  private ClimbStateMachine climbStateMachine;
  
 
   public Robot() {
@@ -101,11 +102,11 @@ private ClimbStateMachine climbStateMachine;
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
 	ledSubsystem = new LEDStringSubsystem(true);
-	intakeSubsystem = new IntakeSubsystem(true);
+	intakeSubsystem = new IntakeSubsystem(true, ledSubsystem);
 	wristSubsystem = new WristSubsystem(true);
 
 	shooterSubsystem = new ShooterSubsystem(true);
-	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem, ledSubsystem);
 
 	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
@@ -260,6 +261,8 @@ private ClimbStateMachine climbStateMachine;
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledInit() {
+	ledSubsystem.setBlink(false);
+	ledSubsystem.setColor(OpConstants.LedOption.INIT);
   }
 
 
@@ -367,7 +370,7 @@ private ClimbStateMachine climbStateMachine;
 	CommandScheduler.getInstance().cancelAll();
 	initSubsystems();
 	//for testing only
-	ledSubsystem.setColor(LedOption.INIT);
+	ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
 	// sm_armStateMachine.setIsInAuto(false);
 	// sm_armStateMachine.initializeArm();
 	// This makes sure that the autonomous stops running when
@@ -414,13 +417,13 @@ private ClimbStateMachine climbStateMachine;
 	/*
 	 * Change LED blinking status depending on whether holding a game piece or not
 	 */
-	if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
-		ledSubsystem.setBlink(true);
-		ledBlinking = true;
-	} else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
-		ledSubsystem.setBlink(false);
-		ledBlinking = false;
-	}
+	// if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
+	// 	ledSubsystem.setBlink(true);
+	// 	ledBlinking = true;
+	// } else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
+	// 	ledSubsystem.setBlink(false);
+	// 	ledBlinking = false;
+	// }
 
 	/*
 	 * Change LED to indicate emergency status entry or exit

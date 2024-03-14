@@ -552,6 +552,8 @@ public final class Constants {
     public static class Vision {
         public static final String kCameraNameFront = "ArducamUSB1";
         public static final String kCameraNameBack = "ArducamUSB2";
+        public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
+
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
         public static final Transform3d kRobotToCamFront =
                 new Transform3d(new Translation3d(0.33655, 0.2159, 0.19939), new Rotation3d(0, -Units.degreesToRadians(35), Units.degreesToRadians(-10)));
@@ -570,7 +572,9 @@ public final class Constants {
 
     public static final class OpConstants{
         // KEYBOARD CONSTANTS   
-        public static final int kPWM_LedSting = 6;         // Addressable Led String
+        public static final int kPWM_LedString = 1;     // PWM # for Addressable Led String
+        public static final int kLedStringLength = 11;  // Length of Addressable Led String; 33 individual / sets of 3
+        public static final double kLedStringBlinkDelay = 0.1;  // Delay in Seconds of Addressable Led String
 
         public enum LedOption {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
