@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
 	shooterSubsystem = new ShooterSubsystem(true);
 	visionSubsystem = new VisionSubsystem(true, driveSubsystem, ledSubsystem);
 
-	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem);
+	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
 	 climbStateMachine = new ClimbStateMachine(elevatorSubsystem, wristSubsystem, intakeShootStateMachine);
 	// Instantiate our robot container. This will perform all of our button bindings,
@@ -370,7 +370,7 @@ public class Robot extends TimedRobot {
 	CommandScheduler.getInstance().cancelAll();
 	initSubsystems();
 	//for testing only
-	ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
+	//ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
 	// sm_armStateMachine.setIsInAuto(false);
 	// sm_armStateMachine.initializeArm();
 	// This makes sure that the autonomous stops running when

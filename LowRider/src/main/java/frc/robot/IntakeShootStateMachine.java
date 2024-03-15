@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDStringSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 enum ISState {
@@ -30,6 +31,7 @@ enum ISState {
 public class IntakeShootStateMachine extends SubsystemBase {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_shooterSubsystem;
+    private final LEDStringSubsystem m_ledSubsystem;
     private ISState currentState;
     private ISInput currentInput;
     private HashMap<String, Method> methods;
@@ -38,9 +40,10 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private double jiggleDownTimerStarted;
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
 
-    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem){
+    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem){
         m_intakeSubsystem = intakeSubsystem;
 		m_shooterSubsystem = shooterSubsystem;
+        m_ledSubsystem = ledSubsystem;
 
 
         methods = new HashMap<String, Method>();
@@ -92,7 +95,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.SPIN_UP_SHOOTER,          ISInput.JUST_SHOOT,                  "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,              "startIntakeNoJiggle",       ISState.INTAKING_NO_JIGGLE},
-        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,         "doNothing",                 ISState.READY_TO_SHOOT},
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,         "turnOnLED",                 ISState.READY_TO_SHOOT},
 
 
         {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",             ISState.INTAKE_SHOOTER_HAS_NOTE}, 
@@ -210,6 +213,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+         m_ledSubsystem.setBlink(true);
         return true;
     }
 
@@ -239,6 +243,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+         m_ledSubsystem.setBlink(false);
         return true;
     }
     public boolean startShootAmp(){
@@ -247,6 +252,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+         m_ledSubsystem.setBlink(false);
     return true;
     }
 
@@ -256,6 +262,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.5);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
+         m_ledSubsystem.setBlink(false);
     return true;
     }
 
@@ -265,6 +272,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
+         m_ledSubsystem.setBlink(false);
     return true;
     }
 
@@ -283,6 +291,11 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+    return true;
+    }
+
+     public boolean turnOnLED(){
+        m_ledSubsystem.setBlink(true);
     return true;
     }
 
