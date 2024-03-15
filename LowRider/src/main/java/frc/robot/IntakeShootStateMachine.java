@@ -6,6 +6,7 @@ import java.util.HashMap;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDStringSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -213,6 +214,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+        m_ledSubsystem.setColor(LedOption.WHITE);
          m_ledSubsystem.setBlink(true);
         return true;
     }
@@ -252,6 +254,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+        m_ledSubsystem.setColor(LedOption.BLACK);
          m_ledSubsystem.setBlink(false);
     return true;
     }
@@ -262,6 +265,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.5);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
+         m_ledSubsystem.setColor(LedOption.BLACK);
          m_ledSubsystem.setBlink(false);
     return true;
     }
@@ -272,6 +276,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
+        m_ledSubsystem.setColor(LedOption.BLACK);
          m_ledSubsystem.setBlink(false);
     return true;
     }
@@ -295,6 +300,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
      public boolean turnOnLED(){
+                 m_ledSubsystem.setColor(LedOption.WHITE);
         m_ledSubsystem.setBlink(true);
     return true;
     }
