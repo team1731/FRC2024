@@ -94,6 +94,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   public void setBlink(boolean blink) {
     if (enabled) {
       this.blink = blink;
+      if (currentColor == LedOption.BLACK) currentColor = LedOption.WHITE;
       this.startBlink = mTimer.get();
       if (!blink) {
         _setCurrentColor(); // make sure if blink ended in BLACK, then turn ON
