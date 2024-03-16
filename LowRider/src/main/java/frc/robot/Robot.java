@@ -370,6 +370,9 @@ public class Robot extends TimedRobot {
 	System.out.println("TELEOP INIT");
 	CommandScheduler.getInstance().cancelAll();
 	initSubsystems();
+	intakeShootStateMachine.setCurrentInput(ISInput.STOP_INTAKE);
+	intakeShootStateMachine.setCurrentInput(ISInput.STOP_SPEAKER);
+
 	//for testing only
 	//ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
 	// sm_armStateMachine.setIsInAuto(false);
