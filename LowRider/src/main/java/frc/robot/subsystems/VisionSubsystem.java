@@ -80,6 +80,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     double lastLogTime = 0;
     double logInterval = 1.0; // in seconds
 
+    
     private boolean enabled;
 
     @Override
@@ -170,7 +171,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
         if (enabled && initialized) {
-
+/* 
             var res = cameraFront.getLatestResult();
             if (res.hasTargets()) {
                 ledSubsystem.setColor(LedOption.RED);
@@ -182,7 +183,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                     ledSubsystem.setColor(LedOption.PURPLE);
                 }
             }
-
+*/
             if (photonEstimatorFront != null) {
                 // Correct pose estimate with vision measurements
                 var visionEstFront = getEstimatedGlobalPoseFront();
@@ -212,8 +213,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 // conditional to check if the difference distance is within a radius of 1 from the actual distance
                                 if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
                                     driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                //} else {
-                                //    System.out.println("Distance isn't close enough || current difference in distance: " + distanceDifference + "!!!");
+                                } else {
+                                      field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
                                 }
                             }
                         });
@@ -235,8 +236,21 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
-                                driveSubsystem.addVisionMeasurement(
-                                    est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                  Pose2d currentPose = getCurrentPose();
+
+                                double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
+                                                                                currentPose.getY(), // y1
+                                                                                estPose.getX(), // x2
+                                                                                estPose.getY()); // y2
+
+                                // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
+
+                                // conditional to check if the difference distance is within a radius of 1 from the actual distance
+                                if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
+                                    driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                } else {
+                                      field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
+                                }
                             }
                         });
             }
@@ -387,6 +401,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         double distance = PhotonUtils.getDistanceToPose(target, robot);
         SmartDashboard.putNumber("DistanceToTarget", distance);
         return distance;
+    }
+
+    
+    public double getAccelerationX() {
+        return (mypigeon.getAccelerationX().getValueAsDouble())/9.81;
+    }
+    public double getAccelerationY() {
+        return (mypigeon.getAccelerationY().getValueAsDouble())/9.81;
     }
 
  private boolean isRedAlliance(){
