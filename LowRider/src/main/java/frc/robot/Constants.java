@@ -550,6 +550,9 @@ public final class Constants {
     }
 
     public static class Vision {
+        public static final int kTargetConfidenceMax = 20;
+        public static final int kTargetConfidenceThreshold = 10;
+
         public static final String kCameraNameFront = "ArducamUSB3";
         public static final String kCameraNameBack = "ArducamUSB2";
         public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
@@ -575,7 +578,7 @@ public final class Constants {
         public static final int kPWM_LedString = 1;     // PWM # for Addressable Led String
         public static final int kLedStringLength = 11;  // Length of Addressable Led String; 33 individual / sets of 3
         public static final double kLedStringBlinkDelay = 0.1;  // Delay in Seconds of Addressable Led String
-
+        
         public enum LedOption {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN
           }

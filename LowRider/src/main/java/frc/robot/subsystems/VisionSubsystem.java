@@ -75,6 +75,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private CommandSwerveDrivetrain driveSubsystem;
     private double lastEstTimestampFront = 0;
     private double lastEstTimestampBack  = 0;
+    private double targetConf = 0;
 
     // logging
     Logger poseLogger;
@@ -368,14 +369,13 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
         
         if (numTags == 0) {
-            ledSubsystem.setColor(LedOption.WHITE);
+            targetConf = (targetConf > 0) ? targetConf - 1 : 0;
             return estStdDevs;
         }
 
         avgDist /= numTags;
         // Decrease std devs if multiple targets are visible
         if (numTags > 1) {
-            ledSubsystem.setColor(LedOption.BLUE);
             estStdDevs = kMultiTagStdDevs;
         }
         
@@ -384,7 +384,13 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
         else
             estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
-
+        
+        targetConf = (targetConf < kTargetConfidenceMax) ? targetConf + numTags : kTargetConfidenceMax;
+        if (targetConf > kTargetConfidenceThreshold)
+            ledSubsystem.setWarning(false);
+        else
+            ledSubsystem.setWarning(true);
+        
         return estStdDevs;
     }
 
