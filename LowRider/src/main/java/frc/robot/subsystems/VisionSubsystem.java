@@ -73,9 +73,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private LEDStringSubsystem ledSubsystem;   
 
     private CommandSwerveDrivetrain driveSubsystem;
-    private double lastEstTimestampFront = 0;
-    private double lastEstTimestampBack  = 0;
-    private double targetConf = 0;
+    private double lastEstTimestampFront;
+    private double lastEstTimestampBack;
 
     // logging
     Logger poseLogger;
@@ -173,19 +172,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
         if (enabled && initialized) {
-/* 
-            var res = cameraFront.getLatestResult();
-            if (res.hasTargets()) {
-                ledSubsystem.setColor(LedOption.RED);
-            } else {
-                res = cameraBack.getLatestResult();
-                if (res.hasTargets()) {
-                    ledSubsystem.setColor(LedOption.GREEN);
-                } else {
-                    ledSubsystem.setColor(LedOption.PURPLE);
-                }
-            }
-*/
+        
             if (photonEstimatorFront != null) {
                 // Correct pose estimate with vision measurements
                 var visionEstFront = getEstimatedGlobalPoseFront();
@@ -199,11 +186,12 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getTranslation().getX(),
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
+                            // System.out.println("Front: " + estPose.getTranslation().getX() );
 
                             //System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             if (useVision) {
                                 driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                
+                                lastEstTimestampFront = Timer.getFPGATimestamp();
                                 // Pose2d currentPose = getCurrentPose();
                                 // double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
                                 //                                                 currentPose.getY(), // y1
@@ -240,7 +228,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
                             if (useVision) {
                                 driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                
+                                lastEstTimestampBack = Timer.getFPGATimestamp();
+                            
                                 // Pose2d currentPose = getCurrentPose();
                                 // double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
                                 //                                                 currentPose.getY(), // y1
@@ -257,6 +246,18 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 // }
                             }
                         });
+            }
+
+            double curTime = Timer.getFPGATimestamp();
+            // if both cameras are stale set warning
+            if ((curTime - lastEstTimestampFront > kTargetConfidenceDelta) && (curTime - lastEstTimestampBack > kTargetConfidenceDelta)) {
+                // System.out.println("false: " + targetConf);
+                ledSubsystem.setWarning(true);
+                SmartDashboard.putBoolean("Target Conf", false);
+            } else {
+                // System.out.println("true: " + targetConf);
+                ledSubsystem.setWarning(false);
+                SmartDashboard.putBoolean("Target Conf", true);
             }
 
             // // Apply a random offset to pose estimator to test vision correction
@@ -329,19 +330,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
      */
     private Optional<EstimatedRobotPose> getEstimatedGlobalPoseFront() {
         var visionEst = photonEstimatorFront.update();
-        double latestTimestamp = cameraFront.getLatestResult().getTimestampSeconds();
-        boolean newResult = Math.abs(latestTimestamp - lastEstTimestampFront) > 1e-5;
-        if (newResult)
-            lastEstTimestampFront = latestTimestamp;
+        // double latestTimestamp = cameraFront.getLatestResult().getTimestampSeconds();
+        // boolean newResult = Math.abs(latestTimestamp - lastEstTimestampFront) > 1e-5;
+        // if (newResult)
+        //     lastEstTimestampFront = latestTimestamp;
         return visionEst;
     }
 
     private Optional<EstimatedRobotPose> getEstimatedGlobalPoseBack() {
         var visionEst = photonEstimatorBack.update();
-        double latestTimestamp = cameraBack.getLatestResult().getTimestampSeconds();
-        boolean newResult = Math.abs(latestTimestamp - lastEstTimestampBack) > 1e-5;
-        if (newResult)
-            lastEstTimestampBack = latestTimestamp;
+        // double latestTimestamp = cameraBack.getLatestResult().getTimestampSeconds();
+        // boolean newResult = Math.abs(latestTimestamp - lastEstTimestampBack) > 1e-5;
+        // if (newResult)
+        //     lastEstTimestampBack = latestTimestamp;
         return visionEst;
     }
 
@@ -369,7 +370,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
         
         if (numTags == 0) {
-            targetConf = (targetConf > 0) ? targetConf - 1 : 0;
             return estStdDevs;
         }
 
@@ -384,13 +384,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
         else
             estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
-        
-        targetConf = (targetConf < kTargetConfidenceMax) ? targetConf + numTags : kTargetConfidenceMax;
-        if (targetConf > kTargetConfidenceThreshold)
-            ledSubsystem.setWarning(false);
-        else
-            ledSubsystem.setWarning(true);
-        
+                
         return estStdDevs;
     }
 
@@ -401,7 +395,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         SmartDashboard.putNumber("HeadingToTarget", headingToTarget);
         System.out.println("getting heading");
         return new Rotation2d(-headingToTarget);
-
     }
 
     public double getDistanceToSpeakerInMeters() {
@@ -412,16 +405,15 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         return distance;
     }
 
-    
+    private boolean isRedAlliance(){
+	    Optional<Alliance> alliance = DriverStation.getAlliance();
+	    if(alliance != null){
+		    return alliance.get() == DriverStation.Alliance.Red;
+	    }
+	    return false;
+    }
 
- private boolean isRedAlliance(){
-	Optional<Alliance> alliance = DriverStation.getAlliance();
-	if(alliance != null){
-		return alliance.get() == DriverStation.Alliance.Red;
-	}
-	return false;
-  }
-  public void useVision(boolean useCameraVision) {
-    useVision = useCameraVision;
-  }
+    public void useVision(boolean useCameraVision) {
+        useVision = useCameraVision;
+    }
 }

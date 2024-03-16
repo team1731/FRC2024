@@ -262,7 +262,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 	ledSubsystem.setBlink(false);
-	ledSubsystem.setColor(OpConstants.LedOption.INIT);
+	ledSubsystem.setColor(OpConstants.LedOption.BLUE);
   }
 
 
@@ -357,6 +357,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {	
 
 	visionSubsystem.useVision(true);
+	ledSubsystem.setColor(LedOption.GREEN);
     /* 
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();

@@ -106,6 +106,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
         holdColor = currentColor;
         _setSingleColor(LedOption.RED);
       } else {
+        if (currentColor == LedOption.RED) currentColor = LedOption.GREEN;
         _setSingleColor(currentColor);
       }
     }
