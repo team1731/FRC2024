@@ -224,7 +224,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
             double curTime = Timer.getFPGATimestamp();
             // if both cameras are stale set warning
-            if ((curTime - lastEstTimestampFront > kTargetConfidenceDelta) && (curTime - lastEstTimestampBack > kTargetConfidenceDelta)) {
+            if (((curTime - lastEstTimestampFront) > kTargetConfidenceDelta) && 
+                ((curTime - lastEstTimestampBack) > kTargetConfidenceDelta)) {
                 // System.out.println("false: " + targetConf);
                 ledSubsystem.setWarning(true);
                 SmartDashboard.putBoolean("Target Conf", false);

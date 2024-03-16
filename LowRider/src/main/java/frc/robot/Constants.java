@@ -550,7 +550,7 @@ public final class Constants {
     }
 
     public static class Vision {
-        public static final double kTargetConfidenceDelta = 0.5;
+        public static final double kTargetConfidenceDelta = 2.0;
 
         public static final String kCameraNameFront = "ArducamUSB3";
         public static final String kCameraNameBack = "ArducamUSB2";
