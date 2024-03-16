@@ -29,6 +29,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   private int length;
   private boolean blink;
   private LedOption currentColor;
+  private LedOption holdColor;
   private double startBlink;
   private boolean switched;
   private boolean enabled;
@@ -72,10 +73,8 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
 
         if (switched) {
           _setCurrentColor();
-          // switched = false;
         } else {
           _setSingleColor(LedOption.BLACK);
-          // switched = true;
         }
         switched = !switched;
         startBlink = mTimer.get();
@@ -101,6 +100,17 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
     }
   }
 
+  public void setWarning(boolean on) {
+    if (enabled) {
+      if (on) {
+        holdColor = currentColor;
+        _setSingleColor(LedOption.RED);
+      } else {
+        _setSingleColor(currentColor);
+      }
+    }
+  }
+
   public void setColor(OpConstants.LedOption color) {
     if (enabled) {
       if (currentColor == color) {
@@ -119,8 +129,6 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
       _setSingleColor(currentColor);
     }
   }
-
-//charlie was here
 
   private void _setSingleColor(OpConstants.LedOption color) {
     int r = 0;

@@ -90,17 +90,17 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.ALL_STOP,                ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP}, 
         {ISState.ALL_STOP,                ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},    
         {ISState.ALL_STOP,                ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
-        {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",        ISState.INTAKE_SHOOTER_WAIT},
+        {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",       ISState.INTAKE_SHOOTER_WAIT},
         {ISState.ALL_STOP,                ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.SPIN_UP_SHOOTER,          ISInput.JUST_SHOOT,                  "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,              "startIntakeNoJiggle",       ISState.INTAKING_NO_JIGGLE},
-        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,         "turnOnLED",                 ISState.READY_TO_SHOOT},
+        {ISState.SPIN_UP_SHOOTER,         ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,             "startIntakeNoJiggle",        ISState.INTAKING_NO_JIGGLE},
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,        "turnOnLED",                  ISState.READY_TO_SHOOT},
 
 
-        {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",             ISState.INTAKE_SHOOTER_HAS_NOTE}, 
-        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                  "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
+        {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",            ISState.INTAKE_SHOOTER_HAS_NOTE}, 
+        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
         {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
         {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
        
@@ -108,7 +108,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         
         {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "startJiggleDown",            ISState.JIGGLING_DOWN},
         
-        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,    "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
+        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,     "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
         
         {ISState.SPIN_UP_SHOOTER,         ISInput.SHOOTER_UP_TO_SPEED,          "doNothing",                  ISState.READY_TO_SHOOT},
         
@@ -215,7 +215,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.WHITE);
-         m_ledSubsystem.setBlink(true);
+        // m_ledSubsystem.setBlink(true);
         return true;
     }
 
@@ -235,7 +235,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-
         return true;
     }
 
@@ -245,7 +244,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-         m_ledSubsystem.setBlink(false);
+        // m_ledSubsystem.setBlink(false);
         return true;
     }
     public boolean startShootAmp(){
@@ -255,8 +254,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        // m_ledSubsystem.setBlink(false);
+        return true;
     }
 
     public boolean startShootTrap(){
@@ -265,9 +264,9 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.5);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-         m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        m_ledSubsystem.setColor(LedOption.BLACK);
+        // m_ledSubsystem.setBlink(false);
+        return true;
     }
 
     public boolean startEject(){
@@ -277,8 +276,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        // m_ledSubsystem.setBlink(false);
+        return true;
     }
 
     public boolean startIntakeFromShoot(){
@@ -287,7 +286,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-    return true;
+        return true;
     }
     
    public boolean startIFRHasNote(){
@@ -296,13 +295,13 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-    return true;
+        return true;
     }
 
      public boolean turnOnLED(){
-                 m_ledSubsystem.setColor(LedOption.WHITE);
-        m_ledSubsystem.setBlink(true);
-    return true;
+        m_ledSubsystem.setColor(LedOption.WHITE);
+        // m_ledSubsystem.setBlink(true);
+        return true;
     }
 
 
@@ -350,6 +349,5 @@ public class IntakeShootStateMachine extends SubsystemBase {
     public boolean doNothing(){
         return true;
     }
-
 
 }
