@@ -357,6 +357,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {	
 
 	visionSubsystem.useVision(true);
+	ledSubsystem.setColor(LedOption.GREEN);
     /* 
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();
@@ -410,39 +411,10 @@ public class Robot extends TimedRobot {
 
 	//System.out.println("Setting the color");
 	//ledSubsystem.setColor(LedOption.INIT);
-	if(doSD()){
+	//if(doSD()){
 	//	System.out.println("TELEOP PERIODIC");
-	}
+	//}
 		
-	/*
-	 * Change LED blinking status depending on whether holding a game piece or not
-	 */
-	// if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
-	// 	ledSubsystem.setBlink(true);
-	// 	ledBlinking = true;
-	// } else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
-	// 	ledSubsystem.setBlink(false);
-	// 	ledBlinking = false;
-	// }
-
-	/*
-	 * Change LED to indicate emergency status entry or exit
-	 */
-	// if(!armEmergencyStatus && sm_armStateMachine.isInEmergencyRecovery()) {
-	// 	armEmergencyStatus = true;
-	// 	ledSubsystem.setBlink(false);
-	// 	ledSubsystem.setColor(OpConstants.LedOption.RED);
-	// } else if(armEmergencyStatus && !sm_armStateMachine.isInEmergencyRecovery()) {
-	// 	armEmergencyStatus = false;
-	// 	// if the SM has a record of a game piece setting revert to that color, otherwise just go to default color
-	// 	if(sm_armStateMachine.getGamePiece() == GamePiece.CONE) {
-	// 		ledSubsystem.setColor(OpConstants.LedOption.YELLOW);
-	// 	} else if(sm_armStateMachine.getGamePiece() == GamePiece.CUBE) {
-	// 		ledSubsystem.setColor(OpConstants.LedOption.PURPLE);
-	// 	} else {
-	// 		ledSubsystem.setColor(OpConstants.LedOption.WHITE);
-	// 	}
-	// }
   }
 
 

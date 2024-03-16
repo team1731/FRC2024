@@ -215,7 +215,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.WHITE);
-         m_ledSubsystem.setBlink(true);
+        // m_ledSubsystem.setBlink(true);
         return true;
     }
 
@@ -235,7 +235,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-
         return true;
     }
 
@@ -245,7 +244,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-         m_ledSubsystem.setBlink(false);
+        // m_ledSubsystem.setBlink(false);
         return true;
     }
     public boolean startShootAmp(){
@@ -255,8 +254,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        // m_ledSubsystem.setBlink(false);
+        return true;
     }
 
     public boolean startShootTrap(){
@@ -265,9 +264,9 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.5);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-         m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        m_ledSubsystem.setColor(LedOption.BLACK);
+        // m_ledSubsystem.setBlink(false);
+        return true;
     }
 
     public boolean startEject(){
@@ -277,8 +276,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        // m_ledSubsystem.setBlink(false);
+        return true;
     }
 
     public boolean startIntakeFromShoot(){
@@ -287,7 +286,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-    return true;
+        return true;
     }
     
    public boolean startIFRHasNote(){
@@ -296,13 +295,13 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-    return true;
+        return true;
     }
 
      public boolean turnOnLED(){
-                 m_ledSubsystem.setColor(LedOption.WHITE);
-        m_ledSubsystem.setBlink(true);
-    return true;
+        m_ledSubsystem.setColor(LedOption.WHITE);
+        // m_ledSubsystem.setBlink(true);
+        return true;
     }
 
 
@@ -350,6 +349,5 @@ public class IntakeShootStateMachine extends SubsystemBase {
     public boolean doNothing(){
         return true;
     }
-
 
 }

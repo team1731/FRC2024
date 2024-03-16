@@ -76,7 +76,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private LEDStringSubsystem ledSubsystem;   
 
     private CommandSwerveDrivetrain m_driveSubsystem;
-    private double lastEstTimestamp = 0;
+    private double lastEstTimestampFront;
+    private double lastEstTimestampBack;
 
     // logging
     Logger poseLogger;
@@ -175,19 +176,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
         if (enabled && initialized) {
-/* 
-            var res = cameraFront.getLatestResult();
-            if (res.hasTargets()) {
-                ledSubsystem.setColor(LedOption.RED);
-            } else {
-                res = cameraBack.getLatestResult();
-                if (res.hasTargets()) {
-                    ledSubsystem.setColor(LedOption.GREEN);
-                } else {
-                    ledSubsystem.setColor(LedOption.PURPLE);
-                }
-            }
-*/
+        
             if (photonEstimatorFront != null) {
                 // Correct pose estimate with vision measurements
                 var visionEstFront = getEstimatedGlobalPoseFront();
@@ -205,21 +194,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
                             //System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             if (useVision) {
-                                Pose2d currentPose = getCurrentPose();
-
-                                double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
-                                                                                currentPose.getY(), // y1
-                                                                                estPose.getX(), // x2
-                                                                                estPose.getY()); // y2
-
-                                // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-
-                                // conditional to check if the difference distance is within a radius of 1 from the actual distance
-                               //if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
-                                    m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                // } else {
-                                //       field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
-                                // }
+                                m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
                         });
             }
@@ -240,23 +216,22 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
-                                  Pose2d currentPose = getCurrentPose();
-
-                                double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
-                                                                                currentPose.getY(), // y1
-                                                                                estPose.getX(), // x2
-                                                                                estPose.getY()); // y2
-
-                                // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-
-                                // conditional to check if the difference distance is within a radius of 1 from the actual distance
-                               //if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
-                                    m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                // } else {
-                                //       field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
-                                // }
+                                m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                lastEstTimestampBack = Timer.getFPGATimestamp();
                             }
                         });
+            }
+
+            double curTime = Timer.getFPGATimestamp();
+            // if both cameras are stale set warning
+            if ((curTime - lastEstTimestampFront > kTargetConfidenceDelta) && (curTime - lastEstTimestampBack > kTargetConfidenceDelta)) {
+                // System.out.println("false: " + targetConf);
+                ledSubsystem.setWarning(true);
+                SmartDashboard.putBoolean("Target Conf", false);
+            } else {
+                // System.out.println("true: " + targetConf);
+                ledSubsystem.setWarning(false);
+                SmartDashboard.putBoolean("Target Conf", true);
             }
 
             // // Apply a random offset to pose estimator to test vision correction
@@ -300,17 +275,17 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     // }
 
     // uses Pythagorean theorem to find the difference of two x and y coordinates
-    private double getDistanceDifference(double x1, double y1, double x2, double y2) {
+    // private double getDistanceDifference(double x1, double y1, double x2, double y2) {
 
-        // Pythagorean theorem
-        //--
-        //  d=√((x_2-x_1)²+(y_2-y_1)²)
-        //--
+    //     // Pythagorean theorem
+    //     //--
+    //     //  d=√((x_2-x_1)²+(y_2-y_1)²)
+    //     //--
 
-        return Math.sqrt(
-            Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
-        );
-    }
+    //     return Math.sqrt(
+    //         Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
+    //     );
+    // }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
 
@@ -329,19 +304,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
      */
     private Optional<EstimatedRobotPose> getEstimatedGlobalPoseFront() {
         var visionEst = photonEstimatorFront.update();
-        double latestTimestamp = cameraFront.getLatestResult().getTimestampSeconds();
-        boolean newResult = Math.abs(latestTimestamp - lastEstTimestamp) > 1e-5;
-        if (newResult)
-            lastEstTimestamp = latestTimestamp;
+        // double latestTimestamp = cameraFront.getLatestResult().getTimestampSeconds();
+        // boolean newResult = Math.abs(latestTimestamp - lastEstTimestampFront) > 1e-5;
+        // if (newResult)
+        //     lastEstTimestampFront = latestTimestamp;
         return visionEst;
     }
 
     private Optional<EstimatedRobotPose> getEstimatedGlobalPoseBack() {
         var visionEst = photonEstimatorBack.update();
-        double latestTimestamp = cameraBack.getLatestResult().getTimestampSeconds();
-        boolean newResult = Math.abs(latestTimestamp - lastEstTimestamp) > 1e-5;
-        if (newResult)
-            lastEstTimestamp = latestTimestamp;
+        // double latestTimestamp = cameraBack.getLatestResult().getTimestampSeconds();
+        // boolean newResult = Math.abs(latestTimestamp - lastEstTimestampBack) > 1e-5;
+        // if (newResult)
+        //     lastEstTimestampBack = latestTimestamp;
         return visionEst;
     }
 
@@ -375,17 +350,16 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         avgDist /= numTags;
         // Decrease std devs if multiple targets are visible
-        if (numTags > 1)
-
-            ledSubsystem.setColor(LedOption.BLUE);
-            
+        if (numTags > 1) {
             estStdDevs = kMultiTagStdDevs;
+        }
+        
         // Increase std devs based on (average) distance
         if (numTags == 1 && avgDist > 4)
             estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
         else
             estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
-
+                
         return estStdDevs;
     }
 
@@ -459,14 +433,15 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     }
 
- private boolean isRedAlliance(){
-	Optional<Alliance> alliance = DriverStation.getAlliance();
-	if(alliance != null){
-		return alliance.get() == DriverStation.Alliance.Red;
-	}
-	return false;
-  }
-  public void useVision(boolean useCameraVision) {
-    useVision = useCameraVision;
-  }
+    private boolean isRedAlliance(){
+	    Optional<Alliance> alliance = DriverStation.getAlliance();
+	    if(alliance != null){
+		    return alliance.get() == DriverStation.Alliance.Red;
+	    }
+	    return false;
+    }
+
+    public void useVision(boolean useCameraVision) {
+        useVision = useCameraVision;
+    }
 }
