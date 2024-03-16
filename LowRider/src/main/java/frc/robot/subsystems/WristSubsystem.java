@@ -62,7 +62,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         mmReq.withVelocity(WristConstants.MMVel);
         wristMotor1.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
         wristMotor2.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
-        System.out.println("Moving wrist to" + position);
+      //  System.out.println("Moving wrist to" + position);
         desiredPosition = position;
     }
 
@@ -71,7 +71,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         mmReq.withVelocity(velocity);
         wristMotor1.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
         wristMotor2.setControl(mmReq.withPosition(position).withFeedForward(arbitraryFeedForward));
-        System.out.println("Moving wrist slow to" + position);
+     //   System.out.println("Moving wrist slow to" + position);
 
         desiredPosition = position;
     }
@@ -195,8 +195,11 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
          double distanceFromOrigin = distanceToSpeakerInMeters;
          //old formula
          //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
-         double angle =  (0.0204 * Math.pow(distanceFromOrigin,4))- (0.199* Math.pow(distanceFromOrigin,3)) - (0.544* Math.pow(distanceFromOrigin,2)) + (11.09* distanceFromOrigin) -10.485;
+         // new camera mounts, all orange with tape on one double angle =  (0.0204 * Math.pow(distanceFromOrigin,4))- (0.199* Math.pow(distanceFromOrigin,3)) - (0.544* Math.pow(distanceFromOrigin,2)) + (11.09* distanceFromOrigin) -10.485;
+         
+         double angle =  -(0.0297 * Math.pow(distanceFromOrigin,4))+ (0.4108* Math.pow(distanceFromOrigin,3)) - (2.7581* Math.pow(distanceFromOrigin,2)) + (12.712* distanceFromOrigin) - 9.3163;
          SmartDashboard.putNumber("Angle",angle);
+
          if (angle > 0 && angle < 21) {
             moveWrist(angle);
          }

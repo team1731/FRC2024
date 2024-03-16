@@ -394,9 +394,9 @@ public final class Constants {
 
         public final static double MMVel        = 80; // 5 rotations per second cruise
         public final static double MMVelSlow    = 25;
-        public final static double MMAcc        = 300; // Take approximately 0.5 seconds to reach max vel
+        public final static double MMAcc        = 150; // Take approximately 0.5 seconds to reach max vel
         // Take approximately 0.2 seconds to reach max accel 
-        public final static double MMJerk       = 0;
+        public final static double MMJerk       = 500;
     
         // initialze PID controller and encoder objects
         public final static double kP = 60;

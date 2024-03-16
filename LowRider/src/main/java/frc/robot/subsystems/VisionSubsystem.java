@@ -32,6 +32,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
@@ -60,6 +61,8 @@ import org.photonvision.PhotonUtils;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
 
+import com.ctre.phoenix6.hardware.Pigeon2;
+
 public class VisionSubsystem extends SubsystemBase implements ToggleableSubsystem {
     private PhotonCamera cameraFront;
     private PhotonCamera cameraBack;
@@ -72,7 +75,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private boolean useVision = false;
     private LEDStringSubsystem ledSubsystem;   
 
-    private CommandSwerveDrivetrain driveSubsystem;
+    private CommandSwerveDrivetrain m_driveSubsystem;
     private double lastEstTimestamp = 0;
 
     // logging
@@ -80,7 +83,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     double lastLogTime = 0;
     double logInterval = 1.0; // in seconds
 
-    
+    Pigeon2 mypigeon;
     private boolean enabled;
 
     @Override
@@ -96,8 +99,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem, LEDStringSubsystem ledsubsystem) {
         this.enabled = enabled;
-        this.driveSubsystem = driveSubsystem;
+        this.m_driveSubsystem = driveSubsystem;
         this.ledSubsystem = ledsubsystem;
+        mypigeon = m_driveSubsystem.getPigeon2();
         cameraFront = null;
         cameraBack = null;
         photonEstimatorFront = null;
@@ -160,7 +164,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public Pose2d getCurrentPose() {
         if (enabled) {
-            return driveSubsystem.getState().Pose;
+            return m_driveSubsystem.getState().Pose;
         } else {
             return null;
         }
@@ -211,11 +215,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
 
                                 // conditional to check if the difference distance is within a radius of 1 from the actual distance
-                                if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
-                                    driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                } else {
-                                      field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
-                                }
+                               //if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
+                                    m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                // } else {
+                                //       field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
+                                // }
                             }
                         });
             }
@@ -246,11 +250,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
 
                                 // conditional to check if the difference distance is within a radius of 1 from the actual distance
-                                if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
-                                    driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                } else {
-                                      field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
-                                }
+                               //if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
+                                    m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                // } else {
+                                //       field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
+                                // }
                             }
                         });
             }
@@ -261,11 +265,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             // new Transform2d(
             // new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
             // new Rotation2d(rand.nextDouble() * 2 * Math.PI));
-            // driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
+            // m_driveSubsystem.resetPose(m_driveSubsystem.getPose().plus(trf), false);
             // }
 
             // Log values to the dashboard
-            // driveSubsystem.log();
+            // m_driveSubsystem.log();
         }
 
         field2d.setRobotPose(getCurrentPose());
@@ -387,23 +391,73 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public Rotation2d getHeadingToSpeakerInRad() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
-        Pose2d robot = driveSubsystem.getState().Pose;
+        Pose2d robot = getAdjustedRobotPose();
         double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
         SmartDashboard.putNumber("HeadingToTarget", headingToTarget);
-        System.out.println("getting heading");
+      //  System.out.println("getting heading");
         return new Rotation2d(-headingToTarget);
-
     }
 
     public double getDistanceToSpeakerInMeters() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
-        Pose2d robot = driveSubsystem.getState().Pose;
+        Pose2d robot = getAdjustedRobotPose();
+        double distance = PhotonUtils.getDistanceToPose(target, robot);
+      //  SmartDashboard.putNumber("DistanceToTarget", distance);
+        return distance;
+    }
+
+    public double getStaticDistanceToSpeakerInMeters() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = m_driveSubsystem.getState().Pose;
         double distance = PhotonUtils.getDistanceToPose(target, robot);
         SmartDashboard.putNumber("DistanceToTarget", distance);
         return distance;
     }
 
-    
+    public double getAccelerationX() {
+        return (mypigeon.getAccelerationX().getValueAsDouble())*9.81;
+    }
+    public double getAccelerationY() {
+        return (mypigeon.getAccelerationY().getValueAsDouble())*9.81;
+    }
+
+     public Pose2d getAdjustedRobotPose() {
+        Pose2d robot = new Pose2d(m_driveSubsystem.getState().Pose.getX(), m_driveSubsystem.getState().Pose.getY(), m_driveSubsystem.getState().Pose.getRotation());
+
+        
+        double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)); //speed of shot in m/s
+        
+        double robotXSpeed = m_driveSubsystem.getXVelocity();
+        double robotYSpeed = m_driveSubsystem.getYVelocity();
+        double robotXAcceleration = -getAccelerationY();
+        double robotYAcceleration = getAccelerationX();
+
+        Transform2d adjustment = new Transform2d(robotXSpeed*shotTime + 0.5*robotXAcceleration*shotTime*shotTime, robotYSpeed*shotTime +  0.5*robotYAcceleration*shotTime*shotTime, new Rotation2d());
+       
+        SmartDashboard.putNumber("x adjustment", robotXSpeed*shotTime + 0.5*robotXAcceleration*shotTime*shotTime);
+        SmartDashboard.putNumber("y adjustment", robotYSpeed*shotTime + 0.5*robotYAcceleration*shotTime*shotTime);
+
+        if (isRedAlliance()) {
+            robot.rotateBy(new Rotation2d(Math.toRadians(180)));
+        }
+
+        SmartDashboard.putNumber("RobotXSpeed", robotXSpeed);
+        SmartDashboard.putNumber("RobotYSpeed", robotYSpeed);
+        SmartDashboard.putNumber("RobotXAcceleration", robotXAcceleration);
+        SmartDashboard.putNumber("RobotYAcceleration", robotYAcceleration);
+
+
+        robot.rotateBy(m_driveSubsystem.getState().Pose.getRotation());
+
+        Pose2d adjustedRobotPose = robot.plus(adjustment);
+
+        //robot.transformBy(adjustment);
+
+        field2d.getObject("MyRobotAdjusted").setPose(adjustedRobotPose);
+
+        return adjustedRobotPose;
+
+    }
 
  private boolean isRedAlliance(){
 	Optional<Alliance> alliance = DriverStation.getAlliance();

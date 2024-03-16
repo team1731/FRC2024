@@ -109,7 +109,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
     }
 
     public void periodic() {
-        logCurrentAndVelocity();
+       // logCurrentAndVelocity();
         /* Periodically try to apply the operator perspective */
         /* If we haven't applied the operator perspective before, then we should apply it regardless of DS state */
         /* This allows us to correct the perspective in case the robot code restarts mid-match */
@@ -123,6 +123,15 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
                 hasAppliedOperatorPerspective = true;
             });
         }
+    }
+    public double getXVelocity() {
+        ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
+        return chassisSpeeds.vxMetersPerSecond;
+    }
+    public double getYVelocity() {
+        ChassisSpeeds chassisSpeeds = getCurrentRobotChassisSpeeds();
+        return chassisSpeeds.vyMetersPerSecond;
+        
     }
 
 /**
