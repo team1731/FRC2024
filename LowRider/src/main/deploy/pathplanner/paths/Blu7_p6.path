@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.245918673655529,
-        "y": 0.22388990232526002
+        "x": 4.2029233149375385,
+        "y": 4.9628928348765795
       },
       "isLocked": false,
       "linkedName": "A7_note6"
     },
     {
       "anchor": {
-        "x": 3.708499780635925,
-        "y": 2.994527443600342
+        "x": 3.027501327729928,
+        "y": 3.143787378483848
       },
       "prevControl": {
-        "x": 4.771976816680908,
-        "y": 2.2015840395317157
+        "x": 4.137622093426004,
+        "y": 2.2762140069734693
       },
       "nextControl": null,
       "isLocked": false,
@@ -80,7 +80,7 @@
   "reversed": false,
   "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 39.50767544287253,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -11,6 +11,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.ISInput;
+import frc.robot.IntakeShootStateMachine;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -22,10 +24,9 @@ import frc.robot.subsystems.WristSubsystem;
  */
 public class ScoreAmpAndRetractReverseCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-	private final IntakeSubsystem m_intakeSubsystem;
+	private final IntakeShootStateMachine m_intakeShootStateMachine;
 	private final ElevatorSubsystem m_elevatorSubsystem;
 	private final WristSubsystem m_wristSubsystem;
-	private final ShooterSubsystem m_shooterSubsystem;
     private double ampTimeStarted;
 
 
@@ -38,16 +39,16 @@ public class ScoreAmpAndRetractReverseCommand extends Command {
 	 * @param ElevatorSubsystem
 	 * @param WristSubsystem 
 	 */
-	public ScoreAmpAndRetractReverseCommand(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
-		m_intakeSubsystem = intakeSubsystem;
+	public ScoreAmpAndRetractReverseCommand(IntakeShootStateMachine intakeShootStateMachine,  ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem) {
+		m_intakeShootStateMachine = intakeShootStateMachine;
 		m_elevatorSubsystem = elevatorSubsystem;
 		m_wristSubsystem = wristSubsystem;
-		m_shooterSubsystem = shooterSubsystem;
+
 
 
 		// Use addRequirements() here to declare subsystem dependencies.
-		if (intakeSubsystem != null && elevatorSubsystem != null && wristSubsystem != null) {
-			addRequirements(intakeSubsystem, elevatorSubsystem, wristSubsystem);
+		if ( elevatorSubsystem != null && wristSubsystem != null) {
+			addRequirements( elevatorSubsystem, wristSubsystem);
 		}
 	}
 
@@ -57,9 +58,7 @@ public class ScoreAmpAndRetractReverseCommand extends Command {
 	public void initialize() {
 	//	m_wristSubsystem.moveWrist(Constants.WristConstants.wristAmpReversePosition);
 	//	m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorAmpReversePosition);
-		m_shooterSubsystem.shootAmp();
-				
-		m_intakeSubsystem.shootAmp(0.5);
+	    m_intakeShootStateMachine.setCurrentInput(ISInput.START_AMP);
 	   // m_shooterSubsystem.shootAmp();
 		ampTimeStarted = Timer.getFPGATimestamp();
 
@@ -70,7 +69,7 @@ public class ScoreAmpAndRetractReverseCommand extends Command {
 	public void execute() {
 
 		if (Timer.getFPGATimestamp() - ampTimeStarted > .25) {
-			m_shooterSubsystem.stopShooting();
+			m_intakeShootStateMachine.setCurrentInput(ISInput.STOP_AMP);
 		  }
 
 		
@@ -82,15 +81,15 @@ public class ScoreAmpAndRetractReverseCommand extends Command {
 			m_wristSubsystem.moveWrist(Constants.WristConstants.wristHomePosition);
 			m_elevatorSubsystem.moveElevator(Constants.ElevatorConstants.elevatorHomePosition);
 			m_wristSubsystem.retractTrapFlap();
-			m_shooterSubsystem.resumeShooting();
-			m_intakeSubsystem.shootAmpStop();
+			m_intakeShootStateMachine.setCurrentInput(ISInput.STOP_AMP);
+			
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
 		if (Timer.getFPGATimestamp() - ampTimeStarted > .25) {
-			m_shooterSubsystem.stopShooting();
+			m_intakeShootStateMachine.setCurrentInput(ISInput.STOP_AMP);
 			return true;
 		} else {
 			return false;

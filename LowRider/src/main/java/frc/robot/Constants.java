@@ -350,6 +350,7 @@ public final class Constants {
         public final static double elevatorPositionTolerance = 0.05;
         public static final double wristClearsPosition = 0;
         public static final double elevatorAmpPosition = 75;
+        public static final double elevatorShooterAsIntakePosition = 20;
         public static final double elevatorAmpReversePosition = 10;
         public static double elevatorTrapPosition = 77;  
 
@@ -408,7 +409,7 @@ public final class Constants {
         public final static double wristHomePosition = 0;
         public final static double wristAmpPosition = 28*0.6;
         public final static double wristAmpReversePosition = 91*0.6;
-        public final static double wristNewTrapPosition = 65*0.6;
+        public final static double wristNewTrapPosition = 60*0.6;
         public final static double wristTrapPosition = 59*0.6;
         public static final double IntakePosition = 0;
     }
@@ -549,13 +550,15 @@ public final class Constants {
     }
 
     public static class Vision {
-        public static final String kCameraNameFront = "ArducamUSB1";
+        public static final String kCameraNameFront = "ArducamUSB3";
         public static final String kCameraNameBack = "ArducamUSB2";
+        public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
+
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
         public static final Transform3d kRobotToCamFront =
-                new Transform3d(new Translation3d(0.33655, 0.2159, 0.19939), new Rotation3d(0, -Units.degreesToRadians(35), Units.degreesToRadians(-10)));
+                new Transform3d(new Translation3d(0.33655, 0.2159, 0.19939), new Rotation3d(0, -Units.degreesToRadians(37), Units.degreesToRadians(-10)));
         public static final Transform3d kRobotToCamBack =
-                new Transform3d(new Translation3d(-0.336555, -.05715, 0.4572), new Rotation3d(0, -Units.degreesToRadians(35), Units.degreesToRadians(180)));
+                new Transform3d(new Translation3d(-0.336555, 0, 0.4572), new Rotation3d(0, -Units.degreesToRadians(30.5), Units.degreesToRadians(180)));
 
         // The layout of the AprilTags on the field
         public static final AprilTagFieldLayout kTagLayout =
@@ -569,7 +572,9 @@ public final class Constants {
 
     public static final class OpConstants{
         // KEYBOARD CONSTANTS   
-        public static final int kPWM_LedSting = 6;         // Addressable Led String
+        public static final int kPWM_LedString = 1;     // PWM # for Addressable Led String
+        public static final int kLedStringLength = 11;  // Length of Addressable Led String; 33 individual / sets of 3
+        public static final double kLedStringBlinkDelay = 0.1;  // Delay in Seconds of Addressable Led String
 
         public enum LedOption {
             INIT, YELLOW, PURPLE, BLACK, WHITE, BLUE, RED, GREEN

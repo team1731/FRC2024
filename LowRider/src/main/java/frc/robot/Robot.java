@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Scanner;
 
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -48,12 +49,16 @@ public class Robot extends TimedRobot {
   private boolean isRedAlliance;
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
+  
   private CommandSwerveDrivetrain driveSubsystem;
   private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private IntakeSubsystem intakeSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private WristSubsystem wristSubsystem;
+  private IntakeShootStateMachine intakeShootStateMachine;
+  private ClimbStateMachine climbStateMachine;
+ 
 
   public Robot() {
   }
@@ -96,16 +101,19 @@ public class Robot extends TimedRobot {
 
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
-	ledSubsystem = new LEDStringSubsystem(false);
-	intakeSubsystem = new IntakeSubsystem(true);
+	ledSubsystem = new LEDStringSubsystem(true);
+	intakeSubsystem = new IntakeSubsystem(true, ledSubsystem);
 	wristSubsystem = new WristSubsystem(true);
-	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeSubsystem);
-	shooterSubsystem = new ShooterSubsystem(true);
-	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
 
+	shooterSubsystem = new ShooterSubsystem(true);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem, ledSubsystem);
+
+	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem);
+	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
+	 climbStateMachine = new ClimbStateMachine(elevatorSubsystem, wristSubsystem, intakeShootStateMachine);
 	// Instantiate our robot container. This will perform all of our button bindings,
 	// and put our autonomous chooser on the dashboard
-	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, visionSubsystem, intakeSubsystem,  wristSubsystem, ledSubsystem, elevatorSubsystem);
+	m_robotContainer = new RobotContainer(driveSubsystem, shooterSubsystem, visionSubsystem, intakeSubsystem,  wristSubsystem, ledSubsystem, elevatorSubsystem,intakeShootStateMachine, climbStateMachine);
 
     wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
@@ -253,6 +261,8 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledInit() {
+	ledSubsystem.setBlink(false);
+	ledSubsystem.setColor(OpConstants.LedOption.INIT);
   }
 
 
@@ -347,10 +357,11 @@ public class Robot extends TimedRobot {
   public void teleopInit() {	
 
 	visionSubsystem.useVision(true);
-    
+    /* 
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();
 	intakeSubsystem.stopFireNote();
+	*/
 	//driveSubsystem.seedFieldRelative(new Pose2d(new Translation2d(0,0), new Rotation2d(120)));
 	
 	// Record both DS control and joystick data in TELEOP
@@ -359,7 +370,7 @@ public class Robot extends TimedRobot {
 	CommandScheduler.getInstance().cancelAll();
 	initSubsystems();
 	//for testing only
-	ledSubsystem.setColor(LedOption.INIT);
+	//ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
 	// sm_armStateMachine.setIsInAuto(false);
 	// sm_armStateMachine.initializeArm();
 	// This makes sure that the autonomous stops running when
@@ -406,13 +417,13 @@ public class Robot extends TimedRobot {
 	/*
 	 * Change LED blinking status depending on whether holding a game piece or not
 	 */
-	if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
-		ledSubsystem.setBlink(true);
-		ledBlinking = true;
-	} else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
-		ledSubsystem.setBlink(false);
-		ledBlinking = false;
-	}
+	// if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
+	// 	ledSubsystem.setBlink(true);
+	// 	ledBlinking = true;
+	// } else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
+	// 	ledSubsystem.setBlink(false);
+	// 	ledBlinking = false;
+	// }
 
 	/*
 	 * Change LED to indicate emergency status entry or exit

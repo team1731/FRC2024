@@ -37,7 +37,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     // private MotionMagicVoltage mmReq1 = new MotionMagicVoltage(0);
 
-    private Servo trapFlapServo = new LinearServo(0, 50,20 );
+    private Servo trapFlapServo = new LinearServo(0, 50,32 );
 
     private boolean enabled;
 
@@ -102,7 +102,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         mm.MotionMagicJerk = WristConstants.MMJerk;          // Take approximately 0.2 seconds to reach max accel
 
         Slot0Configs slot0 = cfg.Slot0;
-        slot0.kP = 20;
+        slot0.kP = 5;
         slot0.kI = 0;
         slot0.kD = 0.0078125;
         slot0.kV = 0.009375;
@@ -113,6 +113,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         // Apply the configs for Motor 1
         cfg.MotorOutput.Inverted = WristConstants.wrist2Direction;
+        
         StatusCode status = StatusCode.StatusCodeNotInitialized;
         for(int i = 0; i < 5; ++i) {
             status = wristMotor1.getConfigurator().apply(cfg);
@@ -137,6 +138,8 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         
         wristMotor1.setPosition(0);
         wristMotor2.setPosition(0);
+        wristMotor1.setNeutralMode(NeutralModeValue.Brake);
+        wristMotor2.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public void periodic() {
@@ -192,9 +195,9 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
          double distanceFromOrigin = distanceToSpeakerInMeters;
          //old formula
          //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
-         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4))+ (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;
+         double angle =  (0.0204 * Math.pow(distanceFromOrigin,4))- (0.199* Math.pow(distanceFromOrigin,3)) - (0.544* Math.pow(distanceFromOrigin,2)) + (11.09* distanceFromOrigin) -10.485;
          SmartDashboard.putNumber("Angle",angle);
-         if (angle > 0 && angle < 23.4) {
+         if (angle > 0 && angle < 21) {
             moveWrist(angle);
          }
         

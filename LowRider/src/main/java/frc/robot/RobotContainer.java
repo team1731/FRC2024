@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.commands.*;
@@ -96,6 +97,7 @@ public class RobotContainer {
   private ShooterSubsystem shooterSubsystem;
   private ElevatorSubsystem elevatorSubsystem;
   private ClimbStateMachine climbStateMachine;
+  private IntakeShootStateMachine intakeShootStateMachine;
 
   /* Auto Paths */
   private static HashMap<String, String> autoPaths;
@@ -116,7 +118,9 @@ public class RobotContainer {
     IntakeSubsystem s_intakeSubsystem,
     WristSubsystem s_wristSubsystem,
     LEDStringSubsystem s_ledstring,
-    ElevatorSubsystem s_elevatorSubsystem
+    ElevatorSubsystem s_elevatorSubsystem,
+    IntakeShootStateMachine s_intakeShootStateMachine,
+    ClimbStateMachine s_climbStateMachine
   ) {
 
     driveSubsystem = s_driveSubsystem;
@@ -126,33 +130,44 @@ public class RobotContainer {
     elevatorSubsystem = s_elevatorSubsystem;
     visionSubsystem = s_visionSubsystem;
     m_ledstring = s_ledstring;
+    intakeShootStateMachine = s_intakeShootStateMachine;
+    climbStateMachine = s_climbStateMachine;
 
     if(driveSubsystem.isEnabled()){
       //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
       //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
-      NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new AutoIntake(intakeSubsystem, wristSubsystem) ));
+      NamedCommands.registerCommand("Intake", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_SPEAKER),
+                                                                         new InstantCommand(() ->  wristSubsystem.moveWrist(0)),
+                                                                         new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.START_INTAKE)
+                                                                         ));
       NamedCommands.registerCommand("StartShooter", new SequentialCommandGroup(new AutoStartShooter(shooterSubsystem) ));
       NamedCommands.registerCommand("StopShooter", new SequentialCommandGroup(new AutoStopShooter(shooterSubsystem) ));
-      NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24)) ));
-      NamedCommands.registerCommand("SetWristNote1Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24.5)) ));
-      NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(19)) ));
-      NamedCommands.registerCommand("SetWristNote2Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(21)) ));
-      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18.5)) ));
-      NamedCommands.registerCommand("SetWristNote3Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23)) ));
-      NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23)) ));
-      NamedCommands.registerCommand("SetWristLongShotA", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(25)) ));
-      NamedCommands.registerCommand("SetWristLongShotB", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24)) ));
-      NamedCommands.registerCommand("SetWristLongShotC", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28)) ));
-      NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(10)) ));
-      NamedCommands.registerCommand("SetWristBlu7Long", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28)) ));
-      NamedCommands.registerCommand("SetWristRed7Long", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(27)) ));
-      NamedCommands.registerCommand("SetWristRed1Shot6", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28.5)) ));
-      NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new AutoFireNote( intakeSubsystem, shooterSubsystem) ));
+      NamedCommands.registerCommand("SetWristNote1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24* .6)) ));
+      NamedCommands.registerCommand("SetWristNote1Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24.5* .6)) ));
+      NamedCommands.registerCommand("SetWristNote2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(19* .6)) ));
+      NamedCommands.registerCommand("SetWristNote2Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(21* .6)) ));
+      NamedCommands.registerCommand("SetWristNote3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(18.5 * .6)) ));
+      NamedCommands.registerCommand("SetWristNote3Red", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23 * .6)) ));
+      NamedCommands.registerCommand("SetWristLongShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(23 * .6)) ));
+      NamedCommands.registerCommand("SetWristLongShotA", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(25 * .6)) ));
+      NamedCommands.registerCommand("SetWristLongShotB", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(24 * .6)) ));
+      NamedCommands.registerCommand("SetWristLongShotC", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28 * .6)) ));
+      NamedCommands.registerCommand("SetWristLineShot", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(10 * .6)) ));
+      NamedCommands.registerCommand("SetWristBlu7Long", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28 * .6)) ));
+      NamedCommands.registerCommand("SetWristRed7Long", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(27 * .6)) ));
+      NamedCommands.registerCommand("SetWristRed1Shot6", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWrist(28.5 * .6)) ));
+      NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.JUST_SHOOT)));
+     // NamedCommands.registerCommand("JustShoot", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.JUST_SHOOT)));
+      NamedCommands.registerCommand("IntakeNoJiggle", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_SPEAKER), 
+                                                                                 new InstantCommand(() ->  wristSubsystem.moveWrist(0)),
+                                                                                 new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.INTAKE_NO_JIGGLE)));
     }
+    
+    climbStateMachine.setInitialState(CState.ROBOT_LATCHED_ON_CHAIN);
 
-    climbStateMachine = new ClimbStateMachine(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem);
-    climbStateMachine.setInitialState(State.ROBOT_LATCHED_ON_CHAIN);
-
+   // intakeShootStateMachine = new IntakeShootStateMachine(s_intakeSubsystem, s_shooterSubsystem);
+    intakeShootStateMachine.setInitialState(ISState.ALL_STOP);
+    
     // Configure the button bindings
     configureButtonBindings();
 
@@ -190,25 +205,39 @@ public class RobotContainer {
 
     ky.whileTrue(new DriveToSpeakerCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController));
 
-    kLeftTrigger.whileTrue(new IntakeCommand(intakeSubsystem, wristSubsystem,shooterSubsystem));   
+    //
+    //
+    //
+    // TRADITIONAL WAY
+    kLeftTrigger.whileTrue(new IntakeCommand(intakeShootStateMachine, wristSubsystem));   
+    //kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
+    //
+    //
+    // STATE MACHINE WAY
+   //  kLeftTrigger.onTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_INTAKE))
+   //              .onFalse(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.STOP_INTAKE));
+     kRightTrigger.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_SPEAKER))
+                  .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_SPEAKER));
+    //
+    //
+    //
 
-    kRightTrigger.whileTrue(new FireNoteSpeakerCommand(intakeSubsystem, shooterSubsystem));
    // kRightBumper.whileTrue(new AmpScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem)));
     kRightBumper.onTrue(new AmpScoringReverseCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem))
-                .onFalse(new ScoreAmpAndRetractReverseCommand(shooterSubsystem, intakeSubsystem, elevatorSubsystem, wristSubsystem));
+                .onFalse(new ScoreAmpAndRetractReverseCommand(intakeShootStateMachine, elevatorSubsystem, wristSubsystem));
     kLeftBumper.whileTrue(new ClimbCommand(intakeSubsystem, shooterSubsystem, elevatorSubsystem, wristSubsystem));
     //kx.whileTrue(new TrapScoringCommand(intakeSubsystem, elevatorSubsystem, wristSubsystem));
     kx.whileTrue(new ClimbWithStateMachine(climbStateMachine));
 
-//    ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
-//    kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
+    ka.onTrue(new InstantCommand(() -> wristSubsystem.retractTrapFlap()));
+    kb.onTrue(new InstantCommand(() -> wristSubsystem.extendTrapFlap()));
  //  Comment out the two lines above and uncomment this to tune shooting angles
    //  Also uncomment the call to get the distance to the speaker in the period of vision subsystem (that sends the data to smartdashbord among other things)
-        ka.onTrue(new InstantCommand(() -> wristSubsystem.jogDown()))
-        .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
+   //     ka.onTrue(new InstantCommand(() -> wristSubsystem.jogDown()))
+    //    .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
 
-        kb.onTrue(new InstantCommand(() -> wristSubsystem.jogUp()))
-        .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
+   //     kb.onTrue(new InstantCommand(() -> wristSubsystem.jogUp()))
+   //     .onFalse(new InstantCommand(() -> wristSubsystem.stopJog()));
 
  
 
@@ -220,9 +249,14 @@ public class RobotContainer {
     operatorkRightBumper.onTrue(new InstantCommand(() -> {
       shooterSubsystem.stopShooting();
     }));
+    /* 
     operatorkStart
         .onTrue(new InstantCommand(() -> intakeSubsystem.reverseIntake()))
         .onFalse(new InstantCommand(() -> intakeSubsystem.stopReverseIntake()));
+*/
+
+    operatorkStart.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_EJECT))
+                 .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_EJECT));
 
     // Far Shot
     operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(25)))
@@ -233,8 +267,13 @@ public class RobotContainer {
     // Line Shot
     operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
-    operatorkRightTrigger.onTrue(new JiggleCommand(intakeSubsystem, shooterSubsystem));
- 
+ //   operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
+
+    operatorkRightTrigger.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_JIGGLE));
+                
+    operatorkLeftTrigger.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_SHOOT_INTAKE))
+      .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_SHOOT_INTAKE));
+
     operatorkx.onTrue(new InstantCommand(() -> wristSubsystem.slowlyDown()))
         .onFalse(new InstantCommand(() -> wristSubsystem.stop()));
 

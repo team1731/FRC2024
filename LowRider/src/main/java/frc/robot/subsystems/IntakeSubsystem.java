@@ -27,16 +27,18 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
     private boolean finishedGoingUp = false;
     private boolean backingUpComplete = false;
     private boolean sequenceComplete = false;
-   
-    
+    private boolean isShooterAsIntake = false;
+    private LEDStringSubsystem ledSubsystem;
+
     private boolean enabled;
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
-    public IntakeSubsystem(boolean enabled) {
+    public IntakeSubsystem(boolean enabled, LEDStringSubsystem ledSubsystem) {
         this.enabled = enabled;
+        this.ledSubsystem = ledSubsystem;
         initializeIntakeMotor();
     }
 
@@ -62,10 +64,30 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         }
     }
 
-    /*
-     * INTAKE MOTOR MOVEMENT
-     */
+    public boolean forwardLimitReached(){
+        return m_forwardLimit.isPressed();
+    }
 
+
+  public void intakeState(double intakeSpeed) {
+        if (enabled) {
+         //   enableLimitSwitch();
+            intakeMotor.set(intakeSpeed);
+           
+            //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
+        }
+    }
+
+    public void feedState(double feedSpeed) {
+        if (enabled) {
+         //   enableLimitSwitch();
+            feederMotor.set(feedSpeed);
+           
+            //System.out.println("IntakeSubsystem: speed = " + intakeSpeed);
+        }
+    }
+
+/* 
     public void intake(double intakeSpeed) {
         if (enabled) {
          //   enableLimitSwitch();
@@ -106,14 +128,13 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             feederMotor.set(0);
             isIntaking = false;
             noteIsRetrieved = false;
+            isShooterAsIntake = false;
         }
     }
     
-    /*
-     * FEEDER MOTOR MOVEMENT
-     */
 
-    private void feed(double speed) {
+
+    public void feed(double speed) {
         if (enabled) {
             feederMotor.set(speed);
         }
@@ -137,7 +158,7 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         
     }
 
-    private void stopFeed() {
+    public void stopFeed() {
         
         if (enabled) {
             feederMotor.set(0);
@@ -146,10 +167,10 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
 
 
-   
+    */
     
     public void periodic() {
-
+/* 
  
         if (((isIntaking)&&(!isJigglingFeedingUp)) &&(feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed())) {
             noteIsRetrieved = true;
@@ -173,33 +194,43 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
             doneJigglingTimer = 0;
 
         }
-
-
-
-
-  
+        if (isShooterAsIntake==true && noteIsPresentShooterIntake()){
+            enableReverseLimitSwitch();
+            isShooterAsIntake = false;
+        }
+        */
     }
 
-
-    private void disableLimitSwitch() {
+    public void disableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(false);
     }
 
-    private void disableReverseLimitSwitch() {
+    public void disableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(false);
     }
 
-    private void enableLimitSwitch() {
+    public void enableLimitSwitch() {
         m_forwardLimit.enableLimitSwitch(true);
     }
 
-    private void enableReverseLimitSwitch() {
+    public void enableReverseLimitSwitch() {
         m_reverseLimit.enableLimitSwitch(true);
     }
-
+    
+/* 
     public boolean noteIsPresent() {
 
-       return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
+       return getNoteSwitch();
+    }
+    public boolean noteIsPresentShooterIntake() {
+
+       return (getNoteSwitch()) || 
+       (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
+    }
+    public boolean noteIsPresentShooterIntake() {
+
+       return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed()) || 
+       (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
     }
 
     public boolean noteRetrieved() {
@@ -238,6 +269,12 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         stopFeed();
     }
 
+    public void shooterAsIntakeFeeder() {
+        disableReverseLimitSwitch();
+        feed(-0.2);
+        isShooterAsIntake = true;
+    }
+
     public void feedUpJiggle() {
        System.out.println("Starting Jiggle Feed Up");
        disableLimitSwitch();
@@ -267,6 +304,16 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         return noteIsRetrieved;
     }
 
+*/
 
+    public boolean hasNote() {
+
+       return (feederMotor.getForwardLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed()) || 
+       (!feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed());
+    }
+
+    public boolean noteSettled() {
+        return feederMotor.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyClosed).isPressed();
+    }
 
 }

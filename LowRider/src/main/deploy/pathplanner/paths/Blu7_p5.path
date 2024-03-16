@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.708499780635925,
-        "y": 2.994527443600342
+        "x": 3.027501327729928,
+        "y": 3.143787378483848
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.667536425981942,
-        "y": 0.9515320848823525
+        "x": 5.014524210866603,
+        "y": 2.612048860461358
       },
       "isLocked": false,
       "linkedName": "A7_shoot1"
@@ -20,8 +20,8 @@
         "y": 4.151291938947515
       },
       "prevControl": {
-        "x": 7.421340660863139,
-        "y": 1.9217216616251425
+        "x": 3.4379661486595703,
+        "y": 4.41249682499365
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 53.130102354156044,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
