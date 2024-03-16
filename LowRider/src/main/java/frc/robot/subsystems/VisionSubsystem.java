@@ -404,12 +404,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
     
-    public double getAccelerationX() {
-        return (mypigeon.getAccelerationX().getValueAsDouble())/9.81;
-    }
-    public double getAccelerationY() {
-        return (mypigeon.getAccelerationY().getValueAsDouble())/9.81;
-    }
 
  private boolean isRedAlliance(){
 	Optional<Alliance> alliance = DriverStation.getAlliance();
