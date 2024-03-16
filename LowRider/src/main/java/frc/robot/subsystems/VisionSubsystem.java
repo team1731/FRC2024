@@ -374,11 +374,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         avgDist /= numTags;
         // Decrease std devs if multiple targets are visible
-        if (numTags > 1)
-
+        if (numTags > 1) {
             ledSubsystem.setColor(LedOption.BLUE);
-            
             estStdDevs = kMultiTagStdDevs;
+        }
+        
         // Increase std devs based on (average) distance
         if (numTags == 1 && avgDist > 4)
             estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
