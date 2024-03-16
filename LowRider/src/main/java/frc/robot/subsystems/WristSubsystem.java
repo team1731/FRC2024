@@ -195,9 +195,9 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
          double distanceFromOrigin = distanceToSpeakerInMeters;
          //old formula
          //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
-         double angle =  (-0.0954 * Math.pow(distanceFromOrigin,4))+ (1.6964* Math.pow(distanceFromOrigin,3)) - (11.647* Math.pow(distanceFromOrigin,2)) + (38.352* distanceFromOrigin) -34.77;
+         double angle =  (0.0204 * Math.pow(distanceFromOrigin,4))- (0.199* Math.pow(distanceFromOrigin,3)) - (0.544* Math.pow(distanceFromOrigin,2)) + (11.09* distanceFromOrigin) -10.485;
          SmartDashboard.putNumber("Angle",angle);
-         if (angle > 0 && angle < 23.4) {
+         if (angle > 0 && angle < 21) {
             moveWrist(angle);
          }
         
