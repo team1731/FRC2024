@@ -87,6 +87,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     Pigeon2 mypigeon;
     private boolean enabled;
 
+    private double shootOnMoveFudgeFactor = 1.2;
+
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -400,7 +402,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         Pose2d robot = new Pose2d(m_driveSubsystem.getState().Pose.getX(), m_driveSubsystem.getState().Pose.getY(), m_driveSubsystem.getState().Pose.getRotation());
 
         
-        double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)) *1.2 ; //speed of shot in m/s
+        double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)) * shootOnMoveFudgeFactor; //speed of shot in m/s
+
+        SmartDashboard.putNumber("ShootOnMove Fudge Factor: ", shootOnMoveFudgeFactor);
         
         double robotXSpeed = m_driveSubsystem.getXVelocity();
         double robotYSpeed = m_driveSubsystem.getYVelocity();
@@ -432,6 +436,16 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         return adjustedRobotPose;
 
+    }
+
+    public void shootOnMoveFudgeDown() {
+        shootOnMoveFudgeFactor = shootOnMoveFudgeFactor - .1;
+        System.out.println("NEW ShootOnMove FUDGE FACTOR: " + shootOnMoveFudgeFactor);
+    }
+
+    public void shootOnMoveFudgeUp() {
+        shootOnMoveFudgeFactor = shootOnMoveFudgeFactor + .1;
+        System.out.println("NEW ShootOnMove FUDGE FACTOR: " + shootOnMoveFudgeFactor);
     }
 
     private boolean isRedAlliance(){
