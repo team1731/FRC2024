@@ -85,6 +85,8 @@ public class RobotContainer {
   private final Trigger operatorkRightBumper = xboxOperatorController.rightBumper();
   private final Trigger operatorkLeftTrigger = xboxOperatorController.leftTrigger();
   private final Trigger operatorkRightTrigger = xboxOperatorController.rightTrigger();
+  private final Trigger operatorkPOVDown = xboxOperatorController.povDown();
+  private final Trigger operatorkPOVUp = xboxOperatorController.povUp();
 
 
 
@@ -248,6 +250,13 @@ public class RobotContainer {
     }));
     operatorkRightBumper.onTrue(new InstantCommand(() -> {
       shooterSubsystem.shoot();
+    }));
+
+    operatorkPOVDown.onTrue(new InstantCommand(() -> {
+      wristSubsystem.fudgeUp();
+    }));
+    operatorkPOVUp.onTrue(new InstantCommand(() -> {
+      wristSubsystem.fudgeDown();
     }));
     /* 
     operatorkStart
