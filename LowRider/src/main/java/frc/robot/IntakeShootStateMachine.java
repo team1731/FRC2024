@@ -163,8 +163,10 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public void periodic() { 
         run();
-        SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
-        SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
+        if(Robot.doSD()){
+            SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
+            SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
+        }
     }
 
     public void setInitialState(ISState initialState){
