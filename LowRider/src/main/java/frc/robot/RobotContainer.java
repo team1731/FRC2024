@@ -244,10 +244,10 @@ public class RobotContainer {
     kStart.onTrue(driveSubsystem.runOnce(() -> driveSubsystem.seedFieldRelative()));
     
     operatorkLeftBumper.onTrue(new InstantCommand(() -> {
-      wristSubsystem.fudgeDown();
+      shooterSubsystem.stopShooting();
     }));
     operatorkRightBumper.onTrue(new InstantCommand(() -> {
-      wristSubsystem.fudgeUp();
+      shooterSubsystem.shoot();
     }));
     /* 
     operatorkStart
