@@ -400,7 +400,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         Pose2d robot = new Pose2d(m_driveSubsystem.getState().Pose.getX(), m_driveSubsystem.getState().Pose.getY(), m_driveSubsystem.getState().Pose.getRotation());
 
         
-        double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)); //speed of shot in m/s
+        double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)) *1.2 ; //speed of shot in m/s
         
         double robotXSpeed = m_driveSubsystem.getXVelocity();
         double robotYSpeed = m_driveSubsystem.getYVelocity();

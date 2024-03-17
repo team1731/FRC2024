@@ -24,6 +24,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor2;
     private double desiredPosition;
     private double arbitraryFeedForward = 0.0;
+    private double fudgeFactor = 1.0;
 
 
     private DynamicMotionMagicVoltage mmReq = new DynamicMotionMagicVoltage(
@@ -197,7 +198,9 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
          //double angle =  -1.7118 * Math.pow(distanceFromOrigin,4)+ 22.295* Math.pow(distanceFromOrigin,3) - 106.7* Math.pow(distanceFromOrigin,2) + 226.57* distanceFromOrigin -165.56;
          // new camera mounts, all orange with tape on one double angle =  (0.0204 * Math.pow(distanceFromOrigin,4))- (0.199* Math.pow(distanceFromOrigin,3)) - (0.544* Math.pow(distanceFromOrigin,2)) + (11.09* distanceFromOrigin) -10.485;
          
-         double angle =  -(0.0297 * Math.pow(distanceFromOrigin,4))+ (0.4108* Math.pow(distanceFromOrigin,3)) - (2.7581* Math.pow(distanceFromOrigin,2)) + (12.712* distanceFromOrigin) - 9.3163;
+        // saturday march 16, afternoon, w/ colson wheels double angle =  -(0.0297 * Math.pow(distanceFromOrigin,4))+ (0.4108* Math.pow(distanceFromOrigin,3)) - (2.7581* Math.pow(distanceFromOrigin,2)) + (12.712* distanceFromOrigin) - 9.3163;
+       //  double angle =  -(.1222 * Math.pow(distanceFromOrigin,4))+ (2.4092* Math.pow(distanceFromOrigin,3)) - (17.594* Math.pow(distanceFromOrigin,2)) + (57.593* distanceFromOrigin) - 52.452;
+         double angle = 32.3 - ((Math.atan(1.4/(distanceFromOrigin- 0.2794))/(Math.PI*2))*210) - Math.sqrt(distanceFromOrigin)* fudgeFactor;
          SmartDashboard.putNumber("Angle",angle);
 
          if (angle > 0 && angle < 21) {
@@ -207,6 +210,16 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
     }
 
+    public void fudgeDown() {
+        fudgeFactor = fudgeFactor - .1;
+        System.out.println("NEW FUDGE FACTOR: " + fudgeFactor);
+        
+    }
+
+    public void fudgeUp() {
+        fudgeFactor = fudgeFactor + .1;
+        System.out.println("NEW FUDGE FACTOR: " + fudgeFactor);
+    }
 
     public void jogDown() {
         wristMotor1.setControl(new DutyCycleOut(-.1));
