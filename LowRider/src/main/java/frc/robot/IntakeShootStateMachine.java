@@ -90,17 +90,17 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.ALL_STOP,                ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP}, 
         {ISState.ALL_STOP,                ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},    
         {ISState.ALL_STOP,                ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
-        {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",        ISState.INTAKE_SHOOTER_WAIT},
+        {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",       ISState.INTAKE_SHOOTER_WAIT},
         {ISState.ALL_STOP,                ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.SPIN_UP_SHOOTER,          ISInput.JUST_SHOOT,                  "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,              "startIntakeNoJiggle",       ISState.INTAKING_NO_JIGGLE},
-        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,         "turnOnLED",                 ISState.READY_TO_SHOOT},
+        {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER}, // redundant (covered by START_SPEAKER)
+        {ISState.SPIN_UP_SHOOTER,         ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,             "startIntakeNoJiggle",        ISState.INTAKING_NO_JIGGLE},
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,        "turnOnLED",                  ISState.READY_TO_SHOOT},
 
 
-        {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",             ISState.INTAKE_SHOOTER_HAS_NOTE}, 
-        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                  "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
+        {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",            ISState.INTAKE_SHOOTER_HAS_NOTE}, 
+        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
         {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
         {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
        
@@ -108,15 +108,15 @@ public class IntakeShootStateMachine extends SubsystemBase {
         
         {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "startJiggleDown",            ISState.JIGGLING_DOWN},
         
-        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,    "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
+        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,     "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
         
         {ISState.SPIN_UP_SHOOTER,         ISInput.SHOOTER_UP_TO_SPEED,          "doNothing",                  ISState.READY_TO_SHOOT},
         
         {ISState.READY_TO_SHOOT,          ISInput.START_SPEAKER,                "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.READY_TO_SHOOT,          ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},
         {ISState.READY_TO_SHOOT,          ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP},
-        {ISState.READY_TO_SHOOT,          ISInput.START_JIGGLE,                 "startSpinDownShooter",        ISState.SPIN_DOWN_SHOOTER},
-        {ISState.READY_TO_SHOOT,          ISInput.START_EJECT,                  "startEject",                  ISState.EJECTING},
+        {ISState.READY_TO_SHOOT,          ISInput.START_JIGGLE,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
+        {ISState.READY_TO_SHOOT,          ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
 
         {ISState.SHOOTING_AT_SPEAKER,     ISInput.STOP_SPEAKER,                 "setAllStop",                 ISState.ALL_STOP},
        
