@@ -201,8 +201,8 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         // saturday march 16, afternoon, w/ colson wheels double angle =  -(0.0297 * Math.pow(distanceFromOrigin,4))+ (0.4108* Math.pow(distanceFromOrigin,3)) - (2.7581* Math.pow(distanceFromOrigin,2)) + (12.712* distanceFromOrigin) - 9.3163;
        //  double angle =  -(.1222 * Math.pow(distanceFromOrigin,4))+ (2.4092* Math.pow(distanceFromOrigin,3)) - (17.594* Math.pow(distanceFromOrigin,2)) + (57.593* distanceFromOrigin) - 52.452;
          double angle = 32.3 - ((Math.atan(1.4/(distanceFromOrigin- 0.2794))/(Math.PI*2))*210) - Math.sqrt(distanceFromOrigin)* fudgeFactor;
-         SmartDashboard.putNumber("Angle",angle);
-
+         SmartDashboard.putNumber("Angle", angle);
+         SmartDashboard.putNumber("Fudge Factor", fudgeFactor);
          if (angle > 0 && angle < 21) {
             moveWrist(angle);
          }
