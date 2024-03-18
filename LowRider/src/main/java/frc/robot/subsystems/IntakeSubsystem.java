@@ -5,12 +5,8 @@ import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.math.filter.Debouncer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
-// import frc.robot.Robot;
 
 
 public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsystem {
@@ -19,16 +15,6 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
 
     private SparkLimitSwitch m_forwardLimit;
     private SparkLimitSwitch m_reverseLimit;
-    private boolean isIntaking = false;
-    private boolean noteIsRetrieved = false;
-    private boolean isJigglingFeedingUp = false;
-    private double goingUpTimer = 0;
-    private double doneJigglingTimer = 0;
-    private boolean finishedGoingUp = false;
-    private boolean backingUpComplete = false;
-    private boolean sequenceComplete = false;
-    private boolean isShooterAsIntake = false;
-    private LEDStringSubsystem ledSubsystem;
 
     private boolean enabled;
     @Override
@@ -36,9 +22,8 @@ public class IntakeSubsystem  extends SubsystemBase implements ToggleableSubsyst
         return enabled;
     }
 
-    public IntakeSubsystem(boolean enabled, LEDStringSubsystem ledSubsystem) {
+    public IntakeSubsystem(boolean enabled) {
         this.enabled = enabled;
-        this.ledSubsystem = ledSubsystem;
         initializeIntakeMotor();
     }
 

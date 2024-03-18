@@ -228,7 +228,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.WHITE);
-        // m_ledSubsystem.setBlink(true);
         return true;
     }
 
@@ -257,7 +256,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-        // m_ledSubsystem.setBlink(false);
         return true;
     }
     public boolean startShootAmp(){
@@ -267,7 +265,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.BLACK);
-        // m_ledSubsystem.setBlink(false);
         return true;
     }
 
@@ -278,7 +275,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.BLACK);
-        // m_ledSubsystem.setBlink(false);
         return true;
     }
 
@@ -289,7 +285,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
         m_ledSubsystem.setColor(LedOption.BLACK);
-        // m_ledSubsystem.setBlink(false);
         return true;
     }
 
@@ -311,12 +306,25 @@ public class IntakeShootStateMachine extends SubsystemBase {
         return true;
     }
 
-     public boolean turnOnLED(){
+    public boolean turnOnLED(){
         m_ledSubsystem.setColor(LedOption.WHITE);
-        // m_ledSubsystem.setBlink(true);
         return true;
     }
 
+    public boolean turnOffLED(){
+        m_ledSubsystem.setColor(LedOption.BLACK);
+        return true;
+    }
+
+    public boolean setWarningOn(){
+        m_ledSubsystem.setWarning(true);
+        return true;
+    }
+
+    public boolean setWarningOff(){
+        m_ledSubsystem.setWarning(false);
+        return true;
+    }
 
     public void run(){
         periodicRunCounter++;

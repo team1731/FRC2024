@@ -85,7 +85,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   public void init() {
     if (enabled) {
       // initialization stuff
-      _setSingleColor(OpConstants.LedOption.INIT);
+      _setSingleColor(OpConstants.LedOption.BLACK);
       mTimer.start();
     }
   }
