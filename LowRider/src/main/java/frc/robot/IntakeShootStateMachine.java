@@ -36,10 +36,12 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private ISState currentState;
     private ISInput currentInput;
     private HashMap<String, Method> methods;
+    private int periodicRunCounter;
     private double jiggleUpTimerStarted;
     private double JIGGLE_UP_TIMER_SECONDS = 0.1;
     private double jiggleDownTimerStarted;
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
+
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem){
         m_intakeSubsystem = intakeSubsystem;
@@ -65,7 +67,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public void setCurrentState(ISState newState){
         if (currentState != newState ) {
-        System.out.println("\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: " + newState + " CurrentState:" + currentState + "\n");
+        System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE TO: " + newState + ", (WAS: CurrentState:" + currentState + ")\n");
         }
         currentState = newState;
         if(currentState == ISState.ALL_STOP){
@@ -76,7 +78,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public synchronized void setCurrentInput(ISInput newInput){
         if (currentInput != newInput) {
-            System.out.println("\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: " + newInput +  currentState + "\n");
+            System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> CURRENT STATE: " + currentState + ", SETTING INPUT TO: " + newInput + "\n");
         }
         currentInput = newInput;
         run();
@@ -162,7 +164,16 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
     public void periodic() { 
+        periodicRunCounter = 0;
+        double startTime = Timer.getFPGATimestamp();
         run();
+        double elapsedMs = (int)((Timer.getFPGATimestamp() - startTime) * 1e3);
+        if(elapsedMs > 2){
+            System.out.println("\n\n\nWARNING: IntakeShootStateMachine ran for " + elapsedMs + " milliseconds!\n\n\n");
+        }
+        if(periodicRunCounter > 3){
+            System.out.println("\n\n\nWARNIGN: IntakeShootStateMachine run() method ran " + periodicRunCounter + " times!\n\n\n");
+        }
         if(Robot.doSD()){
             SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
             SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
@@ -308,6 +319,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
 
     public void run(){
+        periodicRunCounter++;
         Object[] operationAndNextState = lookupOperationAndNextState(currentState, currentInput);
         if(operationAndNextState != null){
             String operation = (String) operationAndNextState[0];
@@ -317,7 +329,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
             Method method = methods.get(operation);
             if(method != null){
                 try {
-                    System.out.println("\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " CurrentState:" + currentState + " NextState:" + nextState + "\n");
+                    System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " CurrentState:" + currentState + " NextState:" + nextState + "\n");
                     if((Boolean)method.invoke(this) && nextState != null){
                         setCurrentState(nextState);
                     }
