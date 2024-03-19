@@ -103,11 +103,11 @@ public class Robot extends TimedRobot {
 
 	ledSubsystem = new LEDStringSubsystem(true);
 	intakeSubsystem = new IntakeSubsystem(true, ledSubsystem);
-	wristSubsystem = new WristSubsystem(true);
+	
 
 	shooterSubsystem = new ShooterSubsystem(true);
 	visionSubsystem = new VisionSubsystem(true, driveSubsystem, ledSubsystem);
-
+    wristSubsystem = new WristSubsystem(true, visionSubsystem);
 	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
 	 climbStateMachine = new ClimbStateMachine(elevatorSubsystem, wristSubsystem, intakeShootStateMachine);
@@ -358,6 +358,7 @@ public class Robot extends TimedRobot {
 
 	visionSubsystem.useVision(true);
 	ledSubsystem.setColor(LedOption.GREEN);
+	wristSubsystem.stopMoveWristToTarget();
     /* 
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();

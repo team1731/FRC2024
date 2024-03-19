@@ -57,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristRed1Shot6"
+                "name": "SetWristR_1_3"
               }
             }
           ]
@@ -90,7 +90,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 173.4207159286533,
+    "rotation": 168.93477445672522,
     "rotateFast": false
   },
   "reversed": false,

@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import org.photonvision.PhotonUtils;
+
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
@@ -11,6 +13,8 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,8 +28,10 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor2;
     private double desiredPosition;
     private double arbitraryFeedForward = 0.0;
-    private double fudgeFactor = 1.0;
+    private double fudgeFactor = 2.3;
 
+    boolean moveWristToTargetAuto; 
+    private VisionSubsystem m_visionSubsystem; 
 
     private DynamicMotionMagicVoltage mmReq = new DynamicMotionMagicVoltage(
         0, 
@@ -47,8 +53,9 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         return enabled;
     }
 
-    public WristSubsystem(boolean enabled) {
+    public WristSubsystem(boolean enabled,  VisionSubsystem visionSubsystem) {
         this.enabled = enabled;
+        this.m_visionSubsystem = visionSubsystem;
         if(enabled){
             initializeWristMotors();
         }
@@ -150,15 +157,19 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
 
         SmartDashboard.putNumber("wrist desired position", desiredPosition);
-        SmartDashboard.putNumber("wrist motor 1 closedLoopError", wristMotor1.getClosedLoopError().getValueAsDouble());
-        SmartDashboard.putNumber("wrist motor 1 closedLoopError", wristMotor1.getClosedLoopError().getValueAsDouble());
-        SmartDashboard.putNumber("wrist motor 1 closedLoopReference", wristMotor1.getClosedLoopReference().getValueAsDouble());     
-        SmartDashboard.putNumber("wrist motor 2 closedLoopReference", wristMotor2.getClosedLoopReference().getValueAsDouble());  
-        SmartDashboard.putNumber("wrist motor 1 closedLoopOutput", wristMotor1.getClosedLoopOutput().getValueAsDouble());    
-        SmartDashboard.putNumber("wrist motor 2 closedLoopOutput", wristMotor2.getClosedLoopOutput().getValueAsDouble()); 
-        SmartDashboard.putNumber("wrist motor 1 statorCurrent", wristMotor1.getStatorCurrent().getValueAsDouble());    
-        SmartDashboard.putNumber("wrist motor 2 statorCurrent", wristMotor2.getStatorCurrent().getValueAsDouble());  
+        // SmartDashboard.putNumber("wrist motor 1 closedLoopError", wristMotor1.getClosedLoopError().getValueAsDouble());
+        // SmartDashboard.putNumber("wrist motor 1 closedLoopError", wristMotor1.getClosedLoopError().getValueAsDouble());
+        // SmartDashboard.putNumber("wrist motor 1 closedLoopReference", wristMotor1.getClosedLoopReference().getValueAsDouble());     
+        // SmartDashboard.putNumber("wrist motor 2 closedLoopReference", wristMotor2.getClosedLoopReference().getValueAsDouble());  
+        // SmartDashboard.putNumber("wrist motor 1 closedLoopOutput", wristMotor1.getClosedLoopOutput().getValueAsDouble());    
+        // SmartDashboard.putNumber("wrist motor 2 closedLoopOutput", wristMotor2.getClosedLoopOutput().getValueAsDouble()); 
+        // SmartDashboard.putNumber("wrist motor 1 statorCurrent", wristMotor1.getStatorCurrent().getValueAsDouble());    
+        // SmartDashboard.putNumber("wrist motor 2 statorCurrent", wristMotor2.getStatorCurrent().getValueAsDouble());  
        //qqpppppppppppppppppppppppppppppp-dpd-fg= SmartDashboard.putNumber("Arbitrary Feed Forward", arbitraryFeedForward);
+        // if (moveWristToTargetAuto == true){
+        //     setWristBasedOnDistance(m_visionSubsystem.getDistanceToTargetForAuto());
+        // }
+       
 
     }
 
@@ -201,8 +212,8 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         // saturday march 16, afternoon, w/ colson wheels double angle =  -(0.0297 * Math.pow(distanceFromOrigin,4))+ (0.4108* Math.pow(distanceFromOrigin,3)) - (2.7581* Math.pow(distanceFromOrigin,2)) + (12.712* distanceFromOrigin) - 9.3163;
        //  double angle =  -(.1222 * Math.pow(distanceFromOrigin,4))+ (2.4092* Math.pow(distanceFromOrigin,3)) - (17.594* Math.pow(distanceFromOrigin,2)) + (57.593* distanceFromOrigin) - 52.452;
          double angle = 32.3 - ((Math.atan(1.4/(distanceFromOrigin- 0.2794))/(Math.PI*2))*210) - Math.sqrt(distanceFromOrigin)* fudgeFactor;
-         SmartDashboard.putNumber("Angle", angle);
-         SmartDashboard.putNumber("Fudge Factor", fudgeFactor);
+        SmartDashboard.putNumber("Angle", angle);
+        SmartDashboard.putNumber("Fudge Factor", fudgeFactor);
          if (angle > 0 && angle < 21) {
             moveWrist(angle);
          }
@@ -239,4 +250,24 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
         wristMotor2.setControl(mmReq.withPosition(getWristPosition()).withFeedForward(arbitraryFeedForward));
         desiredPosition = getWristPosition();
     }
+
+    public void moveWristAuto(double fudge, boolean isRed, double robotx, double roboty) {
+        Pose2d goalPose = isRed? new Pose2d(16.58,5.55,new Rotation2d()): new Pose2d(-.0381,5.55,new Rotation2d());
+        double distance = fudge + PhotonUtils.getDistanceToPose(new Pose2d(robotx, roboty, new Rotation2d()),goalPose);
+        setWristBasedOnDistance(distance);
+    }
+    
+// The next three methods are for using vision in auto which are never called at the writing of this comment :)
+    public void startMoveWristToTarget() {   
+        moveWristToTargetAuto = true;
+        System.out.println("Starting Vision in Auto");
+    }
+    public void stopMoveWristToTarget() {
+        moveWristToTargetAuto = false;
+    }
+    public boolean getAutoVisionFlag() {
+        return moveWristToTargetAuto;
+    }
+
+
 }
