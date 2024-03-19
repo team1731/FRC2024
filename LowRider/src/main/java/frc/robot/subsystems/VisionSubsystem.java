@@ -72,8 +72,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private final Field2d field2d = new Field2d();
     private Pose2d redGoal = new Pose2d(new Translation2d(16.579342,5.547868), new Rotation2d());
     private Pose2d blueGoal = new Pose2d(new Translation2d(-0.0381,5.547868), new Rotation2d());
-    private boolean useVision = false;
-    private LEDStringSubsystem ledSubsystem;   
+    private boolean useVision = false;  
     
     private Pose2d visionPose;
 
@@ -88,6 +87,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     Pigeon2 mypigeon;
     private boolean enabled;
+    private boolean confidence;
 
     private double shootOnMoveFudgeFactor = 1.2;
 
@@ -98,14 +98,17 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     private boolean initialized;
 
+    public boolean isConfident() {
+        return confidence;
+    }
+
     public boolean isInitialized() {
         return initialized;
     }
 
-    public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem, LEDStringSubsystem ledsubsystem) {
+    public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
         this.enabled = enabled;
         this.m_driveSubsystem = driveSubsystem;
-        this.ledSubsystem = ledsubsystem;
         mypigeon = m_driveSubsystem.getPigeon2();
         cameraFront = null;
         cameraBack = null;
@@ -233,11 +236,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             if (((curTime - lastEstTimestampFront) > kTargetConfidenceDelta) && 
                 ((curTime - lastEstTimestampBack) > kTargetConfidenceDelta)) {
                 // System.out.println("false: " + targetConf);
-                ledSubsystem.setWarning(true);
+                confidence = false;
                 SmartDashboard.putBoolean("Target Conf", false);
             } else {
                 // System.out.println("true: " + targetConf);
-                ledSubsystem.setWarning(false);
+                confidence = true;
                 SmartDashboard.putBoolean("Target Conf", true);
             }
 
@@ -351,7 +354,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
         
         if (numTags == 0) {
-            ledSubsystem.setColor(LedOption.WHITE);
             return estStdDevs;
         }
 

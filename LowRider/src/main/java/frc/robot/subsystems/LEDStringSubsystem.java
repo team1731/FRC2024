@@ -64,28 +64,28 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (enabled) {
-      if (blink) {
-        double elapsed = (mTimer.get() - startBlink);
-        if (elapsed < OpConstants.kLedStringBlinkDelay) {
-          return;
-        }
+    // if (enabled) {
+    //   if (blink) {
+    //     double elapsed = (mTimer.get() - startBlink);
+    //     if (elapsed < OpConstants.kLedStringBlinkDelay) {
+    //       return;
+    //     }
 
-        if (switched) {
-          _setCurrentColor();
-        } else {
-          _setSingleColor(LedOption.BLACK);
-        }
-        switched = !switched;
-        startBlink = mTimer.get();
-      }
-    }
+    //     if (switched) {
+    //       _setCurrentColor();
+    //     } else {
+    //       _setSingleColor(LedOption.BLACK);
+    //     }
+    //     switched = !switched;
+    //     startBlink = mTimer.get();
+    //   }
+    // }
   }
 
   public void init() {
     if (enabled) {
       // initialization stuff
-      _setSingleColor(OpConstants.LedOption.INIT);
+      _setSingleColor(OpConstants.LedOption.BLACK);
       mTimer.start();
     }
   }
@@ -100,24 +100,13 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
     }
   }
 
-  public void setWarning(boolean on) {
-    if (enabled) {
-      if (on) {
-        holdColor = currentColor;
-        _setSingleColor(LedOption.RED);
-      } else {
-        if (currentColor == LedOption.RED) currentColor = LedOption.GREEN;
-        _setSingleColor(currentColor);
-      }
-    }
-  }
-
   public void setColor(OpConstants.LedOption color) {
     if (enabled) {
       if (currentColor == color) {
         return;
       }
       SmartDashboard.putString("Color", color.toString());
+      System.out.println("\n\n\nsetting color to " + color + "\n\n\n");
       currentColor = color;
       _setCurrentColor();
     }

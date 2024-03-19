@@ -102,13 +102,13 @@ public class Robot extends TimedRobot {
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
 	ledSubsystem = new LEDStringSubsystem(true);
-	intakeSubsystem = new IntakeSubsystem(true, ledSubsystem);
+	intakeSubsystem = new IntakeSubsystem(true);
 	
 
 	shooterSubsystem = new ShooterSubsystem(true);
-	visionSubsystem = new VisionSubsystem(true, driveSubsystem, ledSubsystem);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
     wristSubsystem = new WristSubsystem(true, visionSubsystem);
-	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem);
+	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem, visionSubsystem);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
 	 climbStateMachine = new ClimbStateMachine(elevatorSubsystem, wristSubsystem, intakeShootStateMachine);
 	// Instantiate our robot container. This will perform all of our button bindings,
@@ -163,10 +163,6 @@ public class Robot extends TimedRobot {
 	}
 	SmartDashboard.updateValues();
 	autoInitPreload();
-
-	//For testing LED Blinking only. The arm will set blink true after a piece has been secured.
-	//ledBlinking = true;
-	//blinker.onTrue(new InstantCommand(() -> {ledSubsystem.setBlink(ledBlinking); ledBlinking = !ledBlinking;}));
   }
   
 
@@ -330,7 +326,6 @@ public class Robot extends TimedRobot {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
 		//	m_robotContainer.zeroHeading();
 
-			ledSubsystem.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
 			m_autonomousCommand.schedule();
 		}
     	System.out.println("autonomousInit: End");
@@ -374,14 +369,6 @@ public class Robot extends TimedRobot {
 	intakeShootStateMachine.setCurrentInput(ISInput.STOP_INTAKE);
 	intakeShootStateMachine.setCurrentInput(ISInput.STOP_SPEAKER);
 
-	//for testing only
-	//ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
-	// sm_armStateMachine.setIsInAuto(false);
-	// sm_armStateMachine.initializeArm();
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
 	if (m_autonomousCommand != null) {
 		m_autonomousCommand.cancel();
 	}
@@ -413,8 +400,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-	//System.out.println("Setting the color");
-	//ledSubsystem.setColor(LedOption.INIT);
 	//if(doSD()){
 	//	System.out.println("TELEOP PERIODIC");
 	//}
