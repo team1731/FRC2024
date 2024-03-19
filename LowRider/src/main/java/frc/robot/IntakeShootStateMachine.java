@@ -266,6 +266,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+        haveNote = false;
         return true;
     }
     public boolean startShootAmp(){

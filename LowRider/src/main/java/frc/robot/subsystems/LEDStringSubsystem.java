@@ -106,6 +106,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
         return;
       }
       SmartDashboard.putString("Color", color.toString());
+      System.out.println("\n\n\nsetting color to " + color + "\n\n\n");
       currentColor = color;
       _setCurrentColor();
     }
