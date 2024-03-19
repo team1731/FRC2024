@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
 	shooterSubsystem = new ShooterSubsystem(true);
 	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
 
-	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem);
+	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem, visionSubsystem);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
 	 climbStateMachine = new ClimbStateMachine(elevatorSubsystem, wristSubsystem, intakeShootStateMachine);
 	// Instantiate our robot container. This will perform all of our button bindings,

@@ -96,7 +96,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     private boolean initialized;
 
-    private boolean isConfident() {
+    public boolean isConfident() {
         return confidence;
     }
 

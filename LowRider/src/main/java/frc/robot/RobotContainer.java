@@ -169,7 +169,6 @@ public class RobotContainer {
     
     climbStateMachine.setInitialState(CState.ROBOT_LATCHED_ON_CHAIN);
 
-   // intakeShootStateMachine = new IntakeShootStateMachine(s_intakeSubsystem, s_shooterSubsystem);
     intakeShootStateMachine.setInitialState(ISState.ALL_STOP);
     
     // Configure the button bindings

@@ -64,22 +64,22 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (enabled) {
-      if (blink) {
-        double elapsed = (mTimer.get() - startBlink);
-        if (elapsed < OpConstants.kLedStringBlinkDelay) {
-          return;
-        }
+    // if (enabled) {
+    //   if (blink) {
+    //     double elapsed = (mTimer.get() - startBlink);
+    //     if (elapsed < OpConstants.kLedStringBlinkDelay) {
+    //       return;
+    //     }
 
-        if (switched) {
-          _setCurrentColor();
-        } else {
-          _setSingleColor(LedOption.BLACK);
-        }
-        switched = !switched;
-        startBlink = mTimer.get();
-      }
-    }
+    //     if (switched) {
+    //       _setCurrentColor();
+    //     } else {
+    //       _setSingleColor(LedOption.BLACK);
+    //     }
+    //     switched = !switched;
+    //     startBlink = mTimer.get();
+    //   }
+    // }
   }
 
   public void init() {
@@ -96,18 +96,6 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
       this.startBlink = mTimer.get();
       if (!blink) {
         _setCurrentColor(); // make sure if blink ended in BLACK, then turn ON
-      }
-    }
-  }
-
-  public void setWarning(boolean on) {
-    if (enabled) {
-      if (on) {
-        holdColor = currentColor;
-        _setSingleColor(LedOption.RED);
-      } else {
-        if (currentColor == LedOption.RED) currentColor = LedOption.GREEN;
-        _setSingleColor(currentColor);
       }
     }
   }

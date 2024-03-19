@@ -10,6 +10,7 @@ import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDStringSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 enum ISState {
     ALL_STOP,
@@ -33,6 +34,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_shooterSubsystem;
     private final LEDStringSubsystem m_ledSubsystem;
+    private final VisionSubsystem m_visionSubsystem;
     private ISState currentState;
     private ISInput currentInput;
     private HashMap<String, Method> methods;
@@ -43,10 +45,11 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
 
 
-    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem){
+    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
         m_intakeSubsystem = intakeSubsystem;
 		m_shooterSubsystem = shooterSubsystem;
         m_ledSubsystem = ledSubsystem;
+        m_visionSubsystem = visionSubsystem;
 
 
         methods = new HashMap<String, Method>();
@@ -130,6 +133,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
        
         
     };
+    private boolean haveNote;
     
     private void setInputs() {
         if(currentState == ISState.INTAKING && m_intakeSubsystem.forwardLimitReached()){
@@ -177,6 +181,12 @@ public class IntakeShootStateMachine extends SubsystemBase {
         if(Robot.doSD()){
             SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
             SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
+        }
+
+        if (haveNote) {
+            turnOnLED();
+        } else {
+            m_ledSubsystem.setColor(LedOption.BLACK);
         }
     }
 
@@ -227,7 +237,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-        m_ledSubsystem.setColor(LedOption.WHITE);
+        haveNote = true;
         return true;
     }
 
@@ -264,7 +274,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-        m_ledSubsystem.setColor(LedOption.BLACK);
+        haveNote = false;
         return true;
     }
 
@@ -274,7 +284,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.5);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-        m_ledSubsystem.setColor(LedOption.BLACK);
+        haveNote = false;
         return true;
     }
 
@@ -284,7 +294,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-        m_ledSubsystem.setColor(LedOption.BLACK);
+        haveNote = false;
         return true;
     }
 
@@ -307,22 +317,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
     public boolean turnOnLED(){
-        m_ledSubsystem.setColor(LedOption.WHITE);
-        return true;
-    }
-
-    public boolean turnOffLED(){
-        m_ledSubsystem.setColor(LedOption.BLACK);
-        return true;
-    }
-
-    public boolean setWarningOn(){
-        m_ledSubsystem.setWarning(true);
-        return true;
-    }
-
-    public boolean setWarningOff(){
-        m_ledSubsystem.setWarning(false);
+        m_ledSubsystem.setColor(m_visionSubsystem.isConfident() ? LedOption.WHITE : LedOption.RED);
         return true;
     }
 
