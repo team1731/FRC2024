@@ -149,7 +149,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
            setCurrentInput(ISInput.JIGGLE_DOWN_NOTE_SETTLED);
         }
 
-        if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 99)){
+        if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 95)){
             setCurrentInput(ISInput.SHOOTER_UP_TO_SPEED);
         }
 

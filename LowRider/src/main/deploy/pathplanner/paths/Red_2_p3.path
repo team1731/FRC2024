@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.177166983905602,
-        "y": 5.746507493014986
+        "x": 8.186297827141107,
+        "y": 5.671877525573233
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.156685306578611,
-        "y": 6.0356986168517786
+        "x": 9.165816149814116,
+        "y": 5.961068649410025
       },
       "isLocked": false,
       "linkedName": "Red_PickupTopMiddle"
     },
     {
       "anchor": {
-        "x": 11.21833815715704,
-        "y": 6.464820929641859
+        "x": 11.283441475973861,
+        "y": 6.334218486618792
       },
       "prevControl": {
-        "x": 9.548492635647815,
-        "y": 6.45549218371164
+        "x": 9.613595954464635,
+        "y": 6.324889740688573
       },
       "nextControl": {
-        "x": 12.136577646864634,
-        "y": 6.469950759193298
+        "x": 12.201680965681454,
+        "y": 6.3393483161702315
       },
       "isLocked": false,
       "linkedName": "Red_AboveStage"
     },
     {
       "anchor": {
-        "x": 14.791247848430968,
-        "y": 5.475973861038631
+        "x": 14.958967372480199,
+        "y": 5.718521255224329
       },
       "prevControl": {
-        "x": 13.233347278084373,
-        "y": 5.830466206386958
+        "x": 13.401066802133604,
+        "y": 6.073013600572655
       },
       "nextControl": null,
       "isLocked": false,
@@ -55,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 181.0609116902643,
+    "rotation": 165.96971233462767,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": -159.14554196042175,
     "velocity": 0
   },
   "useDefaultConstraints": true

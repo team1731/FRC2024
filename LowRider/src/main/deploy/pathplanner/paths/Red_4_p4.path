@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.199680665296603,
-        "y": 6.903271988362158
+        "x": 11.208811508532108,
+        "y": 6.754012053478652
       },
       "isLocked": false,
       "linkedName": "Red_Blu4_longshot"
     },
     {
       "anchor": {
-        "x": 8.094028352636311,
-        "y": 6.035815434779349
+        "x": 8.232941556792204,
+        "y": 5.503960098829289
       },
       "prevControl": {
-        "x": 9.297436577638257,
-        "y": 6.502252731289498
+        "x": 9.43634978179415,
+        "y": 5.970397395339438
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 200.85445803986048,
+    "rotation": -156.80140948635184,
     "rotateFast": false
   },
   "reversed": false,

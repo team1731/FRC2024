@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.492727978663956,
-        "y": 3.3863347726695454
+        "x": 14.492530075969242,
+        "y": 3.470293486041518
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 0.5503960098829296
       },
       "prevControl": {
-        "x": 11.339413951555173,
-        "y": 1.1474357494169534
+        "x": 11.208811508532108,
+        "y": 1.893735423834485
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,11 +33,17 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.025,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
             {
               "type": "wait",
               "data": {
@@ -63,7 +69,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 190.78429786756269,
+    "rotation": -160.01689347809997,
     "rotateFast": false
   },
   "reversed": false,

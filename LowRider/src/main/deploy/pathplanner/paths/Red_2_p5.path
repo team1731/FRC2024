@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.158509492045166,
-        "y": 4.020689495924446
+        "x": 8.251599048652643,
+        "y": 4.0020320040640085
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.516858026924051,
-        "y": 3.2837185674371354
+        "x": 11.320756459694739,
+        "y": 3.927402036622256
       },
       "isLocked": false,
       "linkedName": "Red_PickupMiddleCenter"
     },
     {
       "anchor": {
-        "x": 14.791247848430968,
-        "y": 5.475973861038631
+        "x": 14.958967372480199,
+        "y": 5.718521255224329
       },
       "prevControl": {
-        "x": 11.535317616089777,
-        "y": 5.81180871452652
+        "x": 12.514835938762786,
+        "y": 5.074837786039208
       },
       "nextControl": null,
       "isLocked": false,
@@ -63,7 +63,7 @@
   "reversed": false,
   "folder": "Red_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 171.08507304285214,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

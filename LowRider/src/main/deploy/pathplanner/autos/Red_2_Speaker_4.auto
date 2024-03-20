@@ -42,12 +42,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Red_2_p2"
@@ -81,12 +75,6 @@
           "type": "named",
           "data": {
             "name": "FireNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
           }
         },
         {

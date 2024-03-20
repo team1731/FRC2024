@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.818828364929457,
-        "y": 1.1194495116262968
+        "x": 9.78151338120858,
+        "y": 1.2220657168587072
       },
       "isLocked": false,
       "linkedName": "Red_A7_note8"
@@ -20,8 +20,8 @@
         "y": 3.377006026739327
       },
       "prevControl": {
-        "x": 12.72006834922762,
-        "y": 2.630706352321796
+        "x": 12.692082111436948,
+        "y": 2.6960075738333296
       },
       "nextControl": null,
       "isLocked": false,
@@ -74,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -142.921419993302,
+    "rotation": -134.99999999999991,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 192.38075692880713,
+    "rotation": -161.17528998175996,
     "velocity": 0
   },
   "useDefaultConstraints": true
