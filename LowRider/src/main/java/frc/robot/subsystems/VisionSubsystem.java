@@ -59,6 +59,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -90,6 +91,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private boolean confidence;
 
     private double shootOnMoveFudgeFactor = 1.2;
+
 
     @Override
     public boolean isEnabled() {
@@ -160,7 +162,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         // PoseEstimations.class);
         // setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
     }
-
+    
     private String getFormattedPose() {
         if (enabled) {
             var pose = getCurrentPose();
@@ -397,9 +399,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         return distance;
     }
     public double getDistanceToTargetForAuto(){
+        double robotXSpeed = m_driveSubsystem.getXVelocity();
+        double robotYSpeed = m_driveSubsystem.getYVelocity();
+        double robotXAcceleration = -getAccelerationY();
+        double robotYAcceleration = getAccelerationX();
+
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        
+        double visionDelay = 1;
+        Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
        // Pose2d robot = m_driveSubsystem.getState().Pose;
-        double distance = PhotonUtils.getDistanceToPose(target, visionPose);
+        Pose2d adjustedRobotPose = visionPose.plus(displacement);
+
+        double distance = PhotonUtils.getDistanceToPose(target, adjustedRobotPose);
       //  SmartDashboard.putNumber("DistanceToTarget", distance);
         return distance;
     }
@@ -412,18 +424,17 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
      public Pose2d getAdjustedRobotPose() {
+        double robotXSpeed = m_driveSubsystem.getXVelocity();
+        double robotYSpeed = m_driveSubsystem.getYVelocity();
+        double robotXAcceleration = -getAccelerationY();
+        double robotYAcceleration = getAccelerationX();
         Pose2d robot = new Pose2d(m_driveSubsystem.getState().Pose.getX(), m_driveSubsystem.getState().Pose.getY(), m_driveSubsystem.getState().Pose.getRotation());
        // return robot;
          
         double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)) * shootOnMoveFudgeFactor; //speed of shot in m/s
 
         SmartDashboard.putNumber("ShootOnMove Fudge Factor: ", shootOnMoveFudgeFactor);
-        
-        double robotXSpeed = m_driveSubsystem.getXVelocity();
-        double robotYSpeed = m_driveSubsystem.getYVelocity();
-        double robotXAcceleration = -getAccelerationY();
-        double robotYAcceleration = getAccelerationX();
-
+       
         Transform2d adjustment = new Transform2d(robotXSpeed*shotTime + 0.5*robotXAcceleration*shotTime*shotTime, robotYSpeed*shotTime +  0.5*robotYAcceleration*shotTime*shotTime, new Rotation2d());
        
         SmartDashboard.putNumber("x adjustment", robotXSpeed*shotTime + 0.5*robotXAcceleration*shotTime*shotTime);
