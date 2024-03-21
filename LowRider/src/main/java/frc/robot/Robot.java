@@ -86,18 +86,17 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 	  DataLogManager.start();
-
+	PortForwarder.add(5800, "photonvision.local", 5800);
+	PortForwarder.add(1181, "photonvision.local", 1181);
+	PortForwarder.add(1182, "photonvision.local", 1182);
+	PortForwarder.add(1183, "photonvision.local", 1183);
+	PortForwarder.add(1184, "photonvision.local", 1184);
 //	LogWriter.setupLogging();
 	MessageLog.start();
 	System.out.println("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  EVENT: " + DriverStation.getEventName() + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
 
 	LiveWindow.disableAllTelemetry();
-	// PortForwarder.add(5800, "10.17.31.11", 5800);
-	// PortForwarder.add(5801, "10.17.31.11", 5801);
-	// PortForwarder.add(5802, "10.17.31.11", 5802);
-	// PortForwarder.add(5803, "10.17.31.11", 5803);
-	// PortForwarder.add(5804, "10.17.31.11", 5804);
-
+	
 
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
@@ -124,7 +123,9 @@ public class Robot extends TimedRobot {
 	
 	
 	initSubsystems();
-    visionSubsystem.useVision(false);
+    visionSubsystem.useVision(true);
+	intakeShootStateMachine.turnOnLED();
+	ledSubsystem.setColor(LedOption.INIT);
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
 	
@@ -315,6 +316,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousInit() {
+	    intakeShootStateMachine.startLEDs();
 		visionSubsystem.useVision(false);
     	System.out.println("AUTO INIT");
 		CommandScheduler.getInstance().cancelAll();
@@ -351,6 +353,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {	
 
+	intakeShootStateMachine.startLEDs();
 	visionSubsystem.useVision(true);
 	ledSubsystem.setColor(LedOption.GREEN);
 	wristSubsystem.stopMoveWristToTarget();

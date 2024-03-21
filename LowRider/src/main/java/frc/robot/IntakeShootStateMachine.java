@@ -43,6 +43,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private double JIGGLE_UP_TIMER_SECONDS = 0.1;
     private double jiggleDownTimerStarted;
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
+    private boolean robotStarted = false;
 
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
@@ -169,6 +170,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
     public void periodic() { 
+      
         periodicRunCounter = 0;
         double startTime = Timer.getFPGATimestamp();
         run();
@@ -184,11 +186,12 @@ public class IntakeShootStateMachine extends SubsystemBase {
             SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
         }
 
-        if (haveNote) {
+        if (haveNote|| !robotStarted) {
             turnOnLED();
         } else {
             m_ledSubsystem.setColor(LedOption.BLACK);
         }
+    
     }
 
     public void setInitialState(ISState initialState){
@@ -367,6 +370,10 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public boolean doNothing(){
         return true;
+    }
+
+    public void startLEDs(){
+        robotStarted = true;
     }
 
 }
