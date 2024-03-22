@@ -188,6 +188,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         
             if (photonEstimatorFront != null) {
                 // Correct pose estimate with vision measurements
+                try {
                 var visionEstFront = getEstimatedGlobalPoseFront();
                 visionEstFront.ifPresent(
                         est -> {
@@ -207,30 +208,41 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
                         });
+                    } catch (Exception e) {
+                   // e.printStackTrace();
+                }
             }
 
             if (photonEstimatorBack != null) {
                 // Correct pose estimate with vision measurements
-                var visionEstBack = getEstimatedGlobalPoseBack();
-                visionEstBack.ifPresent(
-                        est -> {
-                            var estPose = est.estimatedPose.toPose2d();
-                            // Change our trust in the measurement based on the tags we can see
-                            var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
+                try {
+                    var visionEstBack = getEstimatedGlobalPoseBack();
+                    visionEstBack.ifPresent(
+                            est -> {
+                                var estPose = est.estimatedPose.toPose2d();
+                                // Change our trust in the measurement based on the tags we can see
+                                var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
 
-                            //System.out.println("VisionBack(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-                            field2d.getObject("MyRobot" + cameraBack.getName()).setPose(estPose);
-                            SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
-                                estPose.getTranslation().getX(),
-                                estPose.getTranslation().getY(),
-                                estPose.getRotation().getDegrees()));
-                            if (useVision) {
-                                m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                lastEstTimestampBack = Timer.getFPGATimestamp();
-                            } else {
-                                visionPose = est.estimatedPose.toPose2d();
-                            }
-                        });
+                                // System.out.println("VisionBack(" + est.timestampSeconds + "): " +
+                                // est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString()
+                                // );
+                                field2d.getObject("MyRobot" + cameraBack.getName()).setPose(estPose);
+                                SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
+                                        estPose.getTranslation().getX(),
+                                        estPose.getTranslation().getY(),
+                                        estPose.getRotation().getDegrees()));
+                                if (useVision) {
+                                    m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(),
+                                            est.timestampSeconds, estStdDevs);
+                                    lastEstTimestampBack = Timer.getFPGATimestamp();
+                                } else {
+                                    visionPose = est.estimatedPose.toPose2d();
+                                }
+                            });
+                } catch (Exception e) {
+                   // e.printStackTrace();
+                }
+
             }
 
             double curTime = Timer.getFPGATimestamp();

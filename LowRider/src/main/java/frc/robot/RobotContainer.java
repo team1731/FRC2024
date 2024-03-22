@@ -290,7 +290,7 @@ public class RobotContainer {
                  .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_EJECT));
 
     // Far Shot
-    operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(25)))
+    operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(10)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Safe Shot
     operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22)))
