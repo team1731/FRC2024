@@ -80,6 +80,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private CommandSwerveDrivetrain m_driveSubsystem;
     private double lastEstTimestampFront;
     private double lastEstTimestampBack;
+    private int visionInitCount;
 
     // logging
     Logger poseLogger;
@@ -91,7 +92,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private boolean confidence;
 
     private double shootOnMoveFudgeFactor = 1.2;
-
 
     @Override
     public boolean isEnabled() {
@@ -108,10 +108,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         return initialized;
     }
 
-    public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
-        this.enabled = enabled;
-        this.m_driveSubsystem = driveSubsystem;
-        mypigeon = m_driveSubsystem.getPigeon2();
+    public void visionInitialization(){
         cameraFront = null;
         cameraBack = null;
         photonEstimatorFront = null;
@@ -142,6 +139,45 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         if (!initialized) {
             System.out.println("VisionSubsystem: Init FAILED: " + " Keys: " + photonVisionTable.getKeys().toString());
         }
+    }
+
+    public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
+        this.enabled = enabled;
+        this.m_driveSubsystem = driveSubsystem;
+        mypigeon = m_driveSubsystem.getPigeon2();
+        visionInitCount = 0;
+        // cameraFront = null;
+        // cameraBack = null;
+        // photonEstimatorFront = null;
+        // photonEstimatorBack = null;
+
+        // NetworkTableInstance inst = NetworkTableInstance.getDefault();
+        // // get the subtable called "photonvision"
+        // NetworkTable photonVisionTable = inst.getTable("photonvision/" + kCameraNameFront);
+        // if (photonVisionTable.containsKey("hasTarget")) {
+        //     cameraFront = new PhotonCamera(kCameraNameFront);
+        //     photonEstimatorFront = new PhotonPoseEstimator(
+        //         kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraFront, kRobotToCamFront);
+        //     photonEstimatorFront.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        //     initialized = true;
+        //     System.out.println("VisionSubsystem: Adding camera " + kCameraNameFront + "!!!!!!! ");
+        // } 
+        
+        // photonVisionTable = inst.getTable("photonvision/" + kCameraNameBack);
+        // if (photonVisionTable.containsKey("hasTarget")) {
+        //     cameraBack = new PhotonCamera(kCameraNameBack);
+        //     photonEstimatorBack = new PhotonPoseEstimator(
+        //         kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraBack, kRobotToCamBack);
+        //     photonEstimatorBack.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        //     initialized = true;
+        //     System.out.println("VisionSubsystem: Adding camera " + kCameraNameBack + "!!!!!!! ");
+        // }
+        
+        // if (!initialized) {
+        //     System.out.println("VisionSubsystem: Init FAILED: " + " Keys: " + photonVisionTable.getKeys().toString());
+        // }
+
+        visionInitialization();
 
         // write initial values to dashboard
         if(enabled){
@@ -182,6 +218,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     @Override
     public void periodic() {
+
+        if (!initialized) {
+            //System.out.println("Checking vision, currently not initialized");
+            if (visionInitCount++ >= 100) { // 20ms @ 50
+                visionInitialization();
+                visionInitCount = 0;
+            }
+        }
 
         getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
         if (enabled && initialized) {

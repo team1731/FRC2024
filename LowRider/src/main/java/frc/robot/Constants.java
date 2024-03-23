@@ -553,7 +553,7 @@ public final class Constants {
         public static final double kTargetConfidenceDelta = 2.0;
 
         public static final String kCameraNameFront = "ArducamUSB3";
-        public static final String kCameraNameBack = "ArducamUSB2";
+        public static final String kCameraNameBack = "ArducamUSB1";
         public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
 
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.

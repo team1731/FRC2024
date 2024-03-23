@@ -85,12 +85,15 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void robotInit() {
-	  DataLogManager.start();
+	//  DataLogManager.start();
 	PortForwarder.add(5800, "photonvision.local", 5800);
 	PortForwarder.add(1181, "photonvision.local", 1181);
 	PortForwarder.add(1182, "photonvision.local", 1182);
 	PortForwarder.add(1183, "photonvision.local", 1183);
 	PortForwarder.add(1184, "photonvision.local", 1184);
+	PortForwarder.add(1185, "photonvision.local", 1185);
+	PortForwarder.add(1186, "photonvision.local", 1186);
+	PortForwarder.add(1187, "photonvision.local", 1187);
 //	LogWriter.setupLogging();
 	MessageLog.start();
 	System.out.println("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  EVENT: " + DriverStation.getEventName() + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
