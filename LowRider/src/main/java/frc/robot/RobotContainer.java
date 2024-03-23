@@ -290,13 +290,13 @@ public class RobotContainer {
                  .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_EJECT));
 
     // Far Shot
-    operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(10)))
+    operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(10)))  // this is now over the stage
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Safe Shot
-    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22)))
+    operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22*0.6)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Line Shot
-    operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15)))
+    operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15*0.6)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
  //   operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
 
