@@ -285,8 +285,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public boolean startShootTrap(){
         m_shooterSubsystem.stopShooting();
-        m_intakeSubsystem.intakeState(-0.5);
-        m_intakeSubsystem.feedState(-0.5);
+        m_intakeSubsystem.intakeState(-0.6);
+        m_intakeSubsystem.feedState(-0.6);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
         haveNote = false;

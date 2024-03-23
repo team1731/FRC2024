@@ -37,7 +37,7 @@ public class ClimbStateMachine {
     private CInput currentInput;
     private HashMap<String, Method> methods;
     private double timerStarted;
-    private double NOTE_TIMER_SECONDS = 0.5;
+    private double NOTE_TIMER_SECONDS = 2;
 
     public ClimbStateMachine( ElevatorSubsystem elevatorSubsystem, WristSubsystem wristSubsystem, IntakeShootStateMachine intakeShootStateMachine){
 		m_elevatorSubsystem = elevatorSubsystem;
