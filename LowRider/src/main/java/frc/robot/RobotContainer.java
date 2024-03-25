@@ -149,7 +149,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("UseVision", new SequentialCommandGroup(new AutoUseVision(intakeSubsystem, wristSubsystem, visionSubsystem)));
       NamedCommands.registerCommand("SetWristB_1_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,2.93,6.84)) ));
       NamedCommands.registerCommand("SetWristB_1_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,false, 3.61, 6.02)) ));
-      NamedCommands.registerCommand("SetWristB_1_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,false, 3.61, 6.02)) ));
+      NamedCommands.registerCommand("SetWristB_1_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.3,false, 3.61, 6.02)) ));
       NamedCommands.registerCommand("SetWristB_2_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,false,2.64, 5.57)) ));
       NamedCommands.registerCommand("SetWristB_3_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 2.65, 4.24)) ));
       NamedCommands.registerCommand("SetWristB_4_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.3,false,2.74, 6.94) )));
@@ -160,7 +160,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristB_7_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,false, 3.03, 3.14)) ));
 
       NamedCommands.registerCommand("SetWristR_1_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.57,6.95)) ));  // tuned 319
-      NamedCommands.registerCommand("SetWristR_1_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,true,12.9,6.02)) ));  // tuned
+      NamedCommands.registerCommand("SetWristR_1_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,true,12.9,6.02)) ));  // tuned
       NamedCommands.registerCommand("SetWristR_1_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,true,12.9,6.02)) ));  // tuned
       NamedCommands.registerCommand("SetWristR_2_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true,13.87,5.57)) ));  // tuned
       NamedCommands.registerCommand("SetWristR_3_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.05,true,13.86,4.24)) ));  // tuned
