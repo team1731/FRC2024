@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Fire",
-      "waypointRelativePos": 0.8,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "sequential",
         "data": {
@@ -69,7 +69,7 @@
             {
               "type": "wait",
               "data": {
-                "waitTime": 0.3
+                "waitTime": 0.2
               }
             },
             {
@@ -91,7 +91,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 28.810793742973143,
+    "rotation": 24.537728476577815,
     "rotateFast": false
   },
   "reversed": false,

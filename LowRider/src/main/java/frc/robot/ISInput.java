@@ -9,7 +9,7 @@ public enum ISInput {
     START_SPEAKER,
     STOP_SPEAKER,
     START_JIGGLE,
-    STOP_JIGGLE,
+    STOP_JIGGLE, // <------------------------------------------------------ not used!
     START_EJECT,
     STOP_EJECT,
     FORWARD_LIMIT_REACHED,
@@ -20,7 +20,7 @@ public enum ISInput {
     START_TRAP,
     STOP_TRAP,
     START_SHOOT_INTAKE,
-    STOP_SHOOT_INTAKE,
+    STOP_SHOOT_INTAKE, // <------------------------------------------------ not used!
     HAS_NOTE,
     NOTE_SETTLED,
     JUST_SHOOT,

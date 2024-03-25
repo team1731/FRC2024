@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 13.569182131572262,
-        "y": 6.837970766850624
+        "y": 6.9499157180132425
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.477718857736622,
-        "y": 6.865957004641281
+        "x": 12.524164684693003,
+        "y": 7.061860669175885
       },
       "isLocked": false,
       "linkedName": "Red_pickup1"
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 170.40686573726967,
+    "rotation": 175.333141628561,
     "rotateFast": false
   },
   "reversed": false,

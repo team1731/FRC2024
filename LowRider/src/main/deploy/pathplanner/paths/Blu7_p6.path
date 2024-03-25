@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.027501327729928,
-        "y": 3.143787378483848
+        "x": 3.2793774678458445,
+        "y": 3.0878149029025335
       },
       "prevControl": {
-        "x": 4.137622093426004,
-        "y": 2.2762140069734693
+        "x": 5.844782598656103,
+        "y": 3.311704805227793
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.85,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristBlu7Long"
+                "name": "SetWristB_7_3"
               }
             }
           ]
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -74,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -37.77568430595468,
+    "rotation": -39.80557109226519,
     "rotateFast": false
   },
   "reversed": false,

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.568776410280094,
-        "y": 7.584270441268155
+        "x": 8.550118918419654,
+        "y": 7.341723047082458
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.719860530630152,
-        "y": 7.3790380308033345
+        "x": 7.701203038769712,
+        "y": 7.136490636617637
       },
       "isLocked": true,
       "linkedName": "pickup4"
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShotA"
+                "name": "SetWristB_1_2"
               }
             }
           ]

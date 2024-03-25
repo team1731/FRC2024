@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.887777957374096,
-        "y": 5.6438912877825755
+        "x": 7.888428800113415,
+        "y": 5.698044741348875
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.063199944581706,
-        "y": 5.979726141270463
+        "x": 9.063850787321025,
+        "y": 6.033879594836763
       },
       "isLocked": false,
       "linkedName": "Red_pickup5"
@@ -57,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristRed1Shot6"
+                "name": "SetWristR_1_3"
               }
             }
           ]
@@ -90,7 +90,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 173.4207159286533,
+    "rotation": 168.93477445672522,
     "rotateFast": false
   },
   "reversed": false,

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.550118918419654,
-        "y": 0.6903271988362164
+        "x": 8.512803934698777,
+        "y": 0.44777980465051886
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.731013462026923,
-        "y": 1.2593807005795834
+        "x": 6.693698478306046,
+        "y": 1.0168333063938857
       },
       "isLocked": false,
       "linkedName": "A7_note8"
     },
     {
       "anchor": {
-        "x": 3.027501327729928,
-        "y": 3.143787378483848
+        "x": 3.2793774678458445,
+        "y": 3.0878149029025335
       },
       "prevControl": {
-        "x": 3.979033412612273,
-        "y": 2.397487704066317
+        "x": 4.230909552728189,
+        "y": 2.3415152284850027
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristBlu7Long"
+                "name": "SetWristB_7_1"
               }
             }
           ]
@@ -74,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -32.471192290848464,
+    "rotation": -40.236358309273854,
     "rotateFast": false
   },
   "reversed": false,

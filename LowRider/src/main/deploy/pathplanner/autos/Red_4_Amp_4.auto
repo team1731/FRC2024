@@ -18,6 +18,18 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red_4_p1"
@@ -26,7 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "SetWristNote1"
+            "name": "SetWristR_4_1"
           }
         },
         {

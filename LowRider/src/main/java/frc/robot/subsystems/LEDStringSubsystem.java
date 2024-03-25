@@ -29,6 +29,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   private int length;
   private boolean blink;
   private LedOption currentColor;
+  private LedOption holdColor;
   private double startBlink;
   private boolean switched;
   private boolean enabled;
@@ -63,30 +64,28 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (enabled) {
-      if (blink) {
-        double elapsed = (mTimer.get() - startBlink);
-        if (elapsed < OpConstants.kLedStringBlinkDelay) {
-          return;
-        }
+    // if (enabled) {
+    //   if (blink) {
+    //     double elapsed = (mTimer.get() - startBlink);
+    //     if (elapsed < OpConstants.kLedStringBlinkDelay) {
+    //       return;
+    //     }
 
-        if (switched) {
-          _setCurrentColor();
-          // switched = false;
-        } else {
-          _setSingleColor(LedOption.BLACK);
-          // switched = true;
-        }
-        switched = !switched;
-        startBlink = mTimer.get();
-      }
-    }
+    //     if (switched) {
+    //       _setCurrentColor();
+    //     } else {
+    //       _setSingleColor(LedOption.BLACK);
+    //     }
+    //     switched = !switched;
+    //     startBlink = mTimer.get();
+    //   }
+    // }
   }
 
   public void init() {
     if (enabled) {
       // initialization stuff
-      _setSingleColor(OpConstants.LedOption.INIT);
+      _setSingleColor(OpConstants.LedOption.BLACK);
       mTimer.start();
     }
   }
@@ -107,6 +106,7 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
         return;
       }
       SmartDashboard.putString("Color", color.toString());
+      System.out.println("\n\n\nsetting color to " + color + "\n\n\n");
       currentColor = color;
       _setCurrentColor();
     }
@@ -119,8 +119,6 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
       _setSingleColor(currentColor);
     }
   }
-
-//charlie was here
 
   private void _setSingleColor(OpConstants.LedOption color) {
     int r = 0;

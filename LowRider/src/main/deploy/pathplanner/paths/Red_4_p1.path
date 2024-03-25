@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 13.765085796106863,
-        "y": 6.940586972083035
+        "x": 13.792874131202808,
+        "y": 6.856628258711063
       },
       "prevControl": {
-        "x": 14.76326161064031,
-        "y": 6.903271988362159
+        "x": 14.791049945736255,
+        "y": 6.819313274990187
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,23 +39,11 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.4
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -75,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 149.47029410006581,
+    "rotation": 154.798876354525,
     "rotateFast": false
   },
   "reversed": false,

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.456831459117463,
-        "y": 7.584270441268155
+        "x": 8.593341551620492,
+        "y": 7.342841161532055
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7758330062114664,
-        "y": 7.435010506384649
+        "x": 7.912343098714495,
+        "y": 7.193581226648549
       },
       "isLocked": false,
       "linkedName": "A4_Note4"
     },
     {
       "anchor": {
-        "x": 3.6431985591243907,
-        "y": 6.492807167432517
+        "x": 3.5708381971325664,
+        "y": 6.461700222148208
       },
       "prevControl": {
-        "x": 4.510771930634778,
-        "y": 6.921929480222596
+        "x": 5.377177122869452,
+        "y": 6.696671139317234
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blu4_longshot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristLongShotA"
+                "name": "SetWristB_4_2"
               }
             }
           ]
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.53585636913415,
+    "rotation": 21.801409486351982,
     "rotateFast": false
   },
   "reversed": false,

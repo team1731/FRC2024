@@ -10,6 +10,7 @@ import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDStringSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 enum ISState {
     ALL_STOP,
@@ -33,18 +34,23 @@ public class IntakeShootStateMachine extends SubsystemBase {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_shooterSubsystem;
     private final LEDStringSubsystem m_ledSubsystem;
+    private final VisionSubsystem m_visionSubsystem;
     private ISState currentState;
     private ISInput currentInput;
     private HashMap<String, Method> methods;
+    private int periodicRunCounter;
     private double jiggleUpTimerStarted;
     private double JIGGLE_UP_TIMER_SECONDS = 0.1;
     private double jiggleDownTimerStarted;
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
+    private boolean robotStarted = false;
 
-    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem){
+
+    public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
         m_intakeSubsystem = intakeSubsystem;
 		m_shooterSubsystem = shooterSubsystem;
         m_ledSubsystem = ledSubsystem;
+        m_visionSubsystem = visionSubsystem;
 
 
         methods = new HashMap<String, Method>();
@@ -65,7 +71,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public void setCurrentState(ISState newState){
         if (currentState != newState ) {
-        System.out.println("\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE: " + newState + " CurrentState:" + currentState + "\n");
+        System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE TO: " + newState + ", (WAS: CurrentState:" + currentState + ")\n");
         }
         currentState = newState;
         if(currentState == ISState.ALL_STOP){
@@ -76,7 +82,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public synchronized void setCurrentInput(ISInput newInput){
         if (currentInput != newInput) {
-            System.out.println("\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> SETTING INPUT: " + newInput +  currentState + "\n");
+            System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> CURRENT STATE: " + currentState + ", SETTING INPUT TO: " + newInput + "\n");
         }
         currentInput = newInput;
         run();
@@ -90,17 +96,18 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.ALL_STOP,                ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP}, 
         {ISState.ALL_STOP,                ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},    
         {ISState.ALL_STOP,                ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
-        {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",        ISState.INTAKE_SHOOTER_WAIT},
+        {ISState.ALL_STOP,                ISInput.START_SHOOT_INTAKE,           "startIntakeFromShoot",       ISState.INTAKE_SHOOTER_WAIT},
         {ISState.ALL_STOP,                ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.SPIN_UP_SHOOTER,          ISInput.JUST_SHOOT,                  "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
-        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,              "startIntakeNoJiggle",       ISState.INTAKING_NO_JIGGLE},
-        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,         "turnOnLED",                 ISState.READY_TO_SHOOT},
+        {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER}, // redundant (covered by START_SPEAKER)
+        {ISState.SPIN_UP_SHOOTER,         ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,             "startIntakeNoJiggle",        ISState.INTAKING_NO_JIGGLE},
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,        "turnOnLED",                  ISState.READY_TO_SHOOT},
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.STOP_INTAKE,                   "setAllStop",                  ISState.ALL_STOP},
 
 
-        {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",             ISState.INTAKE_SHOOTER_HAS_NOTE}, 
-        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                  "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
+        {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",            ISState.INTAKE_SHOOTER_HAS_NOTE}, 
+        {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
         {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
         {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
        
@@ -108,15 +115,15 @@ public class IntakeShootStateMachine extends SubsystemBase {
         
         {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "startJiggleDown",            ISState.JIGGLING_DOWN},
         
-        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,    "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
+        {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,     "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
         
         {ISState.SPIN_UP_SHOOTER,         ISInput.SHOOTER_UP_TO_SPEED,          "doNothing",                  ISState.READY_TO_SHOOT},
-        
+        {ISState.SPIN_UP_SHOOTER,          ISInput.STOP_SPEAKER,                 "setAllStop",                 ISState.ALL_STOP},  
         {ISState.READY_TO_SHOOT,          ISInput.START_SPEAKER,                "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.READY_TO_SHOOT,          ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},
         {ISState.READY_TO_SHOOT,          ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP},
-        {ISState.READY_TO_SHOOT,          ISInput.START_JIGGLE,                 "startSpinDownShooter",        ISState.SPIN_DOWN_SHOOTER},
-        {ISState.READY_TO_SHOOT,          ISInput.START_EJECT,                  "startEject",                  ISState.EJECTING},
+        {ISState.READY_TO_SHOOT,          ISInput.START_JIGGLE,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
+        {ISState.READY_TO_SHOOT,          ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
 
         {ISState.SHOOTING_AT_SPEAKER,     ISInput.STOP_SPEAKER,                 "setAllStop",                 ISState.ALL_STOP},
        
@@ -128,6 +135,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
        
         
     };
+    private boolean haveNote;
     
     private void setInputs() {
         if(currentState == ISState.INTAKING && m_intakeSubsystem.forwardLimitReached()){
@@ -142,7 +150,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
            setCurrentInput(ISInput.JIGGLE_DOWN_NOTE_SETTLED);
         }
 
-        if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 99)){
+        if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 95)){
             setCurrentInput(ISInput.SHOOTER_UP_TO_SPEED);
         }
 
@@ -162,9 +170,28 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
     public void periodic() { 
+      
+        periodicRunCounter = 0;
+        double startTime = Timer.getFPGATimestamp();
         run();
-        SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
-        SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
+        double elapsedMs = (int)((Timer.getFPGATimestamp() - startTime) * 1e3);
+        if(elapsedMs > 2){
+            System.out.println("\n\n\nWARNING: IntakeShootStateMachine ran for " + elapsedMs + " milliseconds!\n\n\n");
+        }
+        if(periodicRunCounter > 3){
+            System.out.println("\n\n\nWARNIGN: IntakeShootStateMachine run() method ran " + periodicRunCounter + " times!\n\n\n");
+        }
+        if(Robot.doSD()){
+            SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
+            SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
+        }
+
+        if (haveNote|| !robotStarted) {
+            turnOnLED();
+        } else {
+            m_ledSubsystem.setColor(LedOption.BLACK);
+        }
+    
     }
 
     public void setInitialState(ISState initialState){
@@ -214,8 +241,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-        m_ledSubsystem.setColor(LedOption.WHITE);
-         m_ledSubsystem.setBlink(true);
+        haveNote = true;
         return true;
     }
 
@@ -235,7 +261,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-
         return true;
     }
 
@@ -245,7 +270,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-         m_ledSubsystem.setBlink(false);
+        haveNote = false;
         return true;
     }
     public boolean startShootAmp(){
@@ -254,20 +279,18 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-        m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        haveNote = false;
+        return true;
     }
 
     public boolean startShootTrap(){
         m_shooterSubsystem.stopShooting();
-        m_intakeSubsystem.intakeState(-0.5);
-        m_intakeSubsystem.feedState(-0.5);
+        m_intakeSubsystem.intakeState(-0.6);
+        m_intakeSubsystem.feedState(-0.6);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-         m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        haveNote = false;
+        return true;
     }
 
     public boolean startEject(){
@@ -276,9 +299,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-        m_ledSubsystem.setColor(LedOption.BLACK);
-         m_ledSubsystem.setBlink(false);
-    return true;
+        haveNote = false;
+        return true;
     }
 
     public boolean startIntakeFromShoot(){
@@ -287,7 +309,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.disableReverseLimitSwitch();
-    return true;
+        return true;
     }
     
    public boolean startIFRHasNote(){
@@ -296,17 +318,16 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-    return true;
+        return true;
     }
 
-     public boolean turnOnLED(){
-                 m_ledSubsystem.setColor(LedOption.WHITE);
-        m_ledSubsystem.setBlink(true);
-    return true;
+    public boolean turnOnLED(){
+        m_ledSubsystem.setColor(m_visionSubsystem.isConfident() ? LedOption.WHITE : LedOption.RED);
+        return true;
     }
-
 
     public void run(){
+        periodicRunCounter++;
         Object[] operationAndNextState = lookupOperationAndNextState(currentState, currentInput);
         if(operationAndNextState != null){
             String operation = (String) operationAndNextState[0];
@@ -316,7 +337,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
             Method method = methods.get(operation);
             if(method != null){
                 try {
-                    System.out.println("\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " CurrentState:" + currentState + " NextState:" + nextState + "\n");
+                    System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " CurrentState:" + currentState + " NextState:" + nextState + "\n");
                     if((Boolean)method.invoke(this) && nextState != null){
                         setCurrentState(nextState);
                     }
@@ -351,5 +372,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
         return true;
     }
 
+    public void startLEDs(){
+        robotStarted = true;
+    }
 
 }

@@ -85,30 +85,32 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void robotInit() {
-	  DataLogManager.start();
-
+	//  DataLogManager.start();
+	PortForwarder.add(5800, "photonvision.local", 5800);
+	PortForwarder.add(1181, "photonvision.local", 1181);
+	PortForwarder.add(1182, "photonvision.local", 1182);
+	PortForwarder.add(1183, "photonvision.local", 1183);
+	PortForwarder.add(1184, "photonvision.local", 1184);
+	PortForwarder.add(1185, "photonvision.local", 1185);
+	PortForwarder.add(1186, "photonvision.local", 1186);
+	PortForwarder.add(1187, "photonvision.local", 1187);
 //	LogWriter.setupLogging();
 	MessageLog.start();
 	System.out.println("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  EVENT: " + DriverStation.getEventName() + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
 
 	LiveWindow.disableAllTelemetry();
-	// PortForwarder.add(5800, "10.17.31.11", 5800);
-	// PortForwarder.add(5801, "10.17.31.11", 5801);
-	// PortForwarder.add(5802, "10.17.31.11", 5802);
-	// PortForwarder.add(5803, "10.17.31.11", 5803);
-	// PortForwarder.add(5804, "10.17.31.11", 5804);
-
+	
 
     driveSubsystem = new CommandSwerveDrivetrain(true, TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
 	ledSubsystem = new LEDStringSubsystem(true);
-	intakeSubsystem = new IntakeSubsystem(true, ledSubsystem);
-	wristSubsystem = new WristSubsystem(true);
+	intakeSubsystem = new IntakeSubsystem(true);
+	
 
 	shooterSubsystem = new ShooterSubsystem(true);
-	visionSubsystem = new VisionSubsystem(true, driveSubsystem, ledSubsystem);
-
-	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem);
+	visionSubsystem = new VisionSubsystem(true, driveSubsystem);
+    wristSubsystem = new WristSubsystem(true, visionSubsystem);
+	intakeShootStateMachine = new IntakeShootStateMachine(intakeSubsystem, shooterSubsystem, ledSubsystem, visionSubsystem);
 	elevatorSubsystem = new ElevatorSubsystem(true, wristSubsystem, intakeShootStateMachine);
 	 climbStateMachine = new ClimbStateMachine(elevatorSubsystem, wristSubsystem, intakeShootStateMachine);
 	// Instantiate our robot container. This will perform all of our button bindings,
@@ -124,7 +126,9 @@ public class Robot extends TimedRobot {
 	
 	
 	initSubsystems();
-    visionSubsystem.useVision(false);
+    visionSubsystem.useVision(true);
+	intakeShootStateMachine.turnOnLED();
+	ledSubsystem.setColor(LedOption.INIT);
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
 	
@@ -163,10 +167,6 @@ public class Robot extends TimedRobot {
 	}
 	SmartDashboard.updateValues();
 	autoInitPreload();
-
-	//For testing LED Blinking only. The arm will set blink true after a piece has been secured.
-	//ledBlinking = true;
-	//blinker.onTrue(new InstantCommand(() -> {ledSubsystem.setBlink(ledBlinking); ledBlinking = !ledBlinking;}));
   }
   
 
@@ -319,6 +319,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void autonomousInit() {
+	    intakeShootStateMachine.startLEDs();
 		visionSubsystem.useVision(false);
     	System.out.println("AUTO INIT");
 		CommandScheduler.getInstance().cancelAll();
@@ -330,7 +331,6 @@ public class Robot extends TimedRobot {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
 		//	m_robotContainer.zeroHeading();
 
-			ledSubsystem.setColor(OpConstants.LedOption.WHITE); // reset color to default from red/green set during disabled
 			m_autonomousCommand.schedule();
 		}
     	System.out.println("autonomousInit: End");
@@ -356,7 +356,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {	
 
+	intakeShootStateMachine.startLEDs();
 	visionSubsystem.useVision(true);
+	ledSubsystem.setColor(LedOption.GREEN);
+	wristSubsystem.stopMoveWristToTarget();
     /* 
 	intakeSubsystem.stopIntake();
 	intakeSubsystem.stopJiggle();
@@ -369,14 +372,9 @@ public class Robot extends TimedRobot {
 	System.out.println("TELEOP INIT");
 	CommandScheduler.getInstance().cancelAll();
 	initSubsystems();
-	//for testing only
-	//ledSubsystem.setBlink(true); //setColor(LedOption.BLUE);
-	// sm_armStateMachine.setIsInAuto(false);
-	// sm_armStateMachine.initializeArm();
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
+	intakeShootStateMachine.setCurrentInput(ISInput.STOP_INTAKE);
+	intakeShootStateMachine.setCurrentInput(ISInput.STOP_SPEAKER);
+
 	if (m_autonomousCommand != null) {
 		m_autonomousCommand.cancel();
 	}
@@ -408,41 +406,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-	//System.out.println("Setting the color");
-	//ledSubsystem.setColor(LedOption.INIT);
-	if(doSD()){
+	//if(doSD()){
 	//	System.out.println("TELEOP PERIODIC");
-	}
+	//}
 		
-	/*
-	 * Change LED blinking status depending on whether holding a game piece or not
-	 */
-	// if(!ledBlinking /* && sm_armStateMachine.isHoldingGamePiece() */) {
-	// 	ledSubsystem.setBlink(true);
-	// 	ledBlinking = true;
-	// } else if(ledBlinking /* && !sm_armStateMachine.isHoldingGamePiece() */) {
-	// 	ledSubsystem.setBlink(false);
-	// 	ledBlinking = false;
-	// }
-
-	/*
-	 * Change LED to indicate emergency status entry or exit
-	 */
-	// if(!armEmergencyStatus && sm_armStateMachine.isInEmergencyRecovery()) {
-	// 	armEmergencyStatus = true;
-	// 	ledSubsystem.setBlink(false);
-	// 	ledSubsystem.setColor(OpConstants.LedOption.RED);
-	// } else if(armEmergencyStatus && !sm_armStateMachine.isInEmergencyRecovery()) {
-	// 	armEmergencyStatus = false;
-	// 	// if the SM has a record of a game piece setting revert to that color, otherwise just go to default color
-	// 	if(sm_armStateMachine.getGamePiece() == GamePiece.CONE) {
-	// 		ledSubsystem.setColor(OpConstants.LedOption.YELLOW);
-	// 	} else if(sm_armStateMachine.getGamePiece() == GamePiece.CUBE) {
-	// 		ledSubsystem.setColor(OpConstants.LedOption.PURPLE);
-	// 	} else {
-	// 		ledSubsystem.setColor(OpConstants.LedOption.WHITE);
-	// 	}
-	// }
   }
 
 

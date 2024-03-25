@@ -32,6 +32,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
@@ -58,7 +59,10 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonPipelineResult;
+
+import com.ctre.phoenix6.hardware.Pigeon2;
 
 public class VisionSubsystem extends SubsystemBase implements ToggleableSubsystem {
     private PhotonCamera cameraFront;
@@ -68,20 +72,26 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private PhotonPoseEstimator photonEstimatorBack;
     private final Field2d field2d = new Field2d();
     private Pose2d redGoal = new Pose2d(new Translation2d(16.579342,5.547868), new Rotation2d());
-    private Pose2d blueGoal = new Pose2d(new Translation2d(0.0381,5.547868), new Rotation2d());
-    private boolean useVision = false;
-    private LEDStringSubsystem ledSubsystem;   
+    private Pose2d blueGoal = new Pose2d(new Translation2d(-0.0381,5.547868), new Rotation2d());
+    private boolean useVision = false;  
+    
+    private Pose2d visionPose;
 
-    private CommandSwerveDrivetrain driveSubsystem;
-    private double lastEstTimestamp = 0;
+    private CommandSwerveDrivetrain m_driveSubsystem;
+    private double lastEstTimestampFront;
+    private double lastEstTimestampBack;
+    private int visionInitCount;
 
     // logging
     Logger poseLogger;
     double lastLogTime = 0;
     double logInterval = 1.0; // in seconds
 
-    
+    Pigeon2 mypigeon;
     private boolean enabled;
+    private boolean confidence;
+
+    private double shootOnMoveFudgeFactor = 1.2;
 
     @Override
     public boolean isEnabled() {
@@ -90,14 +100,15 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     private boolean initialized;
 
+    public boolean isConfident() {
+        return confidence;
+    }
+
     public boolean isInitialized() {
         return initialized;
     }
 
-    public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem, LEDStringSubsystem ledsubsystem) {
-        this.enabled = enabled;
-        this.driveSubsystem = driveSubsystem;
-        this.ledSubsystem = ledsubsystem;
+    public void visionInitialization(){
         cameraFront = null;
         cameraBack = null;
         photonEstimatorFront = null;
@@ -128,6 +139,45 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         if (!initialized) {
             System.out.println("VisionSubsystem: Init FAILED: " + " Keys: " + photonVisionTable.getKeys().toString());
         }
+    }
+
+    public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
+        this.enabled = enabled;
+        this.m_driveSubsystem = driveSubsystem;
+        mypigeon = m_driveSubsystem.getPigeon2();
+        visionInitCount = 0;
+        // cameraFront = null;
+        // cameraBack = null;
+        // photonEstimatorFront = null;
+        // photonEstimatorBack = null;
+
+        // NetworkTableInstance inst = NetworkTableInstance.getDefault();
+        // // get the subtable called "photonvision"
+        // NetworkTable photonVisionTable = inst.getTable("photonvision/" + kCameraNameFront);
+        // if (photonVisionTable.containsKey("hasTarget")) {
+        //     cameraFront = new PhotonCamera(kCameraNameFront);
+        //     photonEstimatorFront = new PhotonPoseEstimator(
+        //         kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraFront, kRobotToCamFront);
+        //     photonEstimatorFront.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        //     initialized = true;
+        //     System.out.println("VisionSubsystem: Adding camera " + kCameraNameFront + "!!!!!!! ");
+        // } 
+        
+        // photonVisionTable = inst.getTable("photonvision/" + kCameraNameBack);
+        // if (photonVisionTable.containsKey("hasTarget")) {
+        //     cameraBack = new PhotonCamera(kCameraNameBack);
+        //     photonEstimatorBack = new PhotonPoseEstimator(
+        //         kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraBack, kRobotToCamBack);
+        //     photonEstimatorBack.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        //     initialized = true;
+        //     System.out.println("VisionSubsystem: Adding camera " + kCameraNameBack + "!!!!!!! ");
+        // }
+        
+        // if (!initialized) {
+        //     System.out.println("VisionSubsystem: Init FAILED: " + " Keys: " + photonVisionTable.getKeys().toString());
+        // }
+
+        visionInitialization();
 
         // write initial values to dashboard
         if(enabled){
@@ -148,7 +198,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         // PoseEstimations.class);
         // setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
     }
-
+    
     private String getFormattedPose() {
         if (enabled) {
             var pose = getCurrentPose();
@@ -160,7 +210,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public Pose2d getCurrentPose() {
         if (enabled) {
-            return driveSubsystem.getState().Pose;
+            return m_driveSubsystem.getState().Pose;
         } else {
             return null;
         }
@@ -169,23 +219,20 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     @Override
     public void periodic() {
 
+        if (!initialized) {
+            //System.out.println("Checking vision, currently not initialized");
+            if (visionInitCount++ >= 100) { // 20ms @ 50
+                visionInitialization();
+                visionInitCount = 0;
+            }
+        }
+
         getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
         if (enabled && initialized) {
-/* 
-            var res = cameraFront.getLatestResult();
-            if (res.hasTargets()) {
-                ledSubsystem.setColor(LedOption.RED);
-            } else {
-                res = cameraBack.getLatestResult();
-                if (res.hasTargets()) {
-                    ledSubsystem.setColor(LedOption.GREEN);
-                } else {
-                    ledSubsystem.setColor(LedOption.PURPLE);
-                }
-            }
-*/
+        
             if (photonEstimatorFront != null) {
                 // Correct pose estimate with vision measurements
+                try {
                 var visionEstFront = getEstimatedGlobalPoseFront();
                 visionEstFront.ifPresent(
                         est -> {
@@ -201,58 +248,58 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
                             //System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             if (useVision) {
-                                Pose2d currentPose = getCurrentPose();
-
-                                double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
-                                                                                currentPose.getY(), // y1
-                                                                                estPose.getX(), // x2
-                                                                                estPose.getY()); // y2
-
-                                // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-
-                                // conditional to check if the difference distance is within a radius of 1 from the actual distance
-                                if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
-                                    driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                } else {
-                                      field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
-                                }
+                                m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
                         });
+                    } catch (Exception e) {
+                   // e.printStackTrace();
+                }
             }
 
             if (photonEstimatorBack != null) {
                 // Correct pose estimate with vision measurements
-                var visionEstBack = getEstimatedGlobalPoseBack();
-                visionEstBack.ifPresent(
-                        est -> {
-                            var estPose = est.estimatedPose.toPose2d();
-                            // Change our trust in the measurement based on the tags we can see
-                            var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
+                try {
+                    var visionEstBack = getEstimatedGlobalPoseBack();
+                    visionEstBack.ifPresent(
+                            est -> {
+                                var estPose = est.estimatedPose.toPose2d();
+                                // Change our trust in the measurement based on the tags we can see
+                                var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
 
-                            //System.out.println("VisionBack(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-                            field2d.getObject("MyRobot" + cameraBack.getName()).setPose(estPose);
-                            SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
-                                estPose.getTranslation().getX(),
-                                estPose.getTranslation().getY(),
-                                estPose.getRotation().getDegrees()));
-                            if (useVision) {
-                                  Pose2d currentPose = getCurrentPose();
-
-                                double distanceDifference = getDistanceDifference(currentPose.getX(), // x1
-                                                                                currentPose.getY(), // y1
-                                                                                estPose.getX(), // x2
-                                                                                estPose.getY()); // y2
-
-                                // System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
-
-                                // conditional to check if the difference distance is within a radius of 1 from the actual distance
-                                if (distanceDifference < kMaxDistanceBetweenPoseEstimations && distanceDifference > -kMaxDistanceBetweenPoseEstimations) {
-                                    driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                // System.out.println("VisionBack(" + est.timestampSeconds + "): " +
+                                // est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString()
+                                // );
+                                field2d.getObject("MyRobot" + cameraBack.getName()).setPose(estPose);
+                                SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
+                                        estPose.getTranslation().getX(),
+                                        estPose.getTranslation().getY(),
+                                        estPose.getRotation().getDegrees()));
+                                if (useVision) {
+                                    m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(),
+                                            est.timestampSeconds, estStdDevs);
+                                    lastEstTimestampBack = Timer.getFPGATimestamp();
                                 } else {
-                                      field2d.getObject("TooFarAway" + cameraFront.getName()).setPose(estPose);
+                                    visionPose = est.estimatedPose.toPose2d();
                                 }
-                            }
-                        });
+                            });
+                } catch (Exception e) {
+                   // e.printStackTrace();
+                }
+
+            }
+
+            double curTime = Timer.getFPGATimestamp();
+            // if both cameras are stale set warning
+            if (((curTime - lastEstTimestampFront) > kTargetConfidenceDelta) && 
+                ((curTime - lastEstTimestampBack) > kTargetConfidenceDelta)) {
+                // System.out.println("false: " + targetConf);
+                confidence = false;
+                SmartDashboard.putBoolean("Target Conf", false);
+            } else {
+                // System.out.println("true: " + targetConf);
+                confidence = true;
+                SmartDashboard.putBoolean("Target Conf", true);
             }
 
             // // Apply a random offset to pose estimator to test vision correction
@@ -261,11 +308,11 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             // new Transform2d(
             // new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
             // new Rotation2d(rand.nextDouble() * 2 * Math.PI));
-            // driveSubsystem.resetPose(driveSubsystem.getPose().plus(trf), false);
+            // m_driveSubsystem.resetPose(m_driveSubsystem.getPose().plus(trf), false);
             // }
 
             // Log values to the dashboard
-            // driveSubsystem.log();
+            // m_driveSubsystem.log();
         }
 
         field2d.setRobotPose(getCurrentPose());
@@ -296,17 +343,17 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     // }
 
     // uses Pythagorean theorem to find the difference of two x and y coordinates
-    private double getDistanceDifference(double x1, double y1, double x2, double y2) {
+    // private double getDistanceDifference(double x1, double y1, double x2, double y2) {
 
-        // Pythagorean theorem
-        //--
-        //  d=√((x_2-x_1)²+(y_2-y_1)²)
-        //--
+    //     // Pythagorean theorem
+    //     //--
+    //     //  d=√((x_2-x_1)²+(y_2-y_1)²)
+    //     //--
 
-        return Math.sqrt(
-            Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
-        );
-    }
+    //     return Math.sqrt(
+    //         Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
+    //     );
+    // }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
 
@@ -325,19 +372,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
      */
     private Optional<EstimatedRobotPose> getEstimatedGlobalPoseFront() {
         var visionEst = photonEstimatorFront.update();
-        double latestTimestamp = cameraFront.getLatestResult().getTimestampSeconds();
-        boolean newResult = Math.abs(latestTimestamp - lastEstTimestamp) > 1e-5;
-        if (newResult)
-            lastEstTimestamp = latestTimestamp;
+        // double latestTimestamp = cameraFront.getLatestResult().getTimestampSeconds();
+        // boolean newResult = Math.abs(latestTimestamp - lastEstTimestampFront) > 1e-5;
+        // if (newResult)
+        //     lastEstTimestampFront = latestTimestamp;
         return visionEst;
     }
 
     private Optional<EstimatedRobotPose> getEstimatedGlobalPoseBack() {
         var visionEst = photonEstimatorBack.update();
-        double latestTimestamp = cameraBack.getLatestResult().getTimestampSeconds();
-        boolean newResult = Math.abs(latestTimestamp - lastEstTimestamp) > 1e-5;
-        if (newResult)
-            lastEstTimestamp = latestTimestamp;
+        // double latestTimestamp = cameraBack.getLatestResult().getTimestampSeconds();
+        // boolean newResult = Math.abs(latestTimestamp - lastEstTimestampBack) > 1e-5;
+        // if (newResult)
+        //     lastEstTimestampBack = latestTimestamp;
         return visionEst;
     }
 
@@ -365,54 +412,131 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
         
         if (numTags == 0) {
-            ledSubsystem.setColor(LedOption.WHITE);
             return estStdDevs;
         }
 
         avgDist /= numTags;
         // Decrease std devs if multiple targets are visible
-        if (numTags > 1)
-
-            ledSubsystem.setColor(LedOption.BLUE);
-            
+        if (numTags > 1) {
             estStdDevs = kMultiTagStdDevs;
+        }
+        
         // Increase std devs based on (average) distance
         if (numTags == 1 && avgDist > 4)
             estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
         else
             estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
-
+                
         return estStdDevs;
     }
 
     public Rotation2d getHeadingToSpeakerInRad() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
-        Pose2d robot = driveSubsystem.getState().Pose;
+        Pose2d robot = getAdjustedRobotPose();
         double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
         SmartDashboard.putNumber("HeadingToTarget", headingToTarget);
-        System.out.println("getting heading");
+      //  System.out.println("getting heading");
         return new Rotation2d(-headingToTarget);
-
     }
 
     public double getDistanceToSpeakerInMeters() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
-        Pose2d robot = driveSubsystem.getState().Pose;
+        Pose2d robot = getAdjustedRobotPose();
+        double distance = PhotonUtils.getDistanceToPose(target, robot);
+      //  SmartDashboard.putNumber("DistanceToTarget", distance);
+        return distance;
+    }
+
+    public double getStaticDistanceToSpeakerInMeters() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = m_driveSubsystem.getState().Pose;
         double distance = PhotonUtils.getDistanceToPose(target, robot);
         SmartDashboard.putNumber("DistanceToTarget", distance);
         return distance;
     }
+    public double getDistanceToTargetForAuto(){
+        double robotXSpeed = m_driveSubsystem.getXVelocity();
+        double robotYSpeed = m_driveSubsystem.getYVelocity();
+        double robotXAcceleration = -getAccelerationY();
+        double robotYAcceleration = getAccelerationX();
 
-    
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        
+        double visionDelay = 1;
+        Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
+       // Pose2d robot = m_driveSubsystem.getState().Pose;
+        Pose2d adjustedRobotPose = visionPose.plus(displacement);
 
- private boolean isRedAlliance(){
-	Optional<Alliance> alliance = DriverStation.getAlliance();
-	if(alliance != null){
-		return alliance.get() == DriverStation.Alliance.Red;
-	}
-	return false;
-  }
-  public void useVision(boolean useCameraVision) {
-    useVision = useCameraVision;
-  }
+        double distance = PhotonUtils.getDistanceToPose(target, adjustedRobotPose);
+      //  SmartDashboard.putNumber("DistanceToTarget", distance);
+        return distance;
+    }
+
+    public double getAccelerationX() {
+        return (mypigeon.getAccelerationX().getValueAsDouble())*9.81;
+    }
+    public double getAccelerationY() {
+        return (mypigeon.getAccelerationY().getValueAsDouble())*9.81;
+    }
+
+     public Pose2d getAdjustedRobotPose() {
+        double robotXSpeed = m_driveSubsystem.getXVelocity();
+        double robotYSpeed = m_driveSubsystem.getYVelocity();
+        double robotXAcceleration = -getAccelerationY();
+        double robotYAcceleration = getAccelerationX();
+        Pose2d robot = new Pose2d(m_driveSubsystem.getState().Pose.getX(), m_driveSubsystem.getState().Pose.getY(), m_driveSubsystem.getState().Pose.getRotation());
+       // return robot;
+         
+        double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)) * shootOnMoveFudgeFactor; //speed of shot in m/s
+
+        SmartDashboard.putNumber("ShootOnMove Fudge Factor: ", shootOnMoveFudgeFactor);
+       
+        Transform2d adjustment = new Transform2d(robotXSpeed*shotTime + 0.5*robotXAcceleration*shotTime*shotTime, robotYSpeed*shotTime +  0.5*robotYAcceleration*shotTime*shotTime, new Rotation2d());
+       
+        SmartDashboard.putNumber("x adjustment", robotXSpeed*shotTime + 0.5*robotXAcceleration*shotTime*shotTime);
+        SmartDashboard.putNumber("y adjustment", robotYSpeed*shotTime + 0.5*robotYAcceleration*shotTime*shotTime);
+
+        if (isRedAlliance()) {
+            robot.rotateBy(new Rotation2d(Math.toRadians(180)));
+        }
+
+        SmartDashboard.putNumber("RobotXSpeed", robotXSpeed);
+        SmartDashboard.putNumber("RobotYSpeed", robotYSpeed);
+        SmartDashboard.putNumber("RobotXAcceleration", robotXAcceleration);
+        SmartDashboard.putNumber("RobotYAcceleration", robotYAcceleration);
+
+
+        robot.rotateBy(m_driveSubsystem.getState().Pose.getRotation());
+
+        Pose2d adjustedRobotPose = robot.plus(adjustment);
+
+
+        field2d.getObject("MyRobotAdjusted").setPose(adjustedRobotPose);
+
+        return adjustedRobotPose;
+        
+
+    }
+
+    public void shootOnMoveFudgeDown() {
+        shootOnMoveFudgeFactor = shootOnMoveFudgeFactor - .1;
+        System.out.println("NEW ShootOnMove FUDGE FACTOR: " + shootOnMoveFudgeFactor);
+    }
+
+    public void shootOnMoveFudgeUp() {
+        shootOnMoveFudgeFactor = shootOnMoveFudgeFactor + .1;
+        System.out.println("NEW ShootOnMove FUDGE FACTOR: " + shootOnMoveFudgeFactor);
+    }
+
+    private boolean isRedAlliance(){
+	    Optional<Alliance> alliance = DriverStation.getAlliance();
+	    if(alliance != null){
+		    return alliance.get() == DriverStation.Alliance.Red;
+	    }
+	    return false;
+    }
+
+    public void useVision(boolean useCameraVision) {
+        useVision = useCameraVision;
+    }
 }
