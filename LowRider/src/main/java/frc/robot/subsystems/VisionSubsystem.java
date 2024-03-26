@@ -161,7 +161,12 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private String getFormattedPose() {
         if (enabled) {
             var pose = getCurrentPose();
-            return String.format("(%.2f, %.2f)", Units.metersToInches(pose.getX()), Units.metersToInches(pose.getY()));
+            if(pose == null){
+                return null;
+            }
+            else{
+                return String.format("(%.2f, %.2f)", Units.metersToInches(pose.getX()), Units.metersToInches(pose.getY()));
+            }
         } else {
             return null;
         }
