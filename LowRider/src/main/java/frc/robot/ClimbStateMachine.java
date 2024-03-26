@@ -6,8 +6,6 @@ import java.util.HashMap;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 enum CState {
@@ -53,7 +51,7 @@ public class ClimbStateMachine {
                     methods.put(name, method);
                 }
             } catch (NoSuchMethodException e) {
-                System.out.println("\n\n\n\n" + Timer.getFPGATimestamp() + " ERROR: method '" + name + "' NOT FOUND IN CLASS ClimbStateMachine!\n\n\n\n");
+                System.out.println(" ** " + Timer.getFPGATimestamp() + " ERROR: method '" + name + "()' NOT FOUND IN CLASS ClimbStateMachine! ** ");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -61,12 +59,12 @@ public class ClimbStateMachine {
     }
 
     public void setCurrentState(CState newState){
-        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " $$$$$$$$$$$$$$$   CLIMB STATE MACHINE ========> SETTING STATE: " + newState + " $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n\n");
+        System.out.println(" ** " + Timer.getFPGATimestamp() + " CSM STATE: " + newState + " ** ");
         currentState = newState;
     }
 
     public void setCurrentInput(CInput newInput){
-        System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   CLIMB STATE MACHINE ========> SETTING INPUT: " + newInput + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
+        System.out.println(" ** " + Timer.getFPGATimestamp() + " CSM: INPUT: " + newInput + " ** ");
         currentInput = newInput;
     }
 
@@ -103,7 +101,7 @@ public class ClimbStateMachine {
             Method method = methods.get(operation);
             if(method != null){
                 try {
-                    System.out.println("\n\n\n" + Timer.getFPGATimestamp() + " >>>>>>>>>>>>>>>   CLIMB STATE MACHINE ========> RUNNING: " + operation + " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n\n");
+                    System.out.println(" ** " + Timer.getFPGATimestamp() + " CSM RUNNING: " + operation + " ** ");
                     if((Boolean)method.invoke(this) && nextState != null){
                         setCurrentState(nextState);
                     }
@@ -112,7 +110,7 @@ public class ClimbStateMachine {
                 }
             }
             else{
-                System.err.println("\n\n" + Timer.getFPGATimestamp() + " FATAL: STATE MACHINE OPERATION NOT FOUND: " + operation + "() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
+                System.out.println(" ** " + Timer.getFPGATimestamp() + " FATAL: CSM OPERATION NOT FOUND: " + operation + "() ** ");
             }
         }
         setInput();

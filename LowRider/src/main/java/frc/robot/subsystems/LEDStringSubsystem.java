@@ -28,10 +28,8 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
   private AddressableLEDBuffer m_ledBuffer;
   private int length;
   private boolean blink;
-  private LedOption currentColor;
-  private LedOption holdColor;
   private double startBlink;
-  private boolean switched;
+  private LedOption currentColor;
   private boolean enabled;
 
   public LEDStringSubsystem(boolean enabled) {
@@ -63,23 +61,6 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // if (enabled) {
-    //   if (blink) {
-    //     double elapsed = (mTimer.get() - startBlink);
-    //     if (elapsed < OpConstants.kLedStringBlinkDelay) {
-    //       return;
-    //     }
-
-    //     if (switched) {
-    //       _setCurrentColor();
-    //     } else {
-    //       _setSingleColor(LedOption.BLACK);
-    //     }
-    //     switched = !switched;
-    //     startBlink = mTimer.get();
-    //   }
-    // }
   }
 
   public void init() {
@@ -155,18 +136,4 @@ public class LEDStringSubsystem extends SubsystemBase implements ToggleableSubsy
     m_led.setData(m_ledBuffer);
   }
 
-  /**
-   * Blue to Yellow Gradient for team colors
-   */
-  /*
-   * void setTeamColorGradient(){
-   * int r=160, g=160, b=0;
-   * for(int i = 0; i < m_ledBuffer.getLength(); i++){
-   * m_ledBuffer.setRGB(i, r, g, b);
-   * r-=160/m_ledBuffer.getLength();
-   * g-=160/m_ledBuffer.getLength();
-   * b+=160/m_ledBuffer.getLength();
-   * }
-   * }
-   */
 }

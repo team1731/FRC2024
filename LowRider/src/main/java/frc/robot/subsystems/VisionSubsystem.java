@@ -29,12 +29,9 @@ import static frc.robot.Constants.Vision.*;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
@@ -49,7 +46,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CommandSwerveDrivetrain;
-import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.util.log.Logger;
 
 import java.util.Optional;
@@ -59,7 +55,6 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -146,37 +141,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         this.m_driveSubsystem = driveSubsystem;
         mypigeon = m_driveSubsystem.getPigeon2();
         visionInitCount = 0;
-        // cameraFront = null;
-        // cameraBack = null;
-        // photonEstimatorFront = null;
-        // photonEstimatorBack = null;
-
-        // NetworkTableInstance inst = NetworkTableInstance.getDefault();
-        // // get the subtable called "photonvision"
-        // NetworkTable photonVisionTable = inst.getTable("photonvision/" + kCameraNameFront);
-        // if (photonVisionTable.containsKey("hasTarget")) {
-        //     cameraFront = new PhotonCamera(kCameraNameFront);
-        //     photonEstimatorFront = new PhotonPoseEstimator(
-        //         kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraFront, kRobotToCamFront);
-        //     photonEstimatorFront.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-        //     initialized = true;
-        //     System.out.println("VisionSubsystem: Adding camera " + kCameraNameFront + "!!!!!!! ");
-        // } 
-        
-        // photonVisionTable = inst.getTable("photonvision/" + kCameraNameBack);
-        // if (photonVisionTable.containsKey("hasTarget")) {
-        //     cameraBack = new PhotonCamera(kCameraNameBack);
-        //     photonEstimatorBack = new PhotonPoseEstimator(
-        //         kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraBack, kRobotToCamBack);
-        //     photonEstimatorBack.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-        //     initialized = true;
-        //     System.out.println("VisionSubsystem: Adding camera " + kCameraNameBack + "!!!!!!! ");
-        // }
-        
-        // if (!initialized) {
-        //     System.out.println("VisionSubsystem: Init FAILED: " + " Keys: " + photonVisionTable.getKeys().toString());
-        // }
-
         visionInitialization();
 
         // write initial values to dashboard
@@ -192,11 +156,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             }
             tab.add(field2d);
         }
-
-        // setup logger
-        // poseLogger = LogWriter.getLogger(Log.POSE_ESTIMATIONS,
-        // PoseEstimations.class);
-        // setCurrentPose(new Pose2d(1.88,5.01,new Rotation2d()));
     }
     
     private String getFormattedPose() {
@@ -228,13 +187,14 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         }
 
         getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
+
         if (enabled && initialized) {
         
             if (photonEstimatorFront != null) {
                 // Correct pose estimate with vision measurements
                 try {
-                var visionEstFront = getEstimatedGlobalPoseFront();
-                visionEstFront.ifPresent(
+                    var visionEstFront = getEstimatedGlobalPoseFront();
+                    visionEstFront.ifPresent(
                         est -> {
                             var estPose = est.estimatedPose.toPose2d();
                             // Change our trust in the measurement based on the tags we can see
@@ -244,16 +204,13 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getTranslation().getX(),
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
-
-
-                            //System.out.println("VisionFront(" + est.timestampSeconds + "): " + est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString() );
                             if (useVision) {
                                 m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
                         });
-                    } catch (Exception e) {
-                   // e.printStackTrace();
+                } catch (Exception e) {
+                   e.printStackTrace();
                 }
             }
 
@@ -266,10 +223,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 var estPose = est.estimatedPose.toPose2d();
                                 // Change our trust in the measurement based on the tags we can see
                                 var estStdDevs = getEstimationStdDevs(cameraBack, estPose, photonEstimatorBack);
-
-                                // System.out.println("VisionBack(" + est.timestampSeconds + "): " +
-                                // est.estimatedPose.toPose2d().getX() + "-" + estStdDevs.getData().toString()
-                                // );
                                 field2d.getObject("MyRobot" + cameraBack.getName()).setPose(estPose);
                                 SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
                                         estPose.getTranslation().getX(),
@@ -284,7 +237,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 }
                             });
                 } catch (Exception e) {
-                   // e.printStackTrace();
+                   e.printStackTrace();
                 }
 
             }
@@ -302,58 +255,10 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 SmartDashboard.putBoolean("Target Conf", true);
             }
 
-            // // Apply a random offset to pose estimator to test vision correction
-            // if (controller.getBButtonPressed()) {
-            // var trf =
-            // new Transform2d(
-            // new Translation2d(rand.nextDouble() * 4 - 2, rand.nextDouble() * 4 - 2),
-            // new Rotation2d(rand.nextDouble() * 2 * Math.PI));
-            // m_driveSubsystem.resetPose(m_driveSubsystem.getPose().plus(trf), false);
-            // }
-
-            // Log values to the dashboard
-            // m_driveSubsystem.log();
         }
 
         field2d.setRobotPose(getCurrentPose());
-        // Pose2d posenow = getCurrentPose();
-        // SmartDashboard.putNumber("CurrentPoseX", posenow.getX());
-        // SmartDashboard.putNumber("CurrentPoseY", posenow.getY());
-
-        // log pose estimations
-        // Pose2d currentPose = getCurrentPose();
-        // currentPose = getAutoPose(); // this is a hack - delete this line
-        // poseLogger.add(new PoseEstimations(currentPose.getX(), currentPose.getY(),
-        // currentPose.getRotation().getDegrees()));
-        // if (Timer.getFPGATimestamp() - lastLogTime > logInterval) {
-        //     // poseLogger.flush();
-        //     lastLogTime = Timer.getFPGATimestamp();
-        // }
     }
-
-    // public Pose2d getAutoPose() {
-    //     if (enabled) {
-    //         if (useVisionCorrection) {
-    //             return new Pose2d(); // getAdjustedPose();
-    //         }
-    //         return new Pose2d(); // poseEstimator.getEstimatedPosition();
-    //     } else {
-    //         return null;
-    //     }
-    // }
-
-    // uses Pythagorean theorem to find the difference of two x and y coordinates
-    // private double getDistanceDifference(double x1, double y1, double x2, double y2) {
-
-    //     // Pythagorean theorem
-    //     //--
-    //     //  d=√((x_2-x_1)²+(y_2-y_1)²)
-    //     //--
-
-    //     return Math.sqrt(
-    //         Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
-    //     );
-    // }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
 
@@ -464,11 +369,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         
         double visionDelay = 1;
         Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
-       // Pose2d robot = m_driveSubsystem.getState().Pose;
         Pose2d adjustedRobotPose = visionPose.plus(displacement);
 
         double distance = PhotonUtils.getDistanceToPose(target, adjustedRobotPose);
-      //  SmartDashboard.putNumber("DistanceToTarget", distance);
         return distance;
     }
 
@@ -485,7 +388,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         double robotXAcceleration = -getAccelerationY();
         double robotYAcceleration = getAccelerationX();
         Pose2d robot = new Pose2d(m_driveSubsystem.getState().Pose.getX(), m_driveSubsystem.getState().Pose.getY(), m_driveSubsystem.getState().Pose.getRotation());
-       // return robot;
          
         double shotTime = (getStaticDistanceToSpeakerInMeters() / (3.81 * 2 * Math.PI)) * shootOnMoveFudgeFactor; //speed of shot in m/s
 
@@ -505,17 +407,13 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         SmartDashboard.putNumber("RobotXAcceleration", robotXAcceleration);
         SmartDashboard.putNumber("RobotYAcceleration", robotYAcceleration);
 
-
         robot.rotateBy(m_driveSubsystem.getState().Pose.getRotation());
 
         Pose2d adjustedRobotPose = robot.plus(adjustment);
 
-
         field2d.getObject("MyRobotAdjusted").setPose(adjustedRobotPose);
 
         return adjustedRobotPose;
-        
-
     }
 
     public void shootOnMoveFudgeDown() {

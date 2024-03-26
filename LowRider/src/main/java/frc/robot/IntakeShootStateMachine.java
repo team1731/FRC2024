@@ -44,7 +44,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private double jiggleDownTimerStarted;
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
     private boolean robotStarted = false;
-
+    private boolean haveNote;
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
         m_intakeSubsystem = intakeSubsystem;
@@ -62,7 +62,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
                     methods.put(name, method);
                 }
             } catch (NoSuchMethodException e) {
-                System.out.println("\n\n\n\n" + Timer.getFPGATimestamp() + " ERROR: method '" + name + "' NOT FOUND IN CLASS IntakeShootStateMachine!\n\n\n\n");
+                System.out.println(" ** " + Timer.getFPGATimestamp() + " FATAL: method '" + name + "' NOT FOUND IN ISSM ** ");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -71,19 +71,18 @@ public class IntakeShootStateMachine extends SubsystemBase {
 
     public void setCurrentState(ISState newState){
         if (currentState != newState ) {
-        System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " $$$$$$$$$$$$$$$   INTAKE/SHOOT STATE MACHINE ========> SETTING STATE TO: " + newState + ", (WAS: CurrentState:" + currentState + ")\n");
+            System.out.println(" ** " + Timer.getFPGATimestamp() + " ISSM: " + periodicRunCounter + " : " + currentState + " (" + currentInput + ") --> " + newState + " ** ");
         }
         currentState = newState;
         if(currentState == ISState.ALL_STOP){
             setAllStop();
-
         }
     }
 
     public synchronized void setCurrentInput(ISInput newInput){
-        if (currentInput != newInput) {
-            System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> CURRENT STATE: " + currentState + ", SETTING INPUT TO: " + newInput + "\n");
-        }
+        // if (currentInput != newInput) {
+        //     System.out.println(" ** " + Timer.getFPGATimestamp() + " ISSM: " + periodicRunCounter + " INPUT: " + newInput + " ** ");
+        // }
         currentInput = newInput;
         run();
     }
@@ -103,83 +102,61 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.SPIN_UP_SHOOTER,         ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,             "startIntakeNoJiggle",        ISState.INTAKING_NO_JIGGLE},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,        "turnOnLED",                  ISState.READY_TO_SHOOT},
-        {ISState.INTAKING_NO_JIGGLE,      ISInput.STOP_INTAKE,                   "setAllStop",                  ISState.ALL_STOP},
-
-
+        {ISState.INTAKING_NO_JIGGLE,      ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
         {ISState.INTAKE_SHOOTER_WAIT,     ISInput.HAS_NOTE,                     "startIFRHasNote",            ISState.INTAKE_SHOOTER_HAS_NOTE}, 
         {ISState.INTAKE_SHOOTER_HAS_NOTE, ISInput.NOTE_SETTLED,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},      
         {ISState.INTAKING,                ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
         {ISState.INTAKING,                ISInput.FORWARD_LIMIT_REACHED,        "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
-       
         {ISState.SPIN_DOWN_SHOOTER,       ISInput.SHOOTER_READY_FOR_JIGGLE,     "startJiggleUp",              ISState.JIGGLING_UP},
-        
         {ISState.JIGGLING_UP,             ISInput.JIGGLE_UP_TIMER_EXPIRED,      "startJiggleDown",            ISState.JIGGLING_DOWN},
-        
         {ISState.JIGGLING_DOWN,           ISInput.JIGGLE_DOWN_NOTE_SETTLED,     "startSpinUpShooter",         ISState.SPIN_UP_SHOOTER},
-        
         {ISState.SPIN_UP_SHOOTER,         ISInput.SHOOTER_UP_TO_SPEED,          "doNothing",                  ISState.READY_TO_SHOOT},
-        {ISState.SPIN_UP_SHOOTER,          ISInput.STOP_SPEAKER,                 "setAllStop",                 ISState.ALL_STOP},  
+        {ISState.SPIN_UP_SHOOTER,         ISInput.STOP_SPEAKER,                 "setAllStop",                 ISState.ALL_STOP},  
         {ISState.READY_TO_SHOOT,          ISInput.START_SPEAKER,                "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.READY_TO_SHOOT,          ISInput.START_AMP,                    "startShootAmp",              ISState.SHOOTING_AT_AMP},
         {ISState.READY_TO_SHOOT,          ISInput.START_TRAP,                   "startShootTrap",             ISState.SHOOTING_AT_TRAP},
         {ISState.READY_TO_SHOOT,          ISInput.START_JIGGLE,                 "startSpinDownShooter",       ISState.SPIN_DOWN_SHOOTER},
         {ISState.READY_TO_SHOOT,          ISInput.START_EJECT,                  "startEject",                 ISState.EJECTING},
-
         {ISState.SHOOTING_AT_SPEAKER,     ISInput.STOP_SPEAKER,                 "setAllStop",                 ISState.ALL_STOP},
-       
         {ISState.SHOOTING_AT_AMP,         ISInput.STOP_AMP,                     "setAllStop",                 ISState.ALL_STOP},
-
         {ISState.SHOOTING_AT_TRAP,        ISInput.STOP_TRAP,                    "setAllStop",                 ISState.ALL_STOP},
-       
         {ISState.EJECTING,                ISInput.STOP_EJECT,                   "setAllStop",                 ISState.ALL_STOP},
-       
-        
     };
-    private boolean haveNote;
     
     private void setInputs() {
         if(currentState == ISState.INTAKING && m_intakeSubsystem.forwardLimitReached()){
             setCurrentInput(ISInput.FORWARD_LIMIT_REACHED);
         }
-        
         if(currentState == ISState.JIGGLING_UP && Timer.getFPGATimestamp() - jiggleUpTimerStarted > JIGGLE_UP_TIMER_SECONDS){
             setCurrentInput(ISInput.JIGGLE_UP_TIMER_EXPIRED);
         }
-        
         if(currentState == ISState.JIGGLING_DOWN && ((Timer.getFPGATimestamp() - jiggleDownTimerStarted > JIGGLE_DOWN_TIMER_SECONDS) || m_intakeSubsystem.noteSettled())){
            setCurrentInput(ISInput.JIGGLE_DOWN_NOTE_SETTLED);
         }
-
         if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 95)){
             setCurrentInput(ISInput.SHOOTER_UP_TO_SPEED);
         }
-
         if(currentState == ISState.SPIN_DOWN_SHOOTER && (m_shooterSubsystem.getShooterVelocity()  < -50/60)){
             setCurrentInput(ISInput.SHOOTER_READY_FOR_JIGGLE);
         }
-
         if(currentState == ISState.INTAKE_SHOOTER_WAIT && (m_intakeSubsystem.hasNote())){
             setCurrentInput(ISInput.HAS_NOTE);
         }
-
         if(currentState == ISState.INTAKE_SHOOTER_HAS_NOTE && (m_intakeSubsystem.noteSettled())){
             setCurrentInput(ISInput.NOTE_SETTLED);
         }
-
-
     }
 
     public void periodic() { 
-      
         periodicRunCounter = 0;
         double startTime = Timer.getFPGATimestamp();
         run();
         double elapsedMs = (int)((Timer.getFPGATimestamp() - startTime) * 1e3);
-        if(elapsedMs > 2){
-            System.out.println("\n\n\nWARNING: IntakeShootStateMachine ran for " + elapsedMs + " milliseconds!\n\n\n");
+        if(elapsedMs >= 10){
+            System.out.println(" ** ISSM ran for " + elapsedMs + " ms! ** ");
         }
         if(periodicRunCounter > 3){
-            System.out.println("\n\n\nWARNIGN: IntakeShootStateMachine run() method ran " + periodicRunCounter + " times!\n\n\n");
+            System.out.println(" ** ISSM run() method ran " + periodicRunCounter + " times! ** ");
         }
         if(Robot.doSD()){
             SmartDashboard.putBoolean("noteSettled", m_intakeSubsystem.noteSettled());
@@ -191,7 +168,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         } else {
             m_ledSubsystem.setColor(LedOption.BLACK);
         }
-    
     }
 
     public void setInitialState(ISState initialState){
@@ -333,20 +309,24 @@ public class IntakeShootStateMachine extends SubsystemBase {
             String operation = (String) operationAndNextState[0];
             ISState nextState = (ISState) operationAndNextState[1];
 
-            if (nextState == null) System.out.println ("NULLLLLLLL  OPERATION" + operation);
-            Method method = methods.get(operation);
-            if(method != null){
-                try {
-                    System.out.println("\n" + Timer.getFPGATimestamp() + " run: " + periodicRunCounter + " >>>>>>>>>>>>>>>   INTAKE/SHOOT STATE MACHINE ========> RUNNING: " + operation + " CurrentState:" + currentState + " NextState:" + nextState + "\n");
-                    if((Boolean)method.invoke(this) && nextState != null){
-                        setCurrentState(nextState);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            if (nextState == null){
+                System.out.println (" ** " + Timer.getFPGATimestamp() + " FATAL: ISSM nextState is NULL ** ");
             }
             else{
-                System.err.println("\n" + Timer.getFPGATimestamp() + " FATAL: INTAKE/SHOOT STATE MACHINE OPERATION NOT FOUND: " + operation + "() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+                Method method = methods.get(operation);
+                if(method != null){
+                    try {
+                        System.out.println(" ** " + Timer.getFPGATimestamp() + " ISSM: " + periodicRunCounter + " running: " + operation + " ** ");
+                        if((Boolean)method.invoke(this) && nextState != null){
+                            setCurrentState(nextState);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    System.err.println(" ** " + Timer.getFPGATimestamp() + " FATAL: ISSM METHOD FOR OPERATION: " + operation + "() HAS NOT BEEN IMPLEMENTED! ** ");
+                }
             }
         }
         setInputs();

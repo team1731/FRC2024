@@ -371,7 +371,7 @@ public class RobotContainer {
     else {
       System.out.println("ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName);
     }
-    System.out.println("About to get Auto Path: " + alliancePathName);
+    //System.out.println("About to get Auto Path: " + alliancePathName);
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
     System.out.println("\nAUTO CODE being used by the software --> " + alliancePathName + ", RED/BLUE flipping is " + (flipRedBlue ? "ON" : "OFF") + "\n");

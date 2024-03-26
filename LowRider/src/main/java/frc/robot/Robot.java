@@ -273,13 +273,6 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void disabledPeriodic() {
-	//s_armSubSystem.resetArmEncoders();
-	if (System.currentTimeMillis() % 5000 == 0) {
-		// SmartDashboard.putBoolean("LowSensor", m_sequencer.lowSensorHasBall());
-		// SmartDashboard.putBoolean("MidSensor", m_sequencer.midSensorHasBall());
-		// SmartDashboard.putBoolean("HighSensor", m_sequencer.highSensorHasBall());
-	}
-
 	String newCode = autoChooser.getSelected();
 	if(newCode == null) newCode = Constants.AutoConstants.kAutoDefault;
 	if(!newCode.equals(autoCode)) {
@@ -329,8 +322,6 @@ public class Robot extends TimedRobot {
 	}
 	else {
         	System.out.println("------------> RUNNING AUTONOMOUS COMMAND: " + m_autonomousCommand + " <----------");
-		//	m_robotContainer.zeroHeading();
-
 			m_autonomousCommand.schedule();
 		}
     	System.out.println("autonomousInit: End");
