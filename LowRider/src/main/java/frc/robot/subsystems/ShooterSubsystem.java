@@ -8,8 +8,9 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import frc.robot.Constants;
-import frc.robot.Constants.ShooterConstants;
+// import frc.robot.Constants.ShooterConstants;
 import frc.robot.Robot;
 
 public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsystem{
@@ -29,6 +30,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     public ShooterSubsystem(boolean enabled) {
         this.enabled = enabled;
         initializeShooterMotor();
+        SmartDashboard.putNumber("shooterDiff", 0);
     }
 
     private void initializeShooterMotor() {
@@ -46,6 +48,8 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
             configs.Voltage.PeakForwardVoltage = 12;
             configs.Voltage.PeakReverseVoltage = -12;
 
+            configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
             /* Retry config apply up to 5 times, report if failure */
             StatusCode status = StatusCode.StatusCodeNotInitialized;
             for (int i = 0; i < 5; ++i) {
@@ -61,6 +65,8 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
 
             /* Retry config apply up to 5 times, report if failure */
             status = StatusCode.StatusCodeNotInitialized;
+            configs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
             for (int i = 0; i < 5; ++i) {
                 status = m_fllr.getConfigurator().apply(configs);
                 if (status.isOK()) break;
@@ -74,11 +80,24 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
 
     public void shoot(){
         if (enabled){
-            if (Robot.doSD()) { 
-                System.out.println("ShooterSubsystem: m1speed, m2speed = " + ShooterConstants.kMotorSpeed1 + ", " + ShooterConstants.kMotorSpeed2); 
+            double speedDiff = 0;
+            double m1speed = 100;
+            double m2speed = 100;
+            double speedDiff2 = SmartDashboard.getNumber("shooterDiff", speedDiff);
+            if (speedDiff2 >= 0 && speedDiff2 <= 10) {
+                m1speed += speedDiff2;
+                m2speed -= speedDiff2;
             }
-            m_fx.setControl(m_voltageVelocity.withVelocity(6000.0/60));
-            m_fllr.setControl(m_voltageVelocity.withVelocity(6000.0/60));
+            
+            // isShooting = true;
+            // Kraken freespeed: 6000 (gearing 24/18), Falcon 500 freespeed 6380
+            m_fx.setControl(m_voltageVelocity.withVelocity(m1speed)); // 6000/60
+            m_fllr.setControl(m_voltageVelocity.withVelocity(m2speed));   // 6000/60
+            if (Robot.doSD()) { 
+                // System.out.println("ShooterSubsystem: m1speed, m2speed = " + m1speed + ", " + m2speed); 
+                SmartDashboard.putNumber("m1Speed", m1speed); 
+                SmartDashboard.putNumber("m2Speed", m2speed); 
+            }
 		}  
     }
 
@@ -113,7 +132,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     }
 
     public double getShooterVelocity() {
-        return m_fx.getVelocity().getValueAsDouble();
+        return (m_fx.getVelocity().getValueAsDouble() + m_fllr.getVelocity().getValueAsDouble())/2;
     }
 }
 

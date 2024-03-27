@@ -381,8 +381,8 @@ public final class Constants {
     }
 
     public static final class WristConstants {
-        public final static int wrist1CanId = 13;
-        public final static int wrist2CanId = 14;
+        public final static int wrist1CanId = 14;
+        public final static int wrist2CanId = 13;
         public final static InvertedValue wrist1Direction = InvertedValue.Clockwise_Positive; // or Clockwise_Positive
         public final static InvertedValue wrist2Direction = InvertedValue.CounterClockwise_Positive; // or Clockwise_Positive
         /*

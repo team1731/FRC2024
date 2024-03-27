@@ -133,7 +133,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         if(currentState == ISState.JIGGLING_DOWN && ((Timer.getFPGATimestamp() - jiggleDownTimerStarted > JIGGLE_DOWN_TIMER_SECONDS) || m_intakeSubsystem.noteSettled())){
            setCurrentInput(ISInput.JIGGLE_DOWN_NOTE_SETTLED);
         }
-        if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 95)){
+        if(currentState == ISState.SPIN_UP_SHOOTER && (m_shooterSubsystem.getShooterVelocity() > 85)){
             setCurrentInput(ISInput.SHOOTER_UP_TO_SPEED);
         }
         if(currentState == ISState.SPIN_DOWN_SHOOTER && (m_shooterSubsystem.getShooterVelocity()  < -50/60)){
