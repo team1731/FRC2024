@@ -72,6 +72,7 @@ public class RobotContainer {
   private final Trigger kRightBumper = xboxController.rightBumper();
   private final Trigger kLeftTrigger = xboxController.leftTrigger();
   private final Trigger kRightTrigger = xboxController.rightTrigger();
+  private final Trigger kPOVUp = xboxController.povUp();
 
   /* Operator Buttons */
 
@@ -221,6 +222,8 @@ public class RobotContainer {
  //     );
 
     ky.whileTrue(new DriveToSpeakerCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController));
+
+    kPOVUp.whileTrue(new DriveToTrapCommand(driveSubsystem,visionSubsystem));
 
     //
     //

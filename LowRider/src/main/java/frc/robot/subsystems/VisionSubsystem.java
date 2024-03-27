@@ -49,6 +49,7 @@ import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.util.log.Logger;
 
 import java.util.Optional;
+import java.util.function.ToDoubleFunction;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
@@ -76,6 +77,8 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private double lastEstTimestampFront;
     private double lastEstTimestampBack;
     private int visionInitCount;
+    private boolean runningTrapPath;
+
 
     // logging
     Logger poseLogger;
@@ -205,6 +208,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
                             field2d.getObject("MyRobot" + cameraFront.getName()).setPose(estPose);
+                           // SmartDashboard.put("vision standard deviation", estStdDevs));
                             SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
                                 estPose.getTranslation().getX(),
                                 estPose.getTranslation().getY(),
@@ -219,7 +223,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 }
             }
 
-            if (photonEstimatorBack != null) {
+            if ((photonEstimatorBack != null)&& !runningTrapPath) {
                 // Correct pose estimate with vision measurements
                 try {
                     var visionEstBack = getEstimatedGlobalPoseBack();
@@ -441,5 +445,17 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public void useVision(boolean useCameraVision) {
         useVision = useCameraVision;
+    }
+
+    public void stopDrivingToTrap() {
+        runningTrapPath = false;
+    }
+
+    public void drivingToTrap() {
+        runningTrapPath = true;
+    }
+
+    public boolean haveGoodVisionLock() {
+       return (Timer.getFPGATimestamp() - lastEstTimestampFront) < 0.2;
     }
 }
