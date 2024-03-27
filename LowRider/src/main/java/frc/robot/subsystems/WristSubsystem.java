@@ -121,7 +121,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
 
         // Apply the configs for Motor 1
         cfg.MotorOutput.Inverted = WristConstants.wrist2Direction;
-        
+       
         StatusCode status = StatusCode.StatusCodeNotInitialized;
         for(int i = 0; i < 5; ++i) {
             status = wristMotor1.getConfigurator().apply(cfg);
