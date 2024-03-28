@@ -214,9 +214,13 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
+                                if (runningTrapPath) {
+                                    estStdDevs = kMultiTagStdDevs;
+                                }
                                 m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
+                        
                         });
                 } catch (Exception e) {
                    e.printStackTrace();

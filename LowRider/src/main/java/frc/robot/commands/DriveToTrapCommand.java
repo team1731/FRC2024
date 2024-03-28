@@ -51,12 +51,12 @@ public class DriveToTrapCommand extends Command {
 
 	private PosePair[] STAGE_POSES = {
         //                                      WAYPOINT POSE                FINAL POSE
-		/* BLUE LEFT   */ new PosePair(new Pose( 3.84, 5.81,  -60), new Pose( 4.43, 4.85,  -60)),
-		/* BLUE RIGHT  */ new PosePair(new Pose( 4.12, 2.79,   60), new Pose( 4.40, 3.30,   60)),
-		/* BLUE CENTER */ new PosePair(new Pose( 6.48, 4.17,  180), new Pose( 5.38, 4.17,  180)),
-		/* RED LEFT    */ new PosePair(new Pose(12.65, 2.46,  120), new Pose(12.17, 3.33,  120)),
+		/* BLUE LEFT   */ new PosePair(new Pose( 4.20, 5.23,  -60), new Pose( 4.52, 4.69,  -60)),
+		/* BLUE RIGHT  */ new PosePair(new Pose( 4.24, 2.96,   60), new Pose( 4.49, 3.45,   60)),
+		/* BLUE CENTER */ new PosePair(new Pose( 6.21, 4.17,  180), new Pose( 5.56, 4.17,  180)),
+		/* RED LEFT    */ new PosePair(new Pose(12.37, 2.98,  120), new Pose(12.06, 3.49,  120)),
 		/* RED RIGHT   */ new PosePair(new Pose(12.3, 5.28, -120), new Pose(11.99, 4.75, -120)),
-		/* RED CENTER  */ new PosePair(new Pose( 9.59, 4.08,    0), new Pose(10.78, 4.08,    0))
+		/* RED CENTER  */ new PosePair(new Pose( 10.35, 4.08,    0), new Pose(10.97, 4.08,    0))
 	};
 
 
