@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.344886507954833,
-        "y": 4.020689495924446
+        "x": 8.681455645558877,
+        "y": 3.8623344509658613
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.986537973075946,
-        "y": 3.2837185674371354
+        "x": 7.095401954667954,
+        "y": 3.774220357027476
       },
       "isLocked": false,
       "linkedName": "PickupMiddleCenter"
     },
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 5.377177122869452,
+        "y": 4.082619685811823
       },
       "prevControl": {
-        "x": 5.033181702727042,
-        "y": 5.149467753480962
+        "x": 5.8471189572075035,
+        "y": 3.9210771802581177
+      },
+      "nextControl": {
+        "x": 4.426580729933094,
+        "y": 4.409387195883696
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.66,
+        "y": 5.095931766103247
+      },
+      "prevControl": {
+        "x": 4.394284116153202,
+        "y": 4.317590602980849
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": "Blue2_4shot"
     }
   ],
   "rotationTargets": [],
@@ -39,7 +55,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.0609116902643063,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,

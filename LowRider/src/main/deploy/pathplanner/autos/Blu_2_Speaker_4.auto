@@ -74,13 +74,43 @@
         {
           "type": "named",
           "data": {
+            "name": "SetWristB_2_3"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "FireNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Blu_2_p6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_2_p7"
           }
         }
       ]

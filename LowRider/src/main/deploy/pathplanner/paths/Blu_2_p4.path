@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 4.951292335500593,
+        "y": 6.212043622656119
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.548086914355647,
-        "y": 5.410672639527097
+        "x": 7.682829247590518,
+        "y": 5.9623870231640295
       },
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": "Blu2_2shoot"
     },
     {
       "anchor": {
-        "x": 8.344886507954833,
-        "y": 4.020689495924446
+        "x": 8.681455645558877,
+        "y": 3.8623344509658613
       },
       "prevControl": {
-        "x": 4.8652642759830975,
-        "y": 3.7874708476689682
+        "x": 7.578827915502639,
+        "y": 5.143176273667562
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -47.726310993906225,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 10.954062643398276,
     "velocity": 0
   },
   "useDefaultConstraints": true

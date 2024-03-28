@@ -3,48 +3,63 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
+        "x": 3.658952291070951,
+        "y": 5.095931766103247
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.285057842842958,
-        "y": 5.0655090401089895
+        "x": 4.349179360254965,
+        "y": 4.552561520149874
       },
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": "Blue2_4shot"
     },
     {
       "anchor": {
-        "x": 8.316900270164176,
-        "y": 2.378830212205879
+        "x": 5.289063028931068,
+        "y": 4.2001051443963355
       },
       "prevControl": {
-        "x": 6.143302468423118,
-        "y": 3.98337451220357
+        "x": 4.270586225176791,
+        "y": 4.844828992644455
+      },
+      "nextControl": {
+        "x": 6.8898024021450555,
+        "y": 3.1867930641049127
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.754884057174197,
+        "y": 2.0413098429059118
+      },
+      "prevControl": {
+        "x": 8.005914258697926,
+        "y": 2.1294239368442964
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue2_5intake"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
+          "commands": []
         }
       }
     }
@@ -57,7 +72,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.326825952120146,
+    "rotation": -9.748594241685336,
     "rotateFast": false
   },
   "reversed": false,

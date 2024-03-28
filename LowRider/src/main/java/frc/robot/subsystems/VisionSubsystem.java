@@ -221,6 +221,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
                         
+                            
                         });
                 } catch (Exception e) {
                    e.printStackTrace();

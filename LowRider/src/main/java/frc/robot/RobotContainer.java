@@ -152,6 +152,10 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristB_1_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,false, 3.61, 6.02)) ));
       NamedCommands.registerCommand("SetWristB_1_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.3,false, 3.61, 6.02)) ));
       NamedCommands.registerCommand("SetWristB_2_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,false,2.64, 5.57)) ));
+      NamedCommands.registerCommand("SetWristB_2_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,4.95, 6.21)) ));
+      NamedCommands.registerCommand("SetWristB_2_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,false,3.66,5.1 )) ));
+      NamedCommands.registerCommand("SetWristB_2_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,false,3.41, 2.56)) ));
+
       NamedCommands.registerCommand("SetWristB_3_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 2.65, 4.24)) ));
       NamedCommands.registerCommand("SetWristB_4_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.3,false,2.74, 6.94) )));
       NamedCommands.registerCommand("SetWristB_4_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.6,false, 3.64,6.49))));
