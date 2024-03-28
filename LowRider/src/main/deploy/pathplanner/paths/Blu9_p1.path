@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.300274782367746,
-        "y": 5.28007019650403
+        "x": 1.4322857736608299,
+        "y": 5.5879188121980565
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.892308766680184,
-        "y": 4.573452329571731
+        "x": 2.93421386842611,
+        "y": 6.502135913359532
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 11.992426166670514,
-        "y": 4.748331678481539
+        "x": 8.242270302722423,
+        "y": 7.453667998245088
       },
       "prevControl": {
-        "x": 12.119738772065444,
-        "y": 4.968843579469527
+        "x": 2.50509155563603,
+        "y": 6.128986076150767
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "A9_1"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -118.52311860631202,
+    "rotation": 14.65675111576041,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Blu_9_AmpRace",
   "previewStartingState": {
-    "rotation": -119.16761337957765,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

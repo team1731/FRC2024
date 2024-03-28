@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.456831459117463,
-        "y": 5.69986376336389
+        "x": 2.9342138684277366,
+        "y": 4.160620684877734
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.328804173952467,
-        "y": 6.194771257651151
+        "x": 2.337174128893712,
+        "y": 4.328538111621678
       },
       "isLocked": false,
-      "linkedName": "A2_2"
+      "linkedName": "A1B_1"
     },
     {
       "anchor": {
-        "x": 4.743990578890249,
-        "y": 6.156972313944628
+        "x": 1.5908744544761815,
+        "y": 5.569261320340823
       },
       "prevControl": {
-        "x": 6.241930175842787,
-        "y": 6.362571866467524
+        "x": 1.5053022956397135,
+        "y": 5.245988720291944
+      },
+      "nextControl": {
+        "x": 1.6748331678481534,
+        "y": 5.886438681968274
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.9342138684277366,
+        "y": 5.438658877317755
+      },
+      "prevControl": {
+        "x": 2.5890502690096286,
+        "y": 5.447987623247974
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2_3"
+      "linkedName": "A1B_2"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "sequential",
         "data": {
@@ -43,22 +59,17 @@
               "data": {
                 "name": "FireNote"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.3
+              }
+            },
             {
               "type": "named",
               "data": {
-                "name": "SetWristB_2_2"
+                "name": "IntakeNoJiggle"
               }
             }
           ]
@@ -74,13 +85,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 11.170854741664423,
+    "rotation": 2.245742565895021,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_1B_Speaker_6",
   "previewStartingState": {
-    "rotation": -17.744671625056945,
+    "rotation": -28.523118606311943,
     "velocity": 0
   },
   "useDefaultConstraints": true

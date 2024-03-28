@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.951292335500593,
-        "y": 6.212043622656119
+        "x": 4.743990578890249,
+        "y": 6.156972313944628
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.682829247590518,
-        "y": 5.9623870231640295
+        "x": 7.456586298438492,
+        "y": 6.512365826162779
       },
       "isLocked": false,
-      "linkedName": "Blu2_2shoot"
+      "linkedName": "A2_3"
     },
     {
       "anchor": {
-        "x": 8.681455645558877,
-        "y": 3.8623344509658613
+        "x": 8.466160205047682,
+        "y": 3.992703258133789
       },
       "prevControl": {
-        "x": 7.578827915502639,
-        "y": 5.143176273667562
+        "x": 8.054961100001885,
+        "y": 4.486893156580264
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickupMiddleCenter"
+      "linkedName": "A2_4"
     }
   ],
   "rotationTargets": [],
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -47.726310993906225,
+    "rotation": -66.29735404903376,
     "rotateFast": false
   },
   "reversed": false,

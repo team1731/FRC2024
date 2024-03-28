@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 12.897512424596485,
+        "y": 6.017041124991342
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.1731128916803275,
-        "y": 6.688710831967119
+        "x": 12.179198987969611,
+        "y": 6.2129447895259435
       },
       "isLocked": false,
-      "linkedName": "A2_1"
+      "linkedName": "Red_A1B_5"
     },
     {
       "anchor": {
-        "x": 8.456831459117463,
-        "y": 5.69986376336389
+        "x": 7.971934573440782,
+        "y": 7.435010506384649
       },
       "prevControl": {
-        "x": 6.33920613295772,
-        "y": 6.427505945920983
+        "x": 8.830179199020943,
+        "y": 7.229778095919828
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2_2"
+      "linkedName": "Red_A1B_6"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -30.93282660745967,
+    "rotation": 165.69972255081453,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Red_1B_Speaker_6",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

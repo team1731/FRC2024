@@ -3,32 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.754884057174197,
-        "y": 2.0413098429059118
+        "x": 8.69937885330316,
+        "y": 2.201584039531716
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.326584633328643,
-        "y": 1.4033337638963463
+        "x": 7.2710794294576075,
+        "y": 1.5636079605221507
       },
       "isLocked": false,
-      "linkedName": "Blue2_5intake"
-    },
-    {
-      "anchor": {
-        "x": 5.553405310746221,
-        "y": 1.4979395969525402
-      },
-      "prevControl": {
-        "x": 6.550847850781418,
-        "y": 1.2891725536893606
-      },
-      "nextControl": {
-        "x": 4.9219209708544644,
-        "y": 1.6301107378601165
-      },
-      "isLocked": false,
-      "linkedName": null
+      "linkedName": "A2_6"
     },
     {
       "anchor": {
@@ -49,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -66,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.75,
+      "waypointRelativePos": 0.9,
       "command": {
         "type": "sequential",
         "data": {
@@ -96,7 +80,7 @@
   "reversed": false,
   "folder": "Blu_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -28.07248693585295,
     "velocity": 0
   },
   "useDefaultConstraints": true

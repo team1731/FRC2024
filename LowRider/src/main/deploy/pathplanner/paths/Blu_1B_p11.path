@@ -3,37 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.413628281802018,
-        "y": 5.569261320340823
+        "x": 2.9342138684277366,
+        "y": 5.438658877317755
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6655044219179347,
-        "y": 5.569261320340823
+        "x": 2.4957628097074376,
+        "y": 5.541275082550165
+      },
+      "isLocked": false,
+      "linkedName": "A1B_2"
+    },
+    {
+      "anchor": {
+        "x": 1.693490659708592,
+        "y": 6.017041124991342
+      },
+      "prevControl": {
+        "x": 1.6411881138542985,
+        "y": 5.6359797194814885
+      },
+      "nextControl": {
+        "x": 1.7587918812201262,
+        "y": 6.4928071674325185
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 2.9342138684277366,
+        "y": 6.837970766850624
       },
       "prevControl": {
-        "x": 2.7523810407555516,
-        "y": 5.578590066271043
+        "x": 2.551735285288752,
+        "y": 6.707368323827557
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2_1"
+      "linkedName": "A1B_3"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.45,
+      "rotationDegrees": 37.550078464939965,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
+      "name": "Fire",
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "sequential",
         "data": {
@@ -47,7 +69,7 @@
             {
               "type": "wait",
               "data": {
-                "waitTime": 0.25
+                "waitTime": 0.2
               }
             },
             {
@@ -69,11 +91,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.2453642667682019,
+    "rotation": 24.537728476577815,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_1B_Speaker_6",
   "previewStartingState": {
     "rotation": 0.0,
     "velocity": 0

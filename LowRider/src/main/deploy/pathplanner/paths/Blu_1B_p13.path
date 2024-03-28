@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.635693998660724,
-        "y": 5.569261320340823
+        "x": 8.49414644283834,
+        "y": 5.653220033712795
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.1731128916803275,
-        "y": 6.688710831967119
+        "x": 7.393354423072483,
+        "y": 6.2222735354561625
       },
       "isLocked": false,
-      "linkedName": "A2_1"
+      "linkedName": "A1B_4"
     },
     {
       "anchor": {
-        "x": 8.456831459117463,
-        "y": 5.69986376336389
+        "x": 3.605883575403514,
+        "y": 6.017041124991342
       },
       "prevControl": {
-        "x": 6.33920613295772,
-        "y": 6.427505945920983
+        "x": 4.743990578890249,
+        "y": 6.3155609947583535
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2_2"
+      "linkedName": "A1B_5"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,24 @@
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "SetWristB_1B_2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
               }
             }
           ]
@@ -57,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -30.93282660745967,
+    "rotation": 9.950626687951482,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_1B_Speaker_6",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -14.74356283647065,
     "velocity": 0
   },
   "useDefaultConstraints": true

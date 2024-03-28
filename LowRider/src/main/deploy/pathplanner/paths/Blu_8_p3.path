@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.466160205047682,
-        "y": 3.992703258133789
+        "x": 3.65252730505461,
+        "y": 2.985198697670123
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.8801065141567594,
-        "y": 3.904589164195404
+        "x": 5.089154178308356,
+        "y": 1.5392430784861575
       },
       "isLocked": false,
-      "linkedName": "A2_4"
+      "linkedName": "A8_2"
     },
     {
       "anchor": {
-        "x": 3.811115985868335,
-        "y": 5.224097720922716
+        "x": 8.298242778303738,
+        "y": 2.453460179647632
       },
       "prevControl": {
-        "x": 5.12832521301406,
-        "y": 3.962280532139533
+        "x": 5.751495139353914,
+        "y": 1.3806543976724324
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A2_5"
+      "linkedName": "A8_3"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 25.55996517182388,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_2_Speaker_4",
+  "folder": "Blu_8_SourceWall",
   "previewStartingState": {
-    "rotation": -36.634113875967465,
+    "rotation": -30.191622960957684,
     "velocity": 0
   },
   "useDefaultConstraints": true

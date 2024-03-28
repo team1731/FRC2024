@@ -3,67 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.658952291070951,
-        "y": 5.095931766103247
+        "x": 3.811115985868335,
+        "y": 5.224097720922716
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.349179360254965,
-        "y": 4.552561520149874
+        "x": 4.529429422495208,
+        "y": 4.720345440690882
       },
       "isLocked": false,
-      "linkedName": "Blue2_4shot"
+      "linkedName": "A2_5"
     },
     {
       "anchor": {
-        "x": 5.289063028931068,
-        "y": 4.2001051443963355
+        "x": 8.69937885330316,
+        "y": 2.201584039531716
       },
       "prevControl": {
-        "x": 4.270586225176791,
-        "y": 4.844828992644455
-      },
-      "nextControl": {
-        "x": 6.8898024021450555,
-        "y": 3.1867930641049127
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 8.754884057174197,
-        "y": 2.0413098429059118
-      },
-      "prevControl": {
-        "x": 8.005914258697926,
-        "y": 2.1294239368442964
+        "x": 7.813147989932344,
+        "y": 2.7146650656937683
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue2_5intake"
+      "linkedName": "A2_6"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": []
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -72,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -9.748594241685336,
+    "rotation": -24.803412910137848,
     "rotateFast": false
   },
   "reversed": false,
