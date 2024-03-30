@@ -22,6 +22,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
     private final NeutralOut m_brake = new NeutralOut();
     private boolean enabled;
 
+
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -89,6 +90,7 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
                 m2speed -= speedDiff2;
             }
             
+            
             // isShooting = true;
             // Kraken freespeed: 6000 (gearing 24/18), Falcon 500 freespeed 6380
             m_fx.setControl(m_voltageVelocity.withVelocity(m1speed)); // 6000/60
@@ -133,6 +135,13 @@ public class ShooterSubsystem extends SubsystemBase implements ToggleableSubsyst
 
     public double getShooterVelocity() {
         return (m_fx.getVelocity().getValueAsDouble() + m_fllr.getVelocity().getValueAsDouble())/2;
+    }
+
+    public void lobShot(double LOBSPEED) {
+        //    double Lobspeed2 = 20;
+        //     Lobspeed = SmartDashboard.getNumber("Lobspeed", Lobspeed2);
+           m_fx.setControl(m_voltageVelocity.withVelocity(LOBSPEED));
+           m_fllr.setControl(m_voltageVelocity.withVelocity(LOBSPEED));
     }
 }
 
