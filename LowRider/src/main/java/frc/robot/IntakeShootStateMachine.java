@@ -126,6 +126,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.SHOOTING_AT_TRAP,        ISInput.STOP_TRAP,                    "setAllStop",                 ISState.ALL_STOP},
         {ISState.EJECTING,                ISInput.STOP_EJECT,                   "setAllStop",                 ISState.ALL_STOP},
 
+        {ISState.SPIN_UP_SHOOTER,          ISInput.START_LOBSHOT,               "getReadyForLobShot",         ISState.SPIN_SHOOTER_TO_LOB},
         {ISState.READY_TO_SHOOT,           ISInput.START_LOBSHOT,               "getReadyForLobShot",         ISState.SPIN_SHOOTER_TO_LOB},
         {ISState.SPIN_SHOOTER_TO_LOB,      ISInput.SHOOTER_AT_LOB_SPEED,        "doNothing",                  ISState.READY_TO_LOB},
         {ISState.READY_TO_LOB,             ISInput.START_SPEAKER,               "startLobShot",               ISState.LOBBING},

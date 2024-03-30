@@ -319,7 +319,7 @@ public class RobotContainer {
   //  operatorky.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT))
   //    .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
 
-    operatorky.whileTrue(new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.START_LOBSHOT), 
+    operatorky.whileTrue(new SequentialCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT), 
                                                     new InstantCommand(() ->  wristSubsystem.moveWrist(7))))
               .onFalse(new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT), 
                                                     new InstantCommand(() ->  wristSubsystem.moveWrist(0))));
