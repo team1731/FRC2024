@@ -552,13 +552,13 @@ public final class Constants {
     public static class Vision {
         public static final double kTargetConfidenceDelta = 2.0;
 
-        public static final String kCameraNameFront = "ArducamUSB3";
+        public static final String kCameraNameFront = "Global_Shutter_Camera";
         public static final String kCameraNameBack = "ArducamUSB1";
         public static final double kMaxDistanceBetweenPoseEstimations = 1.0;
 
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
         public static final Transform3d kRobotToCamFront =
-                new Transform3d(new Translation3d(-.135, -0.29, -0.26), new Rotation3d(0, -Units.degreesToRadians(54), Units.degreesToRadians(0)));
+                new Transform3d(new Translation3d(.135, 0.29, 0.26), new Rotation3d(0, -Units.degreesToRadians(54), Units.degreesToRadians(0)));
         public static final Transform3d kRobotToCamBack =
                 new Transform3d(new Translation3d(-0.336555, 0, 0.4572), new Rotation3d(0, -Units.degreesToRadians(30.5), Units.degreesToRadians(180)));
 
@@ -570,6 +570,7 @@ public final class Constants {
         // (Fake values. Experiment and determine estimation noise on an actual robot.)
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        public static final Matrix<N3, N1> kTrapStdDevs = VecBuilder.fill(0.1, 0.1, 0.001);
     }
 
     public static final class OpConstants{

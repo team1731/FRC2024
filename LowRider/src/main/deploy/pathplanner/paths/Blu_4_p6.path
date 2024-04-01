@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.904611263767983,
-        "y": 3.7688133558085304
+        "x": 3.7178285265661435,
+        "y": 5.867781190107834
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.930565497494631,
-        "y": 3.7594846098783115
+        "x": 7.010875839933497,
+        "y": 6.977901955803912
       },
       "isLocked": false,
-      "linkedName": "A7_note6"
+      "linkedName": "Blu4_longshot"
     },
     {
       "anchor": {
-        "x": 3.624541067263953,
-        "y": 2.472117671508071
+        "x": 8.540790172489436,
+        "y": 3.423649756390422
       },
       "prevControl": {
-        "x": 4.613388135867181,
-        "y": 3.526265961622833
+        "x": 7.757175514351029,
+        "y": 6.184958551735292
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A7_shoot1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristB_7_3"
+                "name": "Intake"
               }
             }
           ]
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -39.80557109226519,
+    "rotation": -69.27444113443939,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_7_Stage_4B",
+  "folder": "Blu_4_Amp_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 10.885527054658807,
     "velocity": 0
   },
   "useDefaultConstraints": true

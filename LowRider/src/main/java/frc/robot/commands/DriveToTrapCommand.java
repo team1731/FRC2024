@@ -51,12 +51,12 @@ public class DriveToTrapCommand extends Command {
 
 	private PosePair[] STAGE_POSES = {
         //                                      WAYPOINT POSE                FINAL POSE
-		/* BLUE LEFT   */ new PosePair(new Pose( 4.20, 5.23,  -60), new Pose( 4.52, 4.69,  -60)),
-		/* BLUE RIGHT  */ new PosePair(new Pose( 4.24, 2.96,   60), new Pose( 4.49, 3.45,   60)),
-		/* BLUE CENTER */ new PosePair(new Pose( 6.21, 4.17,  180), new Pose( 5.56, 4.17,  180)),
-		/* RED LEFT    */ new PosePair(new Pose(12.37, 2.98,  120), new Pose(12.06, 3.49,  120)),
-		/* RED RIGHT   */ new PosePair(new Pose(12.3, 5.28, -120), new Pose(11.99, 4.75, -120)),
-		/* RED CENTER  */ new PosePair(new Pose( 10.35, 4.08,    0), new Pose(10.97, 4.08,    0))
+		/* BLUE LEFT   */ new PosePair(new Pose( 4.20, 5.28,  -60), new Pose( 4.46, 4.82,  -60)),
+		/* BLUE RIGHT  */ new PosePair(new Pose( 4.24, 2.96,   60), new Pose( 4.44, 3.38,   60)),
+		/* BLUE CENTER */ new PosePair(new Pose( 6.28, 4.13,  180), new Pose( 5.72, 4.13,  180)),
+		/* RED LEFT    */ new PosePair(new Pose(12.37, 2.94,  120), new Pose(12.13, 3.39,  120)),
+		/* RED RIGHT   */ new PosePair(new Pose(12.37, 5.31, -120), new Pose(12.13, 4.84, -120)),
+		/* RED CENTER  */ new PosePair(new Pose( 10.31, 4.10,   0), new Pose(10.84, 4.10,    0))
 	};
 
 
@@ -100,7 +100,7 @@ public class DriveToTrapCommand extends Command {
       PathPlannerPath path = new PathPlannerPath(
         bezierPoints, 
         new PathConstraints(
-          3.0, 3.0, 
+          2.0, 2.0, 
           Units.degreesToRadians(360), Units.degreesToRadians(540)
         ),  
         new GoalEndState(0.0, finalPose.getRotation())

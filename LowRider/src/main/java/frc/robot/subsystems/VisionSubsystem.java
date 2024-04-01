@@ -78,6 +78,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private double lastEstTimestampBack;
     private int visionInitCount;
     private boolean runningTrapPath;
+    private int consecutiveGoodImages = 0;
 
 
     // logging
@@ -215,8 +216,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
                                 if (runningTrapPath) {
-                                    estStdDevs = kMultiTagStdDevs;
+                                    estStdDevs = kTrapStdDevs;
                                 }
+                                estStdDevs = kTrapStdDevs;
                                 m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }

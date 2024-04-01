@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.118964601565566,
-        "y": 2.7892950331355215
+        "x": 10.313251899231071,
+        "y": 4.1046482092964185
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.753679339691368,
-        "y": 3.8886532078821947
+        "x": 11.113524594414303,
+        "y": 4.06328254782613
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.39882697947214,
-        "y": 3.3023760592975733
+        "x": 10.835661671323344,
+        "y": 4.1046482092964185
       },
       "prevControl": {
-        "x": 3.775107696305546,
-        "y": 2.222062571192592
+        "x": 10.997204176877048,
+        "y": 3.8256202451582
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 61.92751306414707,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "DriveToTrap",
   "previewStartingState": {
-    "rotation": 57.771242564901414,
+    "rotation": -1.6263480896630236,
     "velocity": 0
   },
   "useDefaultConstraints": true
