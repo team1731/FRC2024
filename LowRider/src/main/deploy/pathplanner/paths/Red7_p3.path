@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.05610110541021,
-        "y": 3.0131849354607807
+        "x": 12.878854932736045,
+        "y": 2.472117671508071
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.815377896691064,
-        "y": 1.539243078486158
+        "x": 10.761229606576304,
+        "y": 1.287366938370241
       },
       "isLocked": false,
       "linkedName": "Red_A7_shoot1"
     },
     {
       "anchor": {
-        "x": 8.074550778673194,
-        "y": 2.248227769182812
+        "x": 8.037235794952316,
+        "y": 2.3042002447641265
       },
       "prevControl": {
-        "x": 10.667942147274115,
-        "y": 1.7444754889509784
+        "x": 10.192176104832935,
+        "y": 1.6418592837185675
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,7 +29,19 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
@@ -57,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 168.2748879848349,
+    "rotation": 157.98871680208077,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 215.94211187138237,
+    "rotation": 214.28687697720892,
     "velocity": 0
   },
   "useDefaultConstraints": true

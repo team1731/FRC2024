@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.999920811231441,
-        "y": 0.6250259773246829
+        "x": 8.30776942692867,
+        "y": 0.4104648209296428
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.791040029833514,
-        "y": 1.315353176160898
+        "x": 10.220162342623594,
+        "y": 0.867573371510379
       },
       "isLocked": false,
-      "linkedName": "Red_A7_note8"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.05610110541021,
-        "y": 3.0131849354607807
+        "x": 12.878854932736045,
+        "y": 2.472117671508071
       },
       "prevControl": {
-        "x": 12.011281561225665,
-        "y": 2.2762140069734693
+        "x": 11.880679118202607,
+        "y": 1.4832706029048421
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,7 +29,19 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
@@ -57,7 +69,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 220.23635830927384,
+    "rotation": 219.5226312711711,
     "rotateFast": false
   },
   "reversed": false,
