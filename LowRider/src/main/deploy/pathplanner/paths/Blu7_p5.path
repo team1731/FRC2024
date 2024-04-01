@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.2793774678458445,
-        "y": 3.0878149029025335
+        "x": 3.4472948945897888,
+        "y": 3.0131849354607807
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.2664003509825195,
-        "y": 2.5560763848800434
+        "x": 4.39882697947214,
+        "y": 3.5635809453437095
       },
       "isLocked": false,
       "linkedName": "A7_shoot1"
@@ -20,8 +20,8 @@
         "y": 4.151291938947515
       },
       "prevControl": {
-        "x": 3.4379661486595703,
-        "y": 4.41249682499365
+        "x": 5.0611679405176995,
+        "y": 4.449811808714527
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,

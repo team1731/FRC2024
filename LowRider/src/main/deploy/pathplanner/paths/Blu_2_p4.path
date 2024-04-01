@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.743990578890249,
-        "y": 6.156972313944628
+        "x": 3.8297734777287737,
+        "y": 5.4666451151084114
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.456586298438492,
-        "y": 6.512365826162779
+        "x": 4.706675595169372,
+        "y": 3.395663518599765
       },
       "isLocked": false,
       "linkedName": "A2_3"
     },
     {
       "anchor": {
-        "x": 8.466160205047682,
-        "y": 3.992703258133789
+        "x": 8.568776410280094,
+        "y": 3.7874708476689682
       },
       "prevControl": {
-        "x": 8.054961100001885,
-        "y": 4.486893156580264
+        "x": 6.78698593760824,
+        "y": 3.871429561040941
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -57,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -66.29735404903376,
+    "rotation": 2.4895529219991532,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 10.954062643398276,
+    "rotation": -1.123302714075191,
     "velocity": 0
   },
   "useDefaultConstraints": true

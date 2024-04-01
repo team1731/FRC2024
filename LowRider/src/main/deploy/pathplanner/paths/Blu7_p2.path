@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.512803934698777,
-        "y": 0.44777980465051886
+        "x": 8.503475188768558,
+        "y": 0.6250259773246829
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.693698478306046,
-        "y": 1.0168333063938857
+        "x": 6.712355970166485,
+        "y": 1.315353176160898
       },
       "isLocked": false,
       "linkedName": "A7_note8"
     },
     {
       "anchor": {
-        "x": 3.2793774678458445,
-        "y": 3.0878149029025335
+        "x": 3.4472948945897888,
+        "y": 3.0131849354607807
       },
       "prevControl": {
-        "x": 4.230909552728189,
-        "y": 2.3415152284850027
+        "x": 4.492114438774332,
+        "y": 2.2762140069734693
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,23 +47,6 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -80,7 +63,7 @@
   "reversed": false,
   "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": -12.380756928807138,
+    "rotation": -18.06047193619925,
     "velocity": 0
   },
   "useDefaultConstraints": true

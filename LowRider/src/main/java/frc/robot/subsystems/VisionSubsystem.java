@@ -381,9 +381,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         
-        double visionDelay = 1;
-        Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
-        Pose2d adjustedRobotPose = visionPose.plus(displacement);
+        // double visionDelay = 0.5;
+        // Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
+        Pose2d adjustedRobotPose = visionPose;
 
         double distance = PhotonUtils.getDistanceToPose(target, adjustedRobotPose);
         return distance;

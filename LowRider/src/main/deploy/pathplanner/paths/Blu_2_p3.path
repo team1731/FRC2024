@@ -8,27 +8,33 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.328804173952467,
-        "y": 6.194771257651151
+        "x": 6.105987484702242,
+        "y": 6.586094626734709
       },
       "isLocked": false,
       "linkedName": "A2_2"
     },
     {
       "anchor": {
-        "x": 4.743990578890249,
-        "y": 6.156972313944628
+        "x": 3.83,
+        "y": 5.47
       },
       "prevControl": {
-        "x": 6.241930175842787,
-        "y": 6.362571866467524
+        "x": 5.779707899415799,
+        "y": 6.589449511626297
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "A2_3"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.15,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -37,20 +43,13 @@
       "command": {
         "type": "sequential",
         "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
-              }
-            }
-          ]
+          "commands": []
         }
       }
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -74,7 +73,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 11.170854741664423,
+    "rotation": -0.42948438181358517,
     "rotateFast": false
   },
   "reversed": false,

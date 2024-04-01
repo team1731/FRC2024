@@ -48,7 +48,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
     private boolean robotStarted = false;
     private boolean haveNote;
-    private double LOBSPEED = 40;
+    private double LOBSPEED = 50;
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
         m_intakeSubsystem = intakeSubsystem;

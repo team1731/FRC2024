@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.2029233149375385,
-        "y": 4.9628928348765795
+        "x": 4.492114438774332,
+        "y": 4.543099268016718
       },
       "isLocked": false,
       "linkedName": "A7_note6"
     },
     {
       "anchor": {
-        "x": 3.2793774678458445,
-        "y": 3.0878149029025335
+        "x": 3.4472948945897888,
+        "y": 3.0131849354607807
       },
       "prevControl": {
-        "x": 5.844782598656103,
-        "y": 3.311704805227793
+        "x": 4.286882028309508,
+        "y": 3.610224674994805
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,23 +42,6 @@
               "type": "named",
               "data": {
                 "name": "SetWristB_7_3"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
               }
             }
           ]
