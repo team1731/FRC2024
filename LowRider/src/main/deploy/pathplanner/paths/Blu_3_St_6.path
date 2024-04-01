@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.60609139400097,
-        "y": 0.9048883552312565
+        "x": 8.615420139931189,
+        "y": 0.8022721499988458
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.273904911446185,
-        "y": 1.0354907982543247
+        "x": 6.283233657376405,
+        "y": 1.4646131110444047
       },
       "isLocked": false,
       "linkedName": "A4_Note8"
     },
     {
       "anchor": {
-        "x": 1.720442224426489,
-        "y": 4.772846754995836
+        "x": 3.512596116101323,
+        "y": 2.994527443600342
       },
       "prevControl": {
-        "x": 2.457413152913797,
-        "y": 3.028371266044858
+        "x": 5.098482924238575,
+        "y": 1.9310504075553612
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,25 @@
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_3_3"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,

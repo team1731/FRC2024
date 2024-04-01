@@ -163,6 +163,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristB_2_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,6.26, 1.38)) ));
 
       NamedCommands.registerCommand("SetWristB_3_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 2.65, 4.24)) ));
+      NamedCommands.registerCommand("SetWristB_3_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 3.51, 2.99)) ));
+      NamedCommands.registerCommand("SetWristB_3_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 3.51, 2.99)) ));
      
       NamedCommands.registerCommand("SetWristB_4_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.3,false,2.74, 6.94) )));
       NamedCommands.registerCommand("SetWristB_4_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.6,false, 3.64,6.49))));
@@ -186,6 +188,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristR_2_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,10.24, 1.38)) ));
      
       NamedCommands.registerCommand("SetWristR_3_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.05,true,13.86,4.24)) ));  // tuned
+      NamedCommands.registerCommand("SetWristB_3_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 12.99, 2.99)) ));
+      NamedCommands.registerCommand("SetWristB_3_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 12.99, 2.99)) ));
      
       NamedCommands.registerCommand("SetWristR_4_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.1,true, 13.77, 6.94)) ));
       NamedCommands.registerCommand("SetWristR_4_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,true, 12.86,6.49))));

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.223810713556698,
+        "x": 8.195824475766042,
         "y": 2.4441314337174136
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.964439928879857,
-        "y": 0.5503960098829296
+        "x": 9.996272440298334,
+        "y": 1.4459556191839662
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red_A3_2"
     },
     {
       "anchor": {
-        "x": 14.82836492945713,
-        "y": 5.009536564527675
+        "x": 12.990799883898676,
+        "y": 2.994527443600342
       },
       "prevControl": {
-        "x": 14.93098113468954,
-        "y": 3.367677280809108
+        "x": 11.55417301064493,
+        "y": 1.40864063546309
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,25 @@
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristR_3_2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -51,7 +69,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -135.74405920288862,
+    "rotation": 208.07248693585294,
     "rotateFast": false
   },
   "reversed": false,
