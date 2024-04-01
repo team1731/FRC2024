@@ -78,8 +78,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private double lastEstTimestampBack;
     private int visionInitCount;
     private boolean runningTrapPath;
-    private int consecutiveGoodImages = 0;
-
 
     // logging
     Logger poseLogger;
@@ -216,13 +214,13 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
+                                SmartDashboard.putBoolean("Ovr Conf", operatorOverrideConfidence);
                                 if (runningTrapPath && operatorOverrideConfidence) {
                                     estStdDevs = kTrapStdDevs;
                                 }
                                 m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
-                        
                             
                         });
                 } catch (Exception e) {
@@ -255,7 +253,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 } catch (Exception e) {
                    e.printStackTrace();
                 }
-
             }
 
             double curTime = Timer.getFPGATimestamp();
@@ -270,14 +267,12 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 confidence = true;
                 SmartDashboard.putBoolean("Target Conf", true);
             }
-
         }
 
         field2d.setRobotPose(getCurrentPose());
     }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
-
         PhotonPipelineResult cameraResult = camera.getLatestResult();
         return cameraResult;
     }
