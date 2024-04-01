@@ -98,6 +98,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
     private boolean initialized;
+    private boolean operatorOverrideConfidence;
 
     public boolean isConfident() {
         return confidence;
@@ -215,10 +216,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
-                                if (runningTrapPath) {
+                                if (runningTrapPath && operatorOverrideConfidence) {
                                     estStdDevs = kTrapStdDevs;
                                 }
-                                estStdDevs = kTrapStdDevs;
                                 m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
@@ -464,5 +464,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public boolean haveGoodVisionLock() {
        return (Timer.getFPGATimestamp() - lastEstTimestampFront) < 0.2;
+    }
+
+    public void setConfidence(boolean confidence) {
+        this.operatorOverrideConfidence = confidence;
     }
 }
