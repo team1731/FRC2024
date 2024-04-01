@@ -342,7 +342,8 @@ public class RobotContainer {
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
  //   operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
 
-    operatorkRightTrigger.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_JIGGLE));
+    operatorkRightTrigger.whileTrue(new InstantCommand(() -> visionSubsystem.setConfidence(true)));
+    operatorkRightTrigger.whileFalse(new InstantCommand(() -> visionSubsystem.setConfidence(false)));
                 
     operatorkLeftTrigger.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_SHOOT_INTAKE))
       .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_SHOOT_INTAKE));
