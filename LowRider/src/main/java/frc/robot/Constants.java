@@ -352,7 +352,7 @@ public final class Constants {
         public static final double elevatorAmpPosition = 75;
         public static final double elevatorShooterAsIntakePosition = 20;
         public static final double elevatorAmpReversePosition = 10;
-        public static double elevatorTrapPosition = 77;  
+        public static double elevatorTrapPosition = 78.5;  
 
     }
 
