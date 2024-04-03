@@ -215,7 +215,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
                                 SmartDashboard.putBoolean("Ovr Conf", operatorOverrideConfidence);
-                                if (runningTrapPath && operatorOverrideConfidence) {
+                                if ( runningTrapPath || operatorOverrideConfidence) {
                                     estStdDevs = kTrapStdDevs;
                                 }
                                 m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);

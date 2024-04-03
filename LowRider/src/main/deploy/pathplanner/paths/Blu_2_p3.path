@@ -39,16 +39,6 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": []
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
       "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
@@ -73,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -0.42948438181358517,
+    "rotation": -6.795728148895634,
     "rotateFast": false
   },
   "reversed": false,
