@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.878854932736045,
-        "y": 2.472117671508071
+        "x": 13.01,
+        "y": 2.556076384880043
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.97396657750479,
-        "y": 3.1717736162745065
+        "x": 11.740550026554597,
+        "y": 4.337866857551898
       },
       "isLocked": false,
-      "linkedName": "Red_A7_shoot1"
+      "linkedName": "Red_A7_shoot2"
     },
     {
       "anchor": {
-        "x": 7.598784736232016,
-        "y": 3.7688133558085304
+        "x": 7.738518022490591,
+        "y": 4.160620684877734
       },
       "prevControl": {
-        "x": 10.332107293786223,
-        "y": 4.10464820929642
+        "x": 10.760833801186875,
+        "y": 4.571085505807371
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red_A7_note6"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": -179.0020112570517,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": -174.68545433005525,
     "rotateFast": false
   },
   "reversed": false,

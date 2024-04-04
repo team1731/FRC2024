@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 12.878854932736045,
-        "y": 2.472117671508071
+        "x": 13.01,
+        "y": 2.556076384880043
       },
       "prevControl": {
-        "x": 10.397408515297757,
-        "y": 0.9142171011614753
+        "x": 10.528553582561711,
+        "y": 0.9981758145334474
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red_A7_shoot1"
+      "linkedName": "Red_A7_shoot2"
     }
   ],
   "rotationTargets": [],
@@ -53,7 +53,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristR_7_2"
+                "name": "SetWristR_7_3"
               }
             }
           ]
