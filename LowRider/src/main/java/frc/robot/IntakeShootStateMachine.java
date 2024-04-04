@@ -104,6 +104,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.INTAKING_NO_JIGGLE,      ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER}, // redundant (covered by START_SPEAKER)
         {ISState.SPIN_UP_SHOOTER,         ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.SPIN_UP_SHOOTER,         ISInput.START_EJECT,                   "startEject",          ISState.EJECTING},
         {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,             "startIntakeNoJiggle",        ISState.INTAKING_NO_JIGGLE},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,        "turnOnLED",                  ISState.READY_TO_SHOOT},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
