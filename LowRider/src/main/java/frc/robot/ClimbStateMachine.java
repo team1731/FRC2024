@@ -13,6 +13,8 @@ enum CState {
     ELEVATOR_ABOVE_CHAIN,
     ROBOT_LATCHED_ON_CHAIN,
     ELEVATOR_AT_TRAP,
+    WAIT_FOR_START_EJECT,
+    WAIT_FOR_STOP_EJECT,
     LOWER_ELEVATOR,
     END
 }
@@ -22,6 +24,8 @@ enum CInput {
     STARTING,
     ELEVATOR_ABOVE_CHAIN,
     ROBOT_LATCHED_ON_CHAIN,
+    START_EJECT,
+    STOP_EJECT,
     ELEVATOR_AT_TRAP,
     TIMER_HAS_EXPIRED,
     ABORT
@@ -73,10 +77,13 @@ public class ClimbStateMachine {
         {CState.START_CONFIG,            CInput.BEGIN,                        "raiseElevatorAboveChain",    CState.ELEVATOR_ABOVE_CHAIN},
         {CState.ELEVATOR_ABOVE_CHAIN,    CInput.ELEVATOR_ABOVE_CHAIN,         "latchRobotOnChain",          CState.ROBOT_LATCHED_ON_CHAIN},
         {CState.ROBOT_LATCHED_ON_CHAIN,  CInput.STARTING,                     "raiseElevatorToTrap",        CState.ELEVATOR_AT_TRAP},
-        {CState.ELEVATOR_AT_TRAP,        CInput.ELEVATOR_AT_TRAP,             "ejectNote",                  CState.LOWER_ELEVATOR},
+        {CState.ELEVATOR_AT_TRAP,        CInput.ELEVATOR_AT_TRAP,             "doNothing",                  CState.WAIT_FOR_START_EJECT},
+        {CState.WAIT_FOR_START_EJECT,    CInput.START_EJECT,                  "doNothing",                  CState.WAIT_FOR_STOP_EJECT},
+        {CState.WAIT_FOR_STOP_EJECT,     CInput.STOP_EJECT,                   "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
         {CState.ELEVATOR_AT_TRAP,        CInput.ABORT,                        "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
-        {CState.LOWER_ELEVATOR,          CInput.TIMER_HAS_EXPIRED,            "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
         {CState.LOWER_ELEVATOR,          CInput.ABORT,                        "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
+        {CState.WAIT_FOR_START_EJECT,    CInput.ABORT,                        "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
+        {CState.WAIT_FOR_STOP_EJECT,     CInput.ABORT,                        "getOffTheLedge",             CState.ROBOT_LATCHED_ON_CHAIN},
         {CState.END,                     CInput.BEGIN,                        "lowerRobotDown",             CState.START_CONFIG}
     };
 
@@ -144,6 +151,7 @@ public class ClimbStateMachine {
         return true;
     }
 
+    @Deprecated //Replaced with operator controlled eject from InputStateMachime
     public boolean ejectNote(){
         m_intakeShootStateMachine.setCurrentInput(ISInput.START_TRAP);
        // m_intakeSubsystem.trapFeed();

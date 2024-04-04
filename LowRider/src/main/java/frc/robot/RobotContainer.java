@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -316,8 +317,15 @@ public class RobotContainer {
         .onFalse(new InstantCommand(() -> intakeSubsystem.stopReverseIntake()));
 */
 
-    operatorkStart.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_EJECT))
-                 .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_EJECT));
+    operatorkStart.whileTrue(
+                        new ParallelCommandGroup(
+                            new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_EJECT), 
+                            new InstantCommand(() -> climbStateMachine.setCurrentInput(CInput.START_EJECT))))
+                  .onFalse(
+                        new ParallelCommandGroup( 
+                            new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_EJECT),
+                            new InstantCommand(() -> climbStateMachine.setCurrentInput(CInput.STOP_EJECT))));
+
 
     // Far Shot
   //  operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(12)))  // this is now over the stage
