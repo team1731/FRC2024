@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.42,
-        "y": 2.593391368600919
+        "x": 4.184265823077101,
+        "y": 1.7911192186020743
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.537625326159743,
-        "y": 1.4086406354630894
+        "x": 6.563096035282979,
+        "y": 1.2780381924400221
       },
       "isLocked": false,
       "linkedName": "A7_shoot1"
     },
     {
       "anchor": {
-        "x": 8.58,
-        "y": 2.59
+        "x": 8.811323804465792,
+        "y": 2.472117671508071
       },
       "prevControl": {
-        "x": 6.425059690119382,
-        "y": 1.9276590389544408
+        "x": 6.656383494585174,
+        "y": 1.8097767104625118
       },
       "nextControl": null,
       "isLocked": false,
@@ -75,7 +75,7 @@
   "reversed": false,
   "folder": "Blu_7_Stage_4B",
   "previewStartingState": {
-    "rotation": -34.28687697720891,
+    "rotation": -42.06432655357887,
     "velocity": 0
   },
   "useDefaultConstraints": true

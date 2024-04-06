@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.578105156210313,
-        "y": 2.59
+        "x": 8.811323804465792,
+        "y": 2.472117671508071
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.926917126561527,
-        "y": 1.8996728011637836
+        "x": 7.160135774817006,
+        "y": 1.7817904726718545
       },
       "isLocked": false,
       "linkedName": "A7_note7"
     },
     {
       "anchor": {
-        "x": 3.42,
-        "y": 2.593391368600919
+        "x": 3.52,
+        "y": 2.83
       },
       "prevControl": {
-        "x": 5.901446417438292,
-        "y": 1.0354907982543233
+        "x": 6.001446417438291,
+        "y": 1.2720994296534043
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A7_shoot1"
+      "linkedName": "A7_shoot2"
     }
   ],
   "rotationTargets": [],
