@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.095042371902924,
+        "x": 12.1,
         "y": 6.6047521185951465
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.331909391091509,
-        "y": 6.539450897083612
+        "x": 9.415739761712082,
+        "y": 7.093184562039965
       },
       "isLocked": false,
       "linkedName": "Red_Blu4_longshot"
     },
     {
       "anchor": {
-        "x": 8.15831158935045,
-        "y": 5.634562541852357
+        "x": 8.138085399605504,
+        "y": 3.979819909550374
       },
       "prevControl": {
-        "x": 9.361719814352396,
-        "y": 6.1009998383625055
+        "x": 9.474482491004338,
+        "y": 5.786158835287259
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red_A4_Note5"
+      "linkedName": "Red_4_Note5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": -124.80013897375458,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -156.80140948635184,
+    "rotation": -125.94211187138241,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_4_Amp_4",
   "previewStartingState": {
-    "rotation": 166.82744657667314,
+    "rotation": 160.31407411622504,
     "velocity": 0
   },
   "useDefaultConstraints": true
