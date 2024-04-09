@@ -8,32 +8,44 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0106680213360426,
-        "y": 3.3863347726695454
+        "x": 3.027501327729928,
+        "y": 1.2127369709284874
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.512803934698777,
-        "y": 0.44777980465051886
+        "x": 8.690050107372942,
+        "y": 0.6530122151153402
       },
       "prevControl": {
-        "x": 5.611563950400627,
-        "y": 0.5970397395340257
+        "x": 6.143302468423118,
+        "y": 0.9701895767427902
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A7_note8"
+      "linkedName": "A7_note1"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.025,
       "command": {
         "type": "sequential",
         "data": {
@@ -69,7 +81,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.1457628381750544,
+    "rotation": -6.709836807756923,
     "rotateFast": false
   },
   "reversed": false,

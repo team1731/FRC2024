@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "SetWristR_3_1"
+            "name": "SetWristB_3_1"
           }
         },
         {
@@ -57,6 +57,12 @@
           "type": "named",
           "data": {
             "name": "FireNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {

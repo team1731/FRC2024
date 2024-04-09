@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.subsystems.VisionSubsystem;
 
 class Pose {
 	double x, y, degrees;
@@ -42,18 +43,20 @@ class PosePair {
 public class DriveToTrapCommand extends Command {
 	@SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 	private final CommandSwerveDrivetrain m_drivetrain;
+	private final VisionSubsystem m_visionSubsystem;
+	private boolean runningPath = false;
 	private Pose2d waypointPose;
 	private Pose2d finalPose;
 	private Command pathFollowingCommand;
 
 	private PosePair[] STAGE_POSES = {
         //                                      WAYPOINT POSE                FINAL POSE
-		/* BLUE LEFT   */ new PosePair(new Pose( 3.84, 5.81,  -60), new Pose( 4.43, 4.85,  -60)),
-		/* BLUE RIGHT  */ new PosePair(new Pose( 4.12, 2.79,   60), new Pose( 4.40, 3.30,   60)),
-		/* BLUE CENTER */ new PosePair(new Pose( 6.48, 4.17,  180), new Pose( 5.38, 4.17,  180)),
-		/* RED LEFT    */ new PosePair(new Pose(12.65, 2.46,  120), new Pose(12.17, 3.33,  120)),
-		/* RED RIGHT   */ new PosePair(new Pose(12.55, 5.75, -120), new Pose(12.08, 4.88, -120)),
-		/* RED CENTER  */ new PosePair(new Pose( 9.59, 4.08,    0), new Pose(10.78, 4.08,    0))
+		/* BLUE LEFT   */ new PosePair(new Pose( 4.20, 5.28,  -60), new Pose( 4.46, 4.82,  -60)),
+		/* BLUE RIGHT  */ new PosePair(new Pose( 4.24, 2.96,   60), new Pose( 4.44, 3.38,   60)),
+		/* BLUE CENTER */ new PosePair(new Pose( 6.28, 4.13,  180), new Pose( 5.72, 4.13,  180)),
+		/* RED LEFT    */ new PosePair(new Pose(12.37, 2.94,  120), new Pose(12.13, 3.39,  120)),
+		/* RED RIGHT   */ new PosePair(new Pose(12.37, 5.31, -120), new Pose(12.13, 4.84, -120)),
+		/* RED CENTER  */ new PosePair(new Pose( 10.31, 4.10,   0), new Pose(10.84, 4.10,    0))
 	};
 
 
@@ -62,12 +65,13 @@ public class DriveToTrapCommand extends Command {
 	 *
 	 * @param CommandSwerveDrivetrain
 	 */
-	public DriveToTrapCommand(CommandSwerveDrivetrain drivetrain) {
+	public DriveToTrapCommand(CommandSwerveDrivetrain drivetrain, VisionSubsystem visionSubsystem) {
 		m_drivetrain = drivetrain;
+		m_visionSubsystem = visionSubsystem;
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		if (drivetrain != null ) {
-			//addRequirements(drivetrain);
+			addRequirements(drivetrain);
 		}
 	}
 
@@ -79,7 +83,8 @@ public class DriveToTrapCommand extends Command {
 	  // It may be desirable to use a "canned" path approach (left here for possible future consideration):
 	  // PathPlannerPath path = PathPlannerPath.fromPathFile("paths/Chain.path");
 	  //
-
+	  runningPath = false;
+      m_visionSubsystem.drivingToTrap();
 	  Pose2d currentPose = m_drivetrain.getState().Pose;
 	  Pose2d[] closestPoses = getClosestChainPoses(currentPose);
 	  if(closestPoses == null){
@@ -89,23 +94,24 @@ public class DriveToTrapCommand extends Command {
 	  waypointPose = closestPoses[0];
       finalPose = closestPoses[1];
       // The rotation component in these poses represents the direction of travel
-      Pose2d startPos = new Pose2d(currentPose.getTranslation(), new Rotation2d());
+      Pose2d startPos = new Pose2d(currentPose.getTranslation(),currentPose.getRotation());
       
       List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(startPos, waypointPose, finalPose);
       PathPlannerPath path = new PathPlannerPath(
         bezierPoints, 
         new PathConstraints(
-          4.0, 4.0, 
+          2.0, 2.0, 
           Units.degreesToRadians(360), Units.degreesToRadians(540)
         ),  
-        new GoalEndState(0.0, currentPose.getRotation())
+        new GoalEndState(0.0, finalPose.getRotation())
       );
 
       // Prevent this path from being flipped on the red alliance, since the given positions are already correct
       path.preventFlipping = true;
 	  
 	  pathFollowingCommand = AutoBuilder.followPath(path);
-      pathFollowingCommand.schedule();
+	  System.out.println("Initialization complete");
+
     }
 	
 	private Pose2d[] getClosestChainPoses(Pose2d currentPose) {
@@ -133,11 +139,21 @@ public class DriveToTrapCommand extends Command {
 	@Override
 	public void execute() {
 
+		if (m_visionSubsystem.haveGoodVisionLock() && !runningPath) {
+			runningPath = true;
+			System.out.println("Goin for a drive");
+			pathFollowingCommand.schedule();
+
+			
+		}
+
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		m_visionSubsystem.stopDrivingToTrap();
+		runningPath = false;
 		
 	}
 

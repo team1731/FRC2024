@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.605883575403514,
+        "y": 6.017041124991342
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.324197012030387,
+        "y": 6.2129447895259435
+      },
+      "isLocked": false,
+      "linkedName": "A1B_5"
+    },
+    {
+      "anchor": {
+        "x": 8.87236951575871,
+        "y": 7.0050704681015805
+      },
+      "prevControl": {
+        "x": 8.014124890178548,
+        "y": 6.79983805763676
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "A1B_6"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 14.300277449185481,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_1B_Speaker_6",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

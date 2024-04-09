@@ -1,0 +1,98 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.6450227445909436,
+        "y": 4.244579398249706
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.0479830050569188,
+        "y": 4.41249682499365
+      },
+      "isLocked": false,
+      "linkedName": "A1B_1"
+    },
+    {
+      "anchor": {
+        "x": 1.5908744544761815,
+        "y": 5.569261320340823
+      },
+      "prevControl": {
+        "x": 1.5053022956397135,
+        "y": 5.245988720291944
+      },
+      "nextControl": {
+        "x": 1.6748331678481534,
+        "y": 5.886438681968274
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.9342138684277366,
+        "y": 5.438658877317755
+      },
+      "prevControl": {
+        "x": 2.5890502690096286,
+        "y": 5.447987623247974
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "A1B_2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.3
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeNoJiggle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 2.245742565895021,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_1B_Speaker_6",
+  "previewStartingState": {
+    "rotation": -28.523118606311943,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

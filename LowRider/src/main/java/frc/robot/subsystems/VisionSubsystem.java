@@ -49,6 +49,7 @@ import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.util.log.Logger;
 
 import java.util.Optional;
+import java.util.function.ToDoubleFunction;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
@@ -76,6 +77,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private double lastEstTimestampFront;
     private double lastEstTimestampBack;
     private int visionInitCount;
+    private boolean runningTrapPath;
 
     // logging
     Logger poseLogger;
@@ -94,6 +96,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
     private boolean initialized;
+    private boolean operatorOverrideConfidence;
 
     public boolean isConfident() {
         return confidence;
@@ -205,21 +208,27 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                             // Change our trust in the measurement based on the tags we can see
                             var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
                             field2d.getObject("MyRobot" + cameraFront.getName()).setPose(estPose);
+                           // SmartDashboard.put("vision standard deviation", estStdDevs));
                             SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
                                 estPose.getTranslation().getX(),
                                 estPose.getTranslation().getY(),
                                 estPose.getRotation().getDegrees()));
                             if (useVision) {
+                                SmartDashboard.putBoolean("Ovr Conf", operatorOverrideConfidence);
+                                if ( runningTrapPath || operatorOverrideConfidence) {
+                                    estStdDevs = kTrapStdDevs;
+                                }
                                 m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                                 lastEstTimestampFront = Timer.getFPGATimestamp();
                             }
+                            
                         });
                 } catch (Exception e) {
                    e.printStackTrace();
                 }
             }
 
-            if (photonEstimatorBack != null) {
+            if ((photonEstimatorBack != null)&& !runningTrapPath) {
                 // Correct pose estimate with vision measurements
                 try {
                     var visionEstBack = getEstimatedGlobalPoseBack();
@@ -244,7 +253,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 } catch (Exception e) {
                    e.printStackTrace();
                 }
-
             }
 
             double curTime = Timer.getFPGATimestamp();
@@ -259,14 +267,12 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 confidence = true;
                 SmartDashboard.putBoolean("Target Conf", true);
             }
-
         }
 
         field2d.setRobotPose(getCurrentPose());
     }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
-
         PhotonPipelineResult cameraResult = camera.getLatestResult();
         return cameraResult;
     }
@@ -372,9 +378,9 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         
-        double visionDelay = 1;
-        Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
-        Pose2d adjustedRobotPose = visionPose.plus(displacement);
+        // double visionDelay = 0.5;
+        // Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
+        Pose2d adjustedRobotPose = visionPose;
 
         double distance = PhotonUtils.getDistanceToPose(target, adjustedRobotPose);
         return distance;
@@ -441,5 +447,21 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public void useVision(boolean useCameraVision) {
         useVision = useCameraVision;
+    }
+
+    public void stopDrivingToTrap() {
+        runningTrapPath = false;
+    }
+
+    public void drivingToTrap() {
+        runningTrapPath = true;
+    }
+
+    public boolean haveGoodVisionLock() {
+       return (Timer.getFPGATimestamp() - lastEstTimestampFront) < 0.2;
+    }
+
+    public void setConfidence(boolean confidence) {
+        this.operatorOverrideConfidence = confidence;
     }
 }

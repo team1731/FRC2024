@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.438173967257026,
-        "y": 4.151291938947515
+        "x": 8.997898723070172,
+        "y": 4.272565636040364
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.2029233149375385,
-        "y": 4.9628928348765795
+        "x": 5.02385295679682,
+        "y": 4.263236890110145
       },
       "isLocked": false,
       "linkedName": "A7_note6"
     },
     {
       "anchor": {
-        "x": 3.2793774678458445,
-        "y": 3.0878149029025335
+        "x": 3.521924862031542,
+        "y": 2.8266100168563977
       },
       "prevControl": {
-        "x": 5.844782598656103,
-        "y": 3.311704805227793
+        "x": 4.669360611448496,
+        "y": 3.862100815110722
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A7_shoot1"
+      "linkedName": "A7_shoot2"
     }
   ],
   "rotationTargets": [],
@@ -42,23 +42,6 @@
               "type": "named",
               "data": {
                 "name": "SetWristB_7_3"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
               }
             }
           ]

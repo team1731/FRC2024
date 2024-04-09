@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.138085399605504,
+        "y": 3.979819909550374
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.356997032419827,
+        "y": 6.197357940333054
+      },
+      "isLocked": false,
+      "linkedName": "Red_4_Note5"
+    },
+    {
+      "anchor": {
+        "x": 12.41,
+        "y": 6.476385904471273
+      },
+      "prevControl": {
+        "x": 9.928119687402164,
+        "y": 7.328155479208991
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristR_4_4"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 160.7099537808113,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_4_Amp_4",
+  "previewStartingState": {
+    "rotation": -138.3664606634299,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

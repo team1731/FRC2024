@@ -3,6 +3,7 @@
   "robotLength": 0.8763,
   "holonomicMode": true,
   "pathFolders": [
+    "Blu_1B_Speaker_6",
     "Blu_1_Speaker_6",
     "Blu_2_Speaker_4",
     "Blu_3_Stage_4",
@@ -10,15 +11,15 @@
     "Blu_5_JustDrive",
     "Blu_6_Stage_4",
     "Blu_7_Stage_4B",
-    "New Folder",
     "DriveToTrap",
+    "Red_7_Stage_4B",
+    "Red_1B_Speaker_6",
     "Red_1_Speaker_6",
     "Red_2_Speaker_4",
     "Red_3_Stage_4",
     "Red_4_Amp_4",
     "Red_5_JustDrive",
-    "Red_6_Stage_4",
-    "Red_7_Stage_4B"
+    "Red_6_Stage_4"
   ],
   "autoFolders": [],
   "defaultMaxVel": 5.0,

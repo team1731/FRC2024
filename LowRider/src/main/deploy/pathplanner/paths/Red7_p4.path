@@ -3,33 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9624079248158495,
-        "y": 2.378830212205879
+        "x": 8.037235794952316,
+        "y": 2.3042002447641265
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.529637241092663,
-        "y": 1.6511880296487864
+        "x": 9.688423824601102,
+        "y": 1.6138730459279103
       },
       "isLocked": false,
       "linkedName": "Red_A7_note7"
     },
     {
       "anchor": {
-        "x": 13.671600434109958,
-        "y": 3.377006026739327
+        "x": 13.01,
+        "y": 2.556076384880043
       },
       "prevControl": {
-        "x": 11.637933821322186,
-        "y": 1.455284365114185
+        "x": 10.528553582561711,
+        "y": 0.9981758145334474
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red_A7_shoot1"
+      "linkedName": "Red_A7_shoot2"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
@@ -41,24 +53,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristR_7_2"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
+                "name": "SetWristR_7_3"
               }
             }
           ]
@@ -74,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -125.53767779197442,
+    "rotation": 220.10090754621223,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 149.42077312751098,
+    "rotation": 157.2855876468328,
     "velocity": 0
   },
   "useDefaultConstraints": true

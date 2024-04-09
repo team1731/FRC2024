@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.7178285265661435,
+        "y": 5.867781190107834
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.010875839933497,
+        "y": 6.977901955803912
+      },
+      "isLocked": false,
+      "linkedName": "Blu4_longshot"
+    },
+    {
+      "anchor": {
+        "x": 8.540790172489436,
+        "y": 3.423649756390422
+      },
+      "prevControl": {
+        "x": 7.757175514351029,
+        "y": 6.184958551735292
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -69.27444113443939,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_4_Amp_4",
+  "previewStartingState": {
+    "rotation": 10.885527054658807,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

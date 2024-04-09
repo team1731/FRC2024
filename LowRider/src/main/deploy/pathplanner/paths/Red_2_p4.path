@@ -3,69 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.958967372480199,
-        "y": 5.718521255224329
+        "x": 12.673622522271225,
+        "y": 5.4666451151084114
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.046574456785276,
-        "y": 5.364028909876002
+        "x": 11.796720404830626,
+        "y": 3.395663518599765
       },
       "isLocked": false,
-      "linkedName": "Red_lineshot"
+      "linkedName": "Red_A2_3"
     },
     {
       "anchor": {
-        "x": 8.102339113769135,
-        "y": 4.160620684877734
+        "x": 7.9346195897199046,
+        "y": 3.7874708476689682
       },
       "prevControl": {
-        "x": 10.984921606206848,
-        "y": 4.207264414528829
+        "x": 9.716410062391759,
+        "y": 3.871429561040941
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red_PickupMiddleCenter"
+      "linkedName": "Red_A2_4"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "StartIntake",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "StartShooter",
-      "waypointRelativePos": 0.35,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "StopShooter"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -74,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -175.13548556223947,
+    "rotation": 177.51044707800085,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 181.12330271407518,
     "velocity": 0
   },
   "useDefaultConstraints": true

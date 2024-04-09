@@ -70,7 +70,7 @@ public class DriveToSpeakerCommand extends Command {
 	@Override
 	public void initialize() {
 
-       driveAtSpeaker.HeadingController.setPID(20,0,0);
+       driveAtSpeaker.HeadingController.setPID(10,0,0);
 	   driveAtSpeaker.HeadingController.enableContinuousInput(-Math.PI/2, Math.PI/2);
 	  
 

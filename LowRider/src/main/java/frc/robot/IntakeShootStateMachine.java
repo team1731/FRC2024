@@ -26,7 +26,10 @@ enum ISState {
     EJECTING,
     INTAKE_SHOOTER_WAIT,
     INTAKE_SHOOTER_HAS_NOTE,
-    INTAKING_NO_JIGGLE
+    INTAKING_NO_JIGGLE,
+    SPIN_SHOOTER_TO_LOB,
+    LOBBING,
+    READY_TO_LOB
 }
 
 
@@ -45,6 +48,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private double JIGGLE_DOWN_TIMER_SECONDS = 1.0;
     private boolean robotStarted = false;
     private boolean haveNote;
+    private double LOBSPEED = 50;
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
         m_intakeSubsystem = intakeSubsystem;
@@ -100,6 +104,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.INTAKING_NO_JIGGLE,      ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
         {ISState.READY_TO_SHOOT,          ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER}, // redundant (covered by START_SPEAKER)
         {ISState.SPIN_UP_SHOOTER,         ISInput.JUST_SHOOT,                   "startShootSpeaker",          ISState.SHOOTING_AT_SPEAKER},
+        {ISState.SPIN_UP_SHOOTER,         ISInput.START_EJECT,                   "startEject",          ISState.EJECTING},
         {ISState.ALL_STOP,                ISInput.INTAKE_NO_JIGGLE,             "startIntakeNoJiggle",        ISState.INTAKING_NO_JIGGLE},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.FORWARD_LIMIT_REACHED,        "turnOnLED",                  ISState.READY_TO_SHOOT},
         {ISState.INTAKING_NO_JIGGLE,      ISInput.STOP_INTAKE,                  "setAllStop",                 ISState.ALL_STOP},
@@ -121,6 +126,17 @@ public class IntakeShootStateMachine extends SubsystemBase {
         {ISState.SHOOTING_AT_AMP,         ISInput.STOP_AMP,                     "setAllStop",                 ISState.ALL_STOP},
         {ISState.SHOOTING_AT_TRAP,        ISInput.STOP_TRAP,                    "setAllStop",                 ISState.ALL_STOP},
         {ISState.EJECTING,                ISInput.STOP_EJECT,                   "setAllStop",                 ISState.ALL_STOP},
+
+        {ISState.SPIN_UP_SHOOTER,          ISInput.START_LOBSHOT,               "getReadyForLobShot",         ISState.SPIN_SHOOTER_TO_LOB},
+        {ISState.READY_TO_SHOOT,           ISInput.START_LOBSHOT,               "getReadyForLobShot",         ISState.SPIN_SHOOTER_TO_LOB},
+        {ISState.SPIN_SHOOTER_TO_LOB,      ISInput.SHOOTER_AT_LOB_SPEED,        "doNothing",                  ISState.READY_TO_LOB},
+        {ISState.READY_TO_LOB,             ISInput.START_SPEAKER,               "startLobShot",               ISState.LOBBING},
+        {ISState.LOBBING,                  ISInput.STOP_SPEAKER,                "setAllStop",                 ISState.ALL_STOP},
+        {ISState.LOBBING,                  ISInput.STOP_LOBSHOT,                "cancelLob",                 ISState.ALL_STOP},
+        {ISState.SPIN_SHOOTER_TO_LOB,      ISInput.STOP_LOBSHOT,                "cancelLob",                ISState.ALL_STOP},
+        {ISState.READY_TO_LOB,             ISInput.STOP_LOBSHOT,                "cancelLob",                 ISState.ALL_STOP},
+        {ISState.READY_TO_LOB,             ISInput.STOP_SPEAKER,                "setAllStop",                 ISState.ALL_STOP},
+        {ISState.SPIN_SHOOTER_TO_LOB,     ISInput.STOP_SPEAKER,                "setAllStop",                ISState.ALL_STOP},
     };
     
     private void setInputs() {
@@ -144,6 +160,9 @@ public class IntakeShootStateMachine extends SubsystemBase {
         }
         if(currentState == ISState.INTAKE_SHOOTER_HAS_NOTE && (m_intakeSubsystem.noteSettled())){
             setCurrentInput(ISInput.NOTE_SETTLED);
+        }
+        if(currentState == ISState.SPIN_SHOOTER_TO_LOB && (Math.abs(m_shooterSubsystem.getShooterVelocity() - LOBSPEED ) <  2)){
+            setCurrentInput(ISInput.SHOOTER_AT_LOB_SPEED);
         }
     }
 
@@ -183,6 +202,16 @@ public class IntakeShootStateMachine extends SubsystemBase {
         return true;
     }
 
+        public boolean cancelLob(){
+        m_shooterSubsystem.shoot();
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(0.0);
+        m_intakeSubsystem.enableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        return true;
+    }
+
+
     public boolean startIntake(){
         m_shooterSubsystem.reverseSlow();
         m_intakeSubsystem.intakeState(1.0);
@@ -218,6 +247,26 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         haveNote = true;
+        return true;
+    }
+
+     public boolean getReadyForLobShot(){
+        m_shooterSubsystem.lobShot(LOBSPEED);
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(0.0);
+        m_intakeSubsystem.disableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        haveNote = true;
+        return true;
+    }
+
+    public boolean startLobShot(){
+        m_shooterSubsystem.lobShot(LOBSPEED);
+        m_intakeSubsystem.intakeState(-0.5);
+        m_intakeSubsystem.feedState(1.0);
+        m_intakeSubsystem.disableLimitSwitch();
+        m_intakeSubsystem.enableReverseLimitSwitch();
+        haveNote = false;
         return true;
     }
 

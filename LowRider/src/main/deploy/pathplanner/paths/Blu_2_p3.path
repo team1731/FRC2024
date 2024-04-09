@@ -3,50 +3,58 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.326229016094397,
-        "y": 5.746507493014986
+        "x": 8.456831459117463,
+        "y": 5.69986376336389
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.346710693421388,
-        "y": 6.0356986168517786
+        "x": 5.70485140970282,
+        "y": 6.940586972083035
       },
       "isLocked": false,
-      "linkedName": "PickupTopMiddle"
+      "linkedName": "A2_2"
     },
     {
       "anchor": {
-        "x": 5.285057842842958,
-        "y": 6.464820929641859
+        "x": 3.83,
+        "y": 5.47
       },
       "prevControl": {
-        "x": 6.954903364352183,
-        "y": 6.45549218371164
-      },
-      "nextControl": {
-        "x": 4.366818353135365,
-        "y": 6.469950759193298
-      },
-      "isLocked": false,
-      "linkedName": "AboveStage"
-    },
-    {
-      "anchor": {
-        "x": 1.7121481515690302,
-        "y": 5.475973861038631
-      },
-      "prevControl": {
-        "x": 3.270048721915625,
-        "y": 5.830466206386958
+        "x": 5.219756621331425,
+        "y": 6.57676588080449
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "lineshot"
+      "linkedName": "A2_3"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.15,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_2_2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -55,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.0609116902643063,
+    "rotation": -6.795728148895634,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -17.744671625056945,
     "velocity": 0
   },
   "useDefaultConstraints": true

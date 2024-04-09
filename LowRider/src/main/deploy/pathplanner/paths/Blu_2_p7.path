@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.391530237605929,
-        "y": 2.3415152284850027
+        "x": 8.848638788186667,
+        "y": 1.8284342023229505
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.057519569584594,
-        "y": 3.5449234534832708
+        "x": 7.878449211443877,
+        "y": 1.4925993488350622
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "A2_6"
     },
     {
       "anchor": {
-        "x": 1.8147643568014407,
-        "y": 5.429330131387536
+        "x": 6.26,
+        "y": 1.38
       },
       "prevControl": {
-        "x": 4.5760731521463,
-        "y": 4.990879072667236
+        "x": 7.146230863370817,
+        "y": 1.193425081395617
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,42 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_2_4"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -39,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -32.26366865522134,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_2_Speaker_4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -28.07248693585295,
     "velocity": 0
   },
   "useDefaultConstraints": true

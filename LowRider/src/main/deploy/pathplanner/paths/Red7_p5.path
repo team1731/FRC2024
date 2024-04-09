@@ -3,52 +3,40 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.671600434109958,
-        "y": 3.377006026739327
+        "x": 13.01,
+        "y": 2.556076384880043
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.714387974230494,
-        "y": 2.7892950331355215
+        "x": 11.740550026554597,
+        "y": 4.337866857551898
       },
       "isLocked": false,
-      "linkedName": "Red_A7_shoot1"
+      "linkedName": "Red_A7_shoot2"
     },
     {
       "anchor": {
-        "x": 8.093010367838918,
-        "y": 3.9833745122035706
+        "x": 7.738518022490591,
+        "y": 4.160620684877734
       },
       "prevControl": {
-        "x": 12.636109635855634,
-        "y": 4.41249682499365
+        "x": 10.760833801186875,
+        "y": 4.571085505807371
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red_A7_note6"
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
-  "eventMarkers": [
+  "rotationTargets": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": -179.0020112570517,
+      "rotateFast": false
     }
   ],
+  "constraintZones": [],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -57,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": -174.68545433005525,
     "rotateFast": false
   },
   "reversed": false,

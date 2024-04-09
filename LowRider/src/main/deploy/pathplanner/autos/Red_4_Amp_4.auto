@@ -72,6 +72,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red_4_p4"
@@ -81,6 +87,24 @@
           "type": "path",
           "data": {
             "pathName": "Red_4_p5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red_4_p6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red_4_p7"
           }
         },
         {

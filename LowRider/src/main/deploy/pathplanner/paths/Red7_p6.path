@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.093010367838918,
-        "y": 3.9833745122035706
+        "x": 7.738518022490591,
+        "y": 4.160620684877734
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.412219733530376,
-        "y": 3.852772069180503
+        "x": 11.451161000023092,
+        "y": 4.888262867434825
       },
       "isLocked": false,
       "linkedName": "Red_A7_note6"
     },
     {
       "anchor": {
-        "x": 13.671600434109958,
-        "y": 3.377006026739327
+        "x": 13.009259473064398,
+        "y": 2.556076384880043
       },
       "prevControl": {
-        "x": 10.378553120742604,
-        "y": 3.3023760592975733
+        "x": 11.843166231787007,
+        "y": 3.9180732906920364
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red_A7_shoot1"
+      "linkedName": "Red_A7_shoot2"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.9,
+      "waypointRelativePos": 0.85,
       "command": {
         "type": "sequential",
         "data": {
@@ -42,23 +42,6 @@
               "type": "named",
               "data": {
                 "name": "SetWristR_7_3"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
               }
             }
           ]
@@ -74,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -126.60707481260732,
+    "rotation": 219.80557109226518,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red_7_Stage_4B",
   "previewStartingState": {
-    "rotation": 179.0289780689208,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

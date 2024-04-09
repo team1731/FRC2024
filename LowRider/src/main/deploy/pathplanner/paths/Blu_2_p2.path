@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.868912646916203,
+        "x": 2.635693998660724,
         "y": 5.569261320340823
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.605883575403514,
-        "y": 5.559932574410603
+        "x": 5.1731128916803275,
+        "y": 6.688710831967119
       },
       "isLocked": false,
-      "linkedName": "PickupFirstNote"
+      "linkedName": "A2_1"
     },
     {
       "anchor": {
-        "x": 5.285057842842958,
-        "y": 6.464820929641859
+        "x": 8.456831459117463,
+        "y": 5.69986376336389
       },
       "prevControl": {
-        "x": 4.469649779438313,
-        "y": 6.34912113686147
-      },
-      "nextControl": {
-        "x": 6.66571224051539,
-        "y": 6.660724594176462
-      },
-      "isLocked": false,
-      "linkedName": "AboveStage"
-    },
-    {
-      "anchor": {
-        "x": 8.326229016094397,
-        "y": 5.746507493014986
-      },
-      "prevControl": {
-        "x": 7.2720807259796345,
-        "y": 5.793151222666081
+        "x": 6.581753527143418,
+        "y": 6.6140808645253655
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickupTopMiddle"
+      "linkedName": "A2_2"
     }
   ],
   "rotationTargets": [],
@@ -49,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -73,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.0609116902643063,
+    "rotation": -20.40988283380402,
     "rotateFast": false
   },
   "reversed": false,
