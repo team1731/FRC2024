@@ -250,7 +250,7 @@ public class RobotContainer {
  //         )
  //     );
 
-    ky.whileTrue(new DriveToSpeakerCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController));
+    ky.whileTrue(new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController, false));
 
     kPOVUp.whileTrue(new DriveToTrapCommand(driveSubsystem,visionSubsystem));
 
@@ -332,16 +332,9 @@ public class RobotContainer {
   //  operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(12)))  // this is now over the stage
   //      .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
-  //  operatorky.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT))
-  //    .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
-
-    operatorky.whileTrue(new SequentialCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT), 
-                                                    new InstantCommand(() ->  wristSubsystem.moveWrist(7))))
-              .onFalse(new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT), 
-                                                    new InstantCommand(() ->  wristSubsystem.moveWrist(0))));
-
-                                                                                 
-
+    operatorky.whileTrue(new SequentialCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
+                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController, true)))
+              .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
 
     // Safe Shot
     operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22*0.6)))
@@ -349,7 +342,7 @@ public class RobotContainer {
     // Line Shot
     operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15*0.6)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
- //   operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
+    // operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
 
     operatorBack.whileTrue(new InstantCommand(() -> visionSubsystem.setConfidence(true)));
     operatorBack.whileFalse(new InstantCommand(() -> visionSubsystem.setConfidence(false)));
