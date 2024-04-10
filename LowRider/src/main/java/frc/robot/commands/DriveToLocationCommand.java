@@ -7,27 +7,15 @@
 
 package frc.robot.commands;
 
-
-import java.util.List;
-import java.util.Optional;
-
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.path.GoalEndState;
-import com.pathplanner.lib.path.PathConstraints;
-import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.Robot;
 import frc.robot.TunerConstants;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -73,21 +61,13 @@ public class DriveToLocationCommand extends Command {
        driveAtLocation.HeadingController.setPID(10,0,0);
 	   driveAtLocation.HeadingController.enableContinuousInput(-Math.PI/2, Math.PI/2);
     }
-
-	private boolean isRedAlliance(){
-	    Optional<Alliance> alliance = DriverStation.getAlliance();
-	    if(alliance != null){
-		    return alliance.get() == DriverStation.Alliance.Red;
-	    }
-	    return false;
-    }
-
+	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		if (m_lobShot) {
 			m_WristSubsystem.moveWrist(7);
-			double targetAngle = isRedAlliance() ? -35 : 315;
+			double targetAngle = Robot.isRedAlliance() ? -35 : 315;
 			Rotation2d lobRotation = new Rotation2d(targetAngle);
 			m_drivetrain.setControl( 
 				driveAtLocation.withVelocityX(-(Math.abs(m_XboxController.getLeftY()) * m_XboxController.getLeftY()) * MaxSpeed)                                                                                                                     

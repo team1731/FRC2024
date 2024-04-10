@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> autoChooser = new SendableChooser<>();
   private String autoCode;
   private String currentKeypadCommand = "";
-  private boolean isRedAlliance;
+  private boolean redAlliance;
   private int stationNumber = 0;
   public static long millis = System.currentTimeMillis();
   
@@ -65,7 +65,6 @@ public class Robot extends TimedRobot {
 
   // SUBSYSTEM DECLARATION
   private LEDStringSubsystem ledSubsystem;
-  private boolean ledBlinking;
 
   // NOTE: FOR TESTING PURPOSES ONLY!
   //private final Joystick driver = new Joystick(0);
@@ -119,9 +118,9 @@ public class Robot extends TimedRobot {
 
     wristSubsystem.retractTrapFlap();
 	PathPlannerLogging.setLogActivePathCallback(null);
-	Pose2d startingConfiguration = isRedAlliance()? new Pose2d(15.07,5.57, new Rotation2d(Math.toRadians(180))): new Pose2d(1.43,5.5, new Rotation2d (0));
+	Pose2d startingConfiguration = Robot.isRedAlliance()? new Pose2d(15.07,5.57, new Rotation2d(Math.toRadians(180))): new Pose2d(1.43,5.5, new Rotation2d (0));
 	driveSubsystem.seedFieldRelative(startingConfiguration);
-	Rotation2d operatorPerspective = isRedAlliance()? new Rotation2d(Math.toRadians(180)): new Rotation2d(Math.toRadians(0));
+	Rotation2d operatorPerspective = Robot.isRedAlliance()? new Rotation2d(Math.toRadians(180)): new Rotation2d(Math.toRadians(0));
 	driveSubsystem.setOperatorPerspectiveForward(operatorPerspective);
 	
 	
@@ -175,7 +174,7 @@ public class Robot extends TimedRobot {
 //   ██ ███▄▄▄▀▀████ ▀▀▄██ ▄▄▄██ ██ ███ ▀▀ ██ █████ █████ ██ ▀▀ ██ █ █ ██ █████ ▄▄▄
 //   █▀ ▀██ ▀▀▀ ████ ██ ██ ▀▀▀██ ▀▀ ███ ██ ██ ▀▀ ██ ▀▀ █▀ ▀█ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-  private boolean isRedAlliance(){
+  public static boolean isRedAlliance(){
 	Optional<Alliance> alliance = DriverStation.getAlliance();
 	if(alliance != null){
 		return alliance.get() == DriverStation.Alliance.Red;
@@ -208,7 +207,7 @@ public class Robot extends TimedRobot {
 	}
 
 	System.out.println("\nPreloading AUTO CODE --> " + useCode);
-	m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, isRedAlliance);
+	m_autonomousCommand = m_robotContainer.getNamedAutonomousCommand(useCode, redAlliance);
 	if(m_autonomousCommand != null){
 		autoCode = useCode;
 		System.out.println("\n=====>>> PRELOADED AUTONOMOUS COMMAND: " + m_autonomousCommand);
@@ -280,10 +279,10 @@ public class Robot extends TimedRobot {
 		autoInitPreload();
 	}
 
-	boolean isRedAlliance = isRedAlliance();
-	if(this.isRedAlliance != isRedAlliance){
-		this.isRedAlliance = isRedAlliance;
-		System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (isRedAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
+	boolean redAlliance = Robot.isRedAlliance();
+	if(this.redAlliance != redAlliance){
+		this.redAlliance = redAlliance;
+		System.out.println("\n\n===============>>>>>>>>>>>>>>  WE ARE " + (redAlliance?"RED":"BLUE") + " ALLIANCE  <<<<<<<<<<<<=========================");
 		this.autoInitPreload();
 	}
 

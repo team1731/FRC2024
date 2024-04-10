@@ -400,17 +400,17 @@ public class RobotContainer {
     return autoPaths;
   }
 
-  public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
+  public Command getNamedAutonomousCommand(String autoName, boolean redAlliance) {
     String alliancePathName = autoName;
     if(!autoName.startsWith("Red_") && !autoName.startsWith("Blu_")){
-        alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
+        alliancePathName = (redAlliance ? "Red" : "Blu") + "_" + autoName;
     }
     // if the named auto (red or blue) exists, use it as-is and do NOT flip the field (red/blue)
     if(autoPaths.keySet().contains(alliancePathName)){
       flipRedBlue = false;
     }
     // if the named auto does not exist (so there isn't a red one), use the blue one and flip the field
-    else if(isRedAlliance && alliancePathName.startsWith("Red_")) {
+    else if(redAlliance && alliancePathName.startsWith("Red_")) {
       alliancePathName = alliancePathName.replace("Red_", "Blu_");
       assert autoPaths.keySet().contains(alliancePathName): "ERROR: you need to create " + alliancePathName;
       flipRedBlue = true;

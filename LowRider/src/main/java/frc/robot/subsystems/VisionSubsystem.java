@@ -37,8 +37,6 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -46,10 +44,10 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.Robot;
 import frc.robot.util.log.Logger;
 
 import java.util.Optional;
-import java.util.function.ToDoubleFunction;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
@@ -347,7 +345,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
     public Rotation2d getHeadingToSpeakerInRad() {
-        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d target = Robot.isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = getAdjustedRobotPose();
         double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
         SmartDashboard.putNumber("HeadingToTarget", headingToTarget);
@@ -356,7 +354,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
     public double getDistanceToSpeakerInMeters() {
-        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d target = Robot.isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = getAdjustedRobotPose();
         double distance = PhotonUtils.getDistanceToPose(target, robot);
       //  SmartDashboard.putNumber("DistanceToTarget", distance);
@@ -364,19 +362,19 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
     public double getStaticDistanceToSpeakerInMeters() {
-        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d target = Robot.isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = m_driveSubsystem.getState().Pose;
         double distance = PhotonUtils.getDistanceToPose(target, robot);
         SmartDashboard.putNumber("DistanceToTarget", distance);
         return distance;
     }
     public double getDistanceToTargetForAuto(){
-        double robotXSpeed = m_driveSubsystem.getXVelocity();
-        double robotYSpeed = m_driveSubsystem.getYVelocity();
-        double robotXAcceleration = -getAccelerationY();
-        double robotYAcceleration = getAccelerationX();
+        // double robotXSpeed = m_driveSubsystem.getXVelocity();
+        // double robotYSpeed = m_driveSubsystem.getYVelocity();
+        // double robotXAcceleration = -getAccelerationY();
+        // double robotYAcceleration = getAccelerationX();
 
-        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d target = Robot.isRedAlliance()? redGoal: blueGoal;
         
         // double visionDelay = 0.5;
         // Transform2d displacement = new Transform2d((robotXSpeed*visionDelay + 0.5*robotXAcceleration*visionDelay*visionDelay), (robotYSpeed*visionDelay +  0.5*robotYAcceleration*visionDelay*visionDelay), new Rotation2d());
@@ -409,7 +407,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         SmartDashboard.putNumber("x adjustment", robotXSpeed*shotTime + 0.5*robotXAcceleration*shotTime*shotTime);
         SmartDashboard.putNumber("y adjustment", robotYSpeed*shotTime + 0.5*robotYAcceleration*shotTime*shotTime);
 
-        if (isRedAlliance()) {
+        if (Robot.isRedAlliance()) {
             robot.rotateBy(new Rotation2d(Math.toRadians(180)));
         }
 
@@ -435,14 +433,6 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     public void shootOnMoveFudgeUp() {
         shootOnMoveFudgeFactor = shootOnMoveFudgeFactor + .1;
         System.out.println("NEW ShootOnMove FUDGE FACTOR: " + shootOnMoveFudgeFactor);
-    }
-
-    private boolean isRedAlliance(){
-	    Optional<Alliance> alliance = DriverStation.getAlliance();
-	    if(alliance != null){
-		    return alliance.get() == DriverStation.Alliance.Red;
-	    }
-	    return false;
     }
 
     public void useVision(boolean useCameraVision) {
