@@ -558,9 +558,9 @@ public final class Constants {
 
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
         public static final Transform3d kRobotToCamFront =
-                new Transform3d(new Translation3d(.135, 0.29, 0.26), new Rotation3d(0, -Units.degreesToRadians(54), Units.degreesToRadians(0)));
-        public static final Transform3d kRobotToCamBack =
                 new Transform3d(new Translation3d(-0.336555, 0, 0.4572), new Rotation3d(0, -Units.degreesToRadians(30.5), Units.degreesToRadians(180)));
+        public static final Transform3d kRobotToCamBack =
+                new Transform3d(new Translation3d(-0.336555, -0.054, 0.4572), new Rotation3d(0, -Units.degreesToRadians(30.5), Units.degreesToRadians(180)));
 
         // The layout of the AprilTags on the field
         public static final AprilTagFieldLayout kTagLayout =
