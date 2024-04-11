@@ -332,7 +332,7 @@ public class RobotContainer {
   //  operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(12)))  // this is now over the stage
   //      .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
-    operatorky.whileTrue(new SequentialCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
+    operatorky.whileTrue(new ParallelCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
                             new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController, true)))
               .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
 
