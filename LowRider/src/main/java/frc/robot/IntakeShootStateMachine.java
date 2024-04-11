@@ -3,9 +3,12 @@ package frc.robot;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OpConstants.LedOption;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDStringSubsystem;
@@ -49,6 +52,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private boolean robotStarted = false;
     private boolean haveNote;
     private double LOBSPEED = 50;
+    private final CommandXboxController xboxController = new CommandXboxController(0);
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
         m_intakeSubsystem = intakeSubsystem;
@@ -199,6 +203,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+        xboxController.getHID().setRumble(RumbleType.kBothRumble, 0);
         return true;
     }
 
@@ -343,6 +348,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+        xboxController.getHID().setRumble(RumbleType.kBothRumble, 1);
         return true;
     }
 
