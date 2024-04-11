@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.Robot;
 import frc.robot.TunerConstants;
+import frc.robot.Constants.OpConstants.LedOption;
+import frc.robot.subsystems.LEDStringSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
@@ -29,11 +31,14 @@ public class DriveToLocationCommand extends Command {
 	private WristSubsystem m_WristSubsystem;
 	private CommandXboxController m_XboxController;
 	private VisionSubsystem m_visionSubsystem;
+	private LEDStringSubsystem m_ledSubsystem;
 	private double MaxAngularRate = 1.5 * Math.PI;
 	private  double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; 
 	private  SwerveRequest.FieldCentricFacingAngle driveAtLocation =  new SwerveRequest.FieldCentricFacingAngle().withRotationalDeadband(MaxAngularRate * 0.01) // Add a 10% deadband
 		.withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband((MaxSpeed * 0.05));
 	private boolean m_lobShot;
+	private boolean m_lobShotAtOppositeStage;
+	private double targetAngle;
 
 	/**
 	 * Creates a new Fire into the speaker
@@ -41,12 +46,14 @@ public class DriveToLocationCommand extends Command {
 	 *
 	 * @param CommandSwerveDrivetrain
 	 */
-	public DriveToLocationCommand(CommandSwerveDrivetrain drivetrain, WristSubsystem wristSubsystem, VisionSubsystem visionSubsystem, CommandXboxController xboxController, boolean lobShot) {
+	public DriveToLocationCommand(CommandSwerveDrivetrain drivetrain, WristSubsystem wristSubsystem, VisionSubsystem visionSubsystem, LEDStringSubsystem ledSubsystem, CommandXboxController xboxController, boolean lobShot, boolean lobShotFromStage) {
 		m_drivetrain = drivetrain;
 		m_WristSubsystem = wristSubsystem;
 		m_XboxController = xboxController;
 		m_visionSubsystem = visionSubsystem;
 		m_lobShot = lobShot;
+		m_lobShotAtOppositeStage = lobShotFromStage;
+		m_ledSubsystem = ledSubsystem;
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		if (drivetrain != null ) {
@@ -67,16 +74,23 @@ public class DriveToLocationCommand extends Command {
 	public void execute() {
 		if (m_lobShot) {
 			m_WristSubsystem.moveWrist(7);
-			double targetAngle = Robot.isRedAlliance() ? -35 : 315;
+			m_ledSubsystem.setColor(LedOption.YELLOW);
+			if (m_lobShotAtOppositeStage){ 
+				targetAngle = Robot.isRedAlliance() ? 10 : 170;
+			}else{
+				targetAngle = Robot.isRedAlliance() ? 30 : 150;
+			}
 			Rotation2d lobRotation = new Rotation2d(targetAngle);
 			m_drivetrain.setControl( 
 				driveAtLocation.withVelocityX(-(Math.abs(m_XboxController.getLeftY()) * m_XboxController.getLeftY()) * MaxSpeed)                                                                                                                     
 					.withVelocityY(-(Math.abs(m_XboxController.getLeftX()) * m_XboxController.getLeftX()) * MaxSpeed).withTargetDirection(lobRotation));
-		} else {
+		}
+		 else {
 			m_WristSubsystem.setWristBasedOnDistance(m_visionSubsystem.getDistanceToSpeakerInMeters());
 			m_drivetrain.setControl( 
 				driveAtLocation.withVelocityX(-(Math.abs(m_XboxController.getLeftY()) * m_XboxController.getLeftY()) * MaxSpeed)                                                                                                                     
 					.withVelocityY(-(Math.abs(m_XboxController.getLeftX()) * m_XboxController.getLeftX()) * MaxSpeed).withTargetDirection(m_visionSubsystem.getHeadingToSpeakerInRad()));
+					
 		}
 		SmartDashboard.putNumber("PID Setpoint", driveAtLocation.HeadingController.getSetpoint());
 		SmartDashboard.putNumber("PID Output", driveAtLocation.HeadingController.getLastAppliedOutput());
@@ -88,6 +102,8 @@ public class DriveToLocationCommand extends Command {
 	@Override
 	public void end(boolean interrupted) {
 		m_WristSubsystem.moveWrist(0);
+		m_ledSubsystem.setColor(LedOption.BLACK);
+
 	}
 
 	// Returns true when the command should end.

@@ -200,6 +200,15 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristR_7_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,true,12.79,2.27)) ));
       NamedCommands.registerCommand("SetWristR_7_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.27,2.59)) ));
       NamedCommands.registerCommand("SetWristr_7_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.01,2.56)) ));
+
+      NamedCommands.registerCommand("SetWristR_8_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,true,3.2,6.35)) ));
+      NamedCommands.registerCommand("SetWristR_8_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.27,2.59)) ));
+      NamedCommands.registerCommand("SetWristR_8_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.01,2.56)) ));
+      NamedCommands.registerCommand("SetWristR_8_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.01,2.56)) ));
+      NamedCommands.registerCommand("SetWristR_8_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.01,2.56)) ));
+
+
+
       NamedCommands.registerCommand("StopVision", new SequentialCommandGroup(new InstantCommand(() -> wristSubsystem.stopMoveWristToTarget())));
 
 
@@ -250,7 +259,7 @@ public class RobotContainer {
  //         )
  //     );
 
-    ky.whileTrue(new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController, false));
+    ky.whileTrue(new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, m_ledstring, xboxController, false, false));
 
     kPOVUp.whileTrue(new DriveToTrapCommand(driveSubsystem,visionSubsystem));
 
@@ -333,15 +342,18 @@ public class RobotContainer {
   //      .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
     operatorky.whileTrue(new ParallelCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
-                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController, true)))
+                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem,m_ledstring, xboxController, true, false)))
               .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
 
     // Safe Shot
     operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22*0.6)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Line Shot
-    operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15*0.6)))
-        .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
+    // operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15*0.6)))
+    //     .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
+    operatorka.whileTrue(new ParallelCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
+                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, m_ledstring, xboxController, true, true)))
+              .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
     // operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
 
     operatorBack.whileTrue(new InstantCommand(() -> visionSubsystem.setConfidence(true)));
