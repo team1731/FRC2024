@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.413628281802018,
+      "y": 1.5019280947652809
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu9_p1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu9_p2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu9_p3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu9_p4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu9_p5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu9_p6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu9_p7"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
