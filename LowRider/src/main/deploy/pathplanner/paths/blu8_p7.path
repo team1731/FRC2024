@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 6.104563946685764,
-        "y": 1.433457232076502
+        "x": 5.023852956796823,
+        "y": 1.9683653912762373
       },
       "prevControl": {
-        "x": 7.306508397377327,
-        "y": 1.9027942407736667
+        "x": 6.283233657376406,
+        "y": 1.9310504075553612
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,42 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "SetWrist",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_8_5"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "FireNote",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,

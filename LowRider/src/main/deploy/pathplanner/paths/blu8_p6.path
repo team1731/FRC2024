@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.958551735285289,
-        "y": 1.9963516290668946
+        "x": 4.6227168817974,
+        "y": 2.2295702773223733
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.817398752675503,
-        "y": 0.5422638929110978
+        "x": 7.104163299235689,
+        "y": 1.2034082249982687
       },
       "isLocked": false,
       "linkedName": "Blu8_p5end"
@@ -20,8 +20,8 @@
         "y": 2.3452485641659804
       },
       "prevControl": {
-        "x": 7.322514061052467,
-        "y": 1.8143289529289717
+        "x": 8.130325351559794,
+        "y": 2.2855427529036882
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -39,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 21.482174334941533,
+    "rotation": 36.62063031949516,
     "rotateFast": false
   },
   "reversed": false,

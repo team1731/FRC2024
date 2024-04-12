@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 4.958551735285289,
-        "y": 1.9963516290668946
+        "x": 4.6227168817974,
+        "y": 2.2295702773223733
       },
       "prevControl": {
-        "x": 5.686193917842381,
-        "y": 0.48509478837139497
+        "x": 6.096658738772024,
+        "y": 0.5037522802318348
       },
       "nextControl": null,
       "isLocked": false,
@@ -36,7 +36,59 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "SetWrist",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_8_4"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Fire",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
