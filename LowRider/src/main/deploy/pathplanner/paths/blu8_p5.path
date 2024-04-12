@@ -3,35 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.016613827064459,
-        "y": 6.701187456049681
+        "x": 4.958551735285289,
+        "y": 6.362204724409449
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.441715911735181,
-        "y": 6.553993681255869
+        "x": 12.26295979864687,
+        "y": 6.166301059874848
       },
       "isLocked": false,
       "linkedName": "blu8_firenote1"
     },
     {
       "anchor": {
-        "x": 8.447004898421767,
-        "y": 4.027120713703039
+        "x": 4.958551735285289,
+        "y": 1.9963516290668946
       },
       "prevControl": {
-        "x": 8.008669691917369,
-        "y": 5.039773156640981
+        "x": 5.686193917842381,
+        "y": 0.48509478837139497
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "blu8_p5end"
+      "linkedName": "Blu8_p5end"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -53.767298464817976,
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": -103.83292711862278,
       "rotateFast": false
     }
   ],
@@ -45,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -67.82106508464983,
+    "rotation": -31.5347919051882,
     "rotateFast": false
   },
   "reversed": false,

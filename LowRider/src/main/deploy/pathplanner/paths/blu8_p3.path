@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.016613827064459,
-        "y": 6.701187456049681
+        "x": 4.958551735285289,
+        "y": 6.362204724409449
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.180618937749318,
-        "y": 6.280191574997841
+        "x": 6.171288706213776,
+        "y": 6.03569861685178
       },
       "isLocked": false,
       "linkedName": "blu8_firenote1"
@@ -20,8 +20,8 @@
         "y": 5.725534806520924
       },
       "prevControl": {
-        "x": 7.217742670439044,
-        "y": 6.059495641054361
+        "x": 7.216108250398319,
+        "y": 6.007712379061122
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -19.06732071717114,
+    "rotation": -14.181175982912103,
     "rotateFast": false
   },
   "reversed": false,

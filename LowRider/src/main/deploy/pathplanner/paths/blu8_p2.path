@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.602565417164062,
-        "y": 7.449890237395715
+        "x": 8.559447664349873,
+        "y": 7.518969219756621
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.98080828091633,
-        "y": 7.1134570053428305
+        "x": 7.029533331793936,
+        "y": 7.061860669175885
       },
       "isLocked": false,
       "linkedName": "blu8_p1end"
     },
     {
       "anchor": {
-        "x": 6.016613827064459,
-        "y": 6.701187456049681
+        "x": 4.958551735285289,
+        "y": 6.362204724409449
       },
       "prevControl": {
-        "x": 7.449993899531648,
-        "y": 7.080544529870417
+        "x": 5.994042533539613,
+        "y": 6.660724594176462
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,42 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_8_1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -39,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 12.920665211676807,
+    "rotation": 11.30993247402019,
     "rotateFast": false
   },
   "reversed": false,
