@@ -76,6 +76,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private double lastEstTimestampBack;
     private int visionInitCount;
     private boolean runningTrapPath;
+    private boolean isZoomCameraReadingValid = false;
 
     // logging
     Logger poseLogger;
@@ -200,6 +201,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 // Correct pose estimate with vision measurements
                 try {
                     var visionEstFront = getEstimatedGlobalPoseFront();
+                    isZoomCameraReadingValid  = visionEstFront.isPresent();
                     visionEstFront.ifPresent(
                         est -> {
                             var estPose = est.estimatedPose.toPose2d();
@@ -226,7 +228,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                 }
             }
 
-            if ((photonEstimatorBack != null)&& !runningTrapPath) {
+            if ((photonEstimatorBack != null)&& !runningTrapPath && !isZoomCameraReadingValid) {
                 // Correct pose estimate with vision measurements
                 try {
                     var visionEstBack = getEstimatedGlobalPoseBack();

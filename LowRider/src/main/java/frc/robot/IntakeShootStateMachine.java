@@ -186,9 +186,13 @@ public class IntakeShootStateMachine extends SubsystemBase {
             SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
         }
 
-        if (haveNote|| !robotStarted) {
+
+        if ((currentState == ISState.SPIN_SHOOTER_TO_LOB ) || (currentState == ISState.READY_TO_LOB )) {
+            m_ledSubsystem.setColor(LedOption.YELLOW);
+        } else if (haveNote|| !robotStarted) {
             turnOnLED();
-        } else {
+        }
+        else {
             m_ledSubsystem.setColor(LedOption.BLACK);
         }
     }
@@ -256,6 +260,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
      public boolean getReadyForLobShot(){
+        System.out.println("getting ready for lobshot with speed " + LOBSPEED);
         m_shooterSubsystem.lobShot(LOBSPEED);
         m_intakeSubsystem.intakeState(-0.5);
         m_intakeSubsystem.feedState(0.0);
@@ -266,6 +271,8 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
     public boolean startLobShot(){
+        System.out.println("starting lobshot with speed " + LOBSPEED);
+
         m_shooterSubsystem.lobShot(LOBSPEED);
         m_intakeSubsystem.intakeState(-0.5);
         m_intakeSubsystem.feedState(1.0);
@@ -410,5 +417,10 @@ public class IntakeShootStateMachine extends SubsystemBase {
     public void startLEDs(){
         robotStarted = true;
     }
+
+     public void setLobSpeed(double LobSpeed) {
+         LOBSPEED = LobSpeed;
+         System.out.println("Setting lobspeed to " + LOBSPEED);
+     }
 
 }

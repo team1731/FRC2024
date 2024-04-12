@@ -342,7 +342,7 @@ public class RobotContainer {
   //      .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
     operatorky.whileTrue(new ParallelCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
-                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem,m_ledstring, xboxController, true, false)))
+                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem,m_ledstring, xboxController, true, false), new InstantCommand(() -> intakeShootStateMachine.setLobSpeed(50.0))))
               .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
 
     // Safe Shot
@@ -352,7 +352,7 @@ public class RobotContainer {
     // operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15*0.6)))
     //     .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     operatorka.whileTrue(new ParallelCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
-                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, m_ledstring, xboxController, true, true)))
+                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, m_ledstring, xboxController, true, true), new InstantCommand(() -> intakeShootStateMachine.setLobSpeed(45.0))))
               .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
     // operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
 

@@ -558,9 +558,9 @@ public final class Constants {
 
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
         public static final Transform3d kRobotToCamFront =
-                new Transform3d(new Translation3d(-0.336555, 0, 0.4572), new Rotation3d(0, -Units.degreesToRadians(30.5), Units.degreesToRadians(180)));
+                new Transform3d(new Translation3d(-0.336555,  -0.054, 0.4572), new Rotation3d(0, -Units.degreesToRadians(12), Units.degreesToRadians(180)));
         public static final Transform3d kRobotToCamBack =
-                new Transform3d(new Translation3d(-0.336555, -0.054, 0.4572), new Rotation3d(0, -Units.degreesToRadians(9), Units.degreesToRadians(180)));
+                new Transform3d(new Translation3d(-0.336555,0, 0.4572), new Rotation3d(0, -Units.degreesToRadians(30.5), Units.degreesToRadians(180)));
 
         // The layout of the AprilTags on the field
         public static final AprilTagFieldLayout kTagLayout =
@@ -569,7 +569,7 @@ public final class Constants {
         // The standard deviations of our vision estimated poses, which affect correction rate
         // (Fake values. Experiment and determine estimation noise on an actual robot.)
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(2, 2, 8);
-        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.1, 0.1, 0.01);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.1, 0.1, 1);
         public static final Matrix<N3, N1> kTrapStdDevs = VecBuilder.fill(0.1, 0.1, 0.001);
     }
 

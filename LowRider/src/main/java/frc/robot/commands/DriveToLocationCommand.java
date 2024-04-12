@@ -67,6 +67,9 @@ public class DriveToLocationCommand extends Command {
 	public void initialize() {
        driveAtLocation.HeadingController.setPID(10,0,0);
 	   driveAtLocation.HeadingController.enableContinuousInput(-Math.PI/2, Math.PI/2);
+	   if (m_lobShot) {
+		m_ledSubsystem.setColor(LedOption.YELLOW);
+	   }
     }
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -74,11 +77,10 @@ public class DriveToLocationCommand extends Command {
 	public void execute() {
 		if (m_lobShot) {
 			m_WristSubsystem.moveWrist(7);
-			m_ledSubsystem.setColor(LedOption.YELLOW);
 			if (m_lobShotAtOppositeStage){ 
-				targetAngle = Robot.isRedAlliance() ? 10 : 170;
+				targetAngle = Robot.isRedAlliance() ? Math.toRadians(20) : Math.toRadians(160);
 			}else{
-				targetAngle = Robot.isRedAlliance() ? 30 : 150;
+				targetAngle = Robot.isRedAlliance() ? Math.toRadians(40) : Math.toRadians(140);
 			}
 			Rotation2d lobRotation = new Rotation2d(targetAngle);
 			m_drivetrain.setControl( 
