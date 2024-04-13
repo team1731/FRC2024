@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -34,8 +33,6 @@ enum ISState {
     LOBBING,
     READY_TO_LOB
 }
-
-
 public class IntakeShootStateMachine extends SubsystemBase {
 	private final IntakeSubsystem m_intakeSubsystem;
     private final ShooterSubsystem m_shooterSubsystem;
@@ -52,14 +49,13 @@ public class IntakeShootStateMachine extends SubsystemBase {
     private boolean robotStarted = false;
     private boolean haveNote;
     private double LOBSPEED = 50;
-    private final CommandXboxController xboxController = new CommandXboxController(0);
+    private CommandXboxController xboxController = null;
 
     public IntakeShootStateMachine(IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem, LEDStringSubsystem ledSubsystem, VisionSubsystem visionSubsystem){
         m_intakeSubsystem = intakeSubsystem;
 		m_shooterSubsystem = shooterSubsystem;
         m_ledSubsystem = ledSubsystem;
         m_visionSubsystem = visionSubsystem;
-
 
         methods = new HashMap<String, Method>();
         for(Object[] transition : STATE_TRANSITION_TABLE){
@@ -75,6 +71,11 @@ public class IntakeShootStateMachine extends SubsystemBase {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setXboxController(CommandXboxController xb) {
+        xboxController = xb;
+        System.out.println("Set Xbox Controller");
     }
 
     public void setCurrentState(ISState newState){
@@ -186,13 +187,11 @@ public class IntakeShootStateMachine extends SubsystemBase {
             SmartDashboard.putBoolean("hasNote", m_intakeSubsystem.hasNote());
         }
 
-
         if ((currentState == ISState.SPIN_SHOOTER_TO_LOB ) || (currentState == ISState.READY_TO_LOB )) {
             m_ledSubsystem.setColor(LedOption.YELLOW);
         } else if (haveNote|| !robotStarted) {
             turnOnLED();
-        }
-        else {
+        } else {
             m_ledSubsystem.setColor(LedOption.BLACK);
         }
     }
@@ -207,11 +206,13 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(0.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-        xboxController.getHID().setRumble(RumbleType.kBothRumble, 0);
+        if (xboxController != null) {
+            xboxController.getHID().setRumble(RumbleType.kBothRumble, 0);
+        }
         return true;
     }
 
-        public boolean cancelLob(){
+    public boolean cancelLob(){
         m_shooterSubsystem.shoot();
         m_intakeSubsystem.intakeState(-0.5);
         m_intakeSubsystem.feedState(0.0);
@@ -219,7 +220,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.enableReverseLimitSwitch();
         return true;
     }
-
 
     public boolean startIntake(){
         m_shooterSubsystem.reverseSlow();
@@ -256,10 +256,13 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.disableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
         haveNote = true;
+        if (xboxController != null) {
+            xboxController.getHID().setRumble(RumbleType.kBothRumble, 1);
+        }
         return true;
     }
 
-     public boolean getReadyForLobShot(){
+    public boolean getReadyForLobShot(){
         System.out.println("getting ready for lobshot with speed " + LOBSPEED);
         m_shooterSubsystem.lobShot(LOBSPEED);
         m_intakeSubsystem.intakeState(-0.5);
@@ -298,6 +301,9 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(1.0);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
+        if (xboxController != null) {
+            xboxController.getHID().setRumble(RumbleType.kBothRumble, 0);
+        }
         return true;
     }
 
@@ -310,6 +316,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
         haveNote = false;
         return true;
     }
+
     public boolean startShootAmp(){
         m_shooterSubsystem.shootAmp();
         m_intakeSubsystem.intakeState(-0.5);
@@ -355,7 +362,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         m_intakeSubsystem.feedState(-0.2);
         m_intakeSubsystem.enableLimitSwitch();
         m_intakeSubsystem.enableReverseLimitSwitch();
-        xboxController.getHID().setRumble(RumbleType.kBothRumble, 1);
         return true;
     }
 
@@ -409,7 +415,6 @@ public class IntakeShootStateMachine extends SubsystemBase {
         return null;
     }
 
-
     public boolean doNothing(){
         return true;
     }
@@ -419,8 +424,7 @@ public class IntakeShootStateMachine extends SubsystemBase {
     }
 
      public void setLobSpeed(double LobSpeed) {
-         LOBSPEED = LobSpeed;
-         System.out.println("Setting lobspeed to " + LOBSPEED);
+        LOBSPEED = LobSpeed;
+        System.out.println("Setting lobspeed to " + LOBSPEED);
      }
-
 }

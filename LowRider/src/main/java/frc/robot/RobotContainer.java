@@ -92,8 +92,6 @@ public class RobotContainer {
   private final Trigger operatorkPOVLeft = xboxOperatorController.povLeft();
   private final Trigger operatorkPOVRight = xboxOperatorController.povRight();
 
-
-
   /* Subsystems */
   private CommandSwerveDrivetrain driveSubsystem;
   private VisionSubsystem visionSubsystem;
@@ -113,8 +111,6 @@ public class RobotContainer {
   public static boolean isFlipRedBlue(){
     return flipRedBlue;
   }
-
-
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
@@ -238,7 +234,7 @@ public class RobotContainer {
     
     // Configure the button bindings
     configureButtonBindings();
-
+    intakeShootStateMachine.setXboxController(xboxController);
   }
    
 
@@ -450,6 +446,5 @@ public class RobotContainer {
     SmartDashboard.putBoolean("RED_BLUE_FLIPPING", flipRedBlue);
     return command;
   }
-
 
 }
