@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.26295979864687,
-        "y": 6.166301059874848
+        "x": 12.277565210535203,
+        "y": 6.529359675281368
       },
       "isLocked": false,
       "linkedName": "blu8_firenote1"
     },
     {
       "anchor": {
-        "x": 4.6227168817974,
-        "y": 2.2295702773223733
+        "x": 4.5752279406954885,
+        "y": 1.6092289872102996
       },
       "prevControl": {
-        "x": 6.096658738772024,
-        "y": 0.5037522802318348
+        "x": 6.280112576458644,
+        "y": -0.6230890023040967
       },
       "nextControl": null,
       "isLocked": false,
@@ -97,7 +97,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -31.5347919051882,
+    "rotation": -42.734852327877825,
     "rotateFast": false
   },
   "reversed": false,

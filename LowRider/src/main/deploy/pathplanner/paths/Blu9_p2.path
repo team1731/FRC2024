@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.475488950977901,
-        "y": 0.7649571662779697
+        "x": 8.533848973913072,
+        "y": 0.8731718524867474
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.794490498071905,
-        "y": 0.1026162052324107
+        "x": 7.852850521007076,
+        "y": 0.21083089144118844
       },
       "isLocked": false,
       "linkedName": "Blu9_p1_end"
     },
     {
       "anchor": {
-        "x": 8.475488950977901,
-        "y": 2.500103909298728
+        "x": 8.533848973913072,
+        "y": 2.511520558304905
       },
       "prevControl": {
-        "x": 2.393146604475027,
-        "y": 1.8844066779042652
+        "x": 2.4515066274101978,
+        "y": 1.895823326910442
       },
       "nextControl": null,
       "isLocked": false,
@@ -36,7 +36,60 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_9_1"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "StartShooter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.5
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 4.5,
@@ -45,7 +98,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 21.80140948635169,
+    "rotation": 13.463645863236113,
     "rotateFast": false
   },
   "reversed": false,
