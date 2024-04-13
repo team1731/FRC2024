@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "SetWrist",
-      "waypointRelativePos": 0.95,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -79,6 +79,9 @@
   },
   "reversed": false,
   "folder": "Blu_8_Line_5",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 16.405071690191907,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

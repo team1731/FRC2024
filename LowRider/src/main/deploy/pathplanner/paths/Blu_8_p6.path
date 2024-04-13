@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.6227168817974,
-        "y": 2.2295702773223733
+        "x": 4.5752279406954885,
+        "y": 1.6092289872102996
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.104163299235689,
-        "y": 1.2034082249982687
+        "x": 7.056674358133778,
+        "y": 0.583066934886195
       },
       "isLocked": false,
       "linkedName": "Blu8_p5end"
     },
     {
       "anchor": {
-        "x": 8.150263979099387,
-        "y": 2.3452485641659804
+        "x": 8.430681541349946,
+        "y": 2.386319485642947
       },
       "prevControl": {
-        "x": 8.130325351559794,
-        "y": 2.2855427529036882
+        "x": 7.492997503324793,
+        "y": 2.427750415683756
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 36.62063031949516,
+    "rotation": 2.569177136963771,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_8_Line_5",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": -41.49783832726369,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }
