@@ -225,6 +225,9 @@ public class RobotContainer {
       NamedCommands.registerCommand("IntakeNoJiggle", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_SPEAKER), 
                                                                                  new InstantCommand(() ->  wristSubsystem.moveWrist(0)),
                                                                                  new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.INTAKE_NO_JIGGLE)));
+    
+      NamedCommands.registerCommand("EndRaceIfNoNotePresent", new SequentialCommandGroup(new EndRaceIfNoNotePresent(intakeSubsystem) ));
+      NamedCommands.registerCommand("EndRaceIfNotePresent", new SequentialCommandGroup(new EndRaceIfNotePresent(intakeSubsystem) ));
     }
     
     climbStateMachine.setInitialState(CState.ROBOT_LATCHED_ON_CHAIN);
