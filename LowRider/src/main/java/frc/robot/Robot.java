@@ -128,6 +128,7 @@ public class Robot extends TimedRobot {
     visionSubsystem.useVision(true);
 	intakeShootStateMachine.turnOnLED();
 	ledSubsystem.setColor(LedOption.INIT);
+	//m_robotContainer.buildAuto10();
 	String[] autoModes = RobotContainer.deriveAutoModes();
 	for(String autoMode: autoModes){
 	

@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 8.550118918419654,
+      "y": 5.7371787470847675
+    },
+    "rotation": -32.1249984403875
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_10_p5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_10_p6"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Blu_10_AmpLine_3",
+  "choreoAuto": false
+}

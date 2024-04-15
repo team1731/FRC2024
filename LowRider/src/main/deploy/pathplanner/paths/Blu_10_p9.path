@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.39882697947214,
+        "y": 6.399519708130326
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.643406377721846,
+        "y": 6.865957004641282
+      },
+      "isLocked": false,
+      "linkedName": "B10_ShootNote3"
+    },
+    {
+      "anchor": {
+        "x": 8.531461426559217,
+        "y": 2.4441314337174136
+      },
+      "prevControl": {
+        "x": 6.329877387027501,
+        "y": 3.246403583716259
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "B10_Note4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -35.753887254436876,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_10_AmpLine_3",
+  "previewStartingState": {
+    "rotation": 15.829866519740843,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,87 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.48481769690812,
+        "y": 4.020689495924446
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.99708461887786,
+        "y": 4.996155651984964
+      },
+      "isLocked": false,
+      "linkedName": "B10_Note3"
+    },
+    {
+      "anchor": {
+        "x": 4.39882697947214,
+        "y": 6.399519708130326
+      },
+      "prevControl": {
+        "x": 6.786985937608239,
+        "y": 6.819313274990187
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "B10_ShootNote3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "SetWrist",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_10_3"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "FireNote",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 12.02587398677198,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_10_AmpLine_3",
+  "previewStartingState": {
+    "rotation": -21.801409486351833,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

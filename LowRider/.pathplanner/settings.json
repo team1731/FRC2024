@@ -3,7 +3,9 @@
   "robotLength": 0.8763,
   "holonomicMode": true,
   "pathFolders": [
+    "Blu_10_AmpLine_3",
     "Blu_1B_Speaker_6",
+    "Blu_1C_Speaker_6",
     "Blu_1_Speaker_6",
     "Blu_2_Speaker_4",
     "Blu_3_Stage_4",
@@ -12,9 +14,12 @@
     "Blu_6_Stage_4",
     "Blu_7_Stage_4B",
     "Blu_8_Line_5",
-    "DriveToTrap",
     "Blu_9_Line_4",
+    "DriveToTrap",
+    "Red_8_Line_5",
+    "Red_10_AmpLine_3",
     "Red_1B_Speaker_6",
+    "Red_1C_Speaker_6",
     "Red_1_Speaker_6",
     "Red_2_Speaker_4",
     "Red_3_Stage_4",
@@ -23,7 +28,10 @@
     "Red_6_Stage_4",
     "Red_7_Stage_4B"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Blu_10_AmpLine_3",
+    "Red_10_AmpLine_3"
+  ],
   "defaultMaxVel": 5.0,
   "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,

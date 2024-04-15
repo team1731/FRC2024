@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.417162560331765,
-        "y": 1.7396678661794585
+        "x": 7.971934573440782,
+        "y": 2.4441314337174136
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7250111760289963,
-        "y": 2.756501172573344
+        "x": 8.904809166462696,
+        "y": 1.9590366453460186
       },
       "isLocked": false,
-      "linkedName": "Blu9_p6end"
+      "linkedName": "Red_B10_Note4"
     },
     {
       "anchor": {
-        "x": 1.199067125406978,
-        "y": 4.645715473249129
+        "x": 12.589663808899253,
+        "y": 2.640035098252015
       },
       "prevControl": {
-        "x": 1.553559470755305,
-        "y": 3.3023760592975733
+        "x": 10.89183204959937,
+        "y": 1.19407947906805
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red_B10_ShootNote4"
     }
   ],
   "rotationTargets": [],
@@ -35,13 +35,13 @@
       "name": "New Event Marker",
       "waypointRelativePos": 0.05,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "StartShooter"
+                "name": "SetWristB_10_4"
               }
             }
           ]
@@ -50,9 +50,9 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.9,
+      "waypointRelativePos": 0.95,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -74,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -44.09061955080086,
+    "rotation": 210.9637565320735,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_9_Line_4",
+  "folder": "Red_10_AmpLine_3",
   "previewStartingState": {
-    "rotation": -90.81145416288052,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.533848973913072,
-        "y": 0.8731718524867474
+        "x": 8.522132680628998,
+        "y": 0.8862308633708179
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.852850521007076,
-        "y": 0.21083089144118844
+        "x": 5.630221442261066,
+        "y": 1.3899831436026515
       },
       "isLocked": false,
       "linkedName": "Blu9_p1_end"
     },
     {
       "anchor": {
-        "x": 8.533848973913072,
-        "y": 2.511520558304905
+        "x": 4.762648070750687,
+        "y": 1.6232017918581303
       },
       "prevControl": {
-        "x": 2.4515066274101978,
-        "y": 1.895823326910442
+        "x": 5.424989031796245,
+        "y": 1.3433394139515566
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,19 +41,19 @@
       "name": "New Event Marker",
       "waypointRelativePos": 0.05,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "SetWristB_9_1"
+                "name": "StartShooter"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "StartShooter"
+                "name": "SetWristB_9_2"
               }
             }
           ]
@@ -62,7 +62,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
         "data": {
@@ -71,18 +71,6 @@
               "type": "named",
               "data": {
                 "name": "FireNote"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.5
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
               }
             }
           ]
@@ -98,7 +86,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.463645863236113,
+    "rotation": -43.36342295838333,
     "rotateFast": false
   },
   "reversed": false,

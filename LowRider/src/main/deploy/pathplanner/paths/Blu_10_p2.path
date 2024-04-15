@@ -3,45 +3,62 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.82794929226222,
-        "y": 2.033666612787772
+        "x": 8.522132680628998,
+        "y": 7.388366776733554
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.98484118028571,
-        "y": 1.343439543603758
+        "x": 6.852287159119772,
+        "y": 7.276421825570925
       },
       "isLocked": false,
-      "linkedName": "Blu9_p3_end"
+      "linkedName": "B10_Note1"
     },
     {
       "anchor": {
-        "x": 8.466160205047682,
-        "y": 4.225921906389267
+        "x": 4.212252060867758,
+        "y": 6.175629805805067
       },
       "prevControl": {
-        "x": 7.066848315514813,
-        "y": 2.2109127854619346
+        "x": 5.051839194587473,
+        "y": 6.660724594176462
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blu9_p4_end"
+      "linkedName": "B10_ShootNote1"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.4,
+      "name": "SetWrist",
+      "waypointRelativePos": 0.15,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "SetWristB_10_1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "FireNote",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
               }
             }
           ]
@@ -57,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 57.59023285424596,
+    "rotation": 9.462322208025626,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_9_Line_4",
+  "folder": "Blu_10_AmpLine_3",
   "previewStartingState": {
-    "rotation": -38.105647878996706,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

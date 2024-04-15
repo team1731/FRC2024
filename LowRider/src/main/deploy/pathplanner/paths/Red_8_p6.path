@@ -3,60 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.533848973913072,
-        "y": 2.511520558304905
+        "x": 8.307571524233957,
+        "y": 4.030018241854666
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.947962165775819,
-        "y": 1.765220883887374
+        "x": 8.783337566675133,
+        "y": 4.981550326737017
       },
       "isLocked": false,
-      "linkedName": "Blu9_p2_end"
+      "linkedName": "Red_Blu8_p5end"
     },
     {
       "anchor": {
-        "x": 4.82794929226222,
-        "y": 2.033666612787772
+        "x": 11.54484426471471,
+        "y": 6.362204724409449
       },
       "prevControl": {
-        "x": 5.33872122289699,
-        "y": 1.5935991871983752
+        "x": 9.361719814348719,
+        "y": 6.688710831967119
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blu9_p3_end"
+      "linkedName": "Red_blu8_firenote1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -179.47715770541393,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "SetWristB_9_2"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "StartShooter"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
         "data": {
@@ -65,6 +48,23 @@
               "type": "named",
               "data": {
                 "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristR_8_5"
               }
             }
           ]
@@ -80,14 +80,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -24.07549825507889,
+    "rotation": 171.8739472716651,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_9_Line_4",
+  "folder": "Red_8_Line_5",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -117.14968169778307,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

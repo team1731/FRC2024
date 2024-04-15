@@ -3,39 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.413628281802018,
-        "y": 1.5019280947652809
+        "x": 2.9342138684277366,
+        "y": 6.837970766850624
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4771053178469993,
-        "y": 1.3899831436026515
+        "x": 3.835180478947721,
+        "y": 4.3029049206577845
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "pickup1"
     },
     {
       "anchor": {
-        "x": 8.533848973913072,
-        "y": 0.8731718524867474
+        "x": 8.49414644283834,
+        "y": 3.9367307825524747
       },
       "prevControl": {
-        "x": 7.545001905309845,
-        "y": 0.9664593117889383
+        "x": 6.022028771330272,
+        "y": 3.7874708476689682
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blu9_p1_end"
+      "linkedName": "pickup4C"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.15,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -57,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -1.1934894239820681,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_9_Line_4",
+  "folder": "Blu_1C_Speaker_6",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 20.28255908891664,
     "velocity": 0
   },
   "useDefaultConstraints": true
