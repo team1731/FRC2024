@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 11.740747929249313,
+        "x": 11.74,
         "y": 1.6232017918581303
       },
       "prevControl": {
-        "x": 11.078406968203755,
+        "x": 11.077659038954442,
         "y": 1.3433394139515566
       },
       "nextControl": null,
@@ -53,7 +53,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristB_9_2"
+                "name": "SetWristR_9_2"
               }
             }
           ]
@@ -62,7 +62,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "sequential",
         "data": {

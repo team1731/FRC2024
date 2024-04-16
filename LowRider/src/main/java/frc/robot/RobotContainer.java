@@ -180,9 +180,9 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristB_7_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false, 3.52, 2.83)) ));
       NamedCommands.registerCommand("SetWristB_7_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false, 3.52, 2.83)) ));
    
-      NamedCommands.registerCommand("SetWristB_8_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,3.0,6.3)) ));
-      NamedCommands.registerCommand("SetWristB_8_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,4.96,6.36)) ));
-      NamedCommands.registerCommand("SetWristB_8_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,4.96 ,6.36)) ));
+      NamedCommands.registerCommand("SetWristB_8_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false,4.56,6.3)) ));//all -0.5 previously 
+      NamedCommands.registerCommand("SetWristB_8_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false,4.96,6.36)) ));
+      NamedCommands.registerCommand("SetWristB_8_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false,4.96 ,6.36)) ));
       NamedCommands.registerCommand("SetWristB_8_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,4.62,2.23)) ));
       NamedCommands.registerCommand("SetWristB_8_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,5.02,1.97)) ));
 
@@ -234,6 +234,10 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristR_8_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,11.54 ,6.36)) ));
       NamedCommands.registerCommand("SetWristR_8_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,11.54,6.36)) ));
       NamedCommands.registerCommand("SetWristR_8_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,11.8,1.74)) ));
+
+      NamedCommands.registerCommand("SetWristR_9_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,12,1.18)) ));
+      NamedCommands.registerCommand("SetWristR_9_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5, true,11.74,1.62)) ));
+      NamedCommands.registerCommand("SetWristR_9_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5, true,11.74,1.62)) ));
 
       NamedCommands.registerCommand("SetWristR_10_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true, 12.29, 6.18)) ));
       NamedCommands.registerCommand("SetWristR_10_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true, 12.02, 6.20)) ));
