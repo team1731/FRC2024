@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3968200565886093,
-      "y": 6.291547985186537
+      "x": 15.089767718197981,
+      "y": 1.5019280947652809
     },
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -24,7 +24,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SetWristR_8_1"
+                  "name": "SetWristB_9_1"
                 }
               }
             ]
@@ -33,37 +33,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blu_8_p1"
+            "pathName": "Red_9_p1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blu_8_p2"
+            "pathName": "Red_9_p2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blu_8_p3"
+            "pathName": "Red_9_p3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blu_8_p4"
+            "pathName": "Red_9_p4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blu_8_p5"
+            "pathName": "Red_9_p5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blu_8_p6"
+            "pathName": "Red_9_p6"
           }
         }
       ]

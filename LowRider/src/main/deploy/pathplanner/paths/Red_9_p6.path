@@ -3,54 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270454443207795,
-        "y": 5.755836238945205
+        "x": 8.177166983905602,
+        "y": 4.571085505807376
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.447253915485241,
-        "y": 6.3632685348877365
+        "x": 13.485223418200288,
+        "y": 5.49463135289907
       },
       "isLocked": false,
-      "linkedName": "Red_Red_blu8_p3end"
+      "linkedName": "Red_blu9_p5end"
     },
     {
       "anchor": {
-        "x": 4.958551735285289,
-        "y": 6.362204724409449
+        "x": 15.705464949592443,
+        "y": 4.701687948830443
       },
       "prevControl": {
-        "x": 6.181383630205877,
-        "y": 6.449029619047194
+        "x": 11.08773571413397,
+        "y": 1.1474357494169536
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red_Red_blu8_firenote1"
+      "linkedName": "Red_Blu9_p6end"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "SetWrist",
-      "waypointRelativePos": 0.1,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "SetWristR_8_3"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Fire",
-      "waypointRelativePos": 0.95,
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -74,14 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.287187364451796,
+    "rotation": 237.52880770915152,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_8_Line_5",
+  "folder": "Red_9_Line_4",
   "previewStartingState": {
-    "rotation": 357.35513543008454,
+    "rotation": 174.8055710922652,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

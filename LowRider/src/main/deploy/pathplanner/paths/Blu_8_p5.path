@@ -8,30 +8,30 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.277565210535203,
-        "y": 6.529359675281368
+        "x": 6.852485061814486,
+        "y": 6.632738356385804
       },
       "isLocked": false,
-      "linkedName": "blu8_firenote1"
+      "linkedName": "Red_Red_blu8_firenote1"
     },
     {
       "anchor": {
-        "x": 4.5752279406954885,
-        "y": 1.6092289872102996
+        "x": 8.195824475766042,
+        "y": 4.030018241854666
       },
       "prevControl": {
-        "x": 6.280112576458644,
-        "y": -0.6230890023040967
+        "x": 8.055893286812754,
+        "y": 4.822961645923292
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blu8_p5end"
+      "linkedName": "Red_Red_Blu8_p5end"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.4,
-      "rotationDegrees": -103.83292711862278,
+      "rotationDegrees": -29.060000000000002,
       "rotateFast": false
     }
   ],
@@ -39,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -48,40 +48,6 @@
               "type": "named",
               "data": {
                 "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "SetWrist",
-      "waypointRelativePos": 0.55,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "SetWristB_8_4"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Fire",
-      "waypointRelativePos": 0.95,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "FireNote"
               }
             }
           ]
@@ -97,11 +63,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -42.734852327877825,
+    "rotation": 287.17590361574673,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_8_Line_5",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 3.148747069248401,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

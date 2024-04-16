@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.559447664349873,
-        "y": 7.518969219756621
+        "x": 8.149180746114945,
+        "y": 7.369709284873116
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.029533331793936,
-        "y": 7.061860669175885
+        "x": 6.619266413559007,
+        "y": 6.912600734292379
       },
       "isLocked": false,
-      "linkedName": "blu8_p1end"
+      "linkedName": "Red_Red_blu8_p1end"
     },
     {
       "anchor": {
-        "x": 4.958551735285289,
+        "x": 4.9633959999999995,
         "y": 6.362204724409449
       },
       "prevControl": {
-        "x": 5.994042533539613,
+        "x": 5.998886798254324,
         "y": 6.660724594176462
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "blu8_firenote1"
+      "linkedName": "Red_Red_blu8_firenote1"
     }
   ],
   "rotationTargets": [],
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristB_8_2"
+                "name": "SetWristR_8_2"
               }
             }
           ]
@@ -74,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 11.30993247402019,
+    "rotation": 11.3099324740202,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_8_Line_5",
   "previewStartingState": {
-    "rotation": 16.405071690191907,
+    "rotation": 16.405071690191903,
     "velocity": 0
   },
   "useDefaultConstraints": false

@@ -3,72 +3,48 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4335437271134959,
-        "y": 6.3528711703690774
+        "x": 1.3391962170549778,
+        "y": 6.3248897406885725
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.341030318424273,
-        "y": 6.194287297665506
+        "x": 5.630419344955781,
+        "y": 5.802479968596301
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.559447664349873,
-        "y": 7.518969219756621
+        "x": 8.149180746114945,
+        "y": 7.369709284873116
       },
       "prevControl": {
-        "x": 7.462181621420923,
-        "y": 7.01899470037416
+        "x": 7.90593790668809,
+        "y": 7.2237635812170025
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "blu8_p1end"
+      "linkedName": "Red_Red_blu8_p1end"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.15,
-      "rotationDegrees": 18.783092567323955,
+      "waypointRelativePos": 0.2,
+      "rotationDegrees": 14.99981177243157,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.1,
+      "rotationDegrees": 1.3074400335042355,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "StartIntakeAndShooter",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "StartShooter"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "SetWristB_8_1"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
       "name": "FireNote",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -104,11 +80,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 19.98310652190002,
+    "rotation": 19.983106521900027,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blu_8_Line_5",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 0.17685317486396457,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

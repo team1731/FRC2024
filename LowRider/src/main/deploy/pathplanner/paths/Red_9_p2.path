@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270454443207795,
-        "y": 5.755836238945205
+        "x": 7.981263319371001,
+        "y": 0.8862308633708179
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.447253915485241,
-        "y": 6.3632685348877365
+        "x": 10.873174557738933,
+        "y": 1.3899831436026515
       },
       "isLocked": false,
-      "linkedName": "Red_Red_blu8_p3end"
+      "linkedName": "Red_Blu9_p1_end"
     },
     {
       "anchor": {
-        "x": 4.958551735285289,
-        "y": 6.362204724409449
+        "x": 11.740747929249313,
+        "y": 1.6232017918581303
       },
       "prevControl": {
-        "x": 6.181383630205877,
-        "y": 6.449029619047194
+        "x": 11.078406968203755,
+        "y": 1.3433394139515566
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red_Red_blu8_firenote1"
+      "linkedName": "Red_Blu9_p2_end"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.65,
+      "rotationDegrees": 214.97843011828388,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "SetWrist",
-      "waypointRelativePos": 0.1,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristR_8_3"
+                "name": "StartShooter"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_9_2"
               }
             }
           ]
@@ -49,7 +61,7 @@
       }
     },
     {
-      "name": "Fire",
+      "name": "New Event Marker",
       "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
@@ -74,14 +86,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.287187364451796,
+    "rotation": 223.36342295838332,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blu_8_Line_5",
+  "folder": "Red_9_Line_4",
   "previewStartingState": {
-    "rotation": 357.35513543008454,
+    "rotation": 180.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
