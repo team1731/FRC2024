@@ -20,15 +20,21 @@
         "y": 5.755836238945205
       },
       "prevControl": {
-        "x": 9.109843674232803,
-        "y": 6.259588519177039
+        "x": 9.167275000998687,
+        "y": 6.048721652511548
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red_blu8_p3end"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -161.78163983982867,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -57,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -158.19859051364816,
+    "rotation": -161.88880416603703,
     "rotateFast": false
   },
   "reversed": false,

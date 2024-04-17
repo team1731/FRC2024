@@ -16,19 +16,25 @@
     },
     {
       "anchor": {
-        "x": 8.270454443207795,
-        "y": 5.755836238945205
+        "x": 8.28273623562105,
+        "y": 5.728469570502315
       },
       "prevControl": {
-        "x": 7.393552325767196,
-        "y": 6.259588519177039
+        "x": 7.343677112092064,
+        "y": 6.0867128370231445
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red_Red_blu8_p3end"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -18.614163011992883,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {

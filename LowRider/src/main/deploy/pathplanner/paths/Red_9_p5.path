@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.042168240700118,
-        "y": 0.39793428314129387
+        "x": 9.524417073765557,
+        "y": 1.6410629512572263
       },
       "isLocked": false,
       "linkedName": "Red_Blu9_p4_end"
     },
     {
       "anchor": {
-        "x": 8.177166983905602,
-        "y": 4.571085505807376
+        "x": 8.226129167886825,
+        "y": 4.074495706517048
       },
       "prevControl": {
-        "x": 8.130523254254506,
-        "y": 3.0038561895305613
+        "x": 8.733565409185205,
+        "y": 3.3255464923943125
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 98.31301937595538,
+      "rotationDegrees": 126.628889459242,
       "rotateFast": false
     }
   ],
@@ -63,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 95.9468630539736,
+    "rotation": 114.25812756439885,
     "rotateFast": false
   },
   "reversed": false,

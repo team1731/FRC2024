@@ -65,6 +65,12 @@
           "data": {
             "pathName": "Red_9_p6"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red_9_p7"
+          }
         }
       ]
     }

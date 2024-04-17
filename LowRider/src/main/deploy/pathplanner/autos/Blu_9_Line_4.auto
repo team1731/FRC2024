@@ -65,6 +65,12 @@
           "data": {
             "pathName": "Blu_9_p6"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_9_p7"
+          }
         }
       ]
     }
