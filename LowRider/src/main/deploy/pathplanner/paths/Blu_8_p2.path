@@ -1,0 +1,87 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.149180746114945,
+        "y": 7.369709284873116
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.619266413559007,
+        "y": 6.912600734292379
+      },
+      "isLocked": false,
+      "linkedName": "Red_Red_blu8_p1end"
+    },
+    {
+      "anchor": {
+        "x": 4.9633959999999995,
+        "y": 6.362204724409449
+      },
+      "prevControl": {
+        "x": 5.998886798254324,
+        "y": 6.660724594176462
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_Red_blu8_firenote1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "SetWrist",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_8_2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "FireNote",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 11.3099324740202,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_8_Line_5",
+  "previewStartingState": {
+    "rotation": 16.405071690191903,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

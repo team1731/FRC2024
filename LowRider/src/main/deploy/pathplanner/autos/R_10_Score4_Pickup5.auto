@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 7.971934573440782,
+      "y": 2.4441314337174136
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red_10_p11"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red_10_p12"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Red_10_AmpLine_3",
+  "choreoAuto": false
+}

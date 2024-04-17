@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.522132680628998,
+        "y": 7.388366776733554
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.917588380631305,
+        "y": 7.435010506384649
+      },
+      "isLocked": false,
+      "linkedName": "B10_Note1"
+    },
+    {
+      "anchor": {
+        "x": 8.550118918419654,
+        "y": 5.7371787470847675
+      },
+      "prevControl": {
+        "x": 7.057519569584594,
+        "y": 5.625233795922139
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "B10_Note2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_10_AmpLine_3",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

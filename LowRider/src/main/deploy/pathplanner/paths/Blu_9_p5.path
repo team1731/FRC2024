@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.76,
+        "y": 1.62
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.696293116155104,
+        "y": 1.539336985824967
+      },
+      "isLocked": false,
+      "linkedName": "Blu9_p4_end"
+    },
+    {
+      "anchor": {
+        "x": 8.316206967191766,
+        "y": 4.166289520235988
+      },
+      "prevControl": {
+        "x": 7.826955445940863,
+        "y": 3.455579371892793
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "blu9_p5end"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 62.10593683920511,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 62.11660814547496,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_9_Line_4",
+  "previewStartingState": {
+    "rotation": -29.803890452434725,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

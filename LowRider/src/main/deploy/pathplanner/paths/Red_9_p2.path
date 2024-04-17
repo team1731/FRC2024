@@ -1,0 +1,99 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.35903183642828,
+        "y": 0.7877797603013122
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.250943074796211,
+        "y": 1.2915320405331459
+      },
+      "isLocked": false,
+      "linkedName": "Red_Blu9_p1_end"
+    },
+    {
+      "anchor": {
+        "x": 11.74,
+        "y": 1.6232017918581303
+      },
+      "prevControl": {
+        "x": 11.077659038954442,
+        "y": 1.3433394139515566
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_Blu9_p2_end"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.65,
+      "rotationDegrees": 214.97843011828388,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "StartShooter"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristR_9_2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 223.36342295838332,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_9_Line_4",
+  "previewStartingState": {
+    "rotation": 180.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,98 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 13.858373255409056,
+        "y": 4.244579398249706
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 14.45541299494308,
+        "y": 4.41249682499365
+      },
+      "isLocked": false,
+      "linkedName": "Red_blu_1_firstnote"
+    },
+    {
+      "anchor": {
+        "x": 14.912521545523816,
+        "y": 5.569261320340823
+      },
+      "prevControl": {
+        "x": 14.998093704360285,
+        "y": 5.245988720291944
+      },
+      "nextControl": {
+        "x": 14.828562832151846,
+        "y": 5.886438681968274
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 13.569182131572262,
+        "y": 5.503960098829277
+      },
+      "prevControl": {
+        "x": 13.91434573099037,
+        "y": 5.513288844759496
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_pickup2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.3
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeNoJiggle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 177.75425743410497,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_1C_Speaker_6",
+  "previewStartingState": {
+    "rotation": 208.52311860631195,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

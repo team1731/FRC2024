@@ -1,0 +1,91 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.4322857736624564,
+      "y": 5.485302606968851
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooter"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p9"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p10"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p11"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SetWristB_1C_1"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p12"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p13"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p14"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p15"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_1C_p16"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

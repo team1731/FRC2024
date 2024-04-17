@@ -12,8 +12,10 @@ import java.util.List;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -37,7 +39,7 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
-  private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
+  private double MaxAngularRate = 2.0 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.05).withRotationalDeadband(MaxAngularRate * 0.05) // Add a 10% deadband
@@ -92,8 +94,6 @@ public class RobotContainer {
   private final Trigger operatorkPOVLeft = xboxOperatorController.povLeft();
   private final Trigger operatorkPOVRight = xboxOperatorController.povRight();
 
-
-
   /* Subsystems */
   private CommandSwerveDrivetrain driveSubsystem;
   private VisionSubsystem visionSubsystem;
@@ -104,6 +104,8 @@ public class RobotContainer {
   private ElevatorSubsystem elevatorSubsystem;
   private ClimbStateMachine climbStateMachine;
   private IntakeShootStateMachine intakeShootStateMachine;
+  private Command Blu_10_Command;
+  private Command Red_10_Command;
 
   /* Auto Paths */
   private static HashMap<String, String> autoPaths;
@@ -113,8 +115,6 @@ public class RobotContainer {
   public static boolean isFlipRedBlue(){
     return flipRedBlue;
   }
-
-
 
   // The container for the robot. Contains subsystems, OI devices, and commands. 
   public RobotContainer(
@@ -139,6 +139,7 @@ public class RobotContainer {
     intakeShootStateMachine = s_intakeShootStateMachine;
     climbStateMachine = s_climbStateMachine;
 
+
     if(driveSubsystem.isEnabled()){
       //NamedCommands.registerCommand("RotateLeft", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
       //NamedCommands.registerCommand("RotateRight", new SequentialCommandGroup(driveSubsystem.rotateRelative(-45.0) ));
@@ -158,6 +159,10 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristB_1B_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.8,false, 3.61, 6.02)) ));
       NamedCommands.registerCommand("SetWristB_1B_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-1.5,false, 3.61, 6.02)) ));
 
+      NamedCommands.registerCommand("SetWristB_1C_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,2.93,6.84)) ));
+      NamedCommands.registerCommand("SetWristB_1C_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false, 5.48, 6.42)) ));
+      NamedCommands.registerCommand("SetWristB_1C_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false, 5.48, 6.42)) ));
+
       NamedCommands.registerCommand("SetWristB_2_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,false,2.64, 5.57)) ));
       NamedCommands.registerCommand("SetWristB_2_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,3.83, 5.47)) ));
       NamedCommands.registerCommand("SetWristB_2_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,false,3.66,5.1 )) ));
@@ -174,6 +179,25 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristB_7_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,false, 4.18, 1.79)) ));
       NamedCommands.registerCommand("SetWristB_7_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false, 3.52, 2.83)) ));
       NamedCommands.registerCommand("SetWristB_7_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false, 3.52, 2.83)) ));
+   
+      NamedCommands.registerCommand("SetWristB_8_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false,4.56,6.3)) ));//all -0.5 previously 
+      NamedCommands.registerCommand("SetWristB_8_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false,4.96,6.36)) ));
+      NamedCommands.registerCommand("SetWristB_8_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,false,4.96 ,6.36)) ));
+      NamedCommands.registerCommand("SetWristB_8_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,4.62,2.23)) ));
+      NamedCommands.registerCommand("SetWristB_8_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,5.02,1.97)) ));
+
+      NamedCommands.registerCommand("SetWristB_9_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, false,4,1.18)) ));
+      NamedCommands.registerCommand("SetWristB_9_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5, false,4.76,1.62)) ));
+      NamedCommands.registerCommand("SetWristB_9_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5, false,4.76,1.62)) ));
+
+   
+      NamedCommands.registerCommand("SetWristB_10_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false, 4.21, 6.18)) ));
+      NamedCommands.registerCommand("SetWristB_10_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false, 4.21, 6.18)) ));
+      NamedCommands.registerCommand("SetWristB_10_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,4.4 ,6.4)) ));
+      NamedCommands.registerCommand("SetWristB_10_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,3.91,2.64)) ));
+      NamedCommands.registerCommand("SetWristB_10_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,false,4.09,2.62)) ));
+      
+
 
       NamedCommands.registerCommand("SetWristR_1_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.57,6.95)) ));  // tuned 319
       NamedCommands.registerCommand("SetWristR_1_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,true,12.9,6.02)) ));  // tuned
@@ -183,14 +207,18 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristR_1B_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,true,12.9,6.02)) ));  // tuned
       NamedCommands.registerCommand("SetWristR_1B_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,true,12.9,6.02)) ));  // tuned
 
+      NamedCommands.registerCommand("SetWristR_1C_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.57,6.95)) ));  
+      NamedCommands.registerCommand("SetWristR_1C_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,true,11.02,6.42)) )); 
+      NamedCommands.registerCommand("SetWristR_1C_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0,true,11.02,6.42)) )); 
+
       NamedCommands.registerCommand("SetWristR_2_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true,13.87, 5.57)) ));
       NamedCommands.registerCommand("SetWristR_2_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,12.67, 5.47)) ));
       NamedCommands.registerCommand("SetWristR_2_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true,13.6,5.18 )) ));
       NamedCommands.registerCommand("SetWristR_2_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,10.24, 1.38)) ));
      
       NamedCommands.registerCommand("SetWristR_3_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.05,true,13.86,4.24)) ));  // tuned
-      NamedCommands.registerCommand("SetWristR_3_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 12.99, 2.99)) ));
-      NamedCommands.registerCommand("SetWristR_3_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,false, 12.99, 2.99)) ));
+      NamedCommands.registerCommand("SetWristR_3_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,true, 12.99, 2.99)) ));
+      NamedCommands.registerCommand("SetWristR_3_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.2,true, 12.99, 2.99)) ));
      
       NamedCommands.registerCommand("SetWristR_4_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.1,true, 13.79, 6.86)) ));
       NamedCommands.registerCommand("SetWristR_4_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,true, 12.10,6.6))));
@@ -200,15 +228,38 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristR_7_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.4,true,12.79,2.27)) ));
       NamedCommands.registerCommand("SetWristR_7_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.27,2.59)) ));
       NamedCommands.registerCommand("SetWristr_7_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5,true,13.01,2.56)) ));
+
+      NamedCommands.registerCommand("SetWristR_8_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.2, true,12,6.32)) ));
+      NamedCommands.registerCommand("SetWristR_8_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,11.54,6.36)) ));
+      NamedCommands.registerCommand("SetWristR_8_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,11.54 ,6.36)) ));
+      NamedCommands.registerCommand("SetWristR_8_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,11.54,6.36)) ));
+      NamedCommands.registerCommand("SetWristR_8_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,11.8,1.74)) ));
+
+      NamedCommands.registerCommand("SetWristR_9_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0, true,12,1.18)) ));
+      NamedCommands.registerCommand("SetWristR_9_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5, true,11.74,1.62)) ));
+      NamedCommands.registerCommand("SetWristR_9_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(-0.5, true,11.74,1.62)) ));
+
+      NamedCommands.registerCommand("SetWristR_10_1", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true, 12.29, 6.18)) ));
+      NamedCommands.registerCommand("SetWristR_10_2", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true, 12.02, 6.20)) ));
+      NamedCommands.registerCommand("SetWristR_10_3", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true, 12.10 ,6.4)) ));
+      NamedCommands.registerCommand("SetWristR_10_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true,12.59,2.64)) ));
+      NamedCommands.registerCommand("SetWristR_10_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true,12.41,2.62)) ));
+
+
       NamedCommands.registerCommand("StopVision", new SequentialCommandGroup(new InstantCommand(() -> wristSubsystem.stopMoveWristToTarget())));
 
-
+      NamedCommands.registerCommand("Blu_10_Command", Blu_10_Command);
       NamedCommands.registerCommand("FireNote", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.JUST_SHOOT),
                                                                            new InstantCommand(() -> wristSubsystem.stopMoveWristToTarget())));
      // NamedCommands.registerCommand("JustShoot", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.JUST_SHOOT)));
       NamedCommands.registerCommand("IntakeNoJiggle", new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_SPEAKER), 
                                                                                  new InstantCommand(() ->  wristSubsystem.moveWrist(0)),
                                                                                  new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.INTAKE_NO_JIGGLE)));
+    
+    buildAuto10();
+     NamedCommands.registerCommand("Red_10_Command", Red_10_Command);
+     NamedCommands.registerCommand("Blu_10_Command", Blu_10_Command);
+
     }
     
     climbStateMachine.setInitialState(CState.ROBOT_LATCHED_ON_CHAIN);
@@ -217,7 +268,7 @@ public class RobotContainer {
     
     // Configure the button bindings
     configureButtonBindings();
-
+    intakeShootStateMachine.setXboxController(xboxController);
   }
    
 
@@ -250,7 +301,7 @@ public class RobotContainer {
  //         )
  //     );
 
-    ky.whileTrue(new DriveToSpeakerCommand(driveSubsystem, wristSubsystem,visionSubsystem, xboxController));
+    ky.whileTrue(new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, m_ledstring, xboxController, false, false));
 
     kPOVUp.whileTrue(new DriveToTrapCommand(driveSubsystem,visionSubsystem));
 
@@ -332,24 +383,20 @@ public class RobotContainer {
   //  operatorky.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(12)))  // this is now over the stage
   //      .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
 
-  //  operatorky.whileTrue(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT))
-  //    .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
-
-    operatorky.whileTrue(new SequentialCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT), 
-                                                    new InstantCommand(() ->  wristSubsystem.moveWrist(7))))
-              .onFalse(new SequentialCommandGroup(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT), 
-                                                    new InstantCommand(() ->  wristSubsystem.moveWrist(0))));
-
-                                                                                 
-
+    operatorky.whileTrue(new ParallelCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
+                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem,m_ledstring, xboxController, true, false), new InstantCommand(() -> intakeShootStateMachine.setLobSpeed(50.0))))
+              .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
 
     // Safe Shot
     operatorkb.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(22*0.6)))
         .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
     // Line Shot
-    operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15*0.6)))
-        .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
- //   operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
+    // operatorka.onTrue(new InstantCommand(() -> wristSubsystem.moveWrist(15*0.6)))
+    //     .onFalse(new InstantCommand(() -> wristSubsystem.moveWrist(0)));
+    operatorka.whileTrue(new ParallelCommandGroup(new IntakeShootStateMachineCommand(intakeShootStateMachine, ISInput.START_LOBSHOT),
+                            new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, m_ledstring, xboxController, true, true), new InstantCommand(() -> intakeShootStateMachine.setLobSpeed(45.0))))
+              .onFalse(new IntakeShootStateMachineOneShotCommand(intakeShootStateMachine, ISInput.STOP_LOBSHOT));
+    // operatorkRightTrigger.onTrue(new JiggleCommand(intakeShootSubsystem, shooterSubsystem));
 
     operatorBack.whileTrue(new InstantCommand(() -> visionSubsystem.setConfidence(true)));
     operatorBack.whileFalse(new InstantCommand(() -> visionSubsystem.setConfidence(false)));
@@ -407,17 +454,17 @@ public class RobotContainer {
     return autoPaths;
   }
 
-  public Command getNamedAutonomousCommand(String autoName, boolean isRedAlliance) {
+  public Command getNamedAutonomousCommand(String autoName, boolean redAlliance) {
     String alliancePathName = autoName;
     if(!autoName.startsWith("Red_") && !autoName.startsWith("Blu_")){
-        alliancePathName = (isRedAlliance ? "Red" : "Blu") + "_" + autoName;
+        alliancePathName = (redAlliance ? "Red" : "Blu") + "_" + autoName;
     }
     // if the named auto (red or blue) exists, use it as-is and do NOT flip the field (red/blue)
     if(autoPaths.keySet().contains(alliancePathName)){
       flipRedBlue = false;
     }
     // if the named auto does not exist (so there isn't a red one), use the blue one and flip the field
-    else if(isRedAlliance && alliancePathName.startsWith("Red_")) {
+    else if(redAlliance && alliancePathName.startsWith("Red_")) {
       alliancePathName = alliancePathName.replace("Red_", "Blu_");
       assert autoPaths.keySet().contains(alliancePathName): "ERROR: you need to create " + alliancePathName;
       flipRedBlue = true;
@@ -426,13 +473,69 @@ public class RobotContainer {
       System.out.println("ERROR: no such auto path name found in src/main/deploy/pathplanner/autos: " + alliancePathName);
     }
     //System.out.println("About to get Auto Path: " + alliancePathName);
+
+
+
     Command command = driveSubsystem.getAutoPath(alliancePathName);
     assert command != null: "ERROR: unable to get AUTO path for: " + alliancePathName + ".auto";
     System.out.println("\nAUTO CODE being used by the software --> " + alliancePathName + ", RED/BLUE flipping is " + (flipRedBlue ? "ON" : "OFF") + "\n");
     SmartDashboard.putString("AUTO_FILE_IN_USE", alliancePathName);
     SmartDashboard.putBoolean("RED_BLUE_FLIPPING", flipRedBlue);
+    
     return command;
   }
 
+public  void buildAuto10() {
 
+Blu_10_Command =
+        Commands.sequence(
+            driveSubsystem.getAutoPath("B_10_Pickup_1"),  // p1
+            Commands.either(
+                driveSubsystem.getAutoPath("B_10_Score1_Pickup2"), //p2, p3
+                driveSubsystem.getAutoPath("B_10_Pickup_2"),  // p4
+                intakeSubsystem::hasNote),
+            Commands.either(
+                driveSubsystem.getAutoPath("B_10_Score2_Pickup3"), //p5, p6
+                driveSubsystem.getAutoPath("B_10_Pickup_3"), //p7
+                intakeSubsystem::hasNote),
+            Commands.either(
+                driveSubsystem.getAutoPath("B_10_Score3_Pickup4"), //p8, p9
+                driveSubsystem.getAutoPath("B_10_Pickup_4"), //p10
+                intakeSubsystem::hasNote),
+           Commands.either(
+                driveSubsystem.getAutoPath("B_10_Score4_Pickup5"), //p11, p12
+                driveSubsystem.getAutoPath("B_10_Pickup_5"), //p13
+                intakeSubsystem::hasNote),
+           Commands.either(
+                driveSubsystem.getAutoPath("B_10_Score_5"), //14
+                Commands.none(), 
+                intakeSubsystem::hasNote));
+
+
+
+Red_10_Command =
+        Commands.sequence(
+            driveSubsystem.getAutoPath("R_10_Pickup_1"),  // p1
+            Commands.either(
+                driveSubsystem.getAutoPath("R_10_Score1_Pickup2"), //p2, p3
+                driveSubsystem.getAutoPath("R_10_Pickup_2"),  // p4
+                intakeSubsystem::hasNote),
+            Commands.either(
+                driveSubsystem.getAutoPath("R_10_Score2_Pickup3"), //p5, p6
+                driveSubsystem.getAutoPath("R_10_Pickup_3"), //p7
+                intakeSubsystem::hasNote),
+            Commands.either(
+                driveSubsystem.getAutoPath("R_10_Score3_Pickup4"), //p8, p9
+                driveSubsystem.getAutoPath("R_10_Pickup_4"), //p10
+                intakeSubsystem::hasNote),
+           Commands.either(
+                driveSubsystem.getAutoPath("R_10_Score4_Pickup5"), //p11, p12
+                driveSubsystem.getAutoPath("R_10_Pickup_5"), //p13
+                intakeSubsystem::hasNote),
+           Commands.either(
+                driveSubsystem.getAutoPath("R_10_Score_5"), //14
+                Commands.none(), 
+                intakeSubsystem::hasNote));
+
+}
 }

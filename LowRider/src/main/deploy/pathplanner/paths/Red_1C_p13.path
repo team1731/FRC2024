@@ -1,0 +1,87 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.05569538411804,
+        "y": 4.113976955226638
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.336954413703916,
+        "y": 6.124947513515128
+      },
+      "isLocked": false,
+      "linkedName": "Red_pickup4C"
+    },
+    {
+      "anchor": {
+        "x": 11.02,
+        "y": 6.42
+      },
+      "prevControl": {
+        "x": 10.506001118692755,
+        "y": 6.390628635353872
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_longshotC"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristR_1C_2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 170.04937331204852,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_1C_Speaker_6",
+  "previewStartingState": {
+    "rotation": 180.11529110208923,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

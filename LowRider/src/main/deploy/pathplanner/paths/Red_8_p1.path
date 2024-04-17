@@ -1,0 +1,93 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 15.16419978294502,
+        "y": 6.3248897406885725
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.872976655044218,
+        "y": 5.802479968596301
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.475496972283588,
+        "y": 7.421034979918587
+      },
+      "prevControl": {
+        "x": 8.718739811710444,
+        "y": 7.275089276262474
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_blu8_p1end"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.2,
+      "rotationDegrees": 165.00018822756843,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.1,
+      "rotationDegrees": 178.69255996649576,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "FireNote",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.5
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 160.01689347809997,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_8_Line_5",
+  "previewStartingState": {
+    "rotation": 179.82314682513604,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

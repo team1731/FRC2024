@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 11.023419100869098,
+        "y": 6.42
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.305105664242225,
+        "y": 6.615903664534602
+      },
+      "isLocked": false,
+      "linkedName": "Red_longshotC"
+    },
+    {
+      "anchor": {
+        "x": 8.009051654466946,
+        "y": 5.765164984875425
+      },
+      "prevControl": {
+        "x": 8.727365091093818,
+        "y": 6.054356108712218
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 200.28255908891666,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_1C_Speaker_6",
+  "previewStartingState": {
+    "rotation": 170.83765295427833,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

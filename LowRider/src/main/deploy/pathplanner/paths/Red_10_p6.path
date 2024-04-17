@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 11.358071443415612,
+        "y": 6.530122151153393
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.867296280047103,
+        "y": 6.819313274990186
+      },
+      "isLocked": false,
+      "linkedName": "Red_B10_ShootNote2"
+    },
+    {
+      "anchor": {
+        "x": 8.120996605629575,
+        "y": 4.113976955226638
+      },
+      "prevControl": {
+        "x": 8.503277286073844,
+        "y": 4.953564088946361
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_B10_Note3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -120.09253375834739,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_10_AmpLine_3",
+  "previewStartingState": {
+    "rotation": 172.18470645323316,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
