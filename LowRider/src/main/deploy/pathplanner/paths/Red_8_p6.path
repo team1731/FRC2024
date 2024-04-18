@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.307571524233957,
-        "y": 4.030018241854666
+        "x": 8.344886507954833,
+        "y": 3.964717020343132
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.783337566675133,
-        "y": 4.981550326737017
+        "x": 8.820652550396009,
+        "y": 4.916249105225483
       },
       "isLocked": false,
       "linkedName": "Red_Blu8_p5end"
@@ -64,7 +64,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SetWristR_8_5"
+                "name": "SetWristR_8_4"
               }
             }
           ]

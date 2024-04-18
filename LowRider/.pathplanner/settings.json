@@ -29,10 +29,7 @@
     "Red_7_Stage_4B",
     "Red_8_Line_5"
   ],
-  "autoFolders": [
-    "Blu_10_AmpLine_3",
-    "Red_10_AmpLine_3"
-  ],
+  "autoFolders": [],
   "defaultMaxVel": 5.0,
   "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 540.0,
