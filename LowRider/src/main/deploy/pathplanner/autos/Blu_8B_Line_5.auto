@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3968200565886093,
+      "y": 6.291547985186537
+    },
+    "rotation": 0.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SetWristB_8_1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_8_p1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_8_p2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_8B_p3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_8B_p4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_8B_p5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_8B_p6"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

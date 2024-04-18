@@ -1,0 +1,93 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.456831459117463,
+        "y": 3.7688133558085304
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.981065416676287,
+        "y": 4.720345440690881
+      },
+      "isLocked": false,
+      "linkedName": "Blu8B_p3end"
+    },
+    {
+      "anchor": {
+        "x": 4.958551735285289,
+        "y": 6.362204724409449
+      },
+      "prevControl": {
+        "x": 7.14167618565128,
+        "y": 6.688710831967119
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red_Red_blu8_firenote1"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 359.4771577054139,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristB_8B_3"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 10.036666510062785,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blu_8B_Line_5",
+  "previewStartingState": {
+    "rotation": 297.1496816977831,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
