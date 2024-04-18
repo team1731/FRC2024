@@ -28,7 +28,7 @@ public class WristSubsystem extends SubsystemBase implements ToggleableSubsystem
     private TalonFX wristMotor2;
     private double desiredPosition;
     private double arbitraryFeedForward = 0.0;
-    private double fudgeFactor = 2.1;
+    private double fudgeFactor = 1.9;
 
     boolean moveWristToTargetAuto; 
     private VisionSubsystem m_visionSubsystem; 

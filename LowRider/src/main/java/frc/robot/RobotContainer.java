@@ -243,6 +243,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("SetWristR_10_4", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true,12.59,2.64)) ));
       NamedCommands.registerCommand("SetWristR_10_5", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true,12.41,2.62)) ));
 
+      NamedCommands.registerCommand("SetWristR_11", new SequentialCommandGroup(new InstantCommand(() ->  wristSubsystem.moveWristAuto(0.0,true, 14.31, 3.25)) ));
+
 
       NamedCommands.registerCommand("StopVision", new SequentialCommandGroup(new InstantCommand(() -> wristSubsystem.stopMoveWristToTarget())));
 

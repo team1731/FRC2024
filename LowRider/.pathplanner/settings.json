@@ -16,8 +16,9 @@
     "Blu_8_Line_5",
     "Blu_9_Line_4",
     "DriveToTrap",
-    "Red_9_Line_4",
+    "Blu_11_Speaker_6",
     "Red_10_AmpLine_3",
+    "Red_11_Speaker_6",
     "Red_1B_Speaker_6",
     "Red_1C_Speaker_6",
     "Red_1_Speaker_6",
@@ -27,7 +28,8 @@
     "Red_5_JustDrive",
     "Red_6_Stage_4",
     "Red_7_Stage_4B",
-    "Red_8_Line_5"
+    "Red_8_Line_5",
+    "Red_9_Line_4"
   ],
   "autoFolders": [],
   "defaultMaxVel": 5.0,
