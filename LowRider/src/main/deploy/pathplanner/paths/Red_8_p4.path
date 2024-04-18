@@ -50,7 +50,7 @@
     },
     {
       "name": "Fire",
-      "waypointRelativePos": 0.95,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "sequential",
         "data": {
