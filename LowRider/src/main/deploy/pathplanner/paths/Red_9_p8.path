@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 15.414438115465266,
-        "y": 1.62
+        "x": 15.583993349804881,
+        "y": 2.024337866857552
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.399752433142202,
-        "y": 3.9109664423980006
+        "x": 15.569307667481818,
+        "y": 4.315304309255552
       },
       "isLocked": false,
       "linkedName": "Red_Blu9_p7end"
@@ -48,6 +48,23 @@
               "type": "named",
               "data": {
                 "name": "FireNote"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SetWristR_9_4"
               }
             }
           ]
