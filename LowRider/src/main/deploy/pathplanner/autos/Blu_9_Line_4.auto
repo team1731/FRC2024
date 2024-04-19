@@ -20,12 +20,6 @@
                 "data": {
                   "name": "StartShooter"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SetWristB_9_1"
-                }
               }
             ]
           }
@@ -57,19 +51,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blu_9_p5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blu_9_p6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "Blu_9_p7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_9_p8"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FireNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blu_9_p9"
           }
         }
       ]

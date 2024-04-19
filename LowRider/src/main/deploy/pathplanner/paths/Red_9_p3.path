@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.931216524899918,
-        "y": 1.5700720095840062
+        "x": 10.196153285039074,
+        "y": 1.4557994962169707
       },
       "isLocked": false,
       "linkedName": "Red_Blu9_p2_end"
     },
     {
       "anchor": {
-        "x": 8.219531019227357,
-        "y": 2.4054296290907504
+        "x": 8.145025365548532,
+        "y": 2.5846800888592836
       },
       "prevControl": {
-        "x": 9.05914844076596,
-        "y": 1.8031953282214783
+        "x": 9.045908520348,
+        "y": 1.764552144223977
       },
       "nextControl": null,
       "isLocked": false,
@@ -69,7 +69,7 @@
   "reversed": false,
   "folder": "Red_9_Line_4",
   "previewStartingState": {
-    "rotation": 218.04704253182598,
+    "rotation": 221.30149076181178,
     "velocity": 0
   },
   "useDefaultConstraints": true

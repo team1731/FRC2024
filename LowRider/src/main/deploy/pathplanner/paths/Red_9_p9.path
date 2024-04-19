@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 15.238209927588496,
+        "y": 4.508504473180682
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 13.975241247804984,
+        "y": 0.9398836686761033
+      },
+      "isLocked": false,
+      "linkedName": "Red_Blu_9_p8end"
+    },
+    {
+      "anchor": {
+        "x": 8.189082412517726,
+        "y": 3.3189642050124895
+      },
+      "prevControl": {
+        "x": 8.262510824133045,
+        "y": -0.24965659949208927
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 92.96093613416382,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red_9_Line_4",
+  "previewStartingState": {
+    "rotation": 239.65675111576041,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
