@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.316900270164176,
-        "y": 3.862100815110722
+        "y": 3.834114577320064
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.841134227723,
-        "y": 4.813632899993073
+        "y": 4.785646662202415
       },
       "isLocked": false,
       "linkedName": "Red_Red_Blu8_p5end"
@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 359.4771577054139,
+      "rotationDegrees": 8.131478610939018,
       "rotateFast": false
     }
   ],
@@ -39,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
         "data": {
@@ -80,7 +80,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 10.036666510062785,
+    "rotation": 12.907408671265783,
     "rotateFast": false
   },
   "reversed": false,

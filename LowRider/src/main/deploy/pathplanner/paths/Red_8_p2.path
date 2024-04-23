@@ -50,7 +50,7 @@
     },
     {
       "name": "FireNote",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
         "data": {
@@ -74,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 166.45266804012772,
+    "rotation": 168.38188351918348,
     "rotateFast": false
   },
   "reversed": false,

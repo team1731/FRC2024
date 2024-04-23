@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.149180746114945,
-        "y": 7.369709284873116
+        "x": 8.298242778303738,
+        "y": 7.332394301152239
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.619266413559007,
-        "y": 6.912600734292379
+        "x": 6.7683284457478,
+        "y": 6.875285750571503
       },
       "isLocked": false,
       "linkedName": "Red_Red_blu8_p1end"
@@ -50,7 +50,7 @@
     },
     {
       "name": "FireNote",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "sequential",
         "data": {
