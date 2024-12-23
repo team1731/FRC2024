@@ -571,6 +571,7 @@ public final class Constants {
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(2, 2, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.05, 0.05, 1);
         public static final Matrix<N3, N1> kTrapStdDevs = VecBuilder.fill(0.1, 0.1, 0.001);
+        public static final Matrix<N3, N1> kVSLAMStdDevs = VecBuilder.fill(0.0001, 0.0001, 0.0001);
     }
 
     public static final class OpConstants{

@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
 	
 	
 	initSubsystems();
-    visionSubsystem.useVision(true);
+    visionSubsystem.useVision(false);
 	intakeShootStateMachine.turnOnLED();
 	ledSubsystem.setColor(LedOption.INIT);
 	//m_robotContainer.buildAuto10();
@@ -248,7 +248,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-
+    visionSubsystem.cleanUpOculusMessages();
 	//m_robotContainer.displayEncoders();
   }
 
@@ -348,7 +348,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {	
 
 	intakeShootStateMachine.startLEDs();
-	visionSubsystem.useVision(true);
+	visionSubsystem.useVision(false);
 	ledSubsystem.setColor(LedOption.GREEN);
 	wristSubsystem.stopMoveWristToTarget();
     /* 

@@ -35,8 +35,14 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.networktables.FloatArraySubscriber;
+import edu.wpi.first.networktables.IntegerPublisher;
+import edu.wpi.first.networktables.IntegerSubscriber;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEvent;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -47,6 +53,7 @@ import frc.robot.CommandSwerveDrivetrain;
 import frc.robot.Robot;
 import frc.robot.util.log.Logger;
 
+import java.util.EnumSet;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
@@ -68,6 +75,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private Pose2d redGoal = new Pose2d(new Translation2d(16.579342,5.547868), new Rotation2d());
     private Pose2d blueGoal = new Pose2d(new Translation2d(-0.0381,5.547868), new Rotation2d());
     private boolean useVision = false;  
+    private boolean useVSLAM = true;
     
     private Pose2d visionPose;
 
@@ -77,6 +85,30 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     private int visionInitCount;
     private boolean runningTrapPath;
     private boolean isZoomCameraReadingValid = false;
+
+    /* VSLAM Updates */
+
+    int connListenerHandle;
+    int positionListenerHandle;
+    int topicListenerHandle;
+
+    // Configure Network Tables topics (oculus/...) to communicate with the Quest
+    // HMD
+    NetworkTableInstance nt4Instance = NetworkTableInstance.getDefault();
+    NetworkTable nt4Table = nt4Instance.getTable("oculus");
+
+    private IntegerSubscriber questMiso;
+    private IntegerPublisher questMosi;
+
+    // Subscribe to the Network Tables oculus data topics
+    private IntegerSubscriber questFrameCount;
+    private DoubleSubscriber questTimestamp;
+    private FloatArraySubscriber questPosition;
+    private FloatArraySubscriber questQuaternion;
+    private FloatArraySubscriber questEulerAngles;
+    private DoubleSubscriber questBattery;
+
+    private float yaw_offset = 0.0f;
 
     // logging
     Logger poseLogger;
@@ -139,6 +171,81 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     }
 
     public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
+       
+        /* START OF VLSAM UPDATES */
+
+        NetworkTableInstance inst = NetworkTableInstance.getDefault();
+
+        // add a connection listener; the first parameter will cause the
+        // callback to be called immediately for any current connections
+        connListenerHandle = inst.addConnectionListener(true, event -> {
+            if (event.is(NetworkTableEvent.Kind.kConnected)) {
+                System.out.println("Connected to " + event.connInfo.remote_id);
+            } else if (event.is(NetworkTableEvent.Kind.kDisconnected)) {
+                System.out.println("Disconnected from " + event.connInfo.remote_id);
+            }
+        });
+
+        // get the subtable called "datatable"
+        NetworkTable datatable = inst.getTable("questnav");
+        questMiso = datatable.getIntegerTopic("miso").subscribe(0);
+        questMosi = datatable.getIntegerTopic("mosi").publish();
+        questFrameCount = datatable.getIntegerTopic("frameCount").subscribe(0);
+        questTimestamp = datatable.getDoubleTopic("timestamp").subscribe(0.0f);
+        questPosition = datatable.getFloatArrayTopic("position")
+                .subscribe(new float[] { 0.0f, 0.0f, 0.0f });
+        questQuaternion = datatable.getFloatArrayTopic("quaternion")
+                .subscribe(new float[] { 0.0f, 0.0f, 0.0f, 0.0f });
+        questEulerAngles = datatable.getFloatArrayTopic("eulerAngles")
+                .subscribe(new float[] { 0.0f, 0.0f, 0.0f });
+        questBattery = datatable.getDoubleTopic("batteryLevel").subscribe(0.0f);
+        // subscribe to the topic in "datatable" called "Y"
+       
+        System.out.println("addind listener******************************************8");
+        // add a listener to only value changes on the Y subscriber
+        positionListenerHandle = inst.addListener(
+                questPosition,
+                EnumSet.of(NetworkTableEvent.Kind.kValueAll),
+                event -> {
+
+                    var timestampedPosition = questPosition.getAtomic();
+                    float[] oculusPosition = timestampedPosition.value;
+                    var timestamp = timestampedPosition.timestamp;
+                    Translation2d currentPosition = new Translation2d(oculusPosition[2], -oculusPosition[0]);
+                    var oculousPositionCompensated = currentPosition.minus(new Translation2d(0, 0.1651)); // 6.5
+                    Pose2d estPose = new Pose2d(oculousPositionCompensated, Rotation2d.fromDegrees(getOculusYaw()));
+                   // System.out.println("addind a vslam");
+                    field2d.getObject("MyRobotVSLAM").setPose(estPose);
+                    SmartDashboard.putString("VSLAM pose", String.format("(%.2f, %.2f) %.2f %d",
+                            estPose.getTranslation().getX(),
+                            estPose.getTranslation().getY(),
+                            estPose.getRotation().getDegrees(),
+                            timestamp));
+                    if (useVSLAM) {
+                        m_driveSubsystem.addVisionMeasurement(estPose,
+                                timestamp, kVSLAMStdDevs);
+                    } else {
+                        visionPose = estPose;  // I have no idea why this is here
+                    }
+
+                    /* time is in microseconds which is probably wrong.  On the seending side we need to call NetworkTablesJNI.getServerTimeOffset(connListenerHandle) and add it to the headset frame time and put that in the set(x,here) */
+
+                });
+
+        // add a listener to see when new topics are published within datatable
+        // the string array is an array of topic name prefixes.
+        topicListenerHandle = inst.addListener(
+                new String[] { datatable.getPath() + "/" },
+                EnumSet.of(NetworkTableEvent.Kind.kTopic),
+                event -> {
+                    if (event.is(NetworkTableEvent.Kind.kPublish)) {
+                        // topicInfo.name is the full topic name, e.g. "/datatable/X"
+                        System.out.println("newly published " + event.topicInfo.name);
+                    }
+                });
+
+        /* END OF VSLAM UPDATES */
+
         this.enabled = enabled;
         this.m_driveSubsystem = driveSubsystem;
         mypigeon = m_driveSubsystem.getPigeon2();
@@ -159,7 +266,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             tab.add(field2d);
         }
     }
-    
+
     private String getFormattedPose() {
         if (enabled) {
             var pose = getCurrentPose();
@@ -196,35 +303,35 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         getDistanceToSpeakerInMeters();   // probably want to comment this out after testing
 
         if (enabled && initialized) {
-        
+
             if (photonEstimatorFront != null) {
                 // Correct pose estimate with vision measurements
                 try {
                     var visionEstFront = getEstimatedGlobalPoseFront();
                     isZoomCameraReadingValid  = visionEstFront.isPresent();
                     visionEstFront.ifPresent(
-                        est -> {
-                            var estPose = est.estimatedPose.toPose2d();
-                            // Change our trust in the measurement based on the tags we can see
-                            var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
-                            field2d.getObject("MyRobot" + cameraFront.getName()).setPose(estPose);
-                           // SmartDashboard.put("vision standard deviation", estStdDevs));
-                            SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
-                                estPose.getTranslation().getX(),
-                                estPose.getTranslation().getY(),
-                                estPose.getRotation().getDegrees()));
-                            if (useVision) {
-                                SmartDashboard.putBoolean("Ovr Conf", operatorOverrideConfidence);
-                                if ( runningTrapPath || operatorOverrideConfidence) {
-                                    estStdDevs = kTrapStdDevs;
+                            est -> {
+                                var estPose = est.estimatedPose.toPose2d();
+                                // Change our trust in the measurement based on the tags we can see
+                                var estStdDevs = getEstimationStdDevs(cameraFront, estPose, photonEstimatorFront);
+                                field2d.getObject("MyRobot" + cameraFront.getName()).setPose(estPose);
+                                // SmartDashboard.put("vision standard deviation", estStdDevs));
+                                SmartDashboard.putString("Vision pose", String.format("(%.2f, %.2f) %.2f",
+                                        estPose.getTranslation().getX(),
+                                        estPose.getTranslation().getY(),
+                                        estPose.getRotation().getDegrees()));
+                                if (useVision) {
+                                    SmartDashboard.putBoolean("Ovr Conf", operatorOverrideConfidence);
+                                    if ( runningTrapPath || operatorOverrideConfidence) {
+                                        estStdDevs = kTrapStdDevs;
+                                    }
+                                    m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                                    lastEstTimestampFront = Timer.getFPGATimestamp();
                                 }
-                                m_driveSubsystem.addVisionMeasurement(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                                lastEstTimestampFront = Timer.getFPGATimestamp();
-                            }
-                            
-                        });
+
+                            });
                 } catch (Exception e) {
-                   e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
 
@@ -251,7 +358,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
                                 }
                             });
                 } catch (Exception e) {
-                   e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
 
@@ -456,4 +563,57 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     public void setConfidence(boolean confidence) {
         this.operatorOverrideConfidence = confidence;
     }
+
+      // Zero the realative robot heading
+  public void zeroHeading() {
+    float[] eulerAngles = questEulerAngles.get();
+    yaw_offset = eulerAngles[1];
+   // angleSetpoint = 0.0;
+  }
+
+  // Zero the absolute 3D position of the robot (similar to long-pressing the quest logo)
+  public void zeroPosition() {
+  //  resetOdometry(new Pose2d(new Translation2d(0, 0), new Rotation2d(0)));
+    if (questMiso.get() != 99) {
+      questMosi.set(1);
+    }
+  }
+
+  // Clean up oculus subroutine messages after processing on the headset
+  public void cleanUpOculusMessages() {
+    if (questMiso.get() == 99) {
+      questMosi.set(0);
+    }
+  }
+
+  // Return the robot heading in degrees, between -180 and 180 degrees
+  public double getHeading() {
+    return Rotation2d.fromDegrees(getOculusYaw()).getDegrees();
+  }
+
+  // Get the rotation rate of the robot
+  public double getTurnRate() {
+    return getOculusYaw() ; //* (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  // Get the yaw Euler angle of the headset
+  private float getOculusYaw() {
+    float[] eulerAngles = questEulerAngles.get();
+    var ret = eulerAngles[1] - yaw_offset;
+    ret %= 360;
+    if (ret < 0) {
+      ret += 360;
+    }
+    return ret*-1;
+  }
+
+  private Translation2d getOculusPosition() {
+    float[] oculusPosition = questPosition.get();
+    return new Translation2d(oculusPosition[2], -oculusPosition[0]);
+  }
+
+  private Pose2d getOculusPose() {
+    var oculousPositionCompensated = getOculusPosition().minus(new Translation2d(0, 0.1651)); // 6.5
+    return new Pose2d(oculousPositionCompensated, Rotation2d.fromDegrees(getOculusYaw()));
+  }
 }

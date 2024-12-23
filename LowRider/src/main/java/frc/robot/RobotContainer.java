@@ -17,6 +17,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -308,7 +310,17 @@ public class RobotContainer {
  //               
  //         )
  //     );
+/* 
+     new JoystickButton(m_driverController, Button.kB.value)
+        .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
+    
+    new JoystickButton(m_driverController, Button.kA.value)
+        .whileTrue(new RunCommand(() -> m_robotDrive.zeroHeading(), m_robotDrive));
 
+    new JoystickButton(m_driverController, Button.kY.value)
+        .whileTrue(new RunCommand(() -> m_robotDrive.zeroPosition(), m_robotDrive));
+*/
+        
     ky.whileTrue(new DriveToLocationCommand(driveSubsystem, wristSubsystem,visionSubsystem, m_ledstring, xboxController, false, false));
 
     kPOVUp.whileTrue(new DriveToTrapCommand(driveSubsystem,visionSubsystem));
