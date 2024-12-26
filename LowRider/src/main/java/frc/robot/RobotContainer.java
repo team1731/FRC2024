@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -363,6 +364,12 @@ public class RobotContainer {
 
     kStart.onTrue(driveSubsystem.runOnce(() -> driveSubsystem.seedFieldRelative()));
     
+    kStart.onTrue(new InstantCommand(() -> {
+      visionSubsystem.initializePosition(new Pose2d(1.47,5.51, new Rotation2d (0)));
+      Rotation2d operatorPerspective = Robot.isRedAlliance()? new Rotation2d(Math.toRadians(180)): new Rotation2d(Math.toRadians(0));
+      driveSubsystem.setOperatorPerspectiveForward(operatorPerspective);  // Just a Hack
+    }));
+
     operatorkLeftBumper.onTrue(new InstantCommand(() -> {
       shooterSubsystem.stopShooting();
     }));

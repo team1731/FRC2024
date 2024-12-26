@@ -118,6 +118,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     Pigeon2 mypigeon;
     private boolean enabled;
     private boolean confidence;
+    private Pose2d startingOffset;
 
     private double shootOnMoveFudgeFactor = 1.2;
 
@@ -210,20 +211,28 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
                     var timestampedPosition = questPosition.getAtomic();
                     float[] oculusPosition = timestampedPosition.value;
-                    var timestamp = timestampedPosition.timestamp;
-                    Translation2d currentPosition = new Translation2d(oculusPosition[2], -oculusPosition[0]);
-                    var oculousPositionCompensated = currentPosition.minus(new Translation2d(0, 0.1651)); // 6.5
-                    Pose2d estPose = new Pose2d(oculousPositionCompensated, Rotation2d.fromDegrees(getOculusYaw()));
+                    double timestamp = timestampedPosition.timestamp;
+                    timestamp = timestamp/1000000;
+                    Translation2d oculousRawPosition = new Translation2d(-oculusPosition[2], oculusPosition[0]);
+                    Translation2d  oculousPositionCompensated = oculousRawPosition.minus(new Translation2d(0, 0.0)); // TODO GET Numbers since robot is not in the center of the robot
+                    oculousPositionCompensated = oculousPositionCompensated.plus(startingOffset.getTranslation());  // translate by the starting position
+
+                    Rotation2d oculousRawRotation = Rotation2d.fromDegrees(getOculusYaw()).plus(Rotation2d.fromDegrees(0));  // since camera is on back of robot
+                    Rotation2d  oculousCompensatedRotation = oculousRawRotation.plus(startingOffset.getRotation());
+                    
+                    Pose2d estPose = new Pose2d(oculousPositionCompensated, oculousCompensatedRotation);
+                    
                    // System.out.println("addind a vslam");
                     field2d.getObject("MyRobotVSLAM").setPose(estPose);
-                    SmartDashboard.putString("VSLAM pose", String.format("(%.2f, %.2f) %.2f %d",
+                    SmartDashboard.putString("VSLAM pose", String.format("(%.2f, %.2f) %.2f %.2f %.2f",
                             estPose.getTranslation().getX(),
                             estPose.getTranslation().getY(),
                             estPose.getRotation().getDegrees(),
-                            timestamp));
+                            timestamp,
+                            Timer.getFPGATimestamp()));
                     if (useVSLAM) {
                         m_driveSubsystem.addVisionMeasurement(estPose,
-                                timestamp, kVSLAMStdDevs);
+                               timestamp, kVSLAMStdDevs);
                     } else {
                         visionPose = estPose;  // I have no idea why this is here
                     }
@@ -572,8 +581,10 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
   }
 
   // Zero the absolute 3D position of the robot (similar to long-pressing the quest logo)
-  public void zeroPosition() {
-  //  resetOdometry(new Pose2d(new Translation2d(0, 0), new Rotation2d(0)));
+  public void initializePosition(Pose2d position) {
+    System.out.println("Adjusting the position of the robot");
+    m_driveSubsystem.seedFieldRelative(position);
+    startingOffset = position;
     if (questMiso.get() != 99) {
       questMosi.set(1);
     }
