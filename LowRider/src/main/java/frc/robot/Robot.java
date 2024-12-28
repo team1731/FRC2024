@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
 //   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
   @Override
   public void robotInit() {
-	//  DataLogManager.start();
+	DataLogManager.start();
 	PortForwarder.add(5800, "photonvision.local", 5800);
 	PortForwarder.add(1181, "photonvision.local", 1181);
 	PortForwarder.add(1182, "photonvision.local", 1182);

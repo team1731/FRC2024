@@ -118,7 +118,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
     Pigeon2 mypigeon;
     private boolean enabled;
     private boolean confidence;
-    private Pose2d startingOffset;
+    private Pose2d startingOffset = new Pose2d();
 
     private double shootOnMoveFudgeFactor = 1.2;
 
