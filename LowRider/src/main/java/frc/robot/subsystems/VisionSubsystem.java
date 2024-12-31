@@ -94,8 +94,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     // Configure Network Tables topics (oculus/...) to communicate with the Quest
     // HMD
-    NetworkTableInstance nt4Instance = NetworkTableInstance.getDefault();
-    NetworkTable nt4Table = nt4Instance.getTable("oculus");
+
 
     private IntegerSubscriber questMiso;
     private IntegerPublisher questMosi;
@@ -173,87 +172,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
     public VisionSubsystem(boolean enabled, CommandSwerveDrivetrain driveSubsystem) {
        
-        /* START OF VLSAM UPDATES */
-
-        NetworkTableInstance inst = NetworkTableInstance.getDefault();
-
-        // add a connection listener; the first parameter will cause the
-        // callback to be called immediately for any current connections
-        connListenerHandle = inst.addConnectionListener(true, event -> {
-            if (event.is(NetworkTableEvent.Kind.kConnected)) {
-                System.out.println("Connected to " + event.connInfo.remote_id);
-            } else if (event.is(NetworkTableEvent.Kind.kDisconnected)) {
-                System.out.println("Disconnected from " + event.connInfo.remote_id);
-            }
-        });
-
-        // get the subtable called "datatable"
-        NetworkTable datatable = inst.getTable("questnav");
-        questMiso = datatable.getIntegerTopic("miso").subscribe(0);
-        questMosi = datatable.getIntegerTopic("mosi").publish();
-        questFrameCount = datatable.getIntegerTopic("frameCount").subscribe(0);
-        questTimestamp = datatable.getDoubleTopic("timestamp").subscribe(0.0f);
-        questPosition = datatable.getFloatArrayTopic("position")
-                .subscribe(new float[] { 0.0f, 0.0f, 0.0f });
-        questQuaternion = datatable.getFloatArrayTopic("quaternion")
-                .subscribe(new float[] { 0.0f, 0.0f, 0.0f, 0.0f });
-        questEulerAngles = datatable.getFloatArrayTopic("eulerAngles")
-                .subscribe(new float[] { 0.0f, 0.0f, 0.0f });
-        questBattery = datatable.getDoubleTopic("batteryLevel").subscribe(0.0f);
-        // subscribe to the topic in "datatable" called "Y"
-       
-        System.out.println("addind listener******************************************8");
-        // add a listener to only value changes on the Y subscriber
-        positionListenerHandle = inst.addListener(
-                questPosition,
-                EnumSet.of(NetworkTableEvent.Kind.kValueAll),
-                event -> {
-
-                    var timestampedPosition = questPosition.getAtomic();
-                    float[] oculusPosition = timestampedPosition.value;
-                    double timestamp = timestampedPosition.timestamp;
-                    timestamp = timestamp/1000000;
-                    Translation2d oculousRawPosition = new Translation2d(-oculusPosition[2], oculusPosition[0]);
-                    Translation2d  oculousPositionCompensated = oculousRawPosition.minus(new Translation2d(0, 0.0)); // TODO GET Numbers since robot is not in the center of the robot
-                    oculousPositionCompensated = oculousPositionCompensated.plus(startingOffset.getTranslation());  // translate by the starting position
-
-                    Rotation2d oculousRawRotation = Rotation2d.fromDegrees(getOculusYaw()).plus(Rotation2d.fromDegrees(0));  // since camera is on back of robot
-                    Rotation2d  oculousCompensatedRotation = oculousRawRotation.plus(startingOffset.getRotation());
-                    
-                    Pose2d estPose = new Pose2d(oculousPositionCompensated, oculousCompensatedRotation);
-                    
-                   // System.out.println("addind a vslam");
-                    field2d.getObject("MyRobotVSLAM").setPose(estPose);
-                    SmartDashboard.putString("VSLAM pose", String.format("(%.2f, %.2f) %.2f %.2f %.2f",
-                            estPose.getTranslation().getX(),
-                            estPose.getTranslation().getY(),
-                            estPose.getRotation().getDegrees(),
-                            timestamp,
-                            Timer.getFPGATimestamp()));
-                    if (useVSLAM) {
-                        m_driveSubsystem.addVisionMeasurement(estPose,
-                               timestamp, kVSLAMStdDevs);
-                    } else {
-                        visionPose = estPose;  // I have no idea why this is here
-                    }
-
-                    /* time is in microseconds which is probably wrong.  On the seending side we need to call NetworkTablesJNI.getServerTimeOffset(connListenerHandle) and add it to the headset frame time and put that in the set(x,here) */
-
-                });
-
-        // add a listener to see when new topics are published within datatable
-        // the string array is an array of topic name prefixes.
-        topicListenerHandle = inst.addListener(
-                new String[] { datatable.getPath() + "/" },
-                EnumSet.of(NetworkTableEvent.Kind.kTopic),
-                event -> {
-                    if (event.is(NetworkTableEvent.Kind.kPublish)) {
-                        // topicInfo.name is the full topic name, e.g. "/datatable/X"
-                        System.out.println("newly published " + event.topicInfo.name);
-                    }
-                });
-
-        /* END OF VSLAM UPDATES */
+      
 
         this.enabled = enabled;
         this.m_driveSubsystem = driveSubsystem;
@@ -385,7 +304,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
             }
         }
 
-        field2d.setRobotPose(getCurrentPose());
+       // field2d.setRobotPose(getCurrentPose());
     }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera camera) {
@@ -538,7 +457,7 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
 
         Pose2d adjustedRobotPose = robot.plus(adjustment);
 
-        field2d.getObject("MyRobotAdjusted").setPose(adjustedRobotPose);
+       // field2d.getObject("MyRobotAdjusted").setPose(adjustedRobotPose);
 
         return adjustedRobotPose;
     }
@@ -573,58 +492,5 @@ public class VisionSubsystem extends SubsystemBase implements ToggleableSubsyste
         this.operatorOverrideConfidence = confidence;
     }
 
-      // Zero the realative robot heading
-  public void zeroHeading() {
-    float[] eulerAngles = questEulerAngles.get();
-    yaw_offset = eulerAngles[1];
-   // angleSetpoint = 0.0;
-  }
-
-  // Zero the absolute 3D position of the robot (similar to long-pressing the quest logo)
-  public void initializePosition(Pose2d position) {
-    System.out.println("Adjusting the position of the robot");
-    m_driveSubsystem.seedFieldRelative(position);
-    startingOffset = position;
-    if (questMiso.get() != 99) {
-      questMosi.set(1);
-    }
-  }
-
-  // Clean up oculus subroutine messages after processing on the headset
-  public void cleanUpOculusMessages() {
-    if (questMiso.get() == 99) {
-      questMosi.set(0);
-    }
-  }
-
-  // Return the robot heading in degrees, between -180 and 180 degrees
-  public double getHeading() {
-    return Rotation2d.fromDegrees(getOculusYaw()).getDegrees();
-  }
-
-  // Get the rotation rate of the robot
-  public double getTurnRate() {
-    return getOculusYaw() ; //* (DriveConstants.kGyroReversed ? -1.0 : 1.0);
-  }
-
-  // Get the yaw Euler angle of the headset
-  private float getOculusYaw() {
-    float[] eulerAngles = questEulerAngles.get();
-    var ret = eulerAngles[1] - yaw_offset;
-    ret %= 360;
-    if (ret < 0) {
-      ret += 360;
-    }
-    return ret*-1;
-  }
-
-  private Translation2d getOculusPosition() {
-    float[] oculusPosition = questPosition.get();
-    return new Translation2d(oculusPosition[2], -oculusPosition[0]);
-  }
-
-  private Pose2d getOculusPose() {
-    var oculousPositionCompensated = getOculusPosition().minus(new Translation2d(0, 0.1651)); // 6.5
-    return new Pose2d(oculousPositionCompensated, Rotation2d.fromDegrees(getOculusYaw()));
-  }
+ 
 }

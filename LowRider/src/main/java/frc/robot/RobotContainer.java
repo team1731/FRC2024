@@ -365,8 +365,10 @@ public class RobotContainer {
     kStart.onTrue(driveSubsystem.runOnce(() -> driveSubsystem.seedFieldRelative()));
     
     kStart.onTrue(new InstantCommand(() -> {
-      visionSubsystem.initializePosition(new Pose2d(1.47,5.51, new Rotation2d (0)));
+      driveSubsystem.seedFieldRelative(new Pose2d(1.47,5.51, new Rotation2d (0)));
       Rotation2d operatorPerspective = Robot.isRedAlliance()? new Rotation2d(Math.toRadians(180)): new Rotation2d(Math.toRadians(0));
+      Pose2d resetPosition = Robot.isRedAlliance()? new Pose2d(15.03,5.51,operatorPerspective): new Pose2d(1.47,5.51,operatorPerspective);
+      driveSubsystem.seedFieldRelative(resetPosition);
       driveSubsystem.setOperatorPerspectiveForward(operatorPerspective);  // Just a Hack
     }));
 
