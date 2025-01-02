@@ -158,7 +158,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Togglea
                     double timestamp = timestampedPosition.timestamp;
                     timestamp = timestamp/1000000;
                     Translation2d oculousRawPosition = new Translation2d(-oculusPosition[2], oculusPosition[0]);
-                    Translation2d  oculousPositionCompensated = oculousRawPosition.minus(new Translation2d(0.3333* Math.cos(getOculusYaw()), 0.333*Math.sin(getOculusYaw()))); // TODO GET Numbers since robot is not in the center of the robot
+                    Translation2d  oculousPositionCompensated = oculousRawPosition.plus(new Translation2d(0.3333* Math.cos(Math.toRadians(getOculusYaw())), 0.333*Math.sin(Math.toRadians(getOculusYaw())))); // TODO GET Numbers since robot is not in the center of the robot
                     oculousPositionCompensated = oculousPositionCompensated.plus(startingOffset.getTranslation());  // translate by the starting position
 
                     Rotation2d oculousRawRotation = Rotation2d.fromDegrees(getOculusYaw()).plus(Rotation2d.fromDegrees(0));  // since camera is on back of robot
@@ -306,7 +306,8 @@ Log the torque current and velocity
   public void seedFieldRelative(Pose2d position) {
     System.out.println("Adjusting the position of the robot");
    super.seedFieldRelative(position);
-    startingOffset = position;
+   Translation2d cameraoffset = position.getTranslation().minus(new Translation2d(.33333,0));
+    startingOffset = new Pose2d(cameraoffset,position.getRotation());
     if (questMiso.get() != 99) {
       questMosi.set(1);
     }
